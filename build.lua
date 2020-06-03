@@ -524,11 +524,12 @@ function showStats()
     message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
     message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
     message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
-    for name, index in pairs(room.playerList) do
-        if menupage[id] == 0 then
-            createPage(translations[playerLanguage[id]].leaderboardsTitle, message, name)
+    for name, value in pairs(room.playerList) do
+        local _id = value.id
+        if menupage[_id] == 0 then
+            createPage(translations[playerLanguage[_id]].leaderboardsTitle, message, name)
         else
-            updatePage(translations[playerLanguage[id]].leaderboardsTitle, message, name)
+            updatePage(translations[playerLanguage[_id]].leaderboardsTitle, message, name)
         end
     end
     if bestPlayers[1][1] ~= "N/A" then
