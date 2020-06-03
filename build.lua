@@ -1040,7 +1040,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
                 addTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastTime..": N/A", playerName, 10, 45, 200, 21, 0xffffff, 0x000000, 0, true)
                 addTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastBestTime..": N/A", playerName, 10, 30, 200, 21, 0xffffff, 0x000000, 0, true)
                 if playerfinished[id] == true then
-                    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].timeTime..": "..(playerlasttime[id]/100).."s", playerName)
+                    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastTime..": "..(playerlasttime[id]/100).."s", playerName)
                     ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastBestTime..": "..(playerbesttime[id]/100).."s", playerName)
                 end
             end
@@ -1140,6 +1140,7 @@ end
 
 -- DEBUGGING
 function eventChatCommand(playerName, message)
+    local id = room.playerList[playerName].id
     local ostime = os.time()
     local arg = {}
     for argument in message:gmatch("[^%s]+") do
