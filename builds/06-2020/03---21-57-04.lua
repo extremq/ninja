@@ -609,7 +609,7 @@ function eventLoop(elapsedTime, timeRemaining)
 
     elseif elapsedTime >= MAPTIME * 1000 + 5000 or mapWasSkipped == true then
         mapWasSkipped = false
-        --print("Attempting to reset.")
+        print("Attempting to reset.")
         tfm.exec.setAutoMapFlipMode(randomFlip())
         tfm.exec.newGame(randomMap())
         resetAll()
@@ -761,7 +761,7 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
             local _id = room.playerList[index].id
             local message = "<font color='#CB546B'>"..fastestplayer..translations[playerVars[_id].playerLanguage].newRecord.." ("..(bestTime/100).."s)</font>"
             chatMessage(message, index)
-            --print(message)
+            print(message)
         end
     end
 end
@@ -881,8 +881,8 @@ function chooselang(playerName)
     
     -- SEND HELP message
     chatMessage(translations[playerVars[id].playerLanguage].welcomeInfo.."\n"..translations[playerVars[id].playerLanguage].devInfo, playerName)
-    --print(translations[playerVars[id].playerLanguage].welcomeInfo)
-    --print(translations[playerVars[id].playerLanguage].devInfo)
+    print(translations[playerVars[id].playerLanguage].welcomeInfo)
+    print(translations[playerVars[id].playerLanguage].devInfo)
 end
 
 -- WHEN SOMEBODY JOINS, INIT THE PLAYER
@@ -1131,7 +1131,7 @@ function resetAll()
     for playerName in pairs(room.playerList) do
         local id = playerId(playerName)
         if id ~= 0 then
-            --print("Resetting stats for"..playerName)
+            print("Resetting stats for"..playerName)
             setPlayerScore(playerName, 0)
             cooldowns[id].lastRewindTime = 0
             cooldowns[id].canRewind = false
@@ -1226,14 +1226,14 @@ function eventChatCommand(playerName, message)
             if checkRoomMod(playerName) == false then
                 table.insert(modRoom, playerName)
                 local message = "You are a mod!"
-                --print(message)
+                print(message)
                 chatMessage(message, playerName)
             else
                 for index, name in pairs(modRoom) do
                     if name == playerName then
                         table.remove(modRoom, index)
                         local message = "You are no longer a mod!"
-                        --print(message)
+                        print(message)
                         chatMessage(message, playerName)
                         break
                     end
@@ -1251,7 +1251,7 @@ function eventChatCommand(playerName, message)
                     if name == arg[2] then
                         table.remove(opList, index)
                         local message = arg[2].." is no longer an operator."
-                        --print(arg[2].." is no longer an operator.")
+                        print(arg[2].." is no longer an operator.")
                         chatMessage(message, playerName)
                         wasOp = true
                         break
@@ -1261,7 +1261,7 @@ function eventChatCommand(playerName, message)
                 if wasOp == false then
                     table.insert(opList, arg[2])
                     local message = arg[2].." is an operator!"
-                    --print(arg[2].." is an operator!")
+                    print(arg[2].." is an operator!")
                     chatMessage(message, playerName)
                 end
             end
@@ -1274,7 +1274,7 @@ function eventChatCommand(playerName, message)
                     arg[2] = arg[2].." "..arg[i]
                 end
                 local message = "<font color='#72b6ff'>#ninja Owner "..playerName..": "..arg[2].."</font>"
-                --print(message)
+                print(message)
                 chatMessage(message)
             end
         end
