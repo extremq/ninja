@@ -29,7 +29,7 @@ translations = {
         timePanelsSetting = "Enable time panels",
         voteStart = " started a vote to skip the current map. Type !yes to vote positively.",
         newRecord = " finished the map in the fastest time!",
-        devInfo = "<font color='#CB546B'>This module is in development. Please report any bugs to Extremq#0000 or Railysse#0000.</font>",
+        devInfo = "<V>Want to submit a map? Check this link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>This module is in development. Please report any bugs to Extremq#0000 or Railysse#0000.</font>",
         welcomeInfo = "Welcome to <font color='#E68D43'>#ninja</font>! Press <font color='#E68D43'>H</font> for help.",
         finishedInfo = "You finished the time! Time: ",
         helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (3s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Comenzi</b>:\n» !p Name#id - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
@@ -50,7 +50,8 @@ translations = {
         dashUses = "Times dashed",
         rewindUses = "Times rewinded",
         shopNotice = "The shop is in development.",
-        leaderboardsNotice = "A leaderboard will be implemented when the module becomes official."
+        leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
+        notValidCommand = "is not a valid command."
     },
     ["ro"] = {
         lastTime = "Ultimul timp",
@@ -63,7 +64,7 @@ translations = {
         timePanelsSetting = "Activezi panourile de timp", -- 16
         voteStart = " a inițiat un vot pentru a trece la următoarea mapă. Scrie !yes pentru a vota pozitiv.", -- 18
         newRecord = " a terminat harta cel mai rapid!", --19
-        devInfo = "<font color='#CB546B'>Acest modul este în curs de dezvoltare. Raportează orice problemă lui Extremq#0000 sau Railysse#0000.</font>", -- 20
+        devInfo = "<V>Vrei să faci o hartă pentru acest modul? Întră pe acest link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>Acest modul este în curs de dezvoltare. Raportează orice problemă lui Extremq#0000 sau Railysse#0000.</font>", -- 20
         welcomeInfo = "Bine ai venit pe <font color='#E68D43'>#ninja</font>! Apasă <font color='#E68D43'>H</font> pentru ajutor.", -- 21
         finishedInfo = "Ai terminat harta! Timp: ", --22
         helpBody = "Trebuie să aduci brânza înapoi la gaură cât mai rapid posibil.\n\n<b>Abilități</b>:\n» Dash - Apasă <b><font color='#CB546B'>săgeată Stânga</font></b> sau <b><font color='#CB546B'>Dreapta</font></b> de două ori. (reîncărcare 1s)\n» Jump - Apasă <b><font color='#CB546B'>săgeată Sus</font></b> de două ori. (reîncărcare 3s)\n» Rewind - Apasă <b><font color='#CB546B'>Spațiu</font></b> pentru a lăsa un checkpoint. Apasă <b><font color='#CB546B'>Spațiu</font></b> din nou în maximum 3 secunde pentru a te teleporta înapoi la checkpoint. (reîncărcare 10s)\n\n<b>Alte scurtături</b>:\n» Deschide meniul - Apasă <b><font color='#CB546B'>M</font></b> sau dă click în partea stângă a ecranului pentru a închide/deschide meniul.\n» Pune un graffiti - Apasă <b><font color='#CB546B'>C</font></b> pentru a lăsa un graffiti. (reîncărcare 60s\n» Omoară șoricelul - Apasă <b><font color='#CB546B'>X</font></b> sau scrie /mort pentru a omorî șoarecele.\n» Deschide instrucțiunile - Apasă <b><font color='#CB546B'>H</font></b> pentru a deschide/închide acest ecran.\n\n<b>Comenzi</b>:\n» !p Nume#id - Verifică statisticile altui player.\n» !pw Parolă - Pune parolă pe sală. (sala trebuie făcută de tine)\n» !m @cod - Încarcă ce hartă vrei tu. (trebuie ca sala să aibă parolă)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Închide</font></b></a></p>", --23
@@ -82,7 +83,8 @@ translations = {
         dashUses = "Dash-uri folosite",
         rewindUses = "Rewind-uri folosite",
         shopNotice = "Magazinul va fi deschis în curând.",
-        leaderboardsNotice = "Clasamentul va fi implementat când modulul va deveni oficial."
+        leaderboardsNotice = "Clasamentul va fi implementat când modulul va deveni oficial.",
+        notValidCommand = "nu este o comandă validă."
     }
 }
 
@@ -1149,6 +1151,7 @@ function eventChatCommand(playerName, message)
 
     arg[1] = string.lower(arg[1])
 
+    local isValid = false
     local isOp = false
     local isMod = false
 
@@ -1171,6 +1174,7 @@ function eventChatCommand(playerName, message)
     if isOp == true then
         if arg[1] == "m" then
             if arg[2] ~= nil then
+                isValid = true
                 tfm.exec.newGame(arg[2])
                 tfm.exec.setAutoMapFlipMode(randomFlip())
                 mapdiff = "Custom"
@@ -1180,6 +1184,7 @@ function eventChatCommand(playerName, message)
         end
 
         if arg[1] == "n" then
+            isValid = true
             hasShownStats = false
             mapwasskipped = true
             bestPlayers = {{"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}}
@@ -1189,6 +1194,7 @@ function eventChatCommand(playerName, message)
     -- MOD ONLY ABILITIES
     if isMod == true then
         if arg[1] == "mod" then
+            isValid = true
             if checkRoomMod(playerName) == false then
                 table.insert(modroom, playerName)
                 local message = "You are a mod!"
@@ -1209,6 +1215,7 @@ function eventChatCommand(playerName, message)
         end
 
         if arg[1] == "op" then
+            isValid = true
             if arg[2] ~= nil then
                 local wasOp = false
 
@@ -1233,6 +1240,7 @@ function eventChatCommand(playerName, message)
         end
 
         if arg[1] == "a" then
+            isValid = true
             if arg[2] ~= nil then
                 for i = 3, #arg do
                     arg[2] = arg[2].." "..arg[i]
@@ -1245,6 +1253,7 @@ function eventChatCommand(playerName, message)
     end
 
     if arg[1] == "pw" and playerName == admin then
+        isValid = true
         if room.passwordProtected == false and arg[2] ~= nil then
             customroom = true
             tfm.exec.setRoomPassword(arg[2])
@@ -1257,6 +1266,7 @@ function eventChatCommand(playerName, message)
     end
 
     if arg[1] == "p" or arg[1] == "profile" and arg[2] ~= nil then
+        isValid = true
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
                 if menupage[id] == 0 then
@@ -1269,6 +1279,10 @@ function eventChatCommand(playerName, message)
                 break
             end
         end
+    end
+
+    if isValid == false then
+        chatMessage(arg[1].." "..translations[playerLanguage[id]].notValidCommand, playerName)
     end
 end
 
