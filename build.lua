@@ -18,100 +18,94 @@ local removeTextArea = ui.removeTextArea
 -- removeImage = function() end
 
 translations = {
-    {"RO",
-    "<p align='center'>^\n^</p>",
-    "<p align='center'>\n>></p>",
-    "<p align='center'><b>Cum să joci ninjaMouse!</b></p>\nTermină harta <b>cât mai rapid posibil</b> folosindu-ți puterile de ninja!\nPentru a folosi puterile, <b>apasă de două ori pe săgeți</b> în orice direcție (stânga, dreapta, sus) și vei face un dash în acea direcție (în afară de jos).\nAi un timp de reîncărcare de 1 secundă la dash-urile pentru stânga și dreapta și un timp de reîncărcare de 3 secunde la dash-ul pentru sus (le poți vedea în colțul ecranului).\nDe asemenea, când apeși pe <b>Spațiu</b> vei fi teleportat înapoi în timp, unde erai acum 3 secunde.\nDacă ai terminat harta, numele tău va avea această <b><font color='#BABD2F'>culoare</font></b>. Dacă ai terminat harta cel mai rapid, numele tău va avea această <b><font color='#EB1D51'>culoare</font></b>.\nDacă vei vrea să recitești asta, apasă <b>H</b>.\nPentru a accesa setările, apasă <b>G</b>.",
-    "<font color='#E68D43'><B>Instrucțiuni: </B></font><font color='#EDCC8D'>Dash/Sari - apasă de două ori orice săgeată. Poți da dash la fiecare 1s și sări la fiecare 3s.\nApasă H pentru mai multe detalii. Modul codat de </font><font color='#2E72CB'>Extremq#0000</font><font color='#EDCC8D'>, mape făcute de </font><font color='#2E72CB'>Railysse#0000.</font>",
-	"Ultimul timp",
-	"Cel mai bun timp",
-	"CEL MAI RAPID NINJA",
-	"Nimeni nu a terminat harta încă.",
-	"<p align='center'>Apasă <b>H</b> pentru ajutor.</p>",
-    "<p align='center'>\nR</p>",
-    "<font color='#53ba58'>Da</font>", -- 12
-    "<font color='#ba5353'>Nu</font>",  -- 13
-	"Setare de testare", -- 14
-	"Activezi particulele de dash", -- 15
-    "Activezi panourile de timp", -- 16
-    "Opțiuni", -- 17
-    " a inițiat un vot pentru a trece la următoarea mapă. Scrie !yes pentru a vota pozitiv.", -- 18
-    " a terminat harta cel mai rapid!", --19
-    "<font color='#CB546B'>Acest modul este în construcție. Raportează orice problemă lui Extremq#0000 sau Railysse#0000.</font>", -- 20
-    "Bine ai venit pe <font color='#E68D43'>#ninja</font>! Apasă <font color='#E68D43'>H</font> pentru ajutor.", -- 21
-    "Ai terminat harta! Timp: ", --22
-    "Trebuie să aduci brânza înapoi la gaură cât mai repede poți.\n\n<b>Abilități</b>:\n» Dash - Apasă <b><font color='#CB546B'>săgeată Stânga</font></b> sau <b><font color='#CB546B'>Dreapta</font></b> de două ori. (reîncărcare 1s)\n» Jump - Apasă <b><font color='#CB546B'>săgeată Sus</font></b> de două ori. (reîncărcare 3s)\n» Rewind - Apasă <b><font color='#CB546B'>Spațiu</font></b> pentru a lăsa un checkpoint. Apasă <b><font color='#CB546B'>Spațiu</font></b> din nou în maximum 3 secunde pentru a te teleporta înapoi la checkpoint. (reîncărcare 10s)\n\n<b>Alte scurtături</b>:\n» Deschide meniul - Apasă <b><font color='#CB546B'>M</font></b> sau dă click în partea stângă a ecranului pentru a închide/deschide meniul.\n» Pune un graffiti - Apasă <b><font color='#CB546B'>C</font></b> pentru a lăsa un graffiti. (reîncărcare 60s\n» Omoară șoricelul - Apasă <b><font color='#CB546B'>X</font></b> sau scrie /mort pentru a omorî șoarecele.\n» Deschide instrucțiunile - Apasă <b><font color='#CB546B'>H</font></b> pentru a deschide/închide acest ecran.\n\n<b>Comenzi</b>:\n» !p Nume#id - Verifică statisticile altui player.\n» !pw Parolă - Pune parolă pe sală. (sala trebuie făcută de tine)\n» !m @cod - Încarcă ce hartă vrei tu. (trebuie ca sala să aibă parolă)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Închide</font></b></a></p>", --23
-    "X", -- 24
-    "Magazin", -- 25
-    "Profil", -- 26
-    "Clasamente", -- 27
-    "Configurare", -- 28
-    "Despre", -- 29
-    "Modul codat de <font color='#FFD991'>Extremq#0000</font>.\nIdei de joc, bug-testing și hărți asigurate de <font color='#FFD991'>Railysse#0000</font>.\n\nAcest modul este susținut în întregime de fundația șoricească „Brânza Roșie” în cadrul proiectului „Salvați Module”. Toate fondurile pe care le primim vor fi donate șoarecilor care stau pe #parkour cu scopul de a-i mitui să vină aici.\n\nGlumim, mulțumim că ne-ai încercat jocul! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
-    "First-uri",
-    "Hărți terminate",
-    "Rata first-urilor",
-    "Intrări în gaură",
-    "Utilizări graffiti",
-    "Dash-uri folosite",
-    "Rewind-uri folosite"
+    ["en"] = {
+        lastTime = "Your last time",
+        lastBestTime = "Your best time",
+        helpToolTip = "<p align='center'>Press <b>H</b> for help.</p>",
+        optionsYes = "<font color='#53ba58'>Yes</font>",
+        optionsNo = "<font color='#ba5353'>No</font>",
+        testSetting = "Dummy setting",
+        particlesSetting = "Enable dash/jump particles",
+        timePanelsSetting = "Enable time panels",
+        voteStart = " started a vote to skip the current map. Type !yes to vote positively.",
+        newRecord = " finished the map in the fastest time!",
+        devInfo = "<font color='#CB546B'>This module is in development. Please report any bugs to Extremq#0000 or Railysse#0000.</font>",
+        welcomeInfo = "Welcome to <font color='#E68D43'>#ninja</font>! Press <font color='#E68D43'>H</font> for help.",
+        finishedInfo = "You finished the time! Time: ",
+        helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (3s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Comenzi</b>:\n» !p Name#id - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
+        Xbtn = "X",
+        -- IF YOUR LANGUAGE HAS SEPCIAL CHARACTERS, PLEASE JUST LEAVE THESE AS DEFAULT
+        shopTitle = "Shop",
+        profileTitle = "Profile",
+        leaderboardsTitle = "Leaderboards",
+        settingsTitle = "Settings",
+        aboutTitle = "About",
+        -- END
+        aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGamplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+        firsts = "Firsts",
+        finishedMaps = "Finished maps",
+        firstRate = "First rate",
+        holeEnters = "Times entered the hole",
+        graffitiUses = "Graffiti uses",
+        dashUses = "Times dashed",
+        rewindUses = "Times rewinded",
+        shopNotice = "The shop is in development.",
+        leaderboardsNotice = "A leaderboard will be implemented when the module becomes official."
     },
-    {"EN",
-    "<p align='center'>^\n^</p>",
-	 "<p align='center'>\n>></p>",
-	 "<p align='center'><b>How to play ninjaMouse!</b></p>\nFinish the map <b>as fast as possible</b> by using your ninja powers!\nTo use the powers, <b>double-tap the arrow keys</b> in any direction (left, right, up) and you will dash in the desired direction (except for down).\nYou have a 1 second cooldown on left and right dashes and a 3 second cooldown on up dashes (you can see them in the corner of your screen).\nAlso, if you press on <b>Space</b> you will be teleported back in time where you were 3 seconds ago.\nIf you finished the map, your name will have this <b><font color='#BABD2F'>color</font></b>. If you finished with the fastest time, your name will be this <b><font color='#EB1D51'>color</font></b>.\nIf you want to read this again at any time, press <b>H</b>.\nTo access the settings, press <b>G</b>.",
-     "<font color='#E68D43'><B>Instructions: </B></font><font color='#EDCC8D'>Dash/Jump - double tap any arrow keys. Cooldown on dash is 1s and on jump is 3s.\nPress H for more details. Module coded by </font><font color='#2E72CB'>Extremq#0000</font><font color='#EDCC8D'>, maps made by </font><font color='#2E72CB'>Railysse#0000.</font>",
-	 "Your last time",
-	 "Your best time",
-	 "FASTEST NINJA",
-	 "Nobody finished the map yet.",
-	 "<p align='center'>Press <b>H</b> for help.</p>",
-	 "<p align='center'>\nR</p>",
-	 "<font color='#53ba58'>Yes</font>", --12
-	 "<font color='#ba5353'>No</font>",   --13
-	"Dummy setting", --14
-	"Enable dash/jump particles", --15
-    "Enable time panels", --16
-    "Options", --17
-    " started a vote to skip the current map. Type !yes to vote positively.", --18
-    " finished the map in the fastest time!", --19
-    "<font color='#CB546B'>This module is in development. Please report any bugs to Extremq#0000 or Railysse#0000.</font>", -- 20
-    "Welcome to <font color='#E68D43'>#ninja</font>! Press <font color='#E68D43'>H</font> for help.", -- 21
-    "You finished the time! Time: ", --22
-    "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (3s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Comenzi</b>:\n» !p Name#id - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
-    "X", -- 24
-    "Shop", -- 25
-    "Profile", -- 26
-    "Leaderboards", -- 27
-    "Settings", -- 28
-    "About", -- 29
-    "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGamplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
-    "Firsts", -- 31
-    "Finished maps", -- 32
-    "First rate", -- 33
-    "Times entered the hole", -- 34
-    "Graffiti uses", --3 5
-    "Times dashed", -- 36
-    "Times rewinded" --37
+    ["ro"] = {
+        lastTime = "Ultimul timp",
+        lastBestTime = "Cel mai bun timp",
+        helpToolTip = "<p align='center'>Apasă <b>H</b> pentru ajutor.</p>",
+        optionsYes = "<font color='#53ba58'>Da</font>", -- 12
+        optionsNo = "<font color='#ba5353'>Nu</font>",  -- 13
+        testSetting = "Setare de testare", -- 14
+        particlesSetting = "Activezi particulele de dash", -- 15
+        timePanelsSetting = "Activezi panourile de timp", -- 16
+        voteStart = " a inițiat un vot pentru a trece la următoarea mapă. Scrie !yes pentru a vota pozitiv.", -- 18
+        newRecord = " a terminat harta cel mai rapid!", --19
+        devInfo = "<font color='#CB546B'>Acest modul este în curs de dezvoltare. Raportează orice problemă lui Extremq#0000 sau Railysse#0000.</font>", -- 20
+        welcomeInfo = "Bine ai venit pe <font color='#E68D43'>#ninja</font>! Apasă <font color='#E68D43'>H</font> pentru ajutor.", -- 21
+        finishedInfo = "Ai terminat harta! Timp: ", --22
+        helpBody = "Trebuie să aduci brânza înapoi la gaură cât mai rapid posibil.\n\n<b>Abilități</b>:\n» Dash - Apasă <b><font color='#CB546B'>săgeată Stânga</font></b> sau <b><font color='#CB546B'>Dreapta</font></b> de două ori. (reîncărcare 1s)\n» Jump - Apasă <b><font color='#CB546B'>săgeată Sus</font></b> de două ori. (reîncărcare 3s)\n» Rewind - Apasă <b><font color='#CB546B'>Spațiu</font></b> pentru a lăsa un checkpoint. Apasă <b><font color='#CB546B'>Spațiu</font></b> din nou în maximum 3 secunde pentru a te teleporta înapoi la checkpoint. (reîncărcare 10s)\n\n<b>Alte scurtături</b>:\n» Deschide meniul - Apasă <b><font color='#CB546B'>M</font></b> sau dă click în partea stângă a ecranului pentru a închide/deschide meniul.\n» Pune un graffiti - Apasă <b><font color='#CB546B'>C</font></b> pentru a lăsa un graffiti. (reîncărcare 60s\n» Omoară șoricelul - Apasă <b><font color='#CB546B'>X</font></b> sau scrie /mort pentru a omorî șoarecele.\n» Deschide instrucțiunile - Apasă <b><font color='#CB546B'>H</font></b> pentru a deschide/închide acest ecran.\n\n<b>Comenzi</b>:\n» !p Nume#id - Verifică statisticile altui player.\n» !pw Parolă - Pune parolă pe sală. (sala trebuie făcută de tine)\n» !m @cod - Încarcă ce hartă vrei tu. (trebuie ca sala să aibă parolă)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Închide</font></b></a></p>", --23
+        Xbtn = "X", -- 24
+        shopTitle = "Magazin", -- 25
+        profileTitle = "Profil", -- 26
+        leaderboardsTitle = "Clasamente", -- 27
+        settingsTitle = "Configurare", -- 28
+        aboutTitle = "Despre", -- 29
+        aboutBody = "Modul codat de <font color='#FFD991'>Extremq#0000</font>.\nIdei de joc, bug-testing și hărți asigurate de <font color='#FFD991'>Railysse#0000</font>.\n\nAcest modul este susținut în întregime de fundația șoricească „Brânza Roșie” în cadrul proiectului „Salvați Module”. Toate fondurile pe care le primim vor fi donate șoarecilor care stau pe #parkour cu scopul de a-i mitui să vină aici.\n\nGlumim, mulțumim că ne-ai încercat jocul! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+        firsts = "First-uri",
+        finishedMaps = "Hărți terminate",
+        firstRate = "Rata first-urilor",
+        holeEnters = "Intrări în gaură",
+        graffitiUses = "Utilizări graffiti",
+        dashUses = "Dash-uri folosite",
+        rewindUses = "Rewind-uri folosite",
+        shopNotice = "Magazinul va fi deschis în curând.",
+        leaderboardsNotice = "Clasamentul va fi implementat când modulul va deveni oficial."
     }
 }
 
-mapcodes = {"@7725753", "@7726015", "@7726744", "@7728063", "@7731641", "@7730637", "@7732486"}
-mapsleft = {"@7725753", "@7726015", "@7726744", "@7728063", "@7731641", "@7730637", "@7732486"}
+
+-- mapcode, difficulty
+mapcodes = {{"@7725753", 2}, {"@7726015", 0}, {"@7726744", 1}, {"@7728063", 3}, {"@7731641", 1}, {"@7730637", 2}, {"@7732486", 1}}
+mapsleft = {{"@7725753", 2}, {"@7726015", 0}, {"@7726744", 1}, {"@7728063", 3}, {"@7731641", 1}, {"@7730637", 2}, {"@7732486", 1}}
 -- mapcodes = {"@7732115"}
 -- mapsleft = {"@7732115"}
 
 currentspawnpos = {0, 0}
-modlist = {"Extremq#0000", "Railysse#0000", "Melibellule#0001"}
+modlist = {"Extremq#0000", "Railysse#0000"}
 modroom = {}
 oplist = {}
 lastmap = ""
 lastmaparr = {"", ""}
 mapwasskipped = false
 mapstarttime = 0
+mapdiff = 0
 
 --CONSTANTS
-MAPTIME = 5 * 60
+MAPTIME = 4 * 60
+BASETIME = MAPTIME -- after difficulty
 STATSTIME = 10 * 1000
 DASHCOOLDOWN = 1 * 1000
 JUMPCOOLDOWN = 3 * 1000
@@ -148,7 +142,7 @@ function randomMap()
     local pos = random(1, #mapsleft)
     local newMap = mapsleft[pos]
     -- IF THE MAPS ARE THE SAME, PICK AGAIN
-    if newMap == lastmap then
+    if newMap[1] == lastmap then
         table.remove(mapsleft, pos)
         pos = random(1, #mapsleft)
         newMap = mapsleft[pos]
@@ -156,8 +150,10 @@ function randomMap()
     end
     table.remove(mapsleft, pos)
     currentspawnpos = {0, 0}
-    lastmap = newMap
-    return newMap
+    lastmap = newMap[1]
+    mapdiff = newMap[2]
+    MAPTIME = BASETIME + mapdiff * 30
+    return newMap[1]
 end
 
 -- CHOOSE FLIP
@@ -182,7 +178,7 @@ tfm.exec.disablePhysicalConsumables(true)
 system.disableChatCommandDisplay()
 tfm.exec.setGameTime(MAPTIME, true)
 
-keys = {32, 37, 39, 38, 65, 67, 68, 71, 72, 77, 84, 87, 88}
+keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 besttime = 99999
 
 playerStats = {
@@ -226,7 +222,7 @@ fastestplayer = -1
 playerbesttime = {}
 playerSortedBestTime = {}
 playerlasttime = {}
-playerlanguage = {}
+playerLanguage = {}
 playerpreferences = {}
 playerloaded = {}
 playerwelcome = {}
@@ -273,10 +269,8 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         dashUsed = false
         if ostime - lastkeypressedtimeright[id] < 200 and room.playerList[playerName].isDead == false then
             -- DASHES textarea = 2--
-            if keyCode == 39 or keyCode == 68  then
+            if keyCode == 2 then
                 lastkeypressedtimeright[id] = ostime
-                --if lastkeypressed[id] == keyCode then
-                --displayParticle(35, xPlayerPosition + 60, yPlayerPosition, 0, 0, 0, 0, nil)
                 for name, data in pairs(room.playerList) do
                     if room.playerList[name].id ~= 0 and playerpreferences[room.playerList[name].id][2] == true then
                         displayParticle(3, xPlayerPosition, yPlayerPosition, random(), random(), 0, 0, name)
@@ -287,11 +281,10 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
                 end
                 movePlayer(playerName, 0, 0, true, 150, 0, false)
                 dashUsed = true;
-                --end
             end
         end
         if ostime - lastkeypressedtimeleft[id] < 200 and room.playerList[playerName].isDead == false then
-            if keyCode == 37 or keyCode == 65 then
+            if keyCode == 0 then
                 lastkeypressedtimeleft[id] = ostime
                 for name, data in pairs(room.playerList) do
                     if room.playerList[name].id ~= 0 and playerpreferences[room.playerList[name].id][2] == true then
@@ -309,8 +302,6 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         if dashUsed == true then
             lastdashusedtime[id] = ostime
             dashstate[id] = false
-            -- removeTextArea(2, playerName)
-            -- addTextArea(2, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][3].."</font>", playerName, DASH_BTN_X, DASH_BTN_Y, 50, 50, 0xff5151, 0xaf3131, 0.8, true)
             removeImage(dashbtnid[id])
             dashbtnid[id] = addImage(DASH_BTN_OFF, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
             playerStats[id].timesDashed = playerStats[id].timesDashed + 1
@@ -318,9 +309,9 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     end
     if ostime - lastkeypressedtimejump[id] < 200 and room.playerList[playerName].isDead == false then
         -- JUMP textarea = 1--
-        if (keyCode == 38 or keyCode == 87) and ostime - lastjumpusedtime[id] > JUMPCOOLDOWN then
+        if (keyCode == 1) and ostime - lastjumpusedtime[id] > JUMPCOOLDOWN then
             lastkeypressedtimejump[id] = ostime
-            --if lastkeypressed[id] == keyCode then
+
             movePlayer(playerName, 0, 0, true, 0, -60, false)
             for name, data in pairs(room.playerList) do
                 if room.playerList[name].id ~= 0 and playerpreferences[room.playerList[name].id][2] == true then
@@ -332,11 +323,9 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             end
             jumpstate[id] = false
             lastjumpusedtime[id] = ostime
-            -- removeTextArea(1, playerName)
-            -- addTextArea(1, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][2].."</font>", playerName, JUMP_BTN_X, JUMP_BTN_Y, 50, 50, 0xff5151, 0xaf3131, 0.8, true)
+
             removeImage(jumpbtnid[id])
             jumpbtnid[id] = addImage(JUMP_BTN_OFF, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
-            --end
         end
     end
 
@@ -349,8 +338,6 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             removeImage(rewindbtnid[id])
             rewindbtnid[id] = addImage(REWIND_BTN_ACTIVE, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
 
-            -- removeTextArea(7, playerName)
-            -- addTextArea(7, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][11].."</font>", playerName, REWIND_BTN_X, REWIND_BTN_Y, 50, 50, 0xff5151, 0xaf3131, 0.8, true)
             removeImage(mouseimgid[id])
 
             displayParticle(36, xPlayerPosition, yPlayerPosition, 0, 0, 0, 0, nil)
@@ -373,8 +360,6 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             removeImage(rewindbtnid[id])
             rewindbtnid[id] = addImage(REWIND_BTN_OFF, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
 
-            -- removeTextArea(7, playerName)
-            -- addTextArea(7, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][11].."</font>", playerName, REWIND_BTN_X, REWIND_BTN_Y, 50, 50, 0x808700, 0xfbff14, 0.8, true)
             
             displayParticle(2, rewindpos[id][1], rewindpos[id][2], -random(), random(), 0, 0, playerName)
             displayParticle(2, rewindpos[id][1], rewindpos[id][2], -random(), -random(), 0, 0, playerName)
@@ -387,9 +372,9 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         if helpopen[id] == false then
             if menupage[id] ~= 0 then
                 menupage[id] = "help"
-                updatePage("#ninja", translations[playerlanguage[id]][23], playerName)
+                updatePage("#ninja", translations[playerLanguage[id]].helpBody, playerName)
             else
-                createPage("#ninja", translations[playerlanguage[id]][23], playerName)
+                createPage("#ninja", translations[playerLanguage[id]].helpBody, playerName)
             end
             helpopen[id] = true 
         elseif helpopen[id] == true then
@@ -407,7 +392,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     -- MENU
     if keyCode == 77 then
         if menuimgid[id] == -1 then
-            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerlanguage[id]][25].."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerlanguage[id]][26].."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerlanguage[id]][27].."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerlanguage[id]][28].."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerlanguage[id]][29].."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerLanguage[id]].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerLanguage[id]].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerLanguage[id]].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerLanguage[id]].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerLanguage[id]].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
             menuimgid[id] = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
         else
             closePage(playerName)
@@ -423,15 +408,15 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     end
 
     lastkeypressedtime[id] = ostime
-    if keyCode == 39 or keyCode == 68  then
+    if keyCode == 2 then
         lastkeypressedtimeright[id] = ostime
     end
 
-    if keyCode == 37 or keyCode == 65 then
+    if keyCode == 0 then
         lastkeypressedtimeleft[id] = ostime
     end
 
-    if keyCode == 38 or keyCode == 87 then
+    if keyCode == 1 then
         lastkeypressedtimejump[id] = ostime
     end
 end
@@ -449,12 +434,14 @@ end
 function updateMapName(timeRemaining)
     -- in case it hasn't loaded for some reason
     if MAPTIME * 1000 - timeRemaining < 3000 then
+        setMapName("Loading...<")
         return
     end
 
     local floor = math.floor
     local currentmapauthor = ""
     local currentmapcode = ""
+    local difficulty = mapdiff
     if room.xmlMapInfo == nil then
         currentmapauthor = "?"
         currentmapcode = "?"
@@ -488,6 +475,10 @@ function updateMapName(timeRemaining)
         currentmapcode = "?"
     end
 
+    if difficulty == nil then
+        difficulty = "?"
+    end
+
     if playerCount == nil then
         playerCount = 0
         for name, index in pairs(room.playerList) do
@@ -499,7 +490,7 @@ function updateMapName(timeRemaining)
 
     print(currentmapcode.." "..currentmapauthor.." "..playerCount.." "..minutes.." "..seconds)
 
-    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>|<G> <N>Mice:</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
+    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> Level: <J>"..difficulty.."</J>  <G>|<G> <N>Mice:</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
     -- APPEND FASTEST
     if fastestplayer ~= -1 then
         local record = (besttime / 100)
@@ -535,9 +526,9 @@ function showStats()
     message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
     for name, index in pairs(room.playerList) do
         if menupage[id] == 0 then
-            createPage(translations[playerlanguage[id]][27], message, name)
+            createPage(translations[playerLanguage[id]].leaderboardsTitle, message, name)
         else
-            updatePage(translations[playerlanguage[id]][27], message, name)
+            updatePage(translations[playerLanguage[id]].leaderboardsTitle, message, name)
         end
     end
     if bestPlayers[1][1] ~= "N/A" then
@@ -582,13 +573,9 @@ function eventLoop(elapsedTime, timeRemaining)
                     checkpointtime[id] = 0
                     canrewind[id] = false
                     -- WHEN RESPAWNED, MAKE THE ABILITIES GREEN
-                    -- removeTextArea(1, playerName)
-                    -- addTextArea(1, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][2].."</font>", playerName, JUMP_BTN_X, JUMP_BTN_Y, 50, 50, 0x5bff5b, 0x3ebc3e, 0.8, true)
                     removeImage(jumpbtnid[id])
                     jumpbtnid[id] = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
 
-                    -- removeTextArea(2, playerName)
-                    -- addTextArea(2, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][3].."</font>", playerName, DASH_BTN_X, DASH_BTN_Y, 50, 50, 0x5bff5b, 0x3ebc3e, 0.8, true)
                     removeImage(dashbtnid[id])
                     dashbtnid[id] = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
                 end
@@ -597,15 +584,11 @@ function eventLoop(elapsedTime, timeRemaining)
                     jumpstate[id] = true
                     removeImage(jumpbtnid[id])
                     jumpbtnid[id] = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
-                    -- removeTextArea(1, playerName)
-                    -- addTextArea(1, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][2].."</font>", playerName, JUMP_BTN_X, JUMP_BTN_Y, 50, 50, 0x5bff5b, 0x3ebc3e, 0.8, true)
-                end
+                    end
                 if dashstate[id] == false and ostime - lastdashusedtime[id] > DASHCOOLDOWN then
                     dashstate[id] = true
                     removeImage(dashbtnid[id])
                     dashbtnid[id] = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-                    -- removeTextArea(2, playerName)
-                    -- addTextArea(2, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][3].."</font>", playerName, DASH_BTN_X, DASH_BTN_Y, 50, 50, 0x5bff5b, 0x3ebc3e, 0.8, true)
                 end
 
                 if canrewind[id] == true and ostime - checkpointtime[id] > 3000 then
@@ -620,20 +603,14 @@ function eventLoop(elapsedTime, timeRemaining)
 
                 if canrewind[id] == true and rewindstate[id] ~= 2 then
                     rewindstate[id] = 2
-                    -- removeTextArea(7, playerName)
-                    -- addTextArea(7, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][11].."</font>", playerName, REWIND_BTN_X, REWIND_BTN_Y, 50, 50, 0x808700, 0xfbff14, 0.8, true)    
                     removeImage(rewindbtnid[id])
                     rewindbtnid[id] = addImage(REWIND_BTN_ACTIVE, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
                 elseif canrewind[id] == false and rewindstate[id] ~= 1 and ostime - lastrewindused[id] > REWINDCOOLDONW then
                     rewindstate[id] = 1
-                    -- removeTextArea(7, playerName)
-                    -- addTextArea(7, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][11].."</font>", playerName, REWIND_BTN_X, REWIND_BTN_Y, 50, 50, 0x5bff5b, 0x3ebc3e, 0.8, true)
                     removeImage(rewindbtnid[id])
                     rewindbtnid[id] = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
                 elseif rewindstate[id] ~= 3 and ostime - lastrewindused[id] <= REWINDCOOLDONW then
                     rewindstate[id] = 3
-                    -- removeTextArea(7, playerName)
-                    -- addTextArea(7, "<font size='14' align='center' color='#000000'><b>"..translations[playerlanguage[id]][11].."</font>", playerName, REWIND_BTN_X, REWIND_BTN_Y, 50, 50, 0xff5151, 0xaf3131, 0.8, true)
                     removeImage(rewindbtnid[id])
                     rewindbtnid[id] = addImage(REWIND_BTN_OFF, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
                 end
@@ -689,7 +666,7 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     playerStats[id].timesEnteredInHole = playerStats[id].timesEnteredInHole + 1
     
     -- SEND CHAT MESSAGE FOR PLAYER
-    chatMessage(translations[playerlanguage[id]][22]..(timeElapsedSinceRespawn/100).."s", playerName)
+    chatMessage(translations[playerLanguage[id]].finishedInfo..(timeElapsedSinceRespawn/100).."s", playerName)
 
     if playerfinished[id] == false then
         playerStats[id].mapsFinished = playerStats[id].mapsFinished + 1
@@ -712,8 +689,8 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     end
 
     -- UPDATE "YOUR TIME"
-    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][6]..": "..(timeElapsedSinceRespawn/100).."s", playerName)
-    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][7]..": "..(playerbesttime[id]/100).."s", playerName)
+    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastTime..": "..(timeElapsedSinceRespawn/100).."s", playerName)
+    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastBestTime..": "..(playerbesttime[id]/100).."s", playerName)
     
     if timeElapsedSinceRespawn <= besttime then
         -- CHECK IF FASTEST PLAYER IS IN ROOM
@@ -728,7 +705,7 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
         -- send message
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
-            local message = "<font color='#CB546B'>"..fastestplayer..translations[playerlanguage[_id]][19].." Time: "..(besttime/100).."s</font>"
+            local message = "<font color='#CB546B'>"..fastestplayer..translations[playerLanguage[_id]].newRecord.." ("..(besttime/100).."s)</font>"
             chatMessage(message, index)
             print(message)
         end
@@ -812,7 +789,7 @@ function initPlayer(playerName)
             playerfinished[globalid] = false
         end
     end
-    playerlanguage[globalid] = 2
+    playerLanguage[globalid] = 2
     playerloaded[globalid] = false
     lastgraffititime[globalid] = 0
     rewindpos[globalid] = {0, 0, false}
@@ -847,11 +824,11 @@ function initPlayer(playerName)
     -- PUT PANELS IF TURNED ON
     if playerpreferences[id][3] == true then
         playerpreferences[id][3] = true
-        addTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][6]..": N/A", playerName, 10, 45, 200, 21, 0xffffff, 0x000000, 0, true)
-        addTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][7]..": N/A", playerName, 10, 30, 200, 21, 0xffffff, 0x000000, 0, true)
+        addTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastTime..": N/A", playerName, 10, 45, 200, 21, 0xffffff, 0x000000, 0, true)
+        addTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastBestTime..": N/A", playerName, 10, 30, 200, 21, 0xffffff, 0x000000, 0, true)
         if playerfinished[id] == true then
-            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][6]..": "..(playerlasttime[id]/100).."s", playerName)
-            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][7]..": "..(playerbesttime[id]/100).."s", playerName)
+            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastTime..": "..(playerlasttime[id]/100).."s", playerName)
+            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastBestTime..": "..(playerbesttime[id]/100).."s", playerName)
         end
     end
 end
@@ -861,18 +838,18 @@ function chooselang(playerName)
     local community = room.playerList[playerName].community
     -- FOR NOW, ONLY RO HAS TRANSLATIONS
     if community == "ro" then
-        playerlanguage[id] = 1
+        playerLanguage[id] = "ro"
     else
-        playerlanguage[id] = 2 -- 2 = EN
+        playerLanguage[id] = "en"
     end
     playerloaded[id] = true
     -- GENERATE UI
-    addTextArea(6, translations[playerlanguage[id]][10], playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
+    addTextArea(6, translations[playerLanguage[id]].helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
     
     -- SEND HELP message
-    chatMessage(translations[playerlanguage[id]][21].."\n"..translations[playerlanguage[id]][20], playerName)
-    print(translations[playerlanguage[id]][21])
-    print(translations[playerlanguage[id]][20])
+    chatMessage(translations[playerLanguage[id]].welcomeInfo.."\n"..translations[playerLanguage[id]].devInfo, playerName)
+    print(translations[playerLanguage[id]].welcomeInfo)
+    print(translations[playerLanguage[id]].devInfo)
 end
 
 -- WHEN SOMEBODY JOINS, INIT THE PLAYER
@@ -913,7 +890,7 @@ function eventMouse(playerName, xMousePosition, yMousePosition)
         -- print("uimouse "..uiMouseX)
         if -100 <= uiMouseX and uiMouseX <= 250 then
             if menuimgid[id] == -1 then
-                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerlanguage[id]][25].."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerlanguage[id]][26].."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerlanguage[id]][27].."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerlanguage[id]][28].."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerlanguage[id]][29].."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerLanguage[id]].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerLanguage[id]].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerLanguage[id]].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerLanguage[id]].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerLanguage[id]].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
                 menuimgid[id] = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
             else
                 closePage(playerName)
@@ -927,9 +904,9 @@ function createPage(title, body, playerName)
     if menupage[id] ~= "help" then
         helpopen[id] = false
     end
-    local closebtn = "<p align='center'><font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerlanguage[id]][24].."</a></font></p>"
+    local closebtn = "<p align='center'><font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerLanguage[id]].Xbtn.."</a></font></p>"
     
-    local spaceLength = 40 - #translations[playerlanguage[id]][24] - #title
+    local spaceLength = 40 - #translations[playerLanguage[id]].Xbtn - #title
     local padding = ""
     for i = 1, spaceLength do 
         padding = padding.." "
@@ -944,8 +921,8 @@ function updatePage(title, body, playerName)
     if menupage[id] ~= "help" then
         helpopen[id] = false
     end
-    local closebtn = "<p align='center'><font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerlanguage[id]][24].."</a></font></p>"
-    local spaceLength = 40 - #translations[playerlanguage[id]][24] - #title
+    local closebtn = "<p align='center'><font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerLanguage[id]].Xbtn.."</a></font></p>"
+    local spaceLength = 40 - #translations[playerLanguage[id]].Xbtn - #title
     local padding = ""
     for i = 1, spaceLength do 
         padding = padding.." "
@@ -974,17 +951,17 @@ function stats(playerName, playerId, creatorId)
     --     timesRewinded = 0
     local body = "\n"
     
-    body = body.." » "..translations[playerlanguage[creatorId]][31]..": <R>"..playerStats[playerId].mapsFinishedFirst.."</R>\n"
-    body = body.." » "..translations[playerlanguage[creatorId]][32]..": <R>"..playerStats[playerId].mapsFinished.."</R>\n"
+    body = body.." » "..translations[playerLanguage[creatorId]].firsts..": <R>"..playerStats[playerId].mapsFinishedFirst.."</R>\n"
+    body = body.." » "..translations[playerLanguage[creatorId]].finishedMaps..": <R>"..playerStats[playerId].mapsFinished.."</R>\n"
     local firstrate = "0%"
     if playerStats[playerId].mapsFinishedFirst > 0 then
         firstrate = (math.floor(playerStats[playerId].mapsFinishedFirst/playerStats[playerId].mapsFinished * 10000) / 100).."%"
     end
-    body = body.." » "..translations[playerlanguage[creatorId]][33]..": <R>"..firstrate.."</R>\n"
-    body = body.." » "..translations[playerlanguage[creatorId]][34]..": <R>"..playerStats[playerId].timesEnteredInHole.."</R>\n"
-    body = body.." » "..translations[playerlanguage[creatorId]][35]..": <R>"..playerStats[playerId].graffitiSprays.."</R>\n"
-    body = body.." » "..translations[playerlanguage[creatorId]][36]..": <R>"..playerStats[playerId].timesDashed.."</R>\n"
-    body = body.." » "..translations[playerlanguage[creatorId]][37]..": <R>"..playerStats[playerId].timesRewinded.."</R>\n"
+    body = body.." » "..translations[playerLanguage[creatorId]].firstRate..": <R>"..firstrate.."</R>\n"
+    body = body.." » "..translations[playerLanguage[creatorId]].holeEnters..": <R>"..playerStats[playerId].timesEnteredInHole.."</R>\n"
+    body = body.." » "..translations[playerLanguage[creatorId]].graffitiUses..": <R>"..playerStats[playerId].graffitiSprays.."</R>\n"
+    body = body.." » "..translations[playerLanguage[creatorId]].dashUses..": <R>"..playerStats[playerId].timesDashed.."</R>\n"
+    body = body.." » "..translations[playerLanguage[creatorId]].rewindUses..": <R>"..playerStats[playerId].timesRewinded.."</R>\n"
     
     return body
 end
@@ -997,39 +974,39 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
             if menupage[id] == 0 then
-                createPage(translations[playerlanguage[id]][25], ":D", playerName)
+                createPage(translations[playerLanguage[id]].shopTitle, translations[playerLanguage[id]].shopNotice, playerName)
             else
-                updatePage(translations[playerlanguage[id]][25], ":D", playerName)
+                updatePage(translations[playerLanguage[id]].shopTitle, translations[playerLanguage[id]].shopNotice, playerName)
             end
         end
         if eventName == "StatsOpen" then
             if menupage[id] == 0 then
-                createPage(translations[playerlanguage[id]][26].." - "..playerName, stats(playerName, id, id), playerName)
+                createPage(translations[playerLanguage[id]].profileTitle.." - "..playerName, stats(playerName, id, id), playerName)
             else
-                updatePage(translations[playerlanguage[id]][26].." - "..playerName, stats(playerName, id, id), playerName)
+                updatePage(translations[playerLanguage[id]].profileTitle.." - "..playerName, stats(playerName, id, id), playerName)
             end
         end
         if eventName == "LeaderOpen" then
             if menupage[id] == 0 then
-                createPage(translations[playerlanguage[id]][27], ":3", playerName)
+                createPage(translations[playerLanguage[id]].leaderboardsTitle, translations[playerLanguage[id]].leaderboardsNotice, playerName)
             else
-                updatePage(translations[playerlanguage[id]][27], ":3", playerName)
+                updatePage(translations[playerLanguage[id]].leaderboardsTitle, translations[playerLanguage[id]].leaderboardsNotice, playerName)
             end
         end
         if eventName == "SettingsOpen" then
             if menupage[id] == 0 then
                 menupage[id] = "settings"
-                createPage(translations[playerlanguage[id]][28], remakeOptions(playerName), playerName)
+                createPage(translations[playerLanguage[id]].settingsTitle, remakeOptions(playerName), playerName)
             else
                 menupage[id] = "settings"
-                updatePage(translations[playerlanguage[id]][28], remakeOptions(playerName), playerName)
+                updatePage(translations[playerLanguage[id]].settingsTitle, remakeOptions(playerName), playerName)
             end
         end
         if eventName == "AboutOpen" then
             if menupage[id] == 0 then
-                createPage(translations[playerlanguage[id]][29], translations[playerlanguage[id]][30], playerName)
+                createPage(translations[playerLanguage[id]].aboutTitle, translations[playerLanguage[id]].aboutBody, playerName)
             else
-                updatePage(translations[playerlanguage[id]][29], translations[playerlanguage[id]][30], playerName)
+                updatePage(translations[playerLanguage[id]].aboutTitle, translations[playerLanguage[id]].aboutBody, playerName)
             end
         end
     end
@@ -1059,15 +1036,15 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             else
                 -- REGENERATE PANELS
                 playerpreferences[id][3] = true
-                addTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][6]..": N/A", playerName, 10, 45, 200, 21, 0xffffff, 0x000000, 0, true)
-                addTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][7]..": N/A", playerName, 10, 30, 200, 21, 0xffffff, 0x000000, 0, true)
+                addTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastTime..": N/A", playerName, 10, 45, 200, 21, 0xffffff, 0x000000, 0, true)
+                addTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastBestTime..": N/A", playerName, 10, 30, 200, 21, 0xffffff, 0x000000, 0, true)
                 if playerfinished[id] == true then
-                    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][6]..": "..(playerlasttime[id]/100).."s", playerName)
-                    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][7]..": "..(playerbesttime[id]/100).."s", playerName)
+                    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].timeTime..": "..(playerlasttime[id]/100).."s", playerName)
+                    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastBestTime..": "..(playerbesttime[id]/100).."s", playerName)
                 end
             end
         end
-        updatePage(translations[playerlanguage[id]][28], remakeOptions(playerName), playerName)
+        updatePage(translations[playerLanguage[id]].settingsTitle, remakeOptions(playerName), playerName)
     end
 
     if eventName == "CloseMenu" then
@@ -1092,17 +1069,17 @@ end
 function remakeOptions(playerName)
     -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
     local id = room.playerList[playerName].id
-    toggles = {translations[playerlanguage[id]][12], translations[playerlanguage[id]][12], translations[playerlanguage[id]][12]}
+    toggles = {translations[playerLanguage[id]].optionsYes, translations[playerLanguage[id]].optionsYes, translations[playerLanguage[id]].optionsYes}
     if playerpreferences[id][1] == false then
-        toggles[1] = translations[playerlanguage[id]][13]
+        toggles[1] = translations[playerLanguage[id]].optionsNo
     end
     if playerpreferences[id][2] == false then
-        toggles[2] = translations[playerlanguage[id]][13]
+        toggles[2] = translations[playerLanguage[id]].optionsNo
     end
     if playerpreferences[id][3] == false then
-        toggles[3] = translations[playerlanguage[id]][13]
+        toggles[3] = translations[playerLanguage[id]].optionsNo
     end
-    return " » <a href=\"event:ToggleDummy\">"..translations[playerlanguage[id]][14].."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerlanguage[id]][15].."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerlanguage[id]][16].."?</a> "..toggles[3]
+    return " » <a href=\"event:ToggleDummy\">"..translations[playerLanguage[id]].testSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerLanguage[id]].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerLanguage[id]].timePanelsSetting.."?</a> "..toggles[3]
 end
 
 -- RESET ALL PLAYERS
@@ -1149,8 +1126,8 @@ function resetAll()
             lastgraffititime[id] = 0
             -- UPDATE THE TEXT
             if playerpreferences[id][3] == true then
-                ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][7]..": N/A", playerName)
-                ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerlanguage[id]][6]..": N/A", playerName)
+                ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastBestTime..": N/A", playerName)
+                ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerLanguage[id]].lastTime..": N/A", playerName)
             end
             
         else
@@ -1194,6 +1171,8 @@ function eventChatCommand(playerName, message)
             if arg[2] ~= nil then
                 tfm.exec.newGame(arg[2])
                 tfm.exec.setAutoMapFlipMode(randomFlip())
+                mapdiff = "Custom"
+                MAPTIME = 10 * 60
                 resetAll()
             end
         end
@@ -1280,10 +1259,10 @@ function eventChatCommand(playerName, message)
             if name == arg[2] then
                 if menupage[id] == 0 then
                     menupage[id] = "stats"
-                    createPage(translations[playerlanguage[id]][26].." - "..arg[2], stats(arg[2], room.playerList[arg[2]].id, id), playerName, id)
+                    createPage(translations[playerLanguage[id]].profileTitle.." - "..arg[2], stats(arg[2], room.playerList[arg[2]].id, id), playerName, id)
                 else
                     menupage[id] = "stats"
-                    updatePage(translations[playerlanguage[id]][26].." - "..arg[2], stats(arg[2], room.playerList[arg[2]].id, id), playerName, id)
+                    updatePage(translations[playerLanguage[id]].profileTitle.." - "..arg[2], stats(arg[2], room.playerList[arg[2]].id, id), playerName, id)
                 end
                 break
             end
