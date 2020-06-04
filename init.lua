@@ -111,6 +111,32 @@ tfm.exec.setGameTime(MAPTIME, true)
 keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 bestTime = 99999
 
+function shopListing(values, imgId, tooltip)
+    return {
+        ['tooltip'] = tooltip, 
+        ['imgId'] = imgId, 
+        ['values'] = values
+    }
+end
+
+shop = {
+    dashAcc = {
+        shopListing(tfm.enum.particle.cloud, "someId", "This is the default particle."),
+        shopListing({tfm.enum.particle.cloud, tfm.enum.particle.heart}, "someId", "Add some hearts to your dash!")
+    },
+    graffitiCol = {
+        shopListing(0xffffff, "someId", "This is the default graffiti color."),
+        shopListing(0x000000, "someId", "You're a dark person.")
+    },
+    graffitiImgs = {
+        shopListing(nil, "someId", "This is the default image (no image)."),
+        shopListing("someOtherId", "someId", "Say cheese!")
+    },
+    graffitiFonts = {
+        shopListing("Comic Sans MS", "someId", "This is the default font for graffitis.")
+    }
+}
+
 playerStats = {
     -- {
     --     mapsFinished = 0,
@@ -683,7 +709,10 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     -- bestTime is a global variable for record
     if timeElapsedSinceRespawn <= bestTime then
         bestTime = timeElapsedSinceRespawn
+
+        local oldFastestPlayer = fastestplayer
         fastestplayer = playerName
+        setColor(oldFastestPlayer)
         
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
