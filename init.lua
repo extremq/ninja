@@ -14,8 +14,8 @@ local random = math.random
 local addTextArea = ui.addTextArea
 local removeTextArea = ui.removeTextArea
 
--- addImage = function() end
--- removeImage = function() end
+addImage = function() end
+removeImage = function() end
 
 local translations = {}
 {% require-dir "translations" %}
@@ -203,6 +203,38 @@ function checkRoomMod(playerName)
     return false
 end
 
+function showDashParticles(type, direction, x, y) 
+    -- Only display particles to the players who haven't disabled the setting
+    for name, data in pairs(room.playerList) do
+        if room.playerList[name].id ~= 0 and playerVars[room.playerList[name].id].playerPreferences[2] == true then
+            displayParticle(type, x, y, random() * direction, random(), 0, 0, name)
+            displayParticle(type, x, y, random() * direction, -random(), 0, 0, name)
+            displayParticle(type, x, y, random() * direction, -random(), 0, 0, name)
+            displayParticle(type, x, y, random() * direction, -random(), 0, 0, name)
+        end
+    end
+end
+
+-- This is different because jump has other directions
+function showJumpParticles(type, x, y)
+    -- Only display particles to the players who haven't disabled the setting
+    for name, data in pairs(room.playerList) do
+        if room.playerList[name].id ~= 0 and playerVars[room.playerList[name].id].playerPreferences[2] == true then
+            displayParticle(type, x, y, random(), -random()*4, 0, 0, name)
+            displayParticle(type, x, y, -random(), -random()*3, 0, 0, name)
+            displayParticle(type, x, y, -random(), -random()*2, 0, 0, name)
+            displayParticle(type, x, y, random(), -random()*2, 0, 0, name)
+        end
+    end
+end
+
+function showRewindParticles(type, playerName, x, y)
+    displayParticle(type, x, y, -random(), random(), 0, 0, playerName)
+    displayParticle(type, x, y, -random(), -random(), 0, 0, playerName)
+    displayParticle(type, x, y, -random(), -random(), 0, 0, playerName)
+    displayParticle(type, x, y, random(), -random(), 0, 0, playerName)
+end
+
 -- MOUSE POWERS
 function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPosition)
     local id = playerId(playerName)
@@ -212,112 +244,153 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     end
 
     local ostime = os.time()
-    -- DOUBLE PRESS --
-    if ostime - cooldowns[id].lastDashTime > DASHCOOLDOWN then
-        dashUsed = false
-        if ostime - cooldowns[id].lastRightPressTime < 200 and room.playerList[playerName].isDead == false then
-            -- DASHES textarea = 2--
-            if keyCode == 2 then
-                cooldowns[id].lastRightPressTime = ostime
-                for name, data in pairs(room.playerList) do
-                    if room.playerList[name].id ~= 0 and playerVars[room.playerList[name].id].playerPreferences[2] == true then
-                        displayParticle(3, xPlayerPosition, yPlayerPosition, random(), random(), 0, 0, name)
-                        displayParticle(3, xPlayerPosition, yPlayerPosition, random(), -random(), 0, 0, name)
-                        displayParticle(3, xPlayerPosition, yPlayerPosition, random(), -random(), 0, 0, name)
-                        displayParticle(3, xPlayerPosition, yPlayerPosition, random(), -random(), 0, 0, name)
-                    end
-                end
-                movePlayer(playerName, 0, 0, true, 150, 0, false)
-                dashUsed = true;
-            end
-        end
-        if ostime - cooldowns[id].lastLeftPressTime < 200 and room.playerList[playerName].isDead == false then
+    
+    -- Everything here is for gameplay, so we only check them if the player isnt dead
+    if room.playerList[playerName].isDead == false then
+        --[[
+            Because of the nature my dash works (both left and right keys share the same cooldown) I cannot shorten without checking for both
+            doublepress and keypress. (though i can make the checker variable an array but it would look ugly.)
+        ]]--
+        if (keyCode == 0 or keyCode == 2) and ostime - cooldowns[id].lastDashTime > DASHCOOLDOWN then
+            local dashUsed = false
+            local direction = 1 -- assume its right
+
             if keyCode == 0 then
+                direction = -1
+            end
+            -- we check wether its left or right and if we double-tapped or not (can't shorten this)
+            if keyCode == 2 and ostime - cooldowns[id].lastRightPressTime < 200 then
+                cooldowns[id].lastRightPressTime = ostime
+                dashUsed = true;
+            elseif 
+                keyCode == 0 and ostime - cooldowns[id].lastLeftPressTime < 200 then
                 cooldowns[id].lastLeftPressTime = ostime
-                for name, data in pairs(room.playerList) do
-                    if room.playerList[name].id ~= 0 and playerVars[room.playerList[name].id].playerPreferences[2] == true then
-                        displayParticle(3, xPlayerPosition, yPlayerPosition, -random(), random(), 0, 0, name)
-                        displayParticle(3, xPlayerPosition, yPlayerPosition, -random(), -random(), 0, 0, name)
-                        displayParticle(3, xPlayerPosition, yPlayerPosition, -random(), -random(), 0, 0, name)
-                        displayParticle(3, xPlayerPosition, yPlayerPosition, -random(), -random(), 0, 0, name)
-                    end
-                end
-                movePlayer(playerName, 0, 0, true, -150, 0, false)
                 dashUsed = true;
             end
-        end
 
-        if dashUsed == true then
-            cooldowns[id].lastDashTime = ostime
-            states[id].dashState = false
-            removeImage(imgs[id].dashButtonId)
-            imgs[id].dashButtonId = addImage(DASH_BTN_OFF, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-            playerStats[id].timesDashed = playerStats[id].timesDashed + 1
-        end
-    end
-    if ostime - cooldowns[id].lastJumpPressTime < 200 and room.playerList[playerName].isDead == false then
-        -- JUMP textarea = 1--
-        if (keyCode == 1) and ostime - cooldowns[id].lastJumpTime > JUMPCOOLDOWN then
-            cooldowns[id].lastJumpPressTime = ostime
-
-            movePlayer(playerName, 0, 0, true, 0, -60, false)
-            for name, data in pairs(room.playerList) do
-                if room.playerList[name].id ~= 0 and playerVars[room.playerList[name].id].playerPreferences[2] == true then
-                    displayParticle(3, xPlayerPosition, yPlayerPosition, random(), -random()*4, 0, 0, name)
-                    displayParticle(3, xPlayerPosition, yPlayerPosition, -random(), -random()*3, 0, 0, name)
-                    displayParticle(3, xPlayerPosition, yPlayerPosition, -random(), -random()*2, 0, 0, name)
-                    displayParticle(3, xPlayerPosition, yPlayerPosition, random(), -random()*2, 0, 0, name)
-                end
+            -- When we succesfully double tap without being on cooldown, we execute this.
+            if dashUsed == true then
+                -- Update cooldowns
+                cooldowns[id].lastDashTime = ostime
+                states[id].dashState = false
+                
+                -- Update cd image
+                removeImage(imgs[id].dashButtonId)
+                imgs[id].dashButtonId = addImage(DASH_BTN_OFF, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
+                
+                -- Update stats
+                playerStats[id].timesDashed = playerStats[id].timesDashed + 1
+                
+                -- Move the palyer
+                movePlayer(playerName, 0, 0, true, 150 * direction, 0, false)
+                
+                -- Now, we can change the 3 with whatever the player has equipped in the shop!
+                showDashParticles(3, direction, xPlayerPosition, yPlayerPosition)
             end
-            states[id].jumpState = false
+        --[[
+            We check for the key, then if its a double press, then the cooldown. (by the way, if it fails to check, for example,
+            keyCode == 1 then it won't check the other conditions, so we put the most important conditions first then follow up with
+            those who are most likely to happen when we actually want to jump - its more likely that the player double presses when he has
+            the cooldown available instead of doublepressing when the cooldown is offline.)
+        ]]--
+        elseif keyCode == 1 and ostime - cooldowns[id].lastJumpPressTime < 200 and ostime - cooldowns[id].lastJumpTime > JUMPCOOLDOWN  then
+            -- Update cooldowns (press is for doublepress and the other for cooldown)
+            cooldowns[id].lastJumpPressTime = ostime
             cooldowns[id].lastJumpTime = ostime
+            states[id].jumpState = false
 
+            -- Update jump cd image
             removeImage(imgs[id].jumpButtonId)
             imgs[id].jumpButtonId = addImage(JUMP_BTN_OFF, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
+            
+            -- Move player
+            movePlayer(playerName, 0, 0, true, 0, -60, false)
+            
+            -- Display jump particles
+            showJumpParticles(3, xPlayerPosition, yPlayerPosition)
+        --[[
+            The rewind is a bit more complicated, since it has 3 states: available, in use, not available.
+            My first check is if I can rewind (state 2), then if my cooldown is available (state 1).
+            If state 1 is true, then next time we press space state 2 must be true. After we use state 2, we will be on cooldown.
+            The only states that enter this states 1 and 2.
+        ]]--
+        elseif keyCode == 32 and ostime - cooldowns[id].lastRewindTime > REWINDCOOLDONW then
+            if cooldowns[id].canRewind == true then
+                -- Teleport the player to the checkpoint
+                movePlayer(playerName, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], false, 0, 0, false)
+
+                -- Update states & cooldowns
+                cooldowns[id].lastRewindTime = ostime
+                cooldowns[id].canRewind = false
+
+                -- Update hourglass
+                removeImage(imgs[id].rewindButtonId)
+                imgs[id].rewindButtonId = addImage(REWIND_BTN_ACTIVE, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
+
+                -- Remove the mouse (the checkpoint)
+                removeImage(imgs[id].mouseImgId)
+
+                -- Show teleport particle
+                displayParticle(36, xPlayerPosition, yPlayerPosition, 0, 0, 0, 0, nil)
+
+                -- Show random particles (only time we use this are when we create the checkpoint and when the checkpoint dies (3 times in the code))
+                showRewindParticles(2, playerName, xPlayerPosition, yPlayerPosition)
+
+                -- If the player didn't have cheese when he created the checkpoint, we remove it
+                if playerVars[id].rewindPos[3] == false then
+                    tfm.exec.removeCheese(playerName)
+                end
+
+                -- Add to stats
+                playerStats[id].timesRewinded = playerStats[id].timesRewinded + 1
+            else
+                -- Update cooldowns
+                cooldowns[id].canRewind = true
+                cooldowns[id].checkpointTime = ostime
+
+                -- Save current player state (pos and cheese)
+                playerVars[id].rewindPos = {xPlayerPosition, yPlayerPosition, room.playerList[playerName].hasCheese}
+
+                -- Update hourglass
+                imgs[id].mouseImgId = addImage(CHECKPOINT_MOUSE, "_100", xPlayerPosition - 59/2, yPlayerPosition - 73/2, playerName)       
+                removeImage(imgs[id].rewindButtonId)
+                imgs[id].rewindButtonId = addImage(REWIND_BTN_OFF, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
+
+                -- Show particles where we teleport to
+                showRewindParticles(2, playerName, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2])
+            end
+            -- GRAFFITI (C)
+        elseif keyCode == 67 and ostime - cooldowns[id].lastGraffitiTime > GRAFFITICOOLDOWN  then
+            -- Update cooldowns
+            cooldowns[id].lastGraffitiTime = ostime
+            
+            -- Update stats
+            playerStats[id].graffitiSprays = playerStats[id].graffitiSprays + 1
+            
+            -- Create graffiti
+            removeTextArea(id, nil)
+            addTextArea(id, "<p align='center'><font face='Comic Sans MS' size='16' color='#ffffff'>"..playerName, nil, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)   
         end
     end
-
-    if keyCode == 32 then
-        if cooldowns[id].canRewind == true then
-            movePlayer(playerName, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], false, 0, 0, false)
-            cooldowns[id].lastRewindTime = ostime
-            cooldowns[id].canRewind = false
-
-            removeImage(imgs[id].rewindButtonId)
-            imgs[id].rewindButtonId = addImage(REWIND_BTN_ACTIVE, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
-
-            removeImage(imgs[id].mouseImgId)
-
-            displayParticle(36, xPlayerPosition, yPlayerPosition, 0, 0, 0, 0, nil)
-            displayParticle(2, xPlayerPosition, xPlayerPosition, -random(), random(), 0, 0, playerName)
-            displayParticle(2, xPlayerPosition, xPlayerPosition, -random(), -random(), 0, 0, playerName)
-            displayParticle(2, xPlayerPosition, xPlayerPosition, -random(), -random(), 0, 0, playerName)
-            displayParticle(2, xPlayerPosition, xPlayerPosition, random(), -random(), 0, 0, playerName)
-            if playerVars[id].rewindPos[3] == false then
-                tfm.exec.removeCheese(playerName)
-            end
-
-            playerStats[id].timesRewinded = playerStats[id].timesRewinded + 1
-
-        elseif ostime - cooldowns[id].lastRewindTime > REWINDCOOLDONW and room.playerList[playerName].isDead == false then
-            cooldowns[id].canRewind = true
-            cooldowns[id].checkpointTime = ostime
-            playerVars[id].rewindPos = {xPlayerPosition, yPlayerPosition, room.playerList[playerName].hasCheese}
-
-            imgs[id].mouseImgId = addImage(CHECKPOINT_MOUSE, "_100", xPlayerPosition - 59/2, yPlayerPosition - 73/2, playerName)       
-            removeImage(imgs[id].rewindButtonId)
-            imgs[id].rewindButtonId = addImage(REWIND_BTN_OFF, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
-
-            
-            displayParticle(2, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], -random(), random(), 0, 0, playerName)
-            displayParticle(2, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], -random(), -random(), 0, 0, playerName)
-            displayParticle(2, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], -random(), -random(), 0, 0, playerName)
-            displayParticle(2, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], random(), -random(), 0, 0, playerName)
+    -- These keys are for various other purposes
+    -- MORT (X) (mort is more likely to be called than the menu/help)
+    if keyCode == 88 then
+        killPlayer(playerName)
+    -- MENU (M)
+    elseif keyCode == 77 then
+        -- If we don't have the menu open, then we dont have an image
+        if imgs[id].menuImgId == -1 then
+            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerVars[id].playerLanguage].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerVars[id].playerLanguage].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerVars[id].playerLanguage].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerVars[id].playerLanguage].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerVars[id].playerLanguage].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+            imgs[id].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
+        -- Else we had it already open, so we close the page
+        else
+            closePage(playerName)
         end
-    end 
-    -- OPEN GUIDE / HELP
-    if keyCode == 72 then
+    -- OPEN GUIDE / HELP (H)
+    elseif keyCode == 72 then
+        -- Help system
         if playerVars[id].helpOpen == false then
+            -- If we are on some page, we just update that textarea
             if playerVars[id].menuPage ~= 0 then
                 playerVars[id].menuPage = "help"
                 updatePage("#ninja", translations[playerVars[id].playerLanguage].helpBody, playerName)
@@ -327,48 +400,18 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             playerVars[id].helpOpen = true 
         elseif playerVars[id].helpOpen == true then
             closePage(playerName)
-            playerVars[id].helpOpen = false 
             playerVars[id].menuPage = 0
+            playerVars[id].helpOpen = false 
         end
-    end
-
-    -- MORT ON X
-    if keyCode == 88 then
-        killPlayer(playerName)
-    end
-
-    -- MENU
-    if keyCode == 77 then
-        if imgs[id].menuImgId == -1 then
-            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerVars[id].playerLanguage].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerVars[id].playerLanguage].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerVars[id].playerLanguage].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerVars[id].playerLanguage].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerVars[id].playerLanguage].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
-            imgs[id].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
-        else
-            closePage(playerName)
-        end
-    end
-
-    -- GRAFFITI
-    if keyCode == 67 and ostime - cooldowns[id].lastGraffitiTime > GRAFFITICOOLDOWN  then
-        cooldowns[id].lastGraffitiTime = ostime
-        removeTextArea(id, nil)
-        playerStats[id].graffitiSprays = playerStats[id].graffitiSprays + 1
-        addTextArea(id, "<p align='center'><font face='Comic Sans MS' size='16' color='#ffffff'>"..playerName, nil, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)   
-    end
-
-    if keyCode == 2 then
-        cooldowns[id].lastRightPressTime = ostime
-    end
-
-    if keyCode == 0 then
+    elseif keyCode == 0 then
         cooldowns[id].lastLeftPressTime = ostime
-    end
-
-    if keyCode == 1 then
+    elseif keyCode == 1 then
         cooldowns[id].lastJumpPressTime = ostime
+    elseif keyCode == 2 then
+        cooldowns[id].lastRightPressTime = ostime
     end
 end
 
--- UPDATE REWIND ARRAY
 function eventPlayerDied(playerName)
     local id = playerId(playerName)
     playerVars[id].rewindPos = {0, 0, false}
@@ -378,20 +421,20 @@ function eventPlayerDied(playerName)
     end
 end
 
--- UPDATE MAP NAME
+-- UPDATE MAP NAME (custom timer)
 function updateMapName(timeRemaining)
-    -- in case it hasn't loaded for some reason
+    -- in case it hasn't loaded for some reason, we wait for 3 seconds
     if MAPTIME * 1000 - timeRemaining < 3000 then
         setMapName("Loading...<")
         return
     end
 
-    -- This part is in case anything bad happens to the values (sometimes tfm is crazy :D)
     local floor = math.floor
     local currentmapauthor = ""
     local currentmapcode = ""
     local difficulty = mapDiff
-
+    
+    -- This part is in case anything bad happens to the values (sometimes tfm is crazy :D)
     if room.xmlMapInfo == nil then
         currentmapauthor = "?"
         currentmapcode = "?"
@@ -409,37 +452,20 @@ function updateMapName(timeRemaining)
     if seconds < 10 then
         seconds = "0"..tostring(seconds)
     end
-
-    if minutes == nil then
-        minutes = "?"
-    end
-
-    if seconds == nil then
-        minutes = "?"
-    end
-
-    if difficulty == nil then
-        difficulty = "?"
-    end
-
-    if playerCount == nil then
-        playerCount = 0
-        for name, index in pairs(room.playerList) do
-            if name[1] ~= '*' then
-                playerCount = playerCount + 1
-            end
-        end
+    if minutes < 10 then
+        minutes = "0"..tostring(minutes)
     end
 
     --print(currentmapcode.." "..currentmapauthor.." "..playerCount.." "..minutes.." "..seconds)
 
     local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> Level: <J>"..difficulty.."</J>  <G>|<G> <N>Mice:</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
-    -- APPEND FASTEST
+    -- Append record
     if fastestplayer ~= -1 then
         local record = (bestTime / 100)
         name = name.." <G>|<G> <N2>Record: </N2><R>"..fastestplayer.." - "..record.."s</R>"
     end
 
+    -- If the map is over, we show stats
     if timeRemaining < 0 then
         name = "STATISTICS TIME!" 
     end 
@@ -453,6 +479,7 @@ function compare(a,b)
 end
 
 function showStats()
+    -- Init some empty array
     bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
     table.sort(playerSortedBestTime, compare)
     for i = 1, #playerSortedBestTime do
@@ -467,6 +494,7 @@ function showStats()
     message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
     message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
     message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
+    -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
         local _id = value.id
         if playerVars[_id].menuPage == 0 then
@@ -475,6 +503,7 @@ function showStats()
             updatePage(translations[playerVars[_id].playerLanguage].leaderboardsTitle, message, name)
         end
     end
+    -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" then
         playerStats[room.playerList[bestPlayers[1][1]].id].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].id].mapsFinishedFirst + 1
     end
@@ -484,10 +513,11 @@ end
 function eventLoop(elapsedTime, timeRemaining)
     local ostime = os.time()
 
+    -- Can't rely on elapsedTime
     updateMapName(MAPTIME * 1000 - (ostime - mapStartTime))
     --print(elapsedTime / 1000)
     
-    -- WHEN TIME REACHES 0 CHOOSE ANOTHER MAP
+    -- When time reaches 0, we kill everyone and show stats
     if (elapsedTime >= MAPTIME * 1000 and elapsedTime < MAPTIME * 1000 + STATSTIME) then
         for index, value in pairs(room.playerList) do
             killPlayer(index)
@@ -496,13 +526,16 @@ function eventLoop(elapsedTime, timeRemaining)
             hasShownStats = true
             showStats()
         end
-
-    elseif elapsedTime >= MAPTIME * 1000 + 5000 or mapWasSkipped == true then
+    -- When passing the stats time or when skipping a map, we choose a new map
+    elseif elapsedTime >= MAPTIME * 1000 + STATSTIME or mapWasSkipped == true then
         mapWasSkipped = false
-        --print("Attempting to reset.")
+
         tfm.exec.setAutoMapFlipMode(randomFlip())
         tfm.exec.newGame(randomMap())
+
+        -- Reset player values.
         resetAll()
+    -- Else we are currently in the round, we respawn/update the cooldown indicators
     else    
         for playerName in pairs(room.playerList) do
             local id = playerId(playerName)
@@ -510,39 +543,31 @@ function eventLoop(elapsedTime, timeRemaining)
                 if room.playerList[playerName].isDead == true then
                     -- RESPAWN PLAYER
                     tfm.exec.respawnPlayer(playerName)
-                    -- UPDATE COOLDOWNS
-                    cooldowns[id].lastJumpTime = ostime - JUMPCOOLDOWN
-                    cooldowns[id].lastDashTime = ostime - DASHCOOLDOWN
-                    cooldowns[id].lastRewindTime = ostime - 6000
-                    cooldowns[id].checkpointTime = 0
-                    cooldowns[id].canRewind = false
-                    -- WHEN RESPAWNED, MAKE THE ABILITIES GREEN
-                    removeImage(imgs[id].jumpButtonId)
-                    imgs[id].jumpButtonId = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
-
-                    removeImage(imgs[id].dashButtonId)
-                    imgs[id].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
                 end
                 -- UPDATE UI
+                --[[
+                    This is where i use states: i basically keep track if i changed an icon's cooldown indicator. Why?
+                    For example, lets say i have my cooldown ready. Without a state, i have no idea if i just got it now
+                    or i had it already, so i have to remove the image and make it available, even if it was available.
+                    With states, i can do it once and then just check if the state was changed (basically if i used the ability).
+                ]]--
                 if states[id].jumpState == false and ostime - cooldowns[id].lastJumpTime > JUMPCOOLDOWN then
                     states[id].jumpState = true
                     removeImage(imgs[id].jumpButtonId)
                     imgs[id].jumpButtonId = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
-                    end
+                end
                 if states[id].dashState == false and ostime - cooldowns[id].lastDashTime > DASHCOOLDOWN then
                     states[id].dashState = true
                     removeImage(imgs[id].dashButtonId)
                     imgs[id].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
                 end
 
+                -- Don't forget i have 3 states for rewind, this happens if we are in state 2 (can rewind) but passed the time we had.
                 if cooldowns[id].canRewind == true and ostime - cooldowns[id].checkpointTime > 3000 then
                     cooldowns[id].canRewind = false
                     cooldowns[id].lastRewindTime = ostime
                     removeImage(imgs[id].mouseImgId)
-                    displayParticle(2, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], -random(), random(), 0, 0, playerName)
-                    displayParticle(2, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], -random(), -random(), 0, 0, playerName)
-                    displayParticle(2, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], -random(), -random(), 0, 0, playerName)
-                    displayParticle(2, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2], random(), -random(), 0, 0, playerName)
+                    showRewindParticles(2, playerName, playerVars[id].rewindPos[1], playerVars[id].rewindPos[2])
                 end
 
                 if cooldowns[id].canRewind == true and states[id].rewindState ~= 2 then
@@ -565,12 +590,27 @@ end
 
 -- PLAYER COLOR SETTER
 function eventPlayerRespawn(playerName)
+    local ostime = os.time()
     id = playerId(playerName)
+    -- We kill souris
     if id == 0 then
-        tfm.exec.freezePlayer(playerName)
+        killPlayer(playerName)
         return
     end
     setColor(playerName)
+
+    -- UPDATE COOLDOWNS
+    cooldowns[id].lastJumpTime = ostime - JUMPCOOLDOWN
+    cooldowns[id].lastDashTime = ostime - DASHCOOLDOWN
+    cooldowns[id].lastRewindTime = ostime - 6000
+    cooldowns[id].checkpointTime = 0
+    cooldowns[id].canRewind = false
+    -- WHEN RESPAWNED, MAKE THE ABILITIES GREEN
+    removeImage(imgs[id].jumpButtonId)
+    imgs[id].jumpButtonId = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
+
+    removeImage(imgs[id].dashButtonId)
+    imgs[id].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
 end
 
 function setColor(playerName)
@@ -598,11 +638,8 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     if imgs[id].mouseImgId ~= nil then
         removeImage(imgs[id].mouseImgId)
     end
-
     
-    cooldowns[id].lastJumpTime = 0
-    cooldowns[id].lastDashTime = 0
-    
+    -- If we're a mod, then we don't count the win
     if checkRoomMod(playerName) == true then
         return
     end
@@ -616,18 +653,26 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
         playerStats[id].mapsFinished = playerStats[id].mapsFinished + 1
         playerWon = playerWon + 1
     end
+
     setPlayerScore(playerName, 1, true)
     -- RESET TIMERS
     playerVars[id].playerLastTime = timeElapsedSinceRespawn
     playerVars[id].playerFinished = true
     playerVars[id].playerBestTime = math.min(playerVars[id].playerBestTime, timeElapsedSinceRespawn)
+
+    --[[
+        If the player decides to leave and come back, we need to have his best time saved in a separate array.
+        This array will be used for stats at the end of the round, so it must work even if the player left,
+        came back, and had worse best time.
+    ]]--
     local foundvalue = false
     for i = 1, #playerSortedBestTime do
         if playerSortedBestTime[i][1] == playerName then
-            playerSortedBestTime[i][2] = playerVars[id].playerBestTime
+            playerSortedBestTime[i][2] = math.min(playerVars[id].playerBestTime, playerSortedBestTime[i][2])
             foundvalue = true
         end
     end
+    -- If this is the first time the player finishes the map, we take it as a best time.
     if foundvalue == false then
         table.insert(playerSortedBestTime, {playerName, playerVars[id].playerBestTime})
     end
@@ -636,17 +681,12 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[id].playerLanguage].lastTime..": "..(timeElapsedSinceRespawn/100).."s", playerName)
     ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[id].playerLanguage].lastBestTime..": "..(playerVars[id].playerBestTime/100).."s", playerName)
     
+    -- bestTime is a global variable for record
     if timeElapsedSinceRespawn <= bestTime then
-        -- CHECK IF FASTEST PLAYER IS IN ROOM
-        for playerName in pairs(room.playerList) do
-            if playerName == fastestplayer then
-                setNameColor(fastestplayer, 0xBABD2F)
-            end
-        end
         bestTime = timeElapsedSinceRespawn
         fastestplayer = playerName
         
-        -- send message
+        -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
             local message = "<font color='#CB546B'>"..fastestplayer..translations[playerVars[_id].playerLanguage].newRecord.." ("..(bestTime/100).."s)</font>"
@@ -657,7 +697,8 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
 end
 
 function eventPlayerLeft(playerName)
-    if playerName[1] == '*' then
+    -- We don't count souris
+    if string.find(playerName, '*') then
         return
     end
     playerCount = playerCount - 1
@@ -665,9 +706,10 @@ end
 
 -- CALL THIS WHEN A PLAYER FIRST JOINS A ROOM
 function initPlayer(playerName)
-    -- ID USED FOR PLAYER ARRAYS
+    -- ID USED FOR PLAYER OBJECTS
     local id = playerId(playerName)
 
+    -- IGNORE SOURIS
     if id == 0 then
         killPlayer(playerName)
         return
@@ -689,7 +731,7 @@ function initPlayer(playerName)
     -- RESET SCORE
     setPlayerScore(playerName, 0)
 
-    -- INIT ALL PLAYER TABLES
+    -- INIT PLAYER OBJECTS
     cooldowns[id] = {
             lastDashTime = 0,
             lastJumpTime = 0,
@@ -757,7 +799,7 @@ end
 function chooselang(playerName)
     local id = playerId(playerName)
     local community = room.playerList[playerName].community
-    -- FOR NOW, ONLY RO HAS TRANSLATIONS
+    -- FOR NOW, ONLY RO AND FR HAVE TRANSLATIONS
     if community == "ro" then
         playerVars[id].playerLanguage = "ro"
     elseif community == "fr" then
@@ -780,11 +822,12 @@ function eventNewPlayer(playerName)
     initPlayer(playerName)
 end
 
--- INIT ALL EXISTING PLAYERS (NOT SURE IF WORKS)
+-- INIT ALL EXISTING PLAYERS
 for playerName in pairs(room.playerList) do
     initPlayer(playerName)
 end
 
+-- I need the X for mouse computations
 function extractMapDimensions()
     xml = tfm.get.room.xmlMapInfo.xml
     local p = string.match(xml, '<P(.*)/>')
@@ -802,6 +845,11 @@ function eventMouse(playerName, xMousePosition, yMousePosition)
     if checkRoomMod(playerName) then
         movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
     else
+        --[[
+            I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
+            in order to be able to open the menu when the mouse is in the left part of the screen.
+            :D
+        ]]--
         local uiMouseX = xMousePosition
         local mapX = extractMapDimensions()
         -- print("mapX ".. mapX)
@@ -822,6 +870,13 @@ function eventMouse(playerName, xMousePosition, yMousePosition)
     end
 end
 
+--[[
+    The way i manage UI in this module is basically this:
+    Every page of the UI is the same textarea.
+    When i open something for the first time, i use createPage.
+    When i open something and already have some ui active, i use updatePage.
+    This way i have standard UI and never have conflicts. 
+]]--
 function createPage(title, body, playerName)
     local id = playerId(playerName)
     if playerVars[id].menuPage ~= "help" then
@@ -865,6 +920,7 @@ function closePage(playerName)
     imgs[id].menuImgId = -1
 end
 
+--This returns the body of the profile screen, generating the stats of the selected player's profile.
 function stats(playerName, playerId, creatorId)
     --     mapsFinished = 0,
     --     mapsFinishedFirst = 0,
@@ -889,11 +945,29 @@ function stats(playerName, playerId, creatorId)
     return body
 end
 
+-- This generates the settings body
+function remakeOptions(playerName)
+    -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
+    local id = playerId(playerName)
+    toggles = {translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes}
+    if playerVars[id].playerPreferences[1] == false then
+        toggles[1] = translations[playerVars[id].playerLanguage].optionsNo
+    end
+    if playerVars[id].playerPreferences[2] == false then
+        toggles[2] = translations[playerVars[id].playerLanguage].optionsNo
+    end
+    if playerVars[id].playerPreferences[3] == false then
+        toggles[3] = translations[playerVars[id].playerLanguage].optionsNo
+    end
+    return " » <a href=\"event:ToggleDummy\">"..translations[playerVars[id].playerLanguage].testSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[id].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[id].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
+end
+
 function eventTextAreaCallback(textAreaId, playerName, eventName)
     local id = playerId(playerName)
     if id == 0 then
         return
     end
+    -- 12 is the id for the menu buttons
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
             if playerVars[id].menuPage == 0 then
@@ -934,7 +1008,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         end
     end
     
-    -- SETTINGS
+    -- SETTINGS PAGE
     if playerVars[id].menuPage == "settings" and textAreaId == 13 then
         if eventName == "ToggleDummy" then
             if playerVars[id].playerPreferences[1] == true then
@@ -980,39 +1054,20 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         end
         removeTextArea(10, playerName)
     end
-
-    if eventName == "CloseHelp" then
-        if playerVars[id].helpOpen == true then
-            removeTextArea(11, playerName)
-            playerVars[id].helpOpen = false
-        end
-    end
-end
-
-function remakeOptions(playerName)
-    -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
-    local id = playerId(playerName)
-    toggles = {translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes}
-    if playerVars[id].playerPreferences[1] == false then
-        toggles[1] = translations[playerVars[id].playerLanguage].optionsNo
-    end
-    if playerVars[id].playerPreferences[2] == false then
-        toggles[2] = translations[playerVars[id].playerLanguage].optionsNo
-    end
-    if playerVars[id].playerPreferences[3] == false then
-        toggles[3] = translations[playerVars[id].playerLanguage].optionsNo
-    end
-    return " » <a href=\"event:ToggleDummy\">"..translations[playerVars[id].playerLanguage].testSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[id].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[id].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
 end
 
 -- RESET ALL PLAYERS
 function resetAll()
     local ostime = os.time()
-    rewindpos = {}
     playerSortedBestTime = {}
-    bestPlayers = {{"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}}
     hasShownStats = false
-
+    fastestplayer = -1
+    bestTime = 99999
+    playerWon = 0
+    --[[ 
+        Manually checking the players that remained in cache, because someone 
+        might leave when the map is changing and we don't want to use the older time.
+    ]]--
     for index, value in pairs(playerVars) do
         playerVars[index].playerBestTime = 999999
         playerVars[index].playerBestTime = 999999
@@ -1023,24 +1078,11 @@ function resetAll()
         if id ~= 0 then
             --print("Resetting stats for"..playerName)
             setPlayerScore(playerName, 0)
-            cooldowns[id].lastRewindTime = 0
-            cooldowns[id].canRewind = false
-            
             cooldowns[id].lastLeftPressTime = 0
             cooldowns[id].lastRightPressTime = 0
             cooldowns[id].lastJumpPressTime = 0
-            cooldowns[id].lastDashTime = 0
-            cooldowns[id].lastJumpTime = ostime - JUMPCOOLDOWN
             playerVars[id].playerFinished = false
-            cooldowns[id].checkpointTime = 0
-            states[id].jumpState = true
-            states[id].dashState = true
-
-
             playerVars[id].rewindPos = {0, 0, false}
-            fastestplayer = -1
-            bestTime = 99999
-            playerWon = 0
             setColor(playerName)
             -- REMOVE GRAFFITIS
             removeTextArea(id)
@@ -1050,7 +1092,6 @@ function resetAll()
                 ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[id].playerLanguage].lastBestTime..": N/A", playerName)
                 ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[id].playerLanguage].lastTime..": N/A", playerName)
             end
-            
         else
             killPlayer(playerName)
         end
@@ -1058,7 +1099,7 @@ function resetAll()
     tfm.exec.setGameTime(MAPTIME, true)
 end
 
--- DEBUGGING
+-- Chat commands
 function eventChatCommand(playerName, message)
     local id = playerId(playerName)
     local ostime = os.time()

@@ -808,8 +808,8 @@ end
 
 function eventPlayerLeft(playerName)
     -- We don't count souris
-    if string.find(playerName, '*') then
-        return
+    if playerId(playerName) == 0 then
+        return 
     end
     playerCount = playerCount - 1
 end

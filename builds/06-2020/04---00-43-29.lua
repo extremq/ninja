@@ -14,8 +14,8 @@ local random = math.random
 local addTextArea = ui.addTextArea
 local removeTextArea = ui.removeTextArea
 
-addImage = function() end
-removeImage = function() end
+-- addImage = function() end
+-- removeImage = function() end
 
 local translations = {}
 --[[ Directory translations ]]--
@@ -513,12 +513,6 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             playerVars[id].menuPage = 0
             playerVars[id].helpOpen = false 
         end
-    elseif keyCode == 0 then
-        cooldowns[id].lastLeftPressTime = ostime
-    elseif keyCode == 1 then
-        cooldowns[id].lastJumpPressTime = ostime
-    elseif keyCode == 2 then
-        cooldowns[id].lastRightPressTime = ostime
     end
 end
 
@@ -700,7 +694,6 @@ end
 
 -- PLAYER COLOR SETTER
 function eventPlayerRespawn(playerName)
-    local ostime = os.time()
     id = playerId(playerName)
     -- We kill souris
     if id == 0 then
@@ -808,18 +801,17 @@ end
 
 function eventPlayerLeft(playerName)
     -- We don't count souris
-    if string.find(playerName, '*') then
-        return
+    if playerId(playerName) == 0 then
+        return 
     end
     playerCount = playerCount - 1
 end
 
 -- CALL THIS WHEN A PLAYER FIRST JOINS A ROOM
 function initPlayer(playerName)
-    -- ID USED FOR PLAYER OBJECTS
+    -- ID USED FOR PLAYER ARRAYS
     local id = playerId(playerName)
 
-    -- IGNORE SOURIS
     if id == 0 then
         killPlayer(playerName)
         return
@@ -841,7 +833,7 @@ function initPlayer(playerName)
     -- RESET SCORE
     setPlayerScore(playerName, 0)
 
-    -- INIT PLAYER OBJECTS
+    -- INIT ALL PLAYER TABLES
     cooldowns[id] = {
             lastDashTime = 0,
             lastJumpTime = 0,
@@ -909,7 +901,7 @@ end
 function chooselang(playerName)
     local id = playerId(playerName)
     local community = room.playerList[playerName].community
-    -- FOR NOW, ONLY RO AND FR HAVE TRANSLATIONS
+    -- FOR NOW, ONLY RO HAS TRANSLATIONS
     if community == "ro" then
         playerVars[id].playerLanguage = "ro"
     elseif community == "fr" then
@@ -932,12 +924,11 @@ function eventNewPlayer(playerName)
     initPlayer(playerName)
 end
 
--- INIT ALL EXISTING PLAYERS
+-- INIT ALL EXISTING PLAYERS (NOT SURE IF WORKS)
 for playerName in pairs(room.playerList) do
     initPlayer(playerName)
 end
 
--- I need the X for mouse computations
 function extractMapDimensions()
     xml = tfm.get.room.xmlMapInfo.xml
     local p = string.match(xml, '<P(.*)/>')
@@ -955,11 +946,6 @@ function eventMouse(playerName, xMousePosition, yMousePosition)
     if checkRoomMod(playerName) then
         movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
     else
-        --[[
-            I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
-            in order to be able to open the menu when the mouse is in the left part of the screen.
-            :D
-        ]]--
         local uiMouseX = xMousePosition
         local mapX = extractMapDimensions()
         -- print("mapX ".. mapX)
@@ -980,13 +966,6 @@ function eventMouse(playerName, xMousePosition, yMousePosition)
     end
 end
 
---[[
-    The way i manage UI in this module is basically this:
-    Every page of the UI is the same textarea.
-    When i open something for the first time, i use createPage.
-    When i open something and already have some ui active, i use updatePage.
-    This way i have standard UI and never have conflicts. 
-]]--
 function createPage(title, body, playerName)
     local id = playerId(playerName)
     if playerVars[id].menuPage ~= "help" then
@@ -1030,7 +1009,6 @@ function closePage(playerName)
     imgs[id].menuImgId = -1
 end
 
---This returns the body of the profile screen, generating the stats of the selected player's profile.
 function stats(playerName, playerId, creatorId)
     --     mapsFinished = 0,
     --     mapsFinishedFirst = 0,
@@ -1055,29 +1033,11 @@ function stats(playerName, playerId, creatorId)
     return body
 end
 
--- This generates the settings body
-function remakeOptions(playerName)
-    -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
-    local id = playerId(playerName)
-    toggles = {translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes}
-    if playerVars[id].playerPreferences[1] == false then
-        toggles[1] = translations[playerVars[id].playerLanguage].optionsNo
-    end
-    if playerVars[id].playerPreferences[2] == false then
-        toggles[2] = translations[playerVars[id].playerLanguage].optionsNo
-    end
-    if playerVars[id].playerPreferences[3] == false then
-        toggles[3] = translations[playerVars[id].playerLanguage].optionsNo
-    end
-    return " » <a href=\"event:ToggleDummy\">"..translations[playerVars[id].playerLanguage].testSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[id].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[id].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
-end
-
 function eventTextAreaCallback(textAreaId, playerName, eventName)
     local id = playerId(playerName)
     if id == 0 then
         return
     end
-    -- 12 is the id for the menu buttons
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
             if playerVars[id].menuPage == 0 then
@@ -1118,7 +1078,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         end
     end
     
-    -- SETTINGS PAGE
+    -- SETTINGS
     if playerVars[id].menuPage == "settings" and textAreaId == 13 then
         if eventName == "ToggleDummy" then
             if playerVars[id].playerPreferences[1] == true then
@@ -1164,20 +1124,39 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         end
         removeTextArea(10, playerName)
     end
+
+    if eventName == "CloseHelp" then
+        if playerVars[id].helpOpen == true then
+            removeTextArea(11, playerName)
+            playerVars[id].helpOpen = false
+        end
+    end
+end
+
+function remakeOptions(playerName)
+    -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
+    local id = playerId(playerName)
+    toggles = {translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes}
+    if playerVars[id].playerPreferences[1] == false then
+        toggles[1] = translations[playerVars[id].playerLanguage].optionsNo
+    end
+    if playerVars[id].playerPreferences[2] == false then
+        toggles[2] = translations[playerVars[id].playerLanguage].optionsNo
+    end
+    if playerVars[id].playerPreferences[3] == false then
+        toggles[3] = translations[playerVars[id].playerLanguage].optionsNo
+    end
+    return " » <a href=\"event:ToggleDummy\">"..translations[playerVars[id].playerLanguage].testSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[id].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[id].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
 end
 
 -- RESET ALL PLAYERS
 function resetAll()
     local ostime = os.time()
+    rewindpos = {}
     playerSortedBestTime = {}
+    bestPlayers = {{"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}}
     hasShownStats = false
-    fastestplayer = -1
-    bestTime = 99999
-    playerWon = 0
-    --[[ 
-        Manually checking the players that remained in cache, because someone 
-        might leave when the map is changing and we don't want to use the older time.
-    ]]--
+
     for index, value in pairs(playerVars) do
         playerVars[index].playerBestTime = 999999
         playerVars[index].playerBestTime = 999999
@@ -1188,11 +1167,24 @@ function resetAll()
         if id ~= 0 then
             --print("Resetting stats for"..playerName)
             setPlayerScore(playerName, 0)
+            cooldowns[id].lastRewindTime = 0
+            cooldowns[id].canRewind = false
+            
             cooldowns[id].lastLeftPressTime = 0
             cooldowns[id].lastRightPressTime = 0
             cooldowns[id].lastJumpPressTime = 0
+            cooldowns[id].lastDashTime = 0
+            cooldowns[id].lastJumpTime = ostime - JUMPCOOLDOWN
             playerVars[id].playerFinished = false
+            cooldowns[id].checkpointTime = 0
+            states[id].jumpState = true
+            states[id].dashState = true
+
+
             playerVars[id].rewindPos = {0, 0, false}
+            fastestplayer = -1
+            bestTime = 99999
+            playerWon = 0
             setColor(playerName)
             -- REMOVE GRAFFITIS
             removeTextArea(id)
@@ -1202,6 +1194,7 @@ function resetAll()
                 ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[id].playerLanguage].lastBestTime..": N/A", playerName)
                 ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[id].playerLanguage].lastTime..": N/A", playerName)
             end
+            
         else
             killPlayer(playerName)
         end
@@ -1209,7 +1202,7 @@ function resetAll()
     tfm.exec.setGameTime(MAPTIME, true)
 end
 
--- Chat commands
+-- DEBUGGING
 function eventChatCommand(playerName, message)
     local id = playerId(playerName)
     local ostime = os.time()

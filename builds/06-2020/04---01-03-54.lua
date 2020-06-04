@@ -14,8 +14,8 @@ local random = math.random
 local addTextArea = ui.addTextArea
 local removeTextArea = ui.removeTextArea
 
-addImage = function() end
-removeImage = function() end
+-- addImage = function() end
+-- removeImage = function() end
 
 local translations = {}
 --[[ Directory translations ]]--
@@ -808,8 +808,8 @@ end
 
 function eventPlayerLeft(playerName)
     -- We don't count souris
-    if string.find(playerName, '*') then
-        return
+    if playerId(playerName) == 0 then
+        return 
     end
     playerCount = playerCount - 1
 end
