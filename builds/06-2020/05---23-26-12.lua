@@ -683,8 +683,7 @@ function eventLoop(elapsedTime, timeRemaining)
 
         mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
-        -- Choose maptipe
-        if mapCount % 5 == 100 then -- I don't want to run this yet
+        if mapCount % 5 == 0 then
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
             tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))

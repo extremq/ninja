@@ -17,14 +17,17 @@ local removeTextArea = ui.removeTextArea
 -- addImage = function() end
 -- removeImage = function() end
 
+local languages = {"ro", "en", "fr"}
 local translations = {}
 {% require-dir "translations" %}
 
--- mapcode, difficulty
-mapCodes = {{"@7725753", 2}, {"@7726015", 0}, {"@7726744", 1}, {"@7728063", 3}, {"@7731641", 1}, {"@7730637", 2}, {"@7732486", 1}}
-mapsLeft = {{"@7725753", 2}, {"@7726015", 0}, {"@7726744", 1}, {"@7728063", 3}, {"@7731641", 1}, {"@7730637", 2}, {"@7732486", 1}}
--- mapCodes = {"@7732115"}
--- mapsLeft = {"@7732115"}
+-- Standard maps
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}}
+
+-- Hardcore maps
+hcMapCodes = {{"@7733773", 6}}
+hcMapsLeft = {{"@7733773", 6}}
 
 modList = {"Extremq#0000", "Railysse#0000"}
 modRoom = {}
@@ -33,8 +36,9 @@ lastMap = ""
 mapWasSkipped = false
 mapStartTime = 0
 mapDiff = 0
+mapCount = 1
 
-VERSION = "1.5, 05.06.2020"
+VERSION = "1.5.2, 06.06.2020"
 
 --CONSTANTS
 MAPTIME = 4 * 60
@@ -65,7 +69,7 @@ CHECKPOINT_MOUSE = "17257fd86f3.png"
 MENU_BUTTONS = "1725ce45065.png"
 
 -- CHOOSE MAP
-function randomMap()  
+function randomMap(mapsLeft, mapCodes)  
     -- DELETE THE CHOSEN MAP
     if #mapsLeft == 0 then
         for key, value in pairs(mapCodes) do
@@ -84,7 +88,7 @@ function randomMap()
     table.remove(mapsLeft, pos)
     lastMap = newMap[1]
     mapDiff = newMap[2]
-    MAPTIME = BASETIME + mapDiff * 30
+    MAPTIME = BASETIME + (mapDiff % 6 - 1) * 30
     return newMap[1]
 end
 
@@ -105,7 +109,7 @@ tfm.exec.disableAutoShaman(true)
 tfm.exec.disableAfkDeath(true)
 tfm.exec.disableAutoNewGame(true)
 tfm.exec.setAutoMapFlipMode(randomFlip())
-tfm.exec.newGame(randomMap())
+tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
 tfm.exec.disablePhysicalConsumables(true)
 system.disableChatCommandDisplay()
 tfm.exec.setGameTime(MAPTIME, true)
@@ -146,7 +150,8 @@ playerStats = {
     --     timesEnteredInHole = 0,
     --     graffitiSprays = 0,
     --     timesDashed = 0,
-    --     timesRewinded = 0
+    --     timesRewinded = 0,
+    --     hardcoreMaps = 0,
     -- }
 }
 
@@ -328,6 +333,9 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             removeImage(imgs[id].jumpButtonId)
             imgs[id].jumpButtonId = addImage(JUMP_BTN_OFF, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
             
+            -- Update stats
+            playerStats[id].timesDashed = playerStats[id].timesDashed + 1
+
             -- Move player
             movePlayer(playerName, 0, 0, true, 0, -60, false)
             
@@ -425,15 +433,13 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         if playerVars[id].helpOpen == false then
             -- If we are on some page, we just update that textarea
             if playerVars[id].menuPage ~= 0 then
-                playerVars[id].menuPage = "help"
-                updatePage("#ninja", translations[playerVars[id].playerLanguage].helpBody, playerName)
+                updatePage("#ninja", translations[playerVars[id].playerLanguage].helpBody, playerName, "help")
             else
-                createPage("#ninja", translations[playerVars[id].playerLanguage].helpBody, playerName)
+                createPage("#ninja", translations[playerVars[id].playerLanguage].helpBody, playerName, "help")
             end
             playerVars[id].helpOpen = true 
         elseif playerVars[id].helpOpen == true then
             closePage(playerName)
-            playerVars[id].menuPage = 0
             playerVars[id].helpOpen = false 
         end
     end
@@ -485,7 +491,12 @@ function updateMapName(timeRemaining)
 
     --print(currentmapcode.." "..currentmapauthor.." "..playerCount.." "..minutes.." "..seconds)
 
-    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> Level: <J>"..difficulty.."</J>  <G>|<G> <N>Mice:</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
+    local difficultyMessage = "<J>"..difficulty.."/5</J>"
+    if difficulty == 6 then
+        difficultyMessage = "<R>HARDCORE</R>"
+    end
+
+    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> Level: "..difficultyMessage.." <G>|<G> <N>Mice:</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
     -- Append record
     if fastestplayer ~= -1 then
         local record = (bestTime / 100)
@@ -525,9 +536,9 @@ function showStats()
     for name, value in pairs(room.playerList) do
         local _id = value.id
         if playerVars[_id].menuPage == 0 then
-            createPage(translations[playerVars[_id].playerLanguage].leaderboardsTitle, message, name)
+            createPage(translations[playerVars[_id].playerLanguage].leaderboardsTitle, message, name, "roomStats")
         else
-            updatePage(translations[playerVars[_id].playerLanguage].leaderboardsTitle, message, name)
+            updatePage(translations[playerVars[_id].playerLanguage].leaderboardsTitle, message, name, "roomStats")
         end
     end
     -- If we had a best player, we update his firsts stat
@@ -557,9 +568,14 @@ function eventLoop(elapsedTime, timeRemaining)
     elseif elapsedTime >= MAPTIME * 1000 + STATSTIME or mapWasSkipped == true then
         mapWasSkipped = false
 
+        mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
-        tfm.exec.newGame(randomMap())
-
+        -- Choose maptipe
+        if mapCount % 5 == 100 then -- I don't want to run this yet
+            tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
+        else
+            tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
+        end
         -- Reset player values.
         resetAll()
     -- Else we are currently in the round, we respawn/update the cooldown indicators
@@ -678,6 +694,9 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
 
     if playerVars[id].playerFinished == false then
         playerStats[id].mapsFinished = playerStats[id].mapsFinished + 1
+        if mapDiff == 6 then
+            playerStats[id].hardcoreMaps = playerStats[id].hardcoreMaps + 1
+        end
         playerWon = playerWon + 1
     end
 
@@ -714,7 +733,7 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
 
         if fastestplayer ~= -1 then 
             local oldFastestPlayer = fastestplayer
-            
+
             fastestplayer = playerName
 
             setColor(oldFastestPlayer)
@@ -797,7 +816,8 @@ function initPlayer(playerName)
         timesEnteredInHole = 0,
         graffitiSprays = 0,
         timesDashed = 0,
-        timesRewinded = 0
+        timesRewinded = 0,
+        hardcoreMaps = 0
     }
     
     states[id] = {
@@ -830,6 +850,18 @@ function initPlayer(playerName)
     end
     -- AUTOMATICALLY CHOOSE LANGUAGE
     chooselang(playerName)
+    generateHud(playerName)
+end
+
+function generateHud(playerName)
+    local id = playerId(playerName)
+
+    removeTextArea(6, playerName)
+    -- GENERATE UI
+    addTextArea(6, translations[playerVars[id].playerLanguage].helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
+        
+    -- SEND HELP message
+    chatMessage(translations[playerVars[id].playerLanguage].welcomeInfo.."\n"..translations[playerVars[id].playerLanguage].devInfo, playerName)
 end
 
 function chooselang(playerName)
@@ -844,11 +876,6 @@ function chooselang(playerName)
         playerVars[id].playerLanguage = "en"
     end
 
-    -- GENERATE UI
-    addTextArea(6, translations[playerVars[id].playerLanguage].helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
-    
-    -- SEND HELP message
-    chatMessage(translations[playerVars[id].playerLanguage].welcomeInfo.."\n"..translations[playerVars[id].playerLanguage].devInfo, playerName)
     --print(translations[playerVars[id].playerLanguage].welcomeInfo)
     --print(translations[playerVars[id].playerLanguage].devInfo)
 end
@@ -913,7 +940,7 @@ end
     When i open something and already have some ui active, i use updatePage.
     This way i have standard UI and never have conflicts. 
 ]]--
-function createPage(title, body, playerName)
+function createPage(title, body, playerName, pageId)
     local id = playerId(playerName)
     if playerVars[id].menuPage ~= "help" then
         playerVars[id].helpOpen = false
@@ -927,10 +954,11 @@ function createPage(title, body, playerName)
     end
     local pagetitle = "<font size='16' face='Lucida Console'>"..title.."<textformat>"..padding.."</textformat>"..closebtn.."</font>\n"
     local pagebody = body
+    playerVars[id].menuPage = pageId
     ui.addTextArea(13, pagetitle..pagebody, playerName, 200, 50, 405, 300, 0x241f13, 0xbfa26d, 0.9, true)
 end
 
-function updatePage(title, body, playerName)
+function updatePage(title, body, playerName, pageId)
     local id = playerId(playerName)
     if playerVars[id].menuPage ~= "help" then
         playerVars[id].helpOpen = false
@@ -943,6 +971,7 @@ function updatePage(title, body, playerName)
     end
     local pagetitle = "<font size='16' face='Lucida Console'>"..title.."<textformat>"..padding.."</textformat>"..closebtn.."</font>\n"
     local pagebody = body
+    playerVars[id].menuPage = pageId
     ui.updateTextArea(13, pagetitle..pagebody, playerName)
 end
 
@@ -966,17 +995,18 @@ function stats(playerName, playerId, creatorId)
     --     timesRewinded = 0
     local body = "\n"
     
-    body = body.." » "..translations[playerVars[creatorId].playerLanguage].firsts..": <modRoom>"..playerStats[playerId].mapsFinishedFirst.."</modRoom>\n"
-    body = body.." » "..translations[playerVars[creatorId].playerLanguage].finishedMaps..": <modRoom>"..playerStats[playerId].mapsFinished.."</modRoom>\n"
+    body = body.." » "..translations[playerVars[creatorId].playerLanguage].firsts..": <R>"..playerStats[playerId].mapsFinishedFirst.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorId].playerLanguage].finishedMaps..": <R>"..playerStats[playerId].mapsFinished.."</R>\n"
     local firstrate = "0%"
     if playerStats[playerId].mapsFinishedFirst > 0 then
         firstrate = (math.floor(playerStats[playerId].mapsFinishedFirst/playerStats[playerId].mapsFinished * 10000) / 100).."%"
     end
-    body = body.." » "..translations[playerVars[creatorId].playerLanguage].firstRate..": <modRoom>"..firstrate.."</modRoom>\n"
-    body = body.." » "..translations[playerVars[creatorId].playerLanguage].holeEnters..": <modRoom>"..playerStats[playerId].timesEnteredInHole.."</modRoom>\n"
-    body = body.." » "..translations[playerVars[creatorId].playerLanguage].graffitiUses..": <modRoom>"..playerStats[playerId].graffitiSprays.."</modRoom>\n"
-    body = body.." » "..translations[playerVars[creatorId].playerLanguage].dashUses..": <modRoom>"..playerStats[playerId].timesDashed.."</modRoom>\n"
-    body = body.." » "..translations[playerVars[creatorId].playerLanguage].rewindUses..": <modRoom>"..playerStats[playerId].timesRewinded.."</modRoom>\n"
+    body = body.." » "..translations[playerVars[creatorId].playerLanguage].firstRate..": <R>"..firstrate.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorId].playerLanguage].holeEnters..": <R>"..playerStats[playerId].timesEnteredInHole.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorId].playerLanguage].graffitiUses..": <R>"..playerStats[playerId].graffitiSprays.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorId].playerLanguage].dashUses..": <R>"..playerStats[playerId].timesDashed.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorId].playerLanguage].rewindUses..": <R>"..playerStats[playerId].timesRewinded.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorId].playerLanguage].hardcoreMaps..": <R>"..playerStats[playerId].hardcoreMaps.."</R>\n"
 
     return body
 end
@@ -1007,39 +1037,37 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
             if playerVars[id].menuPage == 0 then
-                createPage(translations[playerVars[id].playerLanguage].shopTitle, translations[playerVars[id].playerLanguage].shopNotice, playerName)
+                createPage(translations[playerVars[id].playerLanguage].shopTitle, translations[playerVars[id].playerLanguage].shopNotice, playerName, "shop")
             else
-                updatePage(translations[playerVars[id].playerLanguage].shopTitle, translations[playerVars[id].playerLanguage].shopNotice, playerName)
+                updatePage(translations[playerVars[id].playerLanguage].shopTitle, translations[playerVars[id].playerLanguage].shopNotice, playerName, "shop")
             end
         end
         if eventName == "StatsOpen" then
             if playerVars[id].menuPage == 0 then
-                createPage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, id, id), playerName)
+                createPage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, id, id), playerName, "profile")
             else
-                updatePage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, id, id), playerName)
+                updatePage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, id, id), playerName, "profile")
             end
         end
         if eventName == "LeaderOpen" then
             if playerVars[id].menuPage == 0 then
-                createPage(translations[playerVars[id].playerLanguage].leaderboardsTitle, translations[playerVars[id].playerLanguage].leaderboardsNotice, playerName)
+                createPage(translations[playerVars[id].playerLanguage].leaderboardsTitle, translations[playerVars[id].playerLanguage].leaderboardsNotice, playerName, "leaderboards")
             else
-                updatePage(translations[playerVars[id].playerLanguage].leaderboardsTitle, translations[playerVars[id].playerLanguage].leaderboardsNotice, playerName)
+                updatePage(translations[playerVars[id].playerLanguage].leaderboardsTitle, translations[playerVars[id].playerLanguage].leaderboardsNotice, playerName, "leaderboards")
             end
         end
         if eventName == "SettingsOpen" then
             if playerVars[id].menuPage == 0 then
-                playerVars[id].menuPage = "settings"
-                createPage(translations[playerVars[id].playerLanguage].settingsTitle, remakeOptions(playerName), playerName)
+                createPage(translations[playerVars[id].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
             else
-                playerVars[id].menuPage = "settings"
-                updatePage(translations[playerVars[id].playerLanguage].settingsTitle, remakeOptions(playerName), playerName)
+                updatePage(translations[playerVars[id].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
             end
         end
         if eventName == "AboutOpen" then
             if playerVars[id].menuPage == 0 then
-                createPage(translations[playerVars[id].playerLanguage].aboutTitle, translations[playerVars[id].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION, playerName)
+                createPage(translations[playerVars[id].playerLanguage].aboutTitle, translations[playerVars[id].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p>", playerName, "about")
             else
-                updatePage(translations[playerVars[id].playerLanguage].aboutTitle, translations[playerVars[id].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION, playerName)
+                updatePage(translations[playerVars[id].playerLanguage].aboutTitle, translations[playerVars[id].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p>", playerName, "about")
             end
         end
     end
@@ -1077,7 +1105,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
                 end
             end
         end
-        updatePage(translations[playerVars[id].playerLanguage].settingsTitle, remakeOptions(playerName), playerName)
+        updatePage(translations[playerVars[id].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
     end
 
     if eventName == "CloseMenu" then
@@ -1107,6 +1135,14 @@ function resetAll()
     for index, value in pairs(playerVars) do
         playerVars[index].playerBestTime = 999999
         playerVars[index].playerBestTime = 999999
+    end
+
+    -- Close stats if they have it opened
+    for name, value in pairs(room.playerList) do
+        local _id = value.id
+        if playerVars[_id].menuPage == "roomStats" then
+            closePage(name)
+        end
     end
 
     for playerName in pairs(room.playerList) do
@@ -1265,15 +1301,24 @@ function eventChatCommand(playerName, message)
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
                 if playerVars[id].menuPage == 0 then
-                    playerVars[id].menuPage = "stats"
-                    createPage(translations[playerVars[id].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], room.playerList[arg[2]].id, id), playerName, id)
+                    createPage(translations[playerVars[id].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], room.playerList[arg[2]].id, id), playerName, id, "profile")
                 else
-                    playerVars[id].menuPage = "stats"
-                    updatePage(translations[playerVars[id].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], room.playerList[arg[2]].id, id), playerName, id)
+                    updatePage(translations[playerVars[id].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], room.playerList[arg[2]].id, id), playerName, id, "profile")
                 end
                 break
             end
         end
+    end
+
+    if arg[1] == "langue" and arg[2] ~= nil then
+        for i = 1, #languages do
+            if arg[2] == languages[i] then
+                playerVars[id].playerLanguage = arg[2]
+                generateHud(playerName)
+                return
+            end
+        end
+        chatMessage(arg[2].."doesn't exist yet.")
     end
 
     if isValid == false then
