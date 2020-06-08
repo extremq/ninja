@@ -427,7 +427,6 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         -- Else we had it already open, so we close the page
         else
             closePage(playerName)
-            closeMenu(playerName)
         end
     -- OPEN GUIDE / HELP (H)
     elseif keyCode == 72 then
@@ -955,6 +954,7 @@ end
     This way i have standard UI and never have conflicts.
 ]]--
 function pageOperation(title, body, playerName, pageId)
+    clear(playerName)
     local id = playerId(playerName)
     if playerVars[playerName].menuPage ~= "help" then
         playerVars[playerName].helpOpen = false
@@ -972,15 +972,20 @@ function pageOperation(title, body, playerName, pageId)
     return pageTitle..pageBody
 end
 
+-- Used to create a page
 function createPage(title, body, playerName, pageId)
     ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x241f13, 0xbfa26d, 1, true)
 end
 
+
+-- Used to update a page
 function updatePage(title, body, playerName, pageId)
     ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
 end
 
+-- Used to close a page
 function closePage(playerName)
+    clear(playerName)
     local id = playerId(playerName)
     removeTextArea(13, playerName)
     removeTextArea(12, playerName)
@@ -988,6 +993,14 @@ function closePage(playerName)
     playerVars[playerName].menuPage = 0
     playerVars[playerName].helpOpen = false
     imgs[playerName].menuImgId = -1
+end
+
+-- Used to clear images from menu
+function clear(playerName)
+    local page = playerVars[playerName].menuPage
+    if page == "shop" then
+        clearWelcomeImages(playerName)
+    end
 end
 
 --This returns the body of the profile screen, generating the stats of the selected player's profile.
@@ -1044,7 +1057,8 @@ function generateShopWelcome(playerName)
     return body
 end
 
-function closeMenu(playerName)
+-- Clears welcomeScreen images
+function clearWelcomeImages(playerName)
     local id = playerId(playerName)
     removeImage(imgs[playerName].shopWelcomeDash, playerName)
     local graffitiTextOffset = 1000000000
@@ -1142,7 +1156,6 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
 
     if eventName == "CloseMenu" then
         closePage(playerName)
-        closeMenu(playerName)
     end
 
     if eventName == "CloseWelcome" then
