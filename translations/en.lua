@@ -4,9 +4,10 @@ translations.en = {
     helpToolTip = "<p align='center'>Press <b>H</b> for help.</p>",
     optionsYes = "<font color='#53ba58'>Yes</font>",
     optionsNo = "<font color='#ba5353'>No</font>",
-    testSetting = "Dummy setting",
+    graffitiSetting = "Enable graffitis",
     particlesSetting = "Enable dash/jump particles",
     timePanelsSetting = "Enable time panels",
+    globalChatSetting = "Enable global chat",
     voteStart = " started a vote to skip the current map. Type !yes to vote positively.",
     newRecord = " finished the map in the fastest time!",
     devInfo = "<V>Want to submit a map? Check this link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>This module is in development. Please report any bugs to Extremq#0000 or Railysse#0000.</font>",
@@ -15,13 +16,14 @@ translations.en = {
     helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (3s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Commands</b>:\n» !p Name#id - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n» !langue country - Change the language of the module. (only for you)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
     Xbtn = "X",
     -- IF YOUR LANGUAGE HAS SEPCIAL CHARACTERS, PLEASE JUST LEAVE THESE AS DEFAULT
-    shopTitle = "Shop",
+    shopTitle = "Collection",
     profileTitle = "Profile",
     leaderboardsTitle = "Leaderboards",
     settingsTitle = "Settings",
     aboutTitle = "About",
     -- END
     aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGamplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    playtime = "Playtime",
     firsts = "Firsts",
     finishedMaps = "Completed maps",
     firstRate = "First rate",

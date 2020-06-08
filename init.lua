@@ -1,7 +1,7 @@
 -- LOCALS FOR SPEED
 local room = tfm.get.room
-local displayParticle = tfm.exec.displayParticle 
-local movePlayer = tfm.exec.movePlayer 
+local displayParticle = tfm.exec.displayParticle
+local movePlayer = tfm.exec.movePlayer
 local setNameColor = tfm.exec.setNameColor
 local addImage = tfm.exec.addImage
 local bindKeyboard = system.bindKeyboard
@@ -22,14 +22,14 @@ local translations = {}
 {% require-dir "translations" %}
 
 -- Standard maps
-stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}}
-stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}}
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
 
 -- Hardcore maps
-hcMapCodes = {{"@7733773", 6}}
-hcMapsLeft = {{"@7733773", 6}}
+hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
+hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
 
-modList = {"Extremq#0000", "Railysse#0000"}
+modList = {['Extremq#0000'] = true, ['Railysse#0000'] = true}
 modRoom = {}
 opList = {}
 lastMap = ""
@@ -38,7 +38,7 @@ mapStartTime = 0
 mapDiff = 0
 mapCount = 1
 
-VERSION = "1.5.2, 06.06.2020"
+VERSION = "1.5.3, 07.06.2020"
 
 --CONSTANTS
 MAPTIME = 4 * 60
@@ -47,7 +47,7 @@ STATSTIME = 10 * 1000
 DASHCOOLDOWN = 1 * 1000
 JUMPCOOLDOWN = 3 * 1000
 REWINDCOOLDONW = 10 * 1000
-GRAFFITICOOLDOWN = 60 * 1000
+GRAFFITICOOLDOWN = 15 * 1000
 DASH_BTN_X = 675
 DASH_BTN_Y = 340
 JUMP_BTN_X = 740
@@ -69,7 +69,7 @@ CHECKPOINT_MOUSE = "17257fd86f3.png"
 MENU_BUTTONS = "1725ce45065.png"
 
 -- CHOOSE MAP
-function randomMap(mapsLeft, mapCodes)  
+function randomMap(mapsLeft, mapCodes)
     -- DELETE THE CHOSEN MAP
     if #mapsLeft == 0 then
         for key, value in pairs(mapCodes) do
@@ -88,7 +88,10 @@ function randomMap(mapsLeft, mapCodes)
     table.remove(mapsLeft, pos)
     lastMap = newMap[1]
     mapDiff = newMap[2]
-    MAPTIME = BASETIME + (mapDiff % 6 - 1) * 30
+    MAPTIME = BASETIME + (mapDiff - 1) * 30
+    if mapDiff == 6 then
+        MAPTIME = 5 * 60
+    end
     return newMap[1]
 end
 
@@ -117,34 +120,43 @@ tfm.exec.setGameTime(MAPTIME, true)
 keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 bestTime = 99999
 
-function shopListing(values, imgId, tooltip)
+function shopListing(values, imgId, tooltip, reqs)
     return {
-        ['tooltip'] = tooltip, 
-        ['imgId'] = imgId, 
-        ['values'] = values
+        ['values'] = values,
+        ['imgId'] = imgId,
+        ['tooltip'] = tooltip,
+        ['reqs'] = reqs
     }
 end
 
 shop = {
     dashAcc = {
-        shopListing(tfm.enum.particle.cloud, "someId", "This is the default particle."),
-        shopListing({tfm.enum.particle.cloud, tfm.enum.particle.heart}, "someId", "Add some hearts to your dash!")
+        shopListing({3}, "1728b45b3eb.png", "This is the default particle.", "Free."),
+        shopListing({3, 31}, "1728b44464b.png", "Add some hearts to your dash!", "Secret."),
+        shopListing({3, 13}, "1728b442708.png", "Sleek. Just like you.", "Finish 1 map first.")
     },
     graffitiCol = {
-        shopListing(0xffffff, "someId", "This is the default graffiti color."),
-        shopListing(0x000000, "someId", "You're a dark person.")
+        shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free."),
+        shopListing('#000000', '#000000', "You're a dark person.", "Finish 10 maps."),
+        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.")
     },
     graffitiImgs = {
-        shopListing(nil, "someId", "This is the default image (no image)."),
-        shopListing("someOtherId", "someId", "Say cheese!")
+        shopListing(nil, nil, "This is the default image (no image).", "Free."),
+        shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.")
     },
     graffitiFonts = {
-        shopListing("Comic Sans MS", "someId", "This is the default font for graffitis.")
+        shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free."),
+        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 20."),
+        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.")
     }
 }
 
+-- We save ids so when a player leaves we still have their id (mostly to remove graffitis)
+playerIds = {}
+
 playerStats = {
     -- {
+    --     playtime = 0,
     --     mapsFinished = 0,
     --     mapsFinishedFirst = 0,
     --     timesEnteredInHole = 0,
@@ -152,6 +164,7 @@ playerStats = {
     --     timesDashed = 0,
     --     timesRewinded = 0,
     --     hardcoreMaps = 0,
+    --     equipment = {0, 0, 0, 0}
     -- }
 }
 
@@ -193,12 +206,13 @@ playerVars = {
     -- id = {
     --     playerBestTime = 0,
     --     playerLastTime = 0,
-    --     playerPreferences = {false, true, false},
+    --     playerPreferences = {true, true, false, false},
     --     playerLanguage = "en",
     --     playerFinished = false,
     --     rewindPos = {x, y},
     --     menuPage = 0,
-    --     helpOpen = false
+    --     helpOpen = false,
+    --     joinTime = os.time()
     -- }
 }
 globalPlayerCount = 0
@@ -215,48 +229,34 @@ hasShownStats = false
 
 -- RETURN PLAYER ID
 function playerId(playerName)
-    return room.playerList[playerName].id
+    return playerIds[playerName]
 end
 
-function checkMod(playerName)
-    for index, name in pairs(modList) do
-        if name == playerName then
-            return true
-        end
-    end
-    return false
-end
-
-function checkRoomMod(playerName)
-    for index, name in pairs(modRoom) do
-        if name == playerName then
-            return true
-        end
-    end
-    return false
-end
-
-function showDashParticles(type, direction, x, y) 
+function showDashParticles(types, direction, x, y)
     -- Only display particles to the players who haven't disabled the setting
     for name, data in pairs(room.playerList) do
         if room.playerList[name].id ~= 0 and playerVars[room.playerList[name].id].playerPreferences[2] == true then
-            displayParticle(type, x, y, random() * direction, random(), 0, 0, name)
-            displayParticle(type, x, y, random() * direction, -random(), 0, 0, name)
-            displayParticle(type, x, y, random() * direction, -random(), 0, 0, name)
-            displayParticle(type, x, y, random() * direction, -random(), 0, 0, name)
+            for i = 1, #types do
+                displayParticle(types[i], x, y, random() * direction, random(), 0, 0, name)
+                displayParticle(types[i], x, y, random() * direction, -random(), 0, 0, name)
+                displayParticle(types[i], x, y, random() * direction, -random(), 0, 0, name)
+                displayParticle(types[i], x, y, random() * direction, -random(), 0, 0, name)
+            end
         end
     end
 end
 
 -- This is different because jump has other directions
-function showJumpParticles(type, x, y)
+function showJumpParticles(types, x, y)
     -- Only display particles to the players who haven't disabled the setting
     for name, data in pairs(room.playerList) do
         if room.playerList[name].id ~= 0 and playerVars[room.playerList[name].id].playerPreferences[2] == true then
-            displayParticle(type, x, y, random(), -random()*4, 0, 0, name)
-            displayParticle(type, x, y, -random(), -random()*3, 0, 0, name)
-            displayParticle(type, x, y, -random(), -random()*2, 0, 0, name)
-            displayParticle(type, x, y, random(), -random()*2, 0, 0, name)
+            for i = 1, #types do
+                displayParticle(types[i], x, y, random(), -random()*2, 0, 0, name)
+                displayParticle(types[i], x, y, -random(), -random()*2, 0, 0, name)
+                displayParticle(types[i], x, y, -random(), -random()*2, 0, 0, name)
+                displayParticle(types[i], x, y, random(), -random()*2, 0, 0, name)
+            end
         end
     end
 end
@@ -277,7 +277,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     end
 
     local ostime = os.time()
-    
+
     -- Everything here is for gameplay, so we only check them if the player isnt dead
     if room.playerList[playerName].isDead == false then
         --[[
@@ -294,7 +294,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             -- we check wether its left or right and if we double-tapped or not (can't shorten this)
             if keyCode == 2 and ostime - cooldowns[id].lastRightPressTime < 200 then
                 dashUsed = true;
-            elseif 
+            elseif
                 keyCode == 0 and ostime - cooldowns[id].lastLeftPressTime < 200 then
                 dashUsed = true;
             end
@@ -304,19 +304,19 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
                 -- Update cooldowns
                 cooldowns[id].lastDashTime = ostime
                 states[id].dashState = false
-                
+
                 -- Update cd image
                 removeImage(imgs[id].dashButtonId)
                 imgs[id].dashButtonId = addImage(DASH_BTN_OFF, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-                
+
                 -- Update stats
                 playerStats[id].timesDashed = playerStats[id].timesDashed + 1
-                
+
                 -- Move the palyer
                 movePlayer(playerName, 0, 0, true, 150 * direction, 0, false)
-                
+
                 -- Now, we can change the 3 with whatever the player has equipped in the shop!
-                showDashParticles(3, direction, xPlayerPosition, yPlayerPosition)
+                showDashParticles(shop.dashAcc[playerStats[id].equipment[1]].values, direction, xPlayerPosition, yPlayerPosition)
             end
         --[[
             We check for the key, then if its a double press, then the cooldown. (by the way, if it fails to check, for example,
@@ -332,15 +332,15 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             -- Update jump cd image
             removeImage(imgs[id].jumpButtonId)
             imgs[id].jumpButtonId = addImage(JUMP_BTN_OFF, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
-            
+
             -- Update stats
             playerStats[id].timesDashed = playerStats[id].timesDashed + 1
 
             -- Move player
             movePlayer(playerName, 0, 0, true, 0, -60, false)
-            
+
             -- Display jump particles
-            showJumpParticles(3, xPlayerPosition, yPlayerPosition)
+            showJumpParticles(shop.dashAcc[playerStats[id].equipment[1]].values, xPlayerPosition, yPlayerPosition)
         --[[
             The rewind is a bit more complicated, since it has 3 states: available, in use, not available.
             My first check is if I can rewind (state 2), then if my cooldown is available (state 1).
@@ -385,7 +385,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
                 playerVars[id].rewindPos = {xPlayerPosition, yPlayerPosition, room.playerList[playerName].hasCheese}
 
                 -- Update hourglass
-                imgs[id].mouseImgId = addImage(CHECKPOINT_MOUSE, "_100", xPlayerPosition - 59/2, yPlayerPosition - 73/2, playerName)       
+                imgs[id].mouseImgId = addImage(CHECKPOINT_MOUSE, "_100", xPlayerPosition - 59/2, yPlayerPosition - 73/2, playerName)
                 removeImage(imgs[id].rewindButtonId)
                 imgs[id].rewindButtonId = addImage(REWIND_BTN_OFF, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
 
@@ -396,13 +396,18 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         elseif keyCode == 67 and ostime - cooldowns[id].lastGraffitiTime > GRAFFITICOOLDOWN  then
             -- Update cooldowns
             cooldowns[id].lastGraffitiTime = ostime
-            
+
             -- Update stats
             playerStats[id].graffitiSprays = playerStats[id].graffitiSprays + 1
-            
+
             -- Create graffiti
-            removeTextArea(id, nil)
-            addTextArea(id, "<p align='center'><font face='Comic Sans MS' size='16' color='#ffffff'>"..playerName, nil, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)   
+            for player, data in pairs(room.playerList) do
+                local _id = data.id
+                -- If the player has graffitis enabled, we display them
+                if playerVars[_id].playerPreferences[1] == true then
+                    addTextArea(id, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[id].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[id].equipment[2]].imgId.."'>"..playerName.."</font></p>", player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
+                end
+            end
         end
         -- This needs to be after dash/jump blocks.
         if keyCode == 0 then
@@ -426,6 +431,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         -- Else we had it already open, so we close the page
         else
             closePage(playerName)
+            closeMenu(playerName)
         end
     -- OPEN GUIDE / HELP (H)
     elseif keyCode == 72 then
@@ -437,10 +443,10 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             else
                 createPage("#ninja", translations[playerVars[id].playerLanguage].helpBody, playerName, "help")
             end
-            playerVars[id].helpOpen = true 
+            playerVars[id].helpOpen = true
         elseif playerVars[id].helpOpen == true then
             closePage(playerName)
-            playerVars[id].helpOpen = false 
+            playerVars[id].helpOpen = false
         end
     end
 end
@@ -466,7 +472,7 @@ function updateMapName(timeRemaining)
     local currentmapauthor = ""
     local currentmapcode = ""
     local difficulty = mapDiff
-    
+
     -- This part is in case anything bad happens to the values (sometimes tfm is crazy :D)
     if room.xmlMapInfo == nil then
         currentmapauthor = "?"
@@ -505,8 +511,8 @@ function updateMapName(timeRemaining)
 
     -- If the map is over, we show stats
     if timeRemaining < 0 then
-        name = "STATISTICS TIME!" 
-    end 
+        name = "STATISTICS TIME!"
+    end
 
     name = name.."<"
     setMapName(name)
@@ -554,7 +560,7 @@ function eventLoop(elapsedTime, timeRemaining)
     -- Can't rely on elapsedTime
     updateMapName(MAPTIME * 1000 - (ostime - mapStartTime))
     --print(elapsedTime / 1000)
-    
+
     -- When time reaches 0, we kill everyone and show stats
     if (elapsedTime >= MAPTIME * 1000 and elapsedTime < MAPTIME * 1000 + STATSTIME) then
         for index, value in pairs(room.playerList) do
@@ -571,7 +577,7 @@ function eventLoop(elapsedTime, timeRemaining)
         mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
         -- Choose maptipe
-        if mapCount % 5 == 100 then -- I don't want to run this yet
+        if mapCount % 5 == 0 then -- I don't want to run this yet
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
             tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
@@ -579,7 +585,7 @@ function eventLoop(elapsedTime, timeRemaining)
         -- Reset player values.
         resetAll()
     -- Else we are currently in the round, we respawn/update the cooldown indicators
-    else    
+    else
         for playerName in pairs(room.playerList) do
             local id = playerId(playerName)
             if id ~= 0 then
@@ -667,7 +673,7 @@ function setColor(playerName)
         color = 0xBABD2F
     end
 
-    if checkRoomMod(playerName) == true then
+    if modRoom[playerName] == true then
         color = 0x2E72CB
     end
 
@@ -681,16 +687,16 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     if imgs[id].mouseImgId ~= nil then
         removeImage(imgs[id].mouseImgId)
     end
-    
+
     -- If we're a mod, then we don't count the win
-    if checkRoomMod(playerName) == true then
+    if modRoom[playerName] == true or opList[playerName] == true then
         return
     end
 
     playerStats[id].timesEnteredInHole = playerStats[id].timesEnteredInHole + 1
-    
+
     -- SEND CHAT MESSAGE FOR PLAYER
-    chatMessage(translations[playerVars[id].playerLanguage].finishedInfo..(timeElapsedSinceRespawn/100).."s", playerName)
+    chatMessage(translations[playerVars[id].playerLanguage].finishedInfo.."(<V>"..(timeElapsedSinceRespawn/100).."s</V>)", playerName)
 
     if playerVars[id].playerFinished == false then
         playerStats[id].mapsFinished = playerStats[id].mapsFinished + 1
@@ -726,12 +732,12 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     -- UPDATE "YOUR TIME"
     ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[id].playerLanguage].lastTime..": "..(timeElapsedSinceRespawn/100).."s", playerName)
     ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[id].playerLanguage].lastBestTime..": "..(playerVars[id].playerBestTime/100).."s", playerName)
-    
+
     -- bestTime is a global variable for record
     if timeElapsedSinceRespawn <= bestTime then
         bestTime = timeElapsedSinceRespawn
 
-        if fastestplayer ~= -1 then 
+        if fastestplayer ~= -1 then
             local oldFastestPlayer = fastestplayer
 
             fastestplayer = playerName
@@ -740,7 +746,7 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
         else
             fastestplayer = playerName
         end
-        
+
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
@@ -752,6 +758,12 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
 end
 
 function eventPlayerLeft(playerName)
+    -- Throws an error if i retrieve playerId from room
+    local id = playerIds[playerName]
+    for player, data in pairs(room.playerList) do
+        removeTextArea(id, player)
+    end
+
     -- We don't count souris
     if string.find(playerName, '*') then
         return
@@ -762,7 +774,7 @@ end
 -- CALL THIS WHEN A PLAYER FIRST JOINS A ROOM
 function initPlayer(playerName)
     -- ID USED FOR PLAYER OBJECTS
-    local id = playerId(playerName)
+    local id = room.playerList[playerName].id
 
     -- IGNORE SOURIS
     if id == 0 then
@@ -770,12 +782,17 @@ function initPlayer(playerName)
         return
     end
 
+    playerIds[playerName] = id
+
     -- NUMBER OF THE PLAYER SINCE MAP WAS CREATED
     globalPlayerCount = globalPlayerCount + 1
     -- IF FIRST PLAYER, (NEW MAP) MAKE ADMIN
     if globalPlayerCount == 1 then
         admin = playerName
     end
+
+    modRoom[playerName] = false
+    opList[playerName] = false
 
     -- BIND MOUSE
     system.bindMouse(playerName, true)
@@ -798,40 +815,53 @@ function initPlayer(playerName)
             checkpointTime = 0,
             canRewind = false
     }
-    
+
     playerVars[id] = {
         playerBestTime = 999999,
         playerLastTime = 999999,
-        playerPreferences = {false, true, false},
+        playerPreferences = {true, true, false, false},
         playerLanguage = "en",
         playerFinished = false,
         rewindPos = {0, 0},
         menuPage = 0,
-        helpOpen = false
+        helpOpen = false,
+        joinTime = os.time()
     }
 
+    -- If the player finished
+    for key, value in pairs(playerSortedBestTime) do
+        if value[1] == playerName then
+            playerVars[id].playerFinished = true
+        end
+    end
+
     playerStats[id] = {
+        playtime = 0,
         mapsFinished = 0,
         mapsFinishedFirst = 0,
         timesEnteredInHole = 0,
         graffitiSprays = 0,
         timesDashed = 0,
         timesRewinded = 0,
-        hardcoreMaps = 0
+        hardcoreMaps = 0,
+        equipment = {2, 3, 1, 3}
     }
-    
+    if playerName ~= "Extremq#0000" then
+        playerStats[id].equipment = {1, 1, 1, 1}
+    end
+ 
     states[id] = {
         jumpState = true,
         dashState = true,
         rewindState = 1
     }
-   
+
     local jmpid = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
     local dshid = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
     local rwdid = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
     local hlpid = addImage(HELP_IMG, ":100", 114, 23, playerName)
     addTextArea(10, "<a href='event:CloseWelcome'><font color='transparent'>\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n <font></a>", playerName, 129, 29, 541, 342, 0x324650, 0x000000, 0, true)
-    
+
     imgs[id] = {
         jumpButtonId = jmpid,
         dashButtonId = dshid,
@@ -839,7 +869,10 @@ function initPlayer(playerName)
         helpImgId = hlpid,
         helpImgId = hlpid,
         mouseImgId = nil,
-        menuImgId = -1
+        menuImgId = -1,
+        shopWelcomeDash = nil,
+        shopWelcomeGraffiti = nil,
+        graffitiImg = nil
     }
 
     -- SET DEFAULT COLOR
@@ -859,7 +892,7 @@ function generateHud(playerName)
     removeTextArea(6, playerName)
     -- GENERATE UI
     addTextArea(6, translations[playerVars[id].playerLanguage].helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
-        
+
     -- SEND HELP message
     chatMessage(translations[playerVars[id].playerLanguage].welcomeInfo.."\n"..translations[playerVars[id].playerLanguage].devInfo, playerName)
 end
@@ -903,9 +936,9 @@ end
 
 function eventMouse(playerName, xMousePosition, yMousePosition)
     local id = playerId(playerName)
-    local playerX = room.playerList[playerName].x 
+    local playerX = room.playerList[playerName].x
     -- print("click at "..xMousePosition)
-    if checkRoomMod(playerName) then
+    if modRoom[playerName] == true or opList[playerName] == true then
         movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
     else
         --[[
@@ -938,41 +971,32 @@ end
     Every page of the UI is the same textarea.
     When i open something for the first time, i use createPage.
     When i open something and already have some ui active, i use updatePage.
-    This way i have standard UI and never have conflicts. 
+    This way i have standard UI and never have conflicts.
 ]]--
-function createPage(title, body, playerName, pageId)
+function pageOperation(title, body, playerName, pageId)
     local id = playerId(playerName)
     if playerVars[id].menuPage ~= "help" then
         playerVars[id].helpOpen = false
     end
     local closebtn = "<p align='center'><font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerVars[id].playerLanguage].Xbtn.."</a></font></p>"
-    
+
     local spaceLength = 40 - #translations[playerVars[id].playerLanguage].Xbtn - #title
     local padding = ""
-    for i = 1, spaceLength do 
+    for i = 1, spaceLength do
         padding = padding.." "
     end
-    local pagetitle = "<font size='16' face='Lucida Console'>"..title.."<textformat>"..padding.."</textformat>"..closebtn.."</font>\n"
-    local pagebody = body
+    local pageTitle = "<font size='16' face='Lucida Console'>"..title.."<textformat>"..padding.."</textformat>"..closebtn.."</font>\n"
+    local pageBody = body
     playerVars[id].menuPage = pageId
-    ui.addTextArea(13, pagetitle..pagebody, playerName, 200, 50, 405, 300, 0x241f13, 0xbfa26d, 0.9, true)
+    return pageTitle..pageBody
+end
+
+function createPage(title, body, playerName, pageId)
+    ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 405, 300, 0x241f13, 0xbfa26d, 1, true)
 end
 
 function updatePage(title, body, playerName, pageId)
-    local id = playerId(playerName)
-    if playerVars[id].menuPage ~= "help" then
-        playerVars[id].helpOpen = false
-    end
-    local closebtn = "<p align='center'><font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerVars[id].playerLanguage].Xbtn.."</a></font></p>"
-    local spaceLength = 40 - #translations[playerVars[id].playerLanguage].Xbtn - #title
-    local padding = ""
-    for i = 1, spaceLength do 
-        padding = padding.." "
-    end
-    local pagetitle = "<font size='16' face='Lucida Console'>"..title.."<textformat>"..padding.."</textformat>"..closebtn.."</font>\n"
-    local pagebody = body
-    playerVars[id].menuPage = pageId
-    ui.updateTextArea(13, pagetitle..pagebody, playerName)
+    ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
 end
 
 function closePage(playerName)
@@ -987,14 +1011,11 @@ end
 
 --This returns the body of the profile screen, generating the stats of the selected player's profile.
 function stats(playerName, playerId, creatorId)
-    --     mapsFinished = 0,
-    --     mapsFinishedFirst = 0,
-    --     timesEnteredInHole = 0,
-    --     graffitiSprays = 0,
-    --     timesDashed = 0,
-    --     timesRewinded = 0
     local body = "\n"
-    
+
+    local seconds = math.floor((os.time() - playerVars[playerId].joinTime) / 1000)
+
+    body = body.." » "..translations[playerVars[creatorId].playerLanguage].playtime..": <R>"..math.floor(seconds/3600).."</R>h <R>"..math.floor(seconds%3600/60).."</R>m <R>"..(seconds%3600%60).."</R>s\n"
     body = body.." » "..translations[playerVars[creatorId].playerLanguage].firsts..": <R>"..playerStats[playerId].mapsFinishedFirst.."</R>\n"
     body = body.." » "..translations[playerVars[creatorId].playerLanguage].finishedMaps..": <R>"..playerStats[playerId].mapsFinished.."</R>\n"
     local firstrate = "0%"
@@ -1015,17 +1036,38 @@ end
 function remakeOptions(playerName)
     -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
     local id = playerId(playerName)
-    toggles = {translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes, translations[playerVars[id].playerLanguage].optionsYes}
-    if playerVars[id].playerPreferences[1] == false then
-        toggles[1] = translations[playerVars[id].playerLanguage].optionsNo
+
+
+    toggles = {}
+    for i = 1, #playerVars[id].playerPreferences do
+        if playerVars[id].playerPreferences[i] == true then
+            toggles[i] = translations[playerVars[id].playerLanguage].optionsYes
+        else
+            toggles[i] = translations[playerVars[id].playerLanguage].optionsNo
+        end
     end
-    if playerVars[id].playerPreferences[2] == false then
-        toggles[2] = translations[playerVars[id].playerLanguage].optionsNo
-    end
-    if playerVars[id].playerPreferences[3] == false then
-        toggles[3] = translations[playerVars[id].playerLanguage].optionsNo
-    end
-    return " » <a href=\"event:ToggleDummy\">"..translations[playerVars[id].playerLanguage].testSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[id].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[id].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
+
+    local body = " » <a href=\"event:ToggleGraffiti\">"..translations[playerVars[id].playerLanguage].graffitiSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[id].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[id].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
+    body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..translations[playerVars[id].playerLanguage].globalChatSetting.."?</a> "..toggles[4].."\n"
+    return body
+end
+
+-- This only is the welcome screen :D
+function generateShopWelcome(playerName)
+    local id = playerId(playerName)
+    local dashX, dashY = 255, 150
+
+    imgs[id].shopWelcomeDash = addImage(shop.dashAcc[playerStats[id].equipment[1]].imgId, "&2", dashX, dashY, playerName)
+
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p></font>\n\n\n\n\n\n\n\n\n<font face='Lucida Console' size='16'><textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
+    return body
+end
+
+function closeMenu(playerName)
+    local id = playerId(playerName)
+    removeImage(imgs[id].shopWelcomeDash, playerName)
+    local graffitiTextOffset = 1000000000
+    removeTextArea(id + graffitiTextOffset, playerName)
 end
 
 function eventTextAreaCallback(textAreaId, playerName, eventName)
@@ -1033,14 +1075,17 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     if id == 0 then
         return
     end
+
     -- 12 is the id for the menu buttons
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
             if playerVars[id].menuPage == 0 then
-                createPage(translations[playerVars[id].playerLanguage].shopTitle, translations[playerVars[id].playerLanguage].shopNotice, playerName, "shop")
+                createPage(translations[playerVars[id].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
             else
-                updatePage(translations[playerVars[id].playerLanguage].shopTitle, translations[playerVars[id].playerLanguage].shopNotice, playerName, "shop")
+                updatePage(translations[playerVars[id].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
             end
+            local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
+            ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[id].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[id].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
         end
         if eventName == "StatsOpen" then
             if playerVars[id].menuPage == 0 then
@@ -1071,25 +1116,26 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             end
         end
     end
-    
+
     -- SETTINGS PAGE
     if playerVars[id].menuPage == "settings" and textAreaId == 13 then
-        if eventName == "ToggleDummy" then
+        if eventName == "ToggleGraffiti" then
             if playerVars[id].playerPreferences[1] == true then
                 playerVars[id].playerPreferences[1] = false
+                -- Remove graffitis
+                for player, data in pairs(room.playerList) do
+                    removeTextArea(data.id, player)
+                end
             else
                 playerVars[id].playerPreferences[1] = true
             end
-        end
-        if eventName == "ToggleDashPart" then
+        elseif eventName == "ToggleDashPart" then
             if playerVars[id].playerPreferences[2] == true then
                 playerVars[id].playerPreferences[2] = false
             else
                 playerVars[id].playerPreferences[2] = true
             end
-        end
-    
-        if eventName == "ToggleTimePanels" then
+        elseif eventName == "ToggleTimePanels" then
             if playerVars[id].playerPreferences[3] == true then
                 playerVars[id].playerPreferences[3] = false
                 removeTextArea(5, playerName)
@@ -1104,16 +1150,23 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
                     ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[id].playerLanguage].lastBestTime..": "..(playerVars[id].playerBestTime/100).."s", playerName)
                 end
             end
+        elseif eventName == "ToggleGlobalChat" then
+            if playerVars[id].playerPreferences[4] == true then
+                playerVars[id].playerPreferences[4] = false
+            else
+                playerVars[id].playerPreferences[4] = true
+            end
         end
         updatePage(translations[playerVars[id].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
     end
 
     if eventName == "CloseMenu" then
         closePage(playerName)
+        closeMenu(playerName)
     end
 
     if eventName == "CloseWelcome" then
-        if imgs[id].helpImgId ~= 0 then 
+        if imgs[id].helpImgId ~= 0 then
             removeImage(imgs[id].helpImgId)
         end
         removeTextArea(10, playerName)
@@ -1128,8 +1181,8 @@ function resetAll()
     fastestplayer = -1
     bestTime = 99999
     playerWon = 0
-    --[[ 
-        Manually checking the players that remained in cache, because someone 
+    --[[
+        Manually checking the players that remained in cache, because someone
         might leave when the map is changing and we don't want to use the older time.
     ]]--
     for index, value in pairs(playerVars) do
@@ -1171,6 +1224,24 @@ function resetAll()
     tfm.exec.setGameTime(MAPTIME, true)
 end
 
+function eventChatMessage(playerName, msg)
+    if room.community ~= "en" then
+        return
+    end
+
+    local id = playerId(playerName)
+    local data = room.playerList[playerName]
+
+    if playerVars[id].playerPreferences[4] == true then
+        for name, playerData in pairs(room.playerList) do 
+            if playerVars[playerData.id].playerPreferences[4] == true and playerName ~= name and playerData.community ~= data.community then
+                print("<V>["..playerData.community.."] ["..playerName.."]</V> <font color='#C2C2DA'>"..msg.."</font>")
+                chatMessage("<V>["..playerData.community.."] ["..playerName.."]</V> <font color='#C2C2DA'>"..msg.."</font>", name)
+            end
+        end
+    end
+end
+
 -- Chat commands
 function eventChatCommand(playerName, message)
     local id = playerId(playerName)
@@ -1186,15 +1257,13 @@ function eventChatCommand(playerName, message)
     local isOp = false
     local isMod = false
 
-    if checkMod(playerName) == true then
+    if modList[playerName] == true then
         isMod = true
         isOp = true
     end
 
-    for index, name in pairs(opList) do
-        if name == playerName then
-            isOp = true
-        end
+    if opList[playerName] == true then
+        isOp = true
     end
 
     if admin == playerName and customRoom == true then
@@ -1226,21 +1295,16 @@ function eventChatCommand(playerName, message)
     if isMod == true then
         if arg[1] == "mod" then
             isValid = true
-            if checkRoomMod(playerName) == false then
-                table.insert(modRoom, playerName)
+            if modRoom[playerName] == false then
+                modRoom[playerName] = true
                 local message = "You are a mod!"
                 --print(message)
                 chatMessage(message, playerName)
             else
-                for index, name in pairs(modRoom) do
-                    if name == playerName then
-                        table.remove(modRoom, index)
-                        local message = "You are no longer a mod!"
-                        --print(message)
-                        chatMessage(message, playerName)
-                        break
-                    end
-                end
+                modRoom[playerName] = false
+                local message = "You are no longer a mod!"
+                --print(message)
+                chatMessage(message, playerName)
             end
             setColor(playerName)
         end
@@ -1248,21 +1312,13 @@ function eventChatCommand(playerName, message)
         if arg[1] == "op" then
             isValid = true
             if arg[2] ~= nil then
-                local wasOp = false
-
-                for index, name in pairs(opList) do
-                    if name == arg[2] then
-                        table.remove(opList, index)
-                        local message = arg[2].." is no longer an operator."
-                        --print(arg[2].." is no longer an operator.")
-                        chatMessage(message, playerName)
-                        wasOp = true
-                        break
-                    end
-                end
-
-                if wasOp == false then
-                    table.insert(opList, arg[2])
+                if opList[arg[2]] == true then
+                    opList[arg[2]] = false
+                    local message = arg[2].." is no longer an operator."
+                    --print(arg[2].." is no longer an operator.")
+                    chatMessage(message, playerName)
+                else
+                    opList[arg[2]] = true
                     local message = arg[2].." is an operator!"
                     --print(arg[2].." is an operator!")
                     chatMessage(message, playerName)
@@ -1285,19 +1341,28 @@ function eventChatCommand(playerName, message)
 
     if arg[1] == "pw" and playerName == admin then
         isValid = true
-        if room.passwordProtected == false and arg[2] ~= nil then
+        if arg[2] ~= nil then
             customRoom = true
             tfm.exec.setRoomPassword(arg[2])
             chatMessage("Password: "..arg[2], playerName)
         else
             customRoom = false
             tfm.exec.setRoomPassword("")
-            chatMessage("Password: "..arg[2], playerName)
+            chatMessage("Password removed.", playerName)
         end
     end
 
-    if arg[1] == "p" or arg[1] == "profile" and arg[2] ~= nil then
+    if arg[1] == "p" or arg[1] == "profile" then
         isValid = true
+        if arg[2] == nil then
+            if playerVars[id].menuPage == 0 then
+                createPage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, room.playerList[playerName].id, id), playerName, id, "profile")
+            else
+                updatePage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, room.playerList[playerName].id, id), playerName, id, "profile")
+            end
+            return
+        end
+
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
                 if playerVars[id].menuPage == 0 then

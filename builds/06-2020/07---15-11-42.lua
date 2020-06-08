@@ -14,8 +14,8 @@ local random = math.random
 local addTextArea = ui.addTextArea
 local removeTextArea = ui.removeTextArea
 
--- addImage = function() end
--- removeImage = function() end
+addImage = function() end
+removeImage = function() end
 
 local languages = {"ro", "en", "fr"}
 local translations = {}
@@ -39,7 +39,7 @@ translations.en = {
     helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (3s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Commands</b>:\n» !p Name#id - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n» !langue country - Change the language of the module. (only for you)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
     Xbtn = "X",
     -- IF YOUR LANGUAGE HAS SEPCIAL CHARACTERS, PLEASE JUST LEAVE THESE AS DEFAULT
-    shopTitle = "Collection",
+    shopTitle = "Shop",
     profileTitle = "Profile",
     leaderboardsTitle = "Leaderboards",
     settingsTitle = "Settings",
@@ -79,7 +79,7 @@ translations.fr = {
     helpBody = "Vous devez ramener le fromage dans le trou le plus rapidement possible.\n\n<b>Capacités </b>:\n» Boost - Appuyez deux fois sur <b><font color='#CB546B'>la flèche gauche</font></b> ou <b><font color='#CB546B'>la flèche droite</font></b>. (1s de rechargement)\n» Saut - Appuyez deux fois sur <b><font color='#CB546B'>la flèche du haut</font></b>. (3s de rechargement)\n» Retour - Appuyez sur <b><font color='#CB546B'>espace</font></b> pour laisser un point de sauvegarde. Appuyez sur <b><font color='#CB546B'></font></b> encore une fois dans les 3 secondes qui suivent pour vous téléporter sur ce point de sauvegarde. (10s de recharge)\n\n<b>Autres raccourcis</b>:\n» Se tuer - Appuyez sur <b><font color='#CB546B'>X</font></b> ou écrivez /mort pour tuer la souris.\n» Ouvrir le menu - Apuyez sur <b><font color='#CB546B'>M</font></b> ou cliquez sur la partie gauche de votre écran pour ouvrir/fermer le menu.\n» Placer un graffiti - Appuyez sur <b><font color='#CB546B'>C</font></b> pour afficher un graffiti. (60s de rechargement)\n» Ouvrir l'aide - Appuyez sur <b><font color='#CB546B'>H</font></b> pour ouvrir/fermer cette affichage.\n\n<b>Commands</b>:\n» !p Name#id - Affiche les statistiques d'un autre joueur.\n» !pw mot de passe - Ajoute un mot de passe au salon. (le salon doit être créé par vous)\n» !m @code - Charge n'importe quel carte que vous voulez. (le salon doit avoir un mot de passe)\n» !langue pays - Change la langue du module. (seulement pour toi)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Fermer</font></b></a></p>", --23
     Xbtn = "X",
     -- IF YOUR LANGUAGE HAS SEPCIAL CHARACTERS, PLEASE JUST LEAVE THESE AS DEFAULT
-    shopTitle = "Collection",
+    shopTitle = "Boutique",
     profileTitle = "Profile",
     leaderboardsTitle = "Classement",
     settingsTitle = "Parametres",
@@ -118,7 +118,7 @@ translations.ro = {
     finishedInfo = "Ai terminat harta! Timp: ", --22
     helpBody = "Trebuie să aduci brânza înapoi la gaură cât mai rapid posibil.\n\n<b>Abilități</b>:\n» Dash - Apasă <b><font color='#CB546B'>săgeată Stânga</font></b> sau <b><font color='#CB546B'>Dreapta</font></b> de două ori. (reîncărcare 1s)\n» Jump - Apasă <b><font color='#CB546B'>săgeată Sus</font></b> de două ori. (reîncărcare 3s)\n» Rewind - Apasă <b><font color='#CB546B'>Spațiu</font></b> pentru a lăsa un checkpoint. Apasă <b><font color='#CB546B'>Spațiu</font></b> din nou în maximum 3 secunde pentru a te teleporta înapoi la checkpoint. (reîncărcare 10s)\n\n<b>Alte scurtături</b>:\n» Deschide meniul - Apasă <b><font color='#CB546B'>M</font></b> sau dă click în partea stângă a ecranului pentru a închide/deschide meniul.\n» Pune un graffiti - Apasă <b><font color='#CB546B'>C</font></b> pentru a lăsa un graffiti. (reîncărcare 60s\n» Omoară șoricelul - Apasă <b><font color='#CB546B'>X</font></b> sau scrie /mort pentru a omorî șoarecele.\n» Deschide instrucțiunile - Apasă <b><font color='#CB546B'>H</font></b> pentru a deschide/închide acest ecran.\n\n<b>Comenzi</b>:\n» !p Nume#id - Verifică statisticile altui player.\n» !pw Parolă - Pune parolă pe sală. (sala trebuie făcută de tine)\n» !m @cod - Încarcă ce hartă vrei tu. (trebuie ca sala să aibă parolă)\n» !langue țară - Schimbă limba modulului. (doar pentru tine)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Închide</font></b></a></p>", --23
     Xbtn = "X", -- 24
-    shopTitle = "Colecție", -- 25
+    shopTitle = "Magazin", -- 25
     profileTitle = "Profil", -- 26
     leaderboardsTitle = "Clasamente", -- 27
     settingsTitle = "Configurare", -- 28
@@ -141,12 +141,12 @@ translations.ro = {
 --[[ End of directory translations ]]--
 
 -- Standard maps
-stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
-stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}}
 
 -- Hardcore maps
-hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
-hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
+hcMapCodes = {{"@7733773", 6}}
+hcMapsLeft = {{"@7733773", 6}}
 
 modList = {['Extremq#0000'] = true, ['Railysse#0000'] = true}
 modRoom = {}
@@ -166,7 +166,7 @@ STATSTIME = 10 * 1000
 DASHCOOLDOWN = 1 * 1000
 JUMPCOOLDOWN = 3 * 1000
 REWINDCOOLDONW = 10 * 1000
-GRAFFITICOOLDOWN = 15 * 1000
+GRAFFITICOOLDOWN = 1 * 1000
 DASH_BTN_X = 675
 DASH_BTN_Y = 340
 JUMP_BTN_X = 740
@@ -241,32 +241,29 @@ bestTime = 99999
 
 function shopListing(values, imgId, tooltip, reqs)
     return {
-        ['values'] = values,
-        ['imgId'] = imgId,
         ['tooltip'] = tooltip,
+        ['imgId'] = imgId,
+        ['values'] = values,
         ['reqs'] = reqs
     }
 end
 
 shop = {
     dashAcc = {
-        shopListing({3}, "1728b45b3eb.png", "This is the default particle.", "Free."),
+        shopListing(3, "1728b45b3eb.png", "This is the default particle.", "Free."),
         shopListing({3, 31}, "1728b44464b.png", "Add some hearts to your dash!", "Secret."),
         shopListing({3, 13}, "1728b442708.png", "Sleek. Just like you.", "Finish 1 map first.")
     },
     graffitiCol = {
-        shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free."),
-        shopListing('#000000', '#000000', "You're a dark person.", "Finish 10 maps."),
-        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.")
+        shopListing(0xffffff, "someId", "This is the default graffiti color.", "Free."),
+        shopListing(0x000000, "someId", "You're a dark person.", "Finish 10 maps.")
     },
     graffitiImgs = {
-        shopListing(nil, nil, "This is the default image (no image).", "Free."),
-        shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.")
+        shopListing(nil, "someId", "This is the default image (no image).", "Free."),
+        shopListing("someOtherId", "someId", "Say cheese!", "Finish 1 harcore map.")
     },
     graffitiFonts = {
-        shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free."),
-        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 20."),
-        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.")
+        shopListing("Comic Sans MS", "someId", "This is the default font for graffitis.", "Free.")
     }
 }
 
@@ -283,7 +280,6 @@ playerStats = {
     --     timesDashed = 0,
     --     timesRewinded = 0,
     --     hardcoreMaps = 0,
-    --     equipment = {0, 0, 0, 0}
     -- }
 }
 
@@ -435,7 +431,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
                 movePlayer(playerName, 0, 0, true, 150 * direction, 0, false)
 
                 -- Now, we can change the 3 with whatever the player has equipped in the shop!
-                showDashParticles(shop.dashAcc[playerStats[id].equipment[1]].values, direction, xPlayerPosition, yPlayerPosition)
+                showDashParticles({3}, direction, xPlayerPosition, yPlayerPosition)
             end
         --[[
             We check for the key, then if its a double press, then the cooldown. (by the way, if it fails to check, for example,
@@ -459,7 +455,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             movePlayer(playerName, 0, 0, true, 0, -60, false)
 
             -- Display jump particles
-            showJumpParticles(shop.dashAcc[playerStats[id].equipment[1]].values, xPlayerPosition, yPlayerPosition)
+            showJumpParticles({3}, xPlayerPosition, yPlayerPosition)
         --[[
             The rewind is a bit more complicated, since it has 3 states: available, in use, not available.
             My first check is if I can rewind (state 2), then if my cooldown is available (state 1).
@@ -522,9 +518,10 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             -- Create graffiti
             for player, data in pairs(room.playerList) do
                 local _id = data.id
+                removeTextArea(id, player)
                 -- If the player has graffitis enabled, we display them
                 if playerVars[_id].playerPreferences[1] == true then
-                    addTextArea(id, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[id].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[id].equipment[2]].imgId.."'>"..playerName.."</font></p>", player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
+                    addTextArea(id, "<p align='center'><font face='Comic Sans MS' size='16' color='#ffffff'>"..playerName, player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
                 end
             end
         end
@@ -550,7 +547,6 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         -- Else we had it already open, so we close the page
         else
             closePage(playerName)
-            closeMenu(playerName)
         end
     -- OPEN GUIDE / HELP (H)
     elseif keyCode == 72 then
@@ -815,7 +811,7 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     playerStats[id].timesEnteredInHole = playerStats[id].timesEnteredInHole + 1
 
     -- SEND CHAT MESSAGE FOR PLAYER
-    chatMessage(translations[playerVars[id].playerLanguage].finishedInfo.."(<V>"..(timeElapsedSinceRespawn/100).."s</V>)", playerName)
+    chatMessage(translations[playerVars[id].playerLanguage].finishedInfo..(timeElapsedSinceRespawn/100).."s", playerName)
 
     if playerVars[id].playerFinished == false then
         playerStats[id].mapsFinished = playerStats[id].mapsFinished + 1
@@ -947,13 +943,6 @@ function initPlayer(playerName)
         joinTime = os.time()
     }
 
-    -- If the player finished
-    for key, value in pairs(playerSortedBestTime) do
-        if value[1] == playerName then
-            playerVars[id].playerFinished = true
-        end
-    end
-
     playerStats[id] = {
         playtime = 0,
         mapsFinished = 0,
@@ -962,13 +951,9 @@ function initPlayer(playerName)
         graffitiSprays = 0,
         timesDashed = 0,
         timesRewinded = 0,
-        hardcoreMaps = 0,
-        equipment = {2, 3, 1, 3}
+        hardcoreMaps = 0
     }
-    if playerName ~= "Extremq#0000" then
-        playerStats[id].equipment = {1, 1, 1, 1}
-    end
- 
+
     states[id] = {
         jumpState = true,
         dashState = true,
@@ -988,10 +973,7 @@ function initPlayer(playerName)
         helpImgId = hlpid,
         helpImgId = hlpid,
         mouseImgId = nil,
-        menuImgId = -1,
-        shopWelcomeDash = nil,
-        shopWelcomeGraffiti = nil,
-        graffitiImg = nil
+        menuImgId = -1
     }
 
     -- SET DEFAULT COLOR
@@ -1111,7 +1093,7 @@ function pageOperation(title, body, playerName, pageId)
 end
 
 function createPage(title, body, playerName, pageId)
-    ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 405, 300, 0x241f13, 0xbfa26d, 1, true)
+    ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 202, 50, 405, 300, 0x241f13, 0xbfa26d, 1, true)
 end
 
 function updatePage(title, body, playerName, pageId)
@@ -1171,24 +1153,6 @@ function remakeOptions(playerName)
     return body
 end
 
--- This only is the welcome screen :D
-function generateShopWelcome(playerName)
-    local id = playerId(playerName)
-    local dashX, dashY = 255, 150
-
-    imgs[id].shopWelcomeDash = addImage(shop.dashAcc[playerStats[id].equipment[1]].imgId, "&2", dashX, dashY, playerName)
-
-    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p></font>\n\n\n\n\n\n\n\n\n<font face='Lucida Console' size='16'><textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
-    return body
-end
-
-function closeMenu(playerName)
-    local id = playerId(playerName)
-    removeImage(imgs[id].shopWelcomeDash, playerName)
-    local graffitiTextOffset = 1000000000
-    removeTextArea(id + graffitiTextOffset, playerName)
-end
-
 function eventTextAreaCallback(textAreaId, playerName, eventName)
     local id = playerId(playerName)
     if id == 0 then
@@ -1199,12 +1163,10 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
             if playerVars[id].menuPage == 0 then
-                createPage(translations[playerVars[id].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
+                createPage(translations[playerVars[id].playerLanguage].shopTitle, translations[playerVars[id].playerLanguage].shopNotice, playerName, "shop")
             else
-                updatePage(translations[playerVars[id].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
+                updatePage(translations[playerVars[id].playerLanguage].shopTitle, translations[playerVars[id].playerLanguage].shopNotice, playerName, "shop")
             end
-            local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
-            ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[id].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[id].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
         end
         if eventName == "StatsOpen" then
             if playerVars[id].menuPage == 0 then
@@ -1281,7 +1243,6 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
 
     if eventName == "CloseMenu" then
         closePage(playerName)
-        closeMenu(playerName)
     end
 
     if eventName == "CloseWelcome" then
@@ -1471,17 +1432,8 @@ function eventChatCommand(playerName, message)
         end
     end
 
-    if arg[1] == "p" or arg[1] == "profile" then
+    if arg[1] == "p" or arg[1] == "profile" and arg[2] ~= nil then
         isValid = true
-        if arg[2] == nil then
-            if playerVars[id].menuPage == 0 then
-                createPage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, room.playerList[playerName].id, id), playerName, id, "profile")
-            else
-                updatePage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, room.playerList[playerName].id, id), playerName, id, "profile")
-            end
-            return
-        end
-
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
                 if playerVars[id].menuPage == 0 then

@@ -141,12 +141,12 @@ translations.ro = {
 --[[ End of directory translations ]]--
 
 -- Standard maps
-stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
-stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}}
 
 -- Hardcore maps
-hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
-hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
+hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}}
+hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}}
 
 modList = {['Extremq#0000'] = true, ['Railysse#0000'] = true}
 modRoom = {}
@@ -255,18 +255,16 @@ shop = {
         shopListing({3, 13}, "1728b442708.png", "Sleek. Just like you.", "Finish 1 map first.")
     },
     graffitiCol = {
-        shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free."),
-        shopListing('#000000', '#000000', "You're a dark person.", "Finish 10 maps."),
-        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.")
+        shopListing(0xffffff, 0xffffff, "This is the default graffiti color.", "Free."),
+        shopListing(0x000000, 0x000000, "You're a dark person.", "Finish 10 maps."),
+        shopListing(0x8c0404, 0x8c0404, "Where's this... blood from?", "Dash 100 times.")
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free."),
         shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.")
     },
     graffitiFonts = {
-        shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free."),
-        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 20."),
-        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.")
+        shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free.")
     }
 }
 
@@ -435,7 +433,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
                 movePlayer(playerName, 0, 0, true, 150 * direction, 0, false)
 
                 -- Now, we can change the 3 with whatever the player has equipped in the shop!
-                showDashParticles(shop.dashAcc[playerStats[id].equipment[1]].values, direction, xPlayerPosition, yPlayerPosition)
+                showDashParticles({3}, direction, xPlayerPosition, yPlayerPosition)
             end
         --[[
             We check for the key, then if its a double press, then the cooldown. (by the way, if it fails to check, for example,
@@ -459,7 +457,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             movePlayer(playerName, 0, 0, true, 0, -60, false)
 
             -- Display jump particles
-            showJumpParticles(shop.dashAcc[playerStats[id].equipment[1]].values, xPlayerPosition, yPlayerPosition)
+            showJumpParticles({3}, xPlayerPosition, yPlayerPosition)
         --[[
             The rewind is a bit more complicated, since it has 3 states: available, in use, not available.
             My first check is if I can rewind (state 2), then if my cooldown is available (state 1).
@@ -522,9 +520,10 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             -- Create graffiti
             for player, data in pairs(room.playerList) do
                 local _id = data.id
+                removeTextArea(id, player)
                 -- If the player has graffitis enabled, we display them
                 if playerVars[_id].playerPreferences[1] == true then
-                    addTextArea(id, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[id].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[id].equipment[2]].imgId.."'>"..playerName.."</font></p>", player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
+                    addTextArea(id, "<p align='center'><font face='Comic Sans MS' size='16' color='#ffffff'>"..playerName, player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
                 end
             end
         end
@@ -550,7 +549,6 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         -- Else we had it already open, so we close the page
         else
             closePage(playerName)
-            closeMenu(playerName)
         end
     -- OPEN GUIDE / HELP (H)
     elseif keyCode == 72 then
@@ -949,7 +947,7 @@ function initPlayer(playerName)
 
     -- If the player finished
     for key, value in pairs(playerSortedBestTime) do
-        if value[1] == playerName then
+        if key == playerName then
             playerVars[id].playerFinished = true
         end
     end
@@ -963,12 +961,9 @@ function initPlayer(playerName)
         timesDashed = 0,
         timesRewinded = 0,
         hardcoreMaps = 0,
-        equipment = {2, 3, 1, 3}
+        equipment = {0, 0, 0, 0}
     }
-    if playerName ~= "Extremq#0000" then
-        playerStats[id].equipment = {1, 1, 1, 1}
-    end
- 
+
     states[id] = {
         jumpState = true,
         dashState = true,
@@ -990,8 +985,7 @@ function initPlayer(playerName)
         mouseImgId = nil,
         menuImgId = -1,
         shopWelcomeDash = nil,
-        shopWelcomeGraffiti = nil,
-        graffitiImg = nil
+        shopWelcomeGraffiti = nil
     }
 
     -- SET DEFAULT COLOR
@@ -1175,18 +1169,20 @@ end
 function generateShopWelcome(playerName)
     local id = playerId(playerName)
     local dashX, dashY = 255, 150
+    local graffitiImgX , graffitiImgY = 450, 200
+    -- I offset the ids so they dont overlap
+    local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
 
     imgs[id].shopWelcomeDash = addImage(shop.dashAcc[playerStats[id].equipment[1]].imgId, "&2", dashX, dashY, playerName)
+    
+    if shop.graffitiImgs[playerStats[id].equipment[3]].imgId ~= nil then
+        imgs[id].shopWelcomeGraffiti = addImage(shop.graffitiImgs[playerStats[id].equipment[3]].imgId, "&1", graffitiImgX, graffitiImgY, playerName)
+    end
 
-    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p></font>\n\n\n\n\n\n\n\n\n<font face='Lucida Console' size='16'><textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
+    ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[id].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[id].equipment[2]].imgId.."'>Extremq#0000</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
+
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p></font>\n\n\n\n\n\n\n\n\n<font face='Lucida Console' size='16'><font color='transparent'>.......</font><a href='event:ChangePart'>[change]</a><font color='transparent'>..........</font><a href='event:ChangePart'>[change]</a></font>\n\n\n"
     return body
-end
-
-function closeMenu(playerName)
-    local id = playerId(playerName)
-    removeImage(imgs[id].shopWelcomeDash, playerName)
-    local graffitiTextOffset = 1000000000
-    removeTextArea(id + graffitiTextOffset, playerName)
 end
 
 function eventTextAreaCallback(textAreaId, playerName, eventName)
@@ -1203,8 +1199,6 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             else
                 updatePage(translations[playerVars[id].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
             end
-            local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
-            ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[id].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[id].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
         end
         if eventName == "StatsOpen" then
             if playerVars[id].menuPage == 0 then
@@ -1281,7 +1275,6 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
 
     if eventName == "CloseMenu" then
         closePage(playerName)
-        closeMenu(playerName)
     end
 
     if eventName == "CloseWelcome" then
@@ -1471,17 +1464,8 @@ function eventChatCommand(playerName, message)
         end
     end
 
-    if arg[1] == "p" or arg[1] == "profile" then
+    if arg[1] == "p" or arg[1] == "profile" and arg[2] ~= nil then
         isValid = true
-        if arg[2] == nil then
-            if playerVars[id].menuPage == 0 then
-                createPage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, room.playerList[playerName].id, id), playerName, id, "profile")
-            else
-                updatePage(translations[playerVars[id].playerLanguage].profileTitle.." - "..playerName, stats(playerName, room.playerList[playerName].id, id), playerName, id, "profile")
-            end
-            return
-        end
-
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
                 if playerVars[id].menuPage == 0 then

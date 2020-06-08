@@ -141,12 +141,12 @@ translations.ro = {
 --[[ End of directory translations ]]--
 
 -- Standard maps
-stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
-stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}}
 
 -- Hardcore maps
-hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
-hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
+hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}}
+hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}}
 
 modList = {['Extremq#0000'] = true, ['Railysse#0000'] = true}
 modRoom = {}
@@ -522,6 +522,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             -- Create graffiti
             for player, data in pairs(room.playerList) do
                 local _id = data.id
+                removeTextArea(id, player)
                 -- If the player has graffitis enabled, we display them
                 if playerVars[_id].playerPreferences[1] == true then
                     addTextArea(id, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[id].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[id].equipment[2]].imgId.."'>"..playerName.."</font></p>", player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
@@ -949,7 +950,7 @@ function initPlayer(playerName)
 
     -- If the player finished
     for key, value in pairs(playerSortedBestTime) do
-        if value[1] == playerName then
+        if key == playerName then
             playerVars[id].playerFinished = true
         end
     end
