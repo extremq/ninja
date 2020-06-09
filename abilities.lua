@@ -198,7 +198,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     elseif keyCode == 77 then
         -- If we don't have the menu open, then we dont have an image
         if imgs[playerName].menuImgId == -1 then
-            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerVars[playerName].playerLanguage].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerVars[playerName].playerLanguage].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerVars[playerName].playerLanguage].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerVars[playerName].playerLanguage].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerVars[playerName].playerLanguage].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..playerVars[playerName].playerLanguage.shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..playerVars[playerName].playerLanguage.profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..playerVars[playerName].playerLanguage.leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..playerVars[playerName].playerLanguage.settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..playerVars[playerName].playerLanguage.aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
             imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
         -- Else we had it already open, so we close the page
         else
@@ -208,7 +208,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     elseif keyCode == 72 then
         -- Help system
         if playerVars[playerName].menuPage ~= "help" then
-            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].helpBody.."</font>", playerName, "help")
+            openPage("#ninja", "\n<font face='Verdana' size='11'>"..playerVars[playerName].playerLanguage.helpBody.."</font>", playerName, "help")
         elseif playerVars[playerName].menuPage == "help" then
             closePage(playerName)
         end
@@ -249,7 +249,7 @@ function eventMouse(playerName, xMousePosition, yMousePosition)
         -- print("uimouse "..uiMouseX)
         if -100 <= uiMouseX and uiMouseX <= 250 then
             if imgs[playerName].menuImgId == -1 then
-                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerVars[playerName].playerLanguage].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerVars[playerName].playerLanguage].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerVars[playerName].playerLanguage].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerVars[playerName].playerLanguage].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerVars[playerName].playerLanguage].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..playerVars[playerName].playerLanguage.shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..playerVars[playerName].playerLanguage.profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..playerVars[playerName].playerLanguage.leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..playerVars[playerName].playerLanguage.settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..playerVars[playerName].playerLanguage.aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
                 imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
             else
                 closePage(playerName)

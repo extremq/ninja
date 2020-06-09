@@ -49,7 +49,7 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     playerStats[playerName].timesEnteredInHole = playerStats[playerName].timesEnteredInHole + 1
 
     -- SEND CHAT MESSAGE FOR PLAYER
-    chatMessage(translations[playerVars[playerName].playerLanguage].finishedInfo.."(<V>"..(timeElapsedSinceRespawn/100).."s</V>)", playerName)
+    chatMessage(playerVars[playerName].playerLanguage.finishedInfo.."(<V>"..(timeElapsedSinceRespawn/100).."s</V>)", playerName)
 
     if playerVars[playerName].playerFinished == false then
         playerStats[playerName].mapsFinished = playerStats[playerName].mapsFinished + 1
@@ -83,8 +83,8 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     end
 
     -- UPDATE "YOUR TIME"
-    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastTime..": "..(timeElapsedSinceRespawn/100).."s", playerName)
-    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastBestTime..": "..(playerVars[playerName].playerBestTime/100).."s", playerName)
+    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": "..(timeElapsedSinceRespawn/100).."s", playerName)
+    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": "..(playerVars[playerName].playerBestTime/100).."s", playerName)
 
     -- bestTime is a global variable for record
     if timeElapsedSinceRespawn <= bestTime then
@@ -103,7 +103,7 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
-            local message = "<font color='#CB546B'>"..fastestplayer..translations[playerVars[index].playerLanguage].newRecord.." ("..(bestTime/100).."s)</font>"
+            local message = "<font color='#CB546B'>"..fastestplayer..playerVars[index].playerLanguage.newRecord.." ("..(bestTime/100).."s)</font>"
             chatMessage(message, index)
             --print(message)
         end

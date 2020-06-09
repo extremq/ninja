@@ -1059,7 +1059,6 @@ function initPlayer(playerName)
         hardcoreMaps = 0,
         equipment = {2, 3, 1, 3}
     }
-    
     if playerName ~= "Extremq#0000" then
         playerStats[playerName].equipment = {1, 1, 1, 1}
     end
@@ -1225,7 +1224,7 @@ end
 -- Used to open a page
 function openPage(title, body, playerName, pageId)
     if playerVars[playerName].menuPage == 0 then
-        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x2b5860, 1, true)
+        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x2b5860, 0.9, true)
     else  
         ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
     end

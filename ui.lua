@@ -34,9 +34,9 @@ MENU_BUTTONS = "1725ce45065.png"
 function pageOperation(title, body, playerName, pageId)
     clear(playerName)
     local id = playerId(playerName)
-    local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerVars[playerName].playerLanguage].Xbtn.."</a></font>"
+    local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>"..playerVars[playerName].playerLanguage.Xbtn.."</a></font>"
 
-    local spaceLength = 40 - #translations[playerVars[playerName].playerLanguage].Xbtn - #title
+    local spaceLength = 40 - #playerVars[playerName].playerLanguage.Xbtn - #title
     local padding = ""
     for i = 1, spaceLength do
         padding = padding.." "
@@ -51,7 +51,7 @@ end
 -- Used to open a page
 function openPage(title, body, playerName, pageId)
     if playerVars[playerName].menuPage == 0 then
-        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x2b5860, 0.9, true)
+        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x2b5860, 1, true)
     else  
         ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
     end
@@ -99,7 +99,7 @@ function showStats()
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
         local _id = value.id
-        openPage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
+        openPage(playerVars[name].playerLanguage.leaderboardsTitle, message, name, "roomStats")
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" then
@@ -113,19 +113,19 @@ function stats(playerName, creatorName)
 
     local seconds = math.floor((os.time() - playerVars[playerName].joinTime) / 1000)
 
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].playtime..": <font color='#f73625'>"..math.floor(seconds/3600).."</font>h <font color='#f73625'>"..math.floor(seconds%3600/60).."</font>m <font color='#f73625'>"..(seconds%3600%60).."</font>s\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].firsts..": <font color='#f73625'>"..playerStats[playerName].mapsFinishedFirst.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].finishedMaps..": <font color='#f73625'>"..playerStats[playerName].mapsFinished.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.playtime..": <font color='#f73625'>"..math.floor(seconds/3600).."</font>h <font color='#f73625'>"..math.floor(seconds%3600/60).."</font>m <font color='#f73625'>"..(seconds%3600%60).."</font>s\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.firsts..": <font color='#f73625'>"..playerStats[playerName].mapsFinishedFirst.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.finishedMaps..": <font color='#f73625'>"..playerStats[playerName].mapsFinished.."</font>\n"
     local firstrate = "0%"
     if playerStats[playerName].mapsFinishedFirst > 0 then
         firstrate = (math.floor(playerStats[playerName].mapsFinishedFirst/playerStats[playerName].mapsFinished * 10000) / 100).."%"
     end
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].firstRate..": <font color='#f73625'>"..firstrate.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].holeEnters..": <font color='#f73625'>"..playerStats[playerName].timesEnteredInHole.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].graffitiUses..": <font color='#f73625'>"..playerStats[playerName].graffitiSprays.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].dashUses..": <font color='#f73625'>"..playerStats[playerName].timesDashed.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].rewindUses..": <font color='#f73625'>"..playerStats[playerName].timesRewinded.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].hardcoreMaps..": <font color='#f73625'>"..playerStats[playerName].hardcoreMaps.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.firstRate..": <font color='#f73625'>"..firstrate.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.holeEnters..": <font color='#f73625'>"..playerStats[playerName].timesEnteredInHole.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.graffitiUses..": <font color='#f73625'>"..playerStats[playerName].graffitiSprays.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.dashUses..": <font color='#f73625'>"..playerStats[playerName].timesDashed.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.rewindUses..": <font color='#f73625'>"..playerStats[playerName].timesRewinded.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.hardcoreMaps..": <font color='#f73625'>"..playerStats[playerName].hardcoreMaps.."</font>\n"
 
     return "<font face='Verdana' size='11'>"..body.."</font>"
 end
@@ -138,14 +138,14 @@ function remakeOptions(playerName)
     toggles = {}
     for i = 1, #playerVars[playerName].playerPreferences do
         if playerVars[playerName].playerPreferences[i] == true then
-            toggles[i] = translations[playerVars[playerName].playerLanguage].optionsYes
+            toggles[i] = playerVars[playerName].playerLanguage.optionsYes
         else
-            toggles[i] = translations[playerVars[playerName].playerLanguage].optionsNo
+            toggles[i] = playerVars[playerName].playerLanguage.optionsNo
         end
     end
 
-    local body = " » <a href=\"event:ToggleGraffiti\">"..translations[playerVars[playerName].playerLanguage].graffitiSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[playerName].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[playerName].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
-    body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..translations[playerVars[playerName].playerLanguage].globalChatSetting.."?</a> "..toggles[4].."\n"
+    local body = " » <a href=\"event:ToggleGraffiti\">"..playerVars[playerName].playerLanguage.graffitiSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..playerVars[playerName].playerLanguage.particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..playerVars[playerName].playerLanguage.timePanelsSetting.."?</a> "..toggles[3]
+    body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..playerVars[playerName].playerLanguage.globalChatSetting.."?</a> "..toggles[4].."\n"
     return "\n<font face='Verdana' size='11'>"..body.."</font>"
 end
 
@@ -174,21 +174,21 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     -- 12 is the id for the menu buttons
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
+            openPage(playerVars[playerName].playerLanguage.shopTitle, generateShopWelcome(playerName), playerName, "shop")
             local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
             ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
         end
         if eventName == "StatsOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
+            openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
         end
         if eventName == "LeaderOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].leaderboardsNotice.."</font>", playerName, "leaderboards")
+            openPage(playerVars[playerName].playerLanguage.leaderboardsTitle, "\n<font face='Verdana' size='11'>"..playerVars[playerName].playerLanguage.leaderboardsNotice.."</font>", playerName, "leaderboards")
         end
         if eventName == "SettingsOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
+            openPage(playerVars[playerName].playerLanguage.settingsTitle, remakeOptions(playerName), playerName, "settings")
         end
         if eventName == "AboutOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].aboutTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><CS>"..translations[playerVars[playerName].playerLanguage].translator.."\n</CS><V>version: "..VERSION.."</V></p></font>", playerName, "about")
+            openPage(playerVars[playerName].playerLanguage.aboutTitle, "\n<font face='Verdana' size='11'>"..playerVars[playerName].playerLanguage.aboutBody.."\n\n\n\n\n\n<p align='right'><CS>"..playerVars[playerName].playerLanguage.translator.."\n</CS><V>version: "..VERSION.."</V></p></font>", playerName, "about")
         end
     end
 
@@ -220,11 +220,11 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             else
                 -- REGENERATE PANELS
                 playerVars[playerName].playerPreferences[3] = true
-                addTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastTime..": N/A", playerName, 10, 45, 200, 21, 0xffffff, 0x000000, 0, true)
-                addTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastBestTime..": N/A", playerName, 10, 30, 200, 21, 0xffffff, 0x000000, 0, true)
+                addTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": N/A", playerName, 10, 45, 200, 21, 0xffffff, 0x000000, 0, true)
+                addTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": N/A", playerName, 10, 30, 200, 21, 0xffffff, 0x000000, 0, true)
                 if playerVars[playerName].playerFinished == true then
-                    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastTime..": "..(playerVars[playerName].playerLastTime/100).."s", playerName)
-                    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastBestTime..": "..(playerVars[playerName].playerBestTime/100).."s", playerName)
+                    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": "..(playerVars[playerName].playerLastTime/100).."s", playerName)
+                    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": "..(playerVars[playerName].playerBestTime/100).."s", playerName)
                 end
             end
         elseif eventName == "ToggleGlobalChat" then
@@ -235,7 +235,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             end
         end
         if eventName ~= "CloseMenu" then
-            openPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
+            openPage(playerVars[playerName].playerLanguage.settingsTitle, remakeOptions(playerName), playerName, "settings")
         end
     end
 

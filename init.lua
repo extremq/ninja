@@ -19,7 +19,6 @@ function playerId(playerName)
     return playerIds[playerName]
 end
 
-local languages = {"ro", "en", "fr", "lv", "es"}
 local translations = {}
 
 VERSION = "1.5.4, 09.06.2020"

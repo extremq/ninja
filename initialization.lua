@@ -90,6 +90,7 @@ function initPlayer(playerName)
         hardcoreMaps = 0,
         equipment = {2, 3, 1, 3}
     }
+    
     if playerName ~= "Extremq#0000" then
         playerStats[playerName].equipment = {1, 1, 1, 1}
     end
@@ -171,8 +172,8 @@ function resetAll()
         end 
         -- UPDATE THE TEXT
         if playerVars[playerName].playerPreferences[3] == true then
-            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastBestTime..": N/A", playerName)
-            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastTime..": N/A", playerName)
+            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": N/A", playerName)
+            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": N/A", playerName)
         end
     end
     tfm.exec.setGameTime(MAPTIME, true)
@@ -181,21 +182,12 @@ end
 function chooselang(playerName)
     local id = playerId(playerName)
     local community = room.playerList[playerName].community
-    -- FOR NOW, ONLY RO AND FR HAVE TRANSLATIONS
-    if community == "ro" then
-        playerVars[playerName].playerLanguage = "ro"
-    elseif community == "fr" then
-        playerVars[playerName].playerLanguage = "fr"
-    elseif community == "lv" then
-        playerVars[playerName].playerLanguage = "lv"
-    elseif community == "es" then
-        playerVars[playerName].playerLanguage = "es"
+    
+    if translations[community] ~= nil then
+        playerVars[playerName].playerLanguage = translations[community]
     else
-        playerVars[playerName].playerLanguage = "en"
+        playerVars[playerName].playerLanguage = translations["en"]
     end
-
-    --print(translations[playerVars[id].playerLanguage].welcomeInfo)
-    --print(translations[playerVars[id].playerLanguage].devInfo)
 end
 
 function generateHud(playerName)
@@ -203,8 +195,8 @@ function generateHud(playerName)
 
     removeTextArea(6, playerName)
     -- GENERATE UI
-    addTextArea(6, translations[playerVars[playerName].playerLanguage].helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
+    addTextArea(6, playerVars[playerName].playerLanguage.helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
 
     -- SEND HELP message
-    chatMessage(translations[playerVars[playerName].playerLanguage].welcomeInfo.."\n"..translations[playerVars[playerName].playerLanguage].devInfo.."\n"..translations[playerVars[playerName].playerLanguage].discordInfo, playerName)   
+    chatMessage(playerVars[playerName].playerLanguage.welcomeInfo.."\n"..playerVars[playerName].playerLanguage.devInfo.."\n"..playerVars[playerName].playerLanguage.discordInfo, playerName)   
 end

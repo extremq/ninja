@@ -1,4 +1,5 @@
 translations.ro = {
+    name = "ro",
     lastTime = "Ultimul timp",
     lastBestTime = "Cel mai bun timp",
     helpToolTip = "<p align='center'>Apasă <b>H</b> pentru ajutor.</p>",

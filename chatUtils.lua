@@ -123,7 +123,7 @@ function eventChatCommand(playerName, message)
         isValid = true
 
         if string.find(room.name, "^[a-z][a-z2]%-#ninja%d*$") then
-            return chatMessage(translations[playerVars[playerName].playerLanguage].cantSetPass, player)
+            return chatMessage(playerVars[playerName].playerLanguage.cantSetPass, player)
         end
 
         if arg[2] ~= nil then
@@ -140,30 +140,28 @@ function eventChatCommand(playerName, message)
     if arg[1] == "p" or arg[1] == "profile" then
         isValid = true
         if arg[2] == nil then
-            openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
+            openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
             return
         end
 
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
-                openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
+                openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
                 break
             end
         end
     end
 
     if arg[1] == "langue" and arg[2] ~= nil then
-        for i = 1, #languages do
-            if arg[2] == languages[i] then
-                playerVars[playerName].playerLanguage = arg[2]
-                generateHud(playerName)
-                return
-            end
+        if translations[arg[2]] ~= nil then
+            playerVars[playerName].playerLanguage = translations[arg[2]]
+            generateHud(playerName)
+            return
         end
         chatMessage(arg[2].." doesn't exist yet.", playerName)
     end
 
     if isValid == false then
-        chatMessage(arg[1].." "..translations[playerVars[playerName].playerLanguage].notValidCommand, playerName)
+        chatMessage(arg[1].." "..playerVars[playerName].playerLanguage.notValidCommand, playerName)
     end
 end

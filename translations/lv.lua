@@ -1,4 +1,5 @@
 translations.lv = {
+    name = "lv",
     lastTime = "Tavs pēdējais laiks",
     lastBestTime = "Tavs labākais laiks",
     helpToolTip = "<p align='center'>Spied <b>H</b>, lai atvērtu palīdzību.</p>",

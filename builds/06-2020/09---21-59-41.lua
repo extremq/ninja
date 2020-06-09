@@ -1059,7 +1059,6 @@ function initPlayer(playerName)
         hardcoreMaps = 0,
         equipment = {2, 3, 1, 3}
     }
-    
     if playerName ~= "Extremq#0000" then
         playerStats[playerName].equipment = {1, 1, 1, 1}
     end

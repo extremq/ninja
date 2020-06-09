@@ -1,4 +1,5 @@
 translations.fr = {
+    name = "fr",
     lastTime = "La dernière fois",
     lastBestTime = "Votre meilleur temps",
     helpToolTip = "<p align='center'>Appuyez sur <b>H</b> pour de l'aide.</p>",

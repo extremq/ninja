@@ -1,4 +1,5 @@
 translations.en = {
+    name = "en",
     lastTime = "Your last time",
     lastBestTime = "Your best time",
     helpToolTip = "<p align='center'>Press <b>H</b> for help.</p>",
