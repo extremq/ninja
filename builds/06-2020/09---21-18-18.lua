@@ -14,16 +14,8 @@ local random = math.random
 local addTextArea = ui.addTextArea
 local removeTextArea = ui.removeTextArea
 
--- RETURN PLAYER ID
-function playerId(playerName)
-    return playerIds[playerName]
-end
-
 local languages = {"ro", "en", "fr", "lv", "es"}
 local translations = {}
-
-VERSION = "1.5.4, 09.06.2020"
-
 --[[ Directory translations ]]--
 --[[ File translations/en.lua ]]--
 translations.en = {
@@ -241,12 +233,6 @@ translations.ro = {
 --[[ End of directory translations ]]--
 
 --[[ File maps.lua ]]--
---[[
-    name: maps.lua
-    description: Contains the maps.
-]]--
-
-
 -- Standard maps
 stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
 stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
@@ -256,14 +242,37 @@ hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
 hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
 --[[ End of file maps.lua ]]--
 
---[[ File mapUtils.lua ]]--
---[[
-    name: mapUtils.lua
-    description: Contains functions that help with the map picker algorithm and title setter.
-]]--
+VERSION = "1.5.4, 09.06.2020"
 
+--CONSTANTS
 MAPTIME = 4 * 60 + 3
 BASETIME = MAPTIME -- after difficulty
+STATSTIME = 10 * 1000
+DASHCOOLDOWN = 1 * 1000
+JUMPCOOLDOWN = 3 * 1000
+REWINDCOOLDONW = 10 * 1000
+GRAFFITICOOLDOWN = 15 * 1000
+DASH_BTN_X = 675
+DASH_BTN_Y = 340
+JUMP_BTN_X = 740
+JUMP_BTN_Y = 340
+REWIND_BTN_X = 740
+REWIND_BTN_Y = 275
+MENU_BTN_X = 15
+MENU_BTN_Y = 82
+
+DASH_BTN_OFF = "172514f110f.png"
+DASH_BTN_ON = "172514f2882.png"
+JUMP_BTN_OFF = "172514f3ff1.png"
+JUMP_BTN_ON = "172514f9089.png"
+REWIND_BTN_OFF = "1725150689b.png"
+REWIND_BTN_ON = "1725150800e.png"
+REWIND_BTN_ACTIVE = "17257e94902.png"
+HELP_IMG = "172533e3f7b.png"
+CHECKPOINT_MOUSE = "17257fd86f3.png"
+MENU_BUTTONS = "1725ce45065.png"
+
+--[[ File mapUtils.lua ]]--
 
 -- CHOOSE MAP
 function randomMap(mapsLeft, mapCodes)
@@ -361,13 +370,6 @@ function updateMapName(timeRemaining)
     setMapName(name)
 end
 --[[ End of file mapUtils.lua ]]--
-
---[[ File vars.lua ]]--
---[[
-    name: vars.lua
-    description: contains all player and map variables (shop, player structures and map vars)
-]]--
-
 
 function shopListing(values, imgId, tooltip, reqs)
     return {
@@ -485,21 +487,11 @@ playerVars = {
     --     joinTime = os.time()
     -- }
 }
---[[ End of file vars.lua ]]--
 
---[[ File abilities.lua ]]--
---[[
-    name: abilities.lua
-    description: Contains keyboard and mouse events + eventloop, all of which update ability cooldowns
-    and such.
-]]--
-
---CONSTANTS
-STATSTIME = 10 * 1000
-DASHCOOLDOWN = 1 * 1000
-JUMPCOOLDOWN = 3 * 1000
-REWINDCOOLDONW = 10 * 1000
-GRAFFITICOOLDOWN = 15 * 1000
+-- RETURN PLAYER ID
+function playerId(playerName)
+    return playerIds[playerName]
+end
 
 function showDashParticles(types, direction, x, y)
     -- Only display particles to the players who haven't disabled the setting
@@ -705,46 +697,34 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     end
 end
 
--- I need the X for mouse computations
-function extractMapDimensions()
-    xml = tfm.get.room.xmlMapInfo.xml
-    local p = string.match(xml, '<P(.*)/>')
-    local x = string.match(p, 'L="(%d+)"')
-    if x == nil then
-        return 800
-    end
-    return tonumber(x)
+function compare(a,b)
+    return a[2] < b[2]
 end
 
-function eventMouse(playerName, xMousePosition, yMousePosition)
-    local id = playerId(playerName)
-    local playerX = room.playerList[playerName].x
-    -- print("click at "..xMousePosition)
-    if modRoom[playerName] == true or opList[playerName] == true then
-        movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
-    else
-        --[[
-            I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
-            in order to be able to open the menu when the mouse is in the left part of the screen.
-            :D
-        ]]--
-        local uiMouseX = xMousePosition
-        local mapX = extractMapDimensions()
-        -- print("mapX ".. mapX)
-        if playerX > 400 and playerX < mapX - 400 then
-            uiMouseX = xMousePosition - (playerX - 400)
-        elseif playerX > mapX - 400 then
-            uiMouseX = xMousePosition - (mapX - 800)
+function showStats()
+    -- Init some empty array
+    bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
+    table.sort(playerSortedBestTime, compare)
+    for i = 1, #playerSortedBestTime do
+        if i == 4 then
+            break
         end
-        -- print("uimouse "..uiMouseX)
-        if -100 <= uiMouseX and uiMouseX <= 250 then
-            if imgs[playerName].menuImgId == -1 then
-                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerVars[playerName].playerLanguage].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerVars[playerName].playerLanguage].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerVars[playerName].playerLanguage].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerVars[playerName].playerLanguage].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerVars[playerName].playerLanguage].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
-                imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
-            else
-                closePage(playerName)
-            end
-        end
+        bestPlayers[i][1] = playerSortedBestTime[i][1]
+        bestPlayers[i][2] = playerSortedBestTime[i][2]/100
+    end
+
+    local message = "\n\n\n\n\n\n\n<p align='center'>"
+    message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
+    message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
+    message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
+    -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
+    for name, value in pairs(room.playerList) do
+        local _id = value.id
+        openPage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
+    end
+    -- If we had a best player, we update his firsts stat
+    if bestPlayers[1][1] ~= "N/A" then
+        playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
     end
 end
 
@@ -827,14 +807,6 @@ function eventLoop(elapsedTime, timeRemaining)
         end
     end
 end
---[[ End of file abilities.lua ]]--
-
---[[ File events.lua ]]--
---[[
-    name: events.lua
-    description: Contains playerRespawn, playerDied, playerWon, playerLeft and playerJoined
-]]--
-
 
 -- PLAYER COLOR SETTER
 function eventPlayerRespawn(playerName)
@@ -960,14 +932,8 @@ end
 function eventNewPlayer(playerName)
     initPlayer(playerName)
 end
---[[ End of file events.lua ]]--
 
 --[[ File initialization.lua ]]--
---[[
-    name: initialization.lua
-    description: Inits player variables, color, hud, language
-]]--
-
 function setColor(playerName)
     id = playerId(playerName)
     local color = 0x40a594
@@ -1173,35 +1139,51 @@ function generateHud(playerName)
     -- SEND HELP message
     chatMessage(translations[playerVars[playerName].playerLanguage].welcomeInfo.."\n"..translations[playerVars[playerName].playerLanguage].devInfo.."\n"..translations[playerVars[playerName].playerLanguage].discordInfo, playerName)   
 end
+
+
+-- I need the X for mouse computations
+function extractMapDimensions()
+    xml = tfm.get.room.xmlMapInfo.xml
+    local p = string.match(xml, '<P(.*)/>')
+    local x = string.match(p, 'L="(%d+)"')
+    if x == nil then
+        return 800
+    end
+    return tonumber(x)
+end
 --[[ End of file initialization.lua ]]--
 
---[[ File ui.lua ]]--
---[[
-    name: ui.lua
-    description: Contains textAreaCallback and the functions that handle UI.
-    and such.
-]]--
-
-
-DASH_BTN_X = 675
-DASH_BTN_Y = 340
-JUMP_BTN_X = 740
-JUMP_BTN_Y = 340
-REWIND_BTN_X = 740
-REWIND_BTN_Y = 275
-MENU_BTN_X = 15
-MENU_BTN_Y = 82
-
-DASH_BTN_OFF = "172514f110f.png"
-DASH_BTN_ON = "172514f2882.png"
-JUMP_BTN_OFF = "172514f3ff1.png"
-JUMP_BTN_ON = "172514f9089.png"
-REWIND_BTN_OFF = "1725150689b.png"
-REWIND_BTN_ON = "1725150800e.png"
-REWIND_BTN_ACTIVE = "17257e94902.png"
-HELP_IMG = "172533e3f7b.png"
-CHECKPOINT_MOUSE = "17257fd86f3.png"
-MENU_BUTTONS = "1725ce45065.png"
+function eventMouse(playerName, xMousePosition, yMousePosition)
+    local id = playerId(playerName)
+    local playerX = room.playerList[playerName].x
+    -- print("click at "..xMousePosition)
+    if modRoom[playerName] == true or opList[playerName] == true then
+        movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
+    else
+        --[[
+            I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
+            in order to be able to open the menu when the mouse is in the left part of the screen.
+            :D
+        ]]--
+        local uiMouseX = xMousePosition
+        local mapX = extractMapDimensions()
+        -- print("mapX ".. mapX)
+        if playerX > 400 and playerX < mapX - 400 then
+            uiMouseX = xMousePosition - (playerX - 400)
+        elseif playerX > mapX - 400 then
+            uiMouseX = xMousePosition - (mapX - 800)
+        end
+        -- print("uimouse "..uiMouseX)
+        if -100 <= uiMouseX and uiMouseX <= 250 then
+            if imgs[playerName].menuImgId == -1 then
+                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerVars[playerName].playerLanguage].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerVars[playerName].playerLanguage].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerVars[playerName].playerLanguage].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerVars[playerName].playerLanguage].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerVars[playerName].playerLanguage].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+                imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
+            else
+                closePage(playerName)
+            end
+        end
+    end
+end
 
 --[[
     The way i manage UI in this module is basically this:
@@ -1252,36 +1234,6 @@ function clear(playerName)
     local page = playerVars[playerName].menuPage
     if page == "shop" then
         clearWelcomeImages(playerName)
-    end
-end
-
--- End of round stats
-function showStats()
-    -- Init some empty array
-    bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
-    table.sort(playerSortedBestTime, function(a, b)
-        return a[2] < b[2]
-    end)
-    for i = 1, #playerSortedBestTime do
-        if i == 4 then
-            break
-        end
-        bestPlayers[i][1] = playerSortedBestTime[i][1]
-        bestPlayers[i][2] = playerSortedBestTime[i][2]/100
-    end
-
-    local message = "\n\n\n\n\n\n\n<p align='center'>"
-    message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
-    message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
-    message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
-    -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
-    for name, value in pairs(room.playerList) do
-        local _id = value.id
-        openPage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
-    end
-    -- If we had a best player, we update his firsts stat
-    if bestPlayers[1][1] ~= "N/A" then
-        playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
     end
 end
 
@@ -1428,13 +1380,8 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         removeTextArea(10, playerName)
     end
 end
---[[ End of file ui.lua ]]--
 
 --[[ File chatUtils.lua ]]--
---[[
-    name: chatUtils.lua
-    description: Contains eventChatMessage and eventChatCommand. Handles chat operations.
-]]--
 
 function eventChatMessage(playerName, msg)
     if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
@@ -1602,12 +1549,7 @@ function eventChatCommand(playerName, message)
 end
 --[[ End of file chatUtils.lua ]]--
 
---[[ File startFuncs.lua ]]--
---[[
-    name: startFuncs.lua
-    description: Contains code that must be executed at start.
-]]--
-
+-- Others
 do
     local _, msg = pcall(nil)
     local img = tfm.exec.addImage("a.jpg", "_0", 1, 1)
@@ -1640,4 +1582,3 @@ tfm.exec.setGameTime(MAPTIME, true)
 for playerName in pairs(room.playerList) do
     initPlayer(playerName)
 end
---[[ End of file startFuncs.lua ]]--

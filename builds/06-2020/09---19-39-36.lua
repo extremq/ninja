@@ -14,16 +14,27 @@ local random = math.random
 local addTextArea = ui.addTextArea
 local removeTextArea = ui.removeTextArea
 
--- RETURN PLAYER ID
-function playerId(playerName)
-    return playerIds[playerName]
+-- Others
+do
+    local _, msg = pcall(nil)
+    local img = tfm.exec.addImage("a.jpg", "_0", 1, 1)
+    local pdata = system.loadPlayerData("")
+
+    tfm.get.room.loader = string.match(msg, "^(.-)%.")
+    tfm.get.room.elevation = img and (pdata and "module" or "funcorp") or "player"
+end
+
+print("loader: " .. tfm.get.room.loader)
+print("elevation: " .. tfm.get.room.elevation)
+
+if tfm.get.room.elevation == "player" then
+    addImage = function() end
+    removeImage = function() end
+    chatMessage = function() end
 end
 
 local languages = {"ro", "en", "fr", "lv", "es"}
 local translations = {}
-
-VERSION = "1.5.4, 09.06.2020"
-
 --[[ Directory translations ]]--
 --[[ File translations/en.lua ]]--
 translations.en = {
@@ -31,7 +42,7 @@ translations.en = {
     lastBestTime = "Your best time",
     helpToolTip = "<p align='center'>Press <b>H</b> for help.</p>",
     optionsYes = "<font color='#53ba58'>Yes</font>",
-    optionsNo = "<font color='#f73625'>No</font>",
+    optionsNo = "<font color='#ba5353'>No</font>",
     graffitiSetting = "Enable graffitis",
     particlesSetting = "Enable dash/jump particles",
     timePanelsSetting = "Enable time panels",
@@ -51,7 +62,7 @@ translations.en = {
     settingsTitle = "Settings",
     aboutTitle = "About",
     -- END
-    aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGameplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
+    aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGameplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
     playtime = "Playtime",
     firsts = "Firsts",
     finishedMaps = "Completed maps",
@@ -74,7 +85,7 @@ translations.es = {
     lastBestTime = "Tu record",
     helpToolTip = "<p align='center'>Presiona <b>H</b> para obtener ayuda.</p>",
     optionsYes = "<font color='#53ba58'>Sí</font>",
-    optionsNo = "<font color='#f73625'>No</font>",
+    optionsNo = "<font color='#ba5353'>No</font>",
     graffitiSetting = "Activar graffitis",
     particlesSetting = "Activar partículas de impulso/salto",
     timePanelsSetting = "Activar paneles de tiempos",
@@ -94,7 +105,7 @@ translations.es = {
     settingsTitle = "Configuracion",
     aboutTitle = "Acerca",
     -- END
-    aboutBody = "Módulo programado por <font color='#FFD991'>Extremq#0000</font>.\nIdeas de juego, testeo de errores y mapas por <font color='#FFD991'>Railysse#0000</font>.\n\nEste módulo está totalmente respaldado por la fundación de ratones „Red Cheese” con el proyecto „Save Module”. Todas las donaciones que ganemos serán donadas a los ratones que juegan #parkour para sobornarlos y que vengan a jugar nuestro módulo.\n\nSólo estamos bromeando, ¡gracias por jugar nuestro módulo! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
+    aboutBody = "Módulo programado por <font color='#FFD991'>Extremq#0000</font>.\nIdeas de juego, testeo de errores y mapas por <font color='#FFD991'>Railysse#0000</font>.\n\nEste módulo está totalmente respaldado por la fundación de ratones „Red Cheese” con el proyecto „Save Module”. Todas las donaciones que ganemos serán donadas a los ratones que juegan #parkour para sobornarlos y que vengan a jugar nuestro módulo.\n\nSólo estamos bromeando, ¡gracias por jugar nuestro módulo! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
     playtime = "Tiempo de juego",
     firsts = "Firsts",
     finishedMaps = "Mapas completados",
@@ -117,7 +128,7 @@ translations.fr = {
     lastBestTime = "Votre meilleur temps",
     helpToolTip = "<p align='center'>Appuyez sur <b>H</b> pour de l'aide.</p>",
     optionsYes = "<font color='#53ba58'>Oui</font>",
-    optionsNo = "<font color='#f73625'>Non</font>",
+    optionsNo = "<font color='#ba5353'>Non</font>",
     graffitiSetting = "Activer les graffitis",
     particlesSetting = "Activer les particules de boost et de saut",
     timePanelsSetting = "Activer les panneaux de temps",
@@ -137,7 +148,7 @@ translations.fr = {
     settingsTitle = "Parametres",
     aboutTitle = "A propos",
     -- END
-    aboutBody = "Module codé par <font color='#FFD991'>Extremq#0000</font>.\nIdée de jeu, test des bugs and cartes fournies par <font color='#FFD991'>Railysse#0000</font>.\n\nCe module est complétement soutenu par la fondation „Red Cheese” avec le projet „Save Module”. Tous les revenus que nous recevrons seront directement versées aux joueur qui jouent à #parkour comme ça on les supplie de jouer à notre module.\n\nC'est une blague! Merci d'avoir joué à notre module! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
+    aboutBody = "Module codé par <font color='#FFD991'>Extremq#0000</font>.\nIdée de jeu, test des bugs and cartes fournies par <font color='#FFD991'>Railysse#0000</font>.\n\nCe module est complétement soutenu par la fondation „Red Cheese” avec le projet „Save Module”. Tous les revenus que nous recevrons seront directement versées aux joueur qui jouent à #parkour comme ça on les supplie de jouer à notre module.\n\nC'est une blague! Merci d'avoir joué à notre module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
     playtime = "Playtime",
     firsts = "Cartes complétées en premiere",
     finishedMaps = "Cartes complétées",
@@ -160,7 +171,7 @@ translations.lv = {
     lastBestTime = "Tavs labākais laiks",
     helpToolTip = "<p align='center'>Spied <b>H</b>, lai atvērtu palīdzību.</p>",
     optionsYes = "<font color='#53ba58'>Jā</font>",
-    optionsNo = "<font color='#f73625'>Nē</font>",
+    optionsNo = "<font color='#ba5353'>Nē</font>",
     graffitiSetting = "Iespējot grafiti",
     particlesSetting = "Iespējot paātrināšanas/lēkšanas efektus",
     timePanelsSetting = "Iespējot laika paneļus",
@@ -180,7 +191,7 @@ translations.lv = {
     settingsTitle = "Opcijas",
     aboutTitle = "Par",
     -- END
-    aboutBody = "Moduli kodēja <font color='#FFD991'>Extremq#0000</font>.\nIdejas spēlei, kļūdu testēšanu un mapes nodrošināja <font color='#FFD991'>Railysse#0000</font>.\n\nŠo moduli pilnībā atbalsta peļu organizācija „Red Cheese” ar „Save Module” projektu. Visas iegūtās finanses tiks ziedotas pelēm, kuras spēlē #parkour, lai varam piekukuļot viņas spēlēt mūsu moduli.\n\nMēs tikai jokojam, paldies, ka izmēģinājāt mūsu moduli! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
+    aboutBody = "Moduli kodēja <font color='#FFD991'>Extremq#0000</font>.\nIdejas spēlei, kļūdu testēšanu un mapes nodrošināja <font color='#FFD991'>Railysse#0000</font>.\n\nŠo moduli pilnībā atbalsta peļu organizācija „Red Cheese” ar „Save Module” projektu. Visas iegūtās finanses tiks ziedotas pelēm, kuras spēlē #parkour, lai varam piekukuļot viņas spēlēt mūsu moduli.\n\nMēs tikai jokojam, paldies, ka izmēģinājāt mūsu moduli! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
     playtime = "Playtime",
     firsts = "Pirmās vietas",
     finishedMaps = "Pabeigtās mapes",
@@ -203,7 +214,7 @@ translations.ro = {
     lastBestTime = "Cel mai bun timp",
     helpToolTip = "<p align='center'>Apasă <b>H</b> pentru ajutor.</p>",
     optionsYes = "<font color='#53ba58'>Da</font>", -- 12
-    optionsNo = "<font color='#f73625'>Nu</font>",  -- 13
+    optionsNo = "<font color='#ba5353'>Nu</font>",  -- 13
     graffitiSetting = "Activezi graffitiurile", -- 14
     particlesSetting = "Activezi particulele de dash", -- 15
     timePanelsSetting = "Activezi panourile de timp", -- 16
@@ -221,7 +232,7 @@ translations.ro = {
     leaderboardsTitle = "Clasamente", -- 27
     settingsTitle = "Configurare", -- 28
     aboutTitle = "Despre", -- 29
-    aboutBody = "Modul codat de <font color='#FFD991'>Extremq#0000</font>.\nIdei de joc, bug-testing și hărți asigurate de <font color='#FFD991'>Railysse#0000</font>.\n\nAcest modul este susținut în întregime de fundația șoricească „Brânza Roșie” în cadrul proiectului „Salvați Module”. Toate fondurile pe care le primim vor fi donate șoarecilor care stau pe #parkour cu scopul de a-i mitui să vină aici.\n\nGlumim, mulțumim că ne-ai încercat jocul! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
+    aboutBody = "Modul codat de <font color='#FFD991'>Extremq#0000</font>.\nIdei de joc, bug-testing și hărți asigurate de <font color='#FFD991'>Railysse#0000</font>.\n\nAcest modul este susținut în întregime de fundația șoricească „Brânza Roșie” în cadrul proiectului „Salvați Module”. Toate fondurile pe care le primim vor fi donate șoarecilor care stau pe #parkour cu scopul de a-i mitui să vină aici.\n\nGlumim, mulțumim că ne-ai încercat jocul! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
     playtime = "Timp jucat",
     firsts = "First-uri",
     finishedMaps = "Hărți completate",
@@ -240,13 +251,6 @@ translations.ro = {
 --[[ End of file translations/ro.lua ]]--
 --[[ End of directory translations ]]--
 
---[[ File maps.lua ]]--
---[[
-    name: maps.lua
-    description: Contains the maps.
-]]--
-
-
 -- Standard maps
 stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
 stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
@@ -254,16 +258,45 @@ stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}
 -- Hardcore maps
 hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
 hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
---[[ End of file maps.lua ]]--
 
---[[ File mapUtils.lua ]]--
---[[
-    name: mapUtils.lua
-    description: Contains functions that help with the map picker algorithm and title setter.
-]]--
+modList = {['Extremq#0000'] = true, ['Railysse#0000'] = true}
+modRoom = {}
+opList = {}
+lastMap = ""
+mapWasSkipped = false
+mapStartTime = 0
+mapDiff = 0
+mapCount = 1
 
+VERSION = "1.5.4, 09.06.2020"
+
+--CONSTANTS
 MAPTIME = 4 * 60 + 3
 BASETIME = MAPTIME -- after difficulty
+STATSTIME = 10 * 1000
+DASHCOOLDOWN = 1 * 1000
+JUMPCOOLDOWN = 3 * 1000
+REWINDCOOLDONW = 10 * 1000
+GRAFFITICOOLDOWN = 15 * 1000
+DASH_BTN_X = 675
+DASH_BTN_Y = 340
+JUMP_BTN_X = 740
+JUMP_BTN_Y = 340
+REWIND_BTN_X = 740
+REWIND_BTN_Y = 275
+MENU_BTN_X = 15
+MENU_BTN_Y = 82
+
+DASH_BTN_OFF = "172514f110f.png"
+DASH_BTN_ON = "172514f2882.png"
+JUMP_BTN_OFF = "172514f3ff1.png"
+JUMP_BTN_ON = "172514f9089.png"
+REWIND_BTN_OFF = "1725150689b.png"
+REWIND_BTN_ON = "1725150800e.png"
+REWIND_BTN_ACTIVE = "17257e94902.png"
+HELP_IMG = "172533e3f7b.png"
+CHECKPOINT_MOUSE = "17257fd86f3.png"
+MENU_BUTTONS = "1725ce45065.png"
 
 -- CHOOSE MAP
 function randomMap(mapsLeft, mapCodes)
@@ -303,71 +336,19 @@ function randomFlip()
     end
 end
 
--- UPDATE MAP NAME (custom timer)
-function updateMapName(timeRemaining)
-    -- in case it hasn't loaded for some reason, we wait for 3 seconds
-    if MAPTIME * 1000 - timeRemaining < 3000 then
-        setMapName("Loading...<")
-        return
-    end
+tfm.exec.disableAutoTimeLeft(true)
+tfm.exec.disableAutoScore(true)
+tfm.exec.disableAutoShaman(true)
+tfm.exec.disableAfkDeath(true)
+tfm.exec.disableAutoNewGame(true)
+tfm.exec.setAutoMapFlipMode(randomFlip())
+tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
+tfm.exec.disablePhysicalConsumables(true)
+system.disableChatCommandDisplay()
+tfm.exec.setGameTime(MAPTIME, true)
 
-    local floor = math.floor
-    local currentmapauthor = ""
-    local currentmapcode = ""
-    local difficulty = mapDiff
-
-    -- This part is in case anything bad happens to the values (sometimes tfm is crazy :D)
-    if room.xmlMapInfo == nil then
-        currentmapauthor = "?"
-        currentmapcode = "?"
-    else
-        currentmapauthor = room.xmlMapInfo.author
-        currentmapcode = "@"..room.xmlMapInfo.mapCode
-    end
-
-    if timeRemaining == nil then
-        timeRemaining = 0
-    end
-
-    local minutes = floor((timeRemaining/1000)/60)
-    local seconds = (floor(timeRemaining/1000)%60)
-    if seconds < 10 then
-        seconds = "0"..tostring(seconds)
-    end
-    if minutes < 10 then
-        minutes = "0"..tostring(minutes)
-    end
-
-    --print(currentmapcode.." "..currentmapauthor.." "..playerCount.." "..minutes.." "..seconds)
-
-    local difficultyMessage = "<J>"..difficulty.."/5</J>"
-    if difficulty == 6 then
-        difficultyMessage = "<R>HARDCORE</R>"
-    end
-
-    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> Level: "..difficultyMessage.." <G>|<G> <N>Mice:</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
-    -- Append record
-    if fastestplayer ~= -1 then
-        local record = (bestTime / 100)
-        name = name.." <G>|<G> <N2>Record: </N2><R>"..fastestplayer.." - "..record.."s</R>"
-    end
-
-    -- If the map is over, we show stats
-    if timeRemaining < 0 then
-        name = "STATISTICS TIME!"
-    end
-
-    name = name.."<"
-    setMapName(name)
-end
---[[ End of file mapUtils.lua ]]--
-
---[[ File vars.lua ]]--
---[[
-    name: vars.lua
-    description: contains all player and map variables (shop, player structures and map vars)
-]]--
-
+keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
+bestTime = 99999
 
 function shopListing(values, imgId, tooltip, reqs)
     return {
@@ -377,27 +358,6 @@ function shopListing(values, imgId, tooltip, reqs)
         ['reqs'] = reqs
     }
 end
-
-modList = {['Extremq#0000'] = true, ['Railysse#0000'] = true}
-modRoom = {}
-opList = {}
-lastMap = ""
-mapWasSkipped = false
-mapStartTime = 0
-mapDiff = 0
-mapCount = 1
-globalPlayerCount = 0
-fastestplayer = -1
-playerSortedBestTime = {}
-playerCount = 0
-playerWon = 0
-mapfinished = false
-admin = ""
-customRoom = false
-hasShownStats = false
-bestTime = 99999
-
-keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 
 shop = {
     dashAcc = {
@@ -485,21 +445,22 @@ playerVars = {
     --     joinTime = os.time()
     -- }
 }
---[[ End of file vars.lua ]]--
+globalPlayerCount = 0
+-- SCORE OF PLAYER
+fastestplayer = -1
+playerSortedBestTime = {}
+-- TRUE/FALSE
+playerCount = 0
+playerWon = 0
+mapfinished = false
+admin = ""
+customRoom = false
+hasShownStats = false
 
---[[ File abilities.lua ]]--
---[[
-    name: abilities.lua
-    description: Contains keyboard and mouse events + eventloop, all of which update ability cooldowns
-    and such.
-]]--
-
---CONSTANTS
-STATSTIME = 10 * 1000
-DASHCOOLDOWN = 1 * 1000
-JUMPCOOLDOWN = 3 * 1000
-REWINDCOOLDONW = 10 * 1000
-GRAFFITICOOLDOWN = 15 * 1000
+-- RETURN PLAYER ID
+function playerId(playerName)
+    return playerIds[playerName]
+end
 
 function showDashParticles(types, direction, x, y)
     -- Only display particles to the players who haven't disabled the setting
@@ -705,46 +666,101 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     end
 end
 
--- I need the X for mouse computations
-function extractMapDimensions()
-    xml = tfm.get.room.xmlMapInfo.xml
-    local p = string.match(xml, '<P(.*)/>')
-    local x = string.match(p, 'L="(%d+)"')
-    if x == nil then
-        return 800
+function eventPlayerDied(playerName)
+    local id = playerId(playerName)
+    playerVars[playerName].rewindPos = {0, 0, false}
+    -- Remove rewind Mouse
+    if imgs[playerName].mouseImgId ~= nil then
+        removeImage(imgs[playerName].mouseImgId)
     end
-    return tonumber(x)
 end
 
-function eventMouse(playerName, xMousePosition, yMousePosition)
-    local id = playerId(playerName)
-    local playerX = room.playerList[playerName].x
-    -- print("click at "..xMousePosition)
-    if modRoom[playerName] == true or opList[playerName] == true then
-        movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
+-- UPDATE MAP NAME (custom timer)
+function updateMapName(timeRemaining)
+    -- in case it hasn't loaded for some reason, we wait for 3 seconds
+    if MAPTIME * 1000 - timeRemaining < 3000 then
+        setMapName("Loading...<")
+        return
+    end
+
+    local floor = math.floor
+    local currentmapauthor = ""
+    local currentmapcode = ""
+    local difficulty = mapDiff
+
+    -- This part is in case anything bad happens to the values (sometimes tfm is crazy :D)
+    if room.xmlMapInfo == nil then
+        currentmapauthor = "?"
+        currentmapcode = "?"
     else
-        --[[
-            I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
-            in order to be able to open the menu when the mouse is in the left part of the screen.
-            :D
-        ]]--
-        local uiMouseX = xMousePosition
-        local mapX = extractMapDimensions()
-        -- print("mapX ".. mapX)
-        if playerX > 400 and playerX < mapX - 400 then
-            uiMouseX = xMousePosition - (playerX - 400)
-        elseif playerX > mapX - 400 then
-            uiMouseX = xMousePosition - (mapX - 800)
+        currentmapauthor = room.xmlMapInfo.author
+        currentmapcode = "@"..room.xmlMapInfo.mapCode
+    end
+
+    if timeRemaining == nil then
+        timeRemaining = 0
+    end
+
+    local minutes = floor((timeRemaining/1000)/60)
+    local seconds = (floor(timeRemaining/1000)%60)
+    if seconds < 10 then
+        seconds = "0"..tostring(seconds)
+    end
+    if minutes < 10 then
+        minutes = "0"..tostring(minutes)
+    end
+
+    --print(currentmapcode.." "..currentmapauthor.." "..playerCount.." "..minutes.." "..seconds)
+
+    local difficultyMessage = "<J>"..difficulty.."/5</J>"
+    if difficulty == 6 then
+        difficultyMessage = "<R>HARDCORE</R>"
+    end
+
+    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> Level: "..difficultyMessage.." <G>|<G> <N>Mice:</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
+    -- Append record
+    if fastestplayer ~= -1 then
+        local record = (bestTime / 100)
+        name = name.." <G>|<G> <N2>Record: </N2><R>"..fastestplayer.." - "..record.."s</R>"
+    end
+
+    -- If the map is over, we show stats
+    if timeRemaining < 0 then
+        name = "STATISTICS TIME!"
+    end
+
+    name = name.."<"
+    setMapName(name)
+end
+
+function compare(a,b)
+    return a[2] < b[2]
+end
+
+function showStats()
+    -- Init some empty array
+    bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
+    table.sort(playerSortedBestTime, compare)
+    for i = 1, #playerSortedBestTime do
+        if i == 4 then
+            break
         end
-        -- print("uimouse "..uiMouseX)
-        if -100 <= uiMouseX and uiMouseX <= 250 then
-            if imgs[playerName].menuImgId == -1 then
-                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerVars[playerName].playerLanguage].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerVars[playerName].playerLanguage].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerVars[playerName].playerLanguage].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerVars[playerName].playerLanguage].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerVars[playerName].playerLanguage].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
-                imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
-            else
-                closePage(playerName)
-            end
-        end
+        bestPlayers[i][1] = playerSortedBestTime[i][1]
+        bestPlayers[i][2] = playerSortedBestTime[i][2]/100
+    end
+
+    local message = "\n\n\n\n\n\n\n<p align='center'>"
+    message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
+    message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
+    message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
+    -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
+    for name, value in pairs(room.playerList) do
+        local _id = value.id
+        openPage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
+    end
+    -- If we had a best player, we update his firsts stat
+    if bestPlayers[1][1] ~= "N/A" then
+        playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
     end
 end
 
@@ -827,14 +843,6 @@ function eventLoop(elapsedTime, timeRemaining)
         end
     end
 end
---[[ End of file abilities.lua ]]--
-
---[[ File events.lua ]]--
---[[
-    name: events.lua
-    description: Contains playerRespawn, playerDied, playerWon, playerLeft and playerJoined
-]]--
-
 
 -- PLAYER COLOR SETTER
 function eventPlayerRespawn(playerName)
@@ -856,13 +864,22 @@ function eventPlayerRespawn(playerName)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
 end
 
-function eventPlayerDied(playerName)
-    local id = playerId(playerName)
-    playerVars[playerName].rewindPos = {0, 0, false}
-    -- Remove rewind Mouse
-    if imgs[playerName].mouseImgId ~= nil then
-        removeImage(imgs[playerName].mouseImgId)
+function setColor(playerName)
+    id = playerId(playerName)
+    local color = 0x40a594
+    -- IF BEST TIME
+    if playerName == fastestplayer then
+        color = 0xEB1D51
+    -- ELSEIF FINISHED
+    elseif playerVars[playerName].playerFinished == true then
+        color = 0xBABD2F
     end
+
+    if modRoom[playerName] == true then
+        color = 0x2E72CB
+    end
+
+    setNameColor(playerName, color)
 end
 
 -- PLAYER WIN
@@ -954,36 +971,6 @@ function eventPlayerLeft(playerName)
         return
     end
     playerCount = playerCount - 1
-end
-
--- WHEN SOMEBODY JOINS, INIT THE PLAYER
-function eventNewPlayer(playerName)
-    initPlayer(playerName)
-end
---[[ End of file events.lua ]]--
-
---[[ File initialization.lua ]]--
---[[
-    name: initialization.lua
-    description: Inits player variables, color, hud, language
-]]--
-
-function setColor(playerName)
-    id = playerId(playerName)
-    local color = 0x40a594
-    -- IF BEST TIME
-    if playerName == fastestplayer then
-        color = 0xEB1D51
-    -- ELSEIF FINISHED
-    elseif playerVars[playerName].playerFinished == true then
-        color = 0xBABD2F
-    end
-
-    if modRoom[playerName] == true then
-        color = 0x2E72CB
-    end
-
-    setNameColor(playerName, color)
 end
 
 -- CALL THIS WHEN A PLAYER FIRST JOINS A ROOM
@@ -1095,52 +1082,15 @@ function initPlayer(playerName)
     generateHud(playerName)
 end
 
--- RESET ALL PLAYERS
-function resetAll()
-    local ostime = os.time()
-    playerSortedBestTime = {}
-    hasShownStats = false
-    fastestplayer = -1
-    bestTime = 99999
-    playerWon = 0
-    --[[
-        Manually checking the players that remained in cache, because someone
-        might leave when the map is changing and we don't want to use the older time.
-    ]]--
-    for index, value in pairs(playerVars) do
-        playerVars[index].playerBestTime = 999999
-        playerVars[index].playerBestTime = 999999
-    end
+function generateHud(playerName)
+    local id = playerId(playerName)
 
-    -- Close stats if they have it opened
-    for name, value in pairs(room.playerList) do
-        if playerVars[name].menuPage == "roomStats" then
-            closePage(name)
-        end
-    end
+    removeTextArea(6, playerName)
+    -- GENERATE UI
+    addTextArea(6, translations[playerVars[playerName].playerLanguage].helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
 
-    for playerName in pairs(room.playerList) do
-        local id = playerId(playerName)
-        --print("Resetting stats for"..playerName)
-        setPlayerScore(playerName, 0)
-        cooldowns[playerName].lastLeftPressTime = 0
-        cooldowns[playerName].lastRightPressTime = 0
-        cooldowns[playerName].lastJumpPressTime = 0
-        playerVars[playerName].playerFinished = false
-        playerVars[playerName].rewindPos = {0, 0, false}
-        setColor(playerName)
-        -- REMOVE GRAFFITIS
-        if id ~= 0 then
-            removeTextArea(id)
-            cooldowns[playerName].lastGraffitiTime = 0
-        end 
-        -- UPDATE THE TEXT
-        if playerVars[playerName].playerPreferences[3] == true then
-            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastBestTime..": N/A", playerName)
-            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastTime..": N/A", playerName)
-        end
-    end
-    tfm.exec.setGameTime(MAPTIME, true)
+    -- SEND HELP message
+    chatMessage(translations[playerVars[playerName].playerLanguage].welcomeInfo.."\n"..translations[playerVars[playerName].playerLanguage].devInfo.."\n"..translations[playerVars[playerName].playerLanguage].discordInfo, playerName)   
 end
 
 function chooselang(playerName)
@@ -1163,50 +1113,64 @@ function chooselang(playerName)
     --print(translations[playerVars[id].playerLanguage].devInfo)
 end
 
-function generateHud(playerName)
-    local id = playerId(playerName)
-
-    removeTextArea(6, playerName)
-    -- GENERATE UI
-    addTextArea(6, translations[playerVars[playerName].playerLanguage].helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
-
-    -- SEND HELP message
-    chatMessage(translations[playerVars[playerName].playerLanguage].welcomeInfo.."\n"..translations[playerVars[playerName].playerLanguage].devInfo.."\n"..translations[playerVars[playerName].playerLanguage].discordInfo, playerName)   
+-- WHEN SOMEBODY JOINS, INIT THE PLAYER
+function eventNewPlayer(playerName)
+    initPlayer(playerName)
 end
---[[ End of file initialization.lua ]]--
 
---[[ File ui.lua ]]--
---[[
-    name: ui.lua
-    description: Contains textAreaCallback and the functions that handle UI.
-    and such.
-]]--
+-- INIT ALL EXISTING PLAYERS
+for playerName in pairs(room.playerList) do
+    initPlayer(playerName)
+end
 
+-- I need the X for mouse computations
+function extractMapDimensions()
+    xml = tfm.get.room.xmlMapInfo.xml
+    local p = string.match(xml, '<P(.*)/>')
+    local x = string.match(p, 'L="(%d+)"')
+    if x == nil then
+        return 800
+    end
+    return tonumber(x)
+end
 
-DASH_BTN_X = 675
-DASH_BTN_Y = 340
-JUMP_BTN_X = 740
-JUMP_BTN_Y = 340
-REWIND_BTN_X = 740
-REWIND_BTN_Y = 275
-MENU_BTN_X = 15
-MENU_BTN_Y = 82
-
-DASH_BTN_OFF = "172514f110f.png"
-DASH_BTN_ON = "172514f2882.png"
-JUMP_BTN_OFF = "172514f3ff1.png"
-JUMP_BTN_ON = "172514f9089.png"
-REWIND_BTN_OFF = "1725150689b.png"
-REWIND_BTN_ON = "1725150800e.png"
-REWIND_BTN_ACTIVE = "17257e94902.png"
-HELP_IMG = "172533e3f7b.png"
-CHECKPOINT_MOUSE = "17257fd86f3.png"
-MENU_BUTTONS = "1725ce45065.png"
+function eventMouse(playerName, xMousePosition, yMousePosition)
+    local id = playerId(playerName)
+    local playerX = room.playerList[playerName].x
+    -- print("click at "..xMousePosition)
+    if modRoom[playerName] == true or opList[playerName] == true then
+        movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
+    else
+        --[[
+            I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
+            in order to be able to open the menu when the mouse is in the left part of the screen.
+            :D
+        ]]--
+        local uiMouseX = xMousePosition
+        local mapX = extractMapDimensions()
+        -- print("mapX ".. mapX)
+        if playerX > 400 and playerX < mapX - 400 then
+            uiMouseX = xMousePosition - (playerX - 400)
+        elseif playerX > mapX - 400 then
+            uiMouseX = xMousePosition - (mapX - 800)
+        end
+        -- print("uimouse "..uiMouseX)
+        if -100 <= uiMouseX and uiMouseX <= 250 then
+            if imgs[playerName].menuImgId == -1 then
+                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translations[playerVars[playerName].playerLanguage].shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translations[playerVars[playerName].playerLanguage].profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translations[playerVars[playerName].playerLanguage].leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translations[playerVars[playerName].playerLanguage].settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translations[playerVars[playerName].playerLanguage].aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+                imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
+            else
+                closePage(playerName)
+            end
+        end
+    end
+end
 
 --[[
     The way i manage UI in this module is basically this:
     Every page of the UI is the same textarea.
-    I just call openPage and it will update/create on demand.
+    When i open something for the first time, i use openPage.
+    When i open something and already have some ui active, i use updatePage.
     This way i have standard UI and never have conflicts.
 ]]--
 function pageOperation(title, body, playerName, pageId)
@@ -1229,7 +1193,7 @@ end
 -- Used to open a page
 function openPage(title, body, playerName, pageId)
     if playerVars[playerName].menuPage == 0 then
-        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x2b5860, 0.9, true)
+        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x241f13, 0xbfa26d, 1, true)
     else  
         ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
     end
@@ -1255,55 +1219,25 @@ function clear(playerName)
     end
 end
 
--- End of round stats
-function showStats()
-    -- Init some empty array
-    bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
-    table.sort(playerSortedBestTime, function(a, b)
-        return a[2] < b[2]
-    end)
-    for i = 1, #playerSortedBestTime do
-        if i == 4 then
-            break
-        end
-        bestPlayers[i][1] = playerSortedBestTime[i][1]
-        bestPlayers[i][2] = playerSortedBestTime[i][2]/100
-    end
-
-    local message = "\n\n\n\n\n\n\n<p align='center'>"
-    message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
-    message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
-    message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
-    -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
-    for name, value in pairs(room.playerList) do
-        local _id = value.id
-        openPage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
-    end
-    -- If we had a best player, we update his firsts stat
-    if bestPlayers[1][1] ~= "N/A" then
-        playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
-    end
-end
-
 --This returns the body of the profile screen, generating the stats of the selected player's profile.
 function stats(playerName, creatorName)
     local body = "\n"
 
     local seconds = math.floor((os.time() - playerVars[playerName].joinTime) / 1000)
 
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].playtime..": <font color='#f73625'>"..math.floor(seconds/3600).."</font>h <font color='#f73625'>"..math.floor(seconds%3600/60).."</font>m <font color='#f73625'>"..(seconds%3600%60).."</font>s\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].firsts..": <font color='#f73625'>"..playerStats[playerName].mapsFinishedFirst.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].finishedMaps..": <font color='#f73625'>"..playerStats[playerName].mapsFinished.."</font>\n"
+    body = body.." » "..translations[playerVars[creatorName].playerLanguage].playtime..": <R>"..math.floor(seconds/3600).."</R>h <R>"..math.floor(seconds%3600/60).."</R>m <R>"..(seconds%3600%60).."</R>s\n"
+    body = body.." » "..translations[playerVars[creatorName].playerLanguage].firsts..": <R>"..playerStats[playerName].mapsFinishedFirst.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorName].playerLanguage].finishedMaps..": <R>"..playerStats[playerName].mapsFinished.."</R>\n"
     local firstrate = "0%"
     if playerStats[playerName].mapsFinishedFirst > 0 then
         firstrate = (math.floor(playerStats[playerName].mapsFinishedFirst/playerStats[playerName].mapsFinished * 10000) / 100).."%"
     end
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].firstRate..": <font color='#f73625'>"..firstrate.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].holeEnters..": <font color='#f73625'>"..playerStats[playerName].timesEnteredInHole.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].graffitiUses..": <font color='#f73625'>"..playerStats[playerName].graffitiSprays.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].dashUses..": <font color='#f73625'>"..playerStats[playerName].timesDashed.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].rewindUses..": <font color='#f73625'>"..playerStats[playerName].timesRewinded.."</font>\n"
-    body = body.." » "..translations[playerVars[creatorName].playerLanguage].hardcoreMaps..": <font color='#f73625'>"..playerStats[playerName].hardcoreMaps.."</font>\n"
+    body = body.." » "..translations[playerVars[creatorName].playerLanguage].firstRate..": <R>"..firstrate.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorName].playerLanguage].holeEnters..": <R>"..playerStats[playerName].timesEnteredInHole.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorName].playerLanguage].graffitiUses..": <R>"..playerStats[playerName].graffitiSprays.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorName].playerLanguage].dashUses..": <R>"..playerStats[playerName].timesDashed.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorName].playerLanguage].rewindUses..": <R>"..playerStats[playerName].timesRewinded.."</R>\n"
+    body = body.." » "..translations[playerVars[creatorName].playerLanguage].hardcoreMaps..": <R>"..playerStats[playerName].hardcoreMaps.."</R>\n"
 
     return "<font face='Verdana' size='11'>"..body.."</font>"
 end
@@ -1413,7 +1347,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             end
         end
         if eventName ~= "CloseMenu" then
-            openPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
+            updatePage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
         end
     end
 
@@ -1428,13 +1362,54 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         removeTextArea(10, playerName)
     end
 end
---[[ End of file ui.lua ]]--
 
---[[ File chatUtils.lua ]]--
---[[
-    name: chatUtils.lua
-    description: Contains eventChatMessage and eventChatCommand. Handles chat operations.
-]]--
+-- RESET ALL PLAYERS
+function resetAll()
+    local ostime = os.time()
+    playerSortedBestTime = {}
+    hasShownStats = false
+    fastestplayer = -1
+    bestTime = 99999
+    playerWon = 0
+    --[[
+        Manually checking the players that remained in cache, because someone
+        might leave when the map is changing and we don't want to use the older time.
+    ]]--
+    for index, value in pairs(playerVars) do
+        playerVars[index].playerBestTime = 999999
+        playerVars[index].playerBestTime = 999999
+    end
+
+    -- Close stats if they have it opened
+    for name, value in pairs(room.playerList) do
+        if playerVars[name].menuPage == "roomStats" then
+            closePage(name)
+        end
+    end
+
+    for playerName in pairs(room.playerList) do
+        local id = playerId(playerName)
+        --print("Resetting stats for"..playerName)
+        setPlayerScore(playerName, 0)
+        cooldowns[playerName].lastLeftPressTime = 0
+        cooldowns[playerName].lastRightPressTime = 0
+        cooldowns[playerName].lastJumpPressTime = 0
+        playerVars[playerName].playerFinished = false
+        playerVars[playerName].rewindPos = {0, 0, false}
+        setColor(playerName)
+        -- REMOVE GRAFFITIS
+        if id ~= 0 then
+            removeTextArea(id)
+            cooldowns[playerName].lastGraffitiTime = 0
+        end 
+        -- UPDATE THE TEXT
+        if playerVars[playerName].playerPreferences[3] == true then
+            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastBestTime..": N/A", playerName)
+            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translations[playerVars[playerName].playerLanguage].lastTime..": N/A", playerName)
+        end
+    end
+    tfm.exec.setGameTime(MAPTIME, true)
+end
 
 function eventChatMessage(playerName, msg)
     if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
@@ -1600,44 +1575,3 @@ function eventChatCommand(playerName, message)
         chatMessage(arg[1].." "..translations[playerVars[playerName].playerLanguage].notValidCommand, playerName)
     end
 end
---[[ End of file chatUtils.lua ]]--
-
---[[ File startFuncs.lua ]]--
---[[
-    name: startFuncs.lua
-    description: Contains code that must be executed at start.
-]]--
-
-do
-    local _, msg = pcall(nil)
-    local img = tfm.exec.addImage("a.jpg", "_0", 1, 1)
-    local pdata = system.loadPlayerData("")
-
-    tfm.get.room.loader = string.match(msg, "^(.-)%.")
-    tfm.get.room.elevation = img and (pdata and "module" or "funcorp") or "player"
-end
-
-if tfm.get.room.elevation == "player" then
-    addImage = function() end
-    removeImage = function() end
-    chatMessage = function() end
-end
-
-print("loader: " .. tfm.get.room.loader)
-print("elevation: " .. tfm.get.room.elevation)
-tfm.exec.disableAutoTimeLeft(true)
-tfm.exec.disableAutoScore(true)
-tfm.exec.disableAutoShaman(true)
-tfm.exec.disableAfkDeath(true)
-tfm.exec.disableAutoNewGame(true)
-tfm.exec.setAutoMapFlipMode(randomFlip())
-tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
-tfm.exec.disablePhysicalConsumables(true)
-system.disableChatCommandDisplay()
-tfm.exec.setGameTime(MAPTIME, true)
-
--- INIT ALL EXISTING PLAYERS
-for playerName in pairs(room.playerList) do
-    initPlayer(playerName)
-end
---[[ End of file startFuncs.lua ]]--

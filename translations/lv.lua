@@ -3,7 +3,7 @@ translations.lv = {
     lastBestTime = "Tavs labākais laiks",
     helpToolTip = "<p align='center'>Spied <b>H</b>, lai atvērtu palīdzību.</p>",
     optionsYes = "<font color='#53ba58'>Jā</font>",
-    optionsNo = "<font color='#ba5353'>Nē</font>",
+    optionsNo = "<font color='#f73625'>Nē</font>",
     graffitiSetting = "Iespējot grafiti",
     particlesSetting = "Iespējot paātrināšanas/lēkšanas efektus",
     timePanelsSetting = "Iespējot laika paneļus",
@@ -23,7 +23,7 @@ translations.lv = {
     settingsTitle = "Opcijas",
     aboutTitle = "Par",
     -- END
-    aboutBody = "Moduli kodēja <font color='#FFD991'>Extremq#0000</font>.\nIdejas spēlei, kļūdu testēšanu un mapes nodrošināja <font color='#FFD991'>Railysse#0000</font>.\n\nŠo moduli pilnībā atbalsta peļu organizācija „Red Cheese” ar „Save Module” projektu. Visas iegūtās finanses tiks ziedotas pelēm, kuras spēlē #parkour, lai varam piekukuļot viņas spēlēt mūsu moduli.\n\nMēs tikai jokojam, paldies, ka izmēģinājāt mūsu moduli! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    aboutBody = "Moduli kodēja <font color='#FFD991'>Extremq#0000</font>.\nIdejas spēlei, kļūdu testēšanu un mapes nodrošināja <font color='#FFD991'>Railysse#0000</font>.\n\nŠo moduli pilnībā atbalsta peļu organizācija „Red Cheese” ar „Save Module” projektu. Visas iegūtās finanses tiks ziedotas pelēm, kuras spēlē #parkour, lai varam piekukuļot viņas spēlēt mūsu moduli.\n\nMēs tikai jokojam, paldies, ka izmēģinājāt mūsu moduli! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
     playtime = "Playtime",
     firsts = "Pirmās vietas",
     finishedMaps = "Pabeigtās mapes",
@@ -36,6 +36,6 @@ translations.lv = {
     shopNotice = "Veikals ir izveides procesā.",
     leaderboardsNotice = "Rezultātu tablo tiks ieviests, kad modulis kļūs oficiāls.",
     notValidCommand = "nav derīga komanda.",
-    cantSetPass = "Cannot set a password in this room.",
-    translator = "Translated by Syrius#8114."
+    cantSetPass = "Nevar iestatīt paroli šajā istabā.",
+    translator = "Tulkoja Syrius#8114."
 }

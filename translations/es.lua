@@ -3,7 +3,7 @@ translations.es = {
     lastBestTime = "Tu record",
     helpToolTip = "<p align='center'>Presiona <b>H</b> para obtener ayuda.</p>",
     optionsYes = "<font color='#53ba58'>Sí</font>",
-    optionsNo = "<font color='#ba5353'>No</font>",
+    optionsNo = "<font color='#f73625'>No</font>",
     graffitiSetting = "Activar graffitis",
     particlesSetting = "Activar partículas de impulso/salto",
     timePanelsSetting = "Activar paneles de tiempos",
@@ -23,7 +23,7 @@ translations.es = {
     settingsTitle = "Configuracion",
     aboutTitle = "Acerca",
     -- END
-    aboutBody = "Módulo programado por <font color='#FFD991'>Extremq#0000</font>.\nIdeas de juego, testeo de errores y mapas por <font color='#FFD991'>Railysse#0000</font>.\n\nEste módulo está totalmente respaldado por la fundación de ratones „Red Cheese” con el proyecto „Save Module”. Todas las donaciones que ganemos serán donadas a los ratones que juegan #parkour para sobornarlos y que vengan a jugar nuestro módulo.\n\nSólo estamos bromeando, ¡gracias por jugar nuestro módulo! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    aboutBody = "Módulo programado por <font color='#FFD991'>Extremq#0000</font>.\nIdeas de juego, testeo de errores y mapas por <font color='#FFD991'>Railysse#0000</font>.\n\nEste módulo está totalmente respaldado por la fundación de ratones „Red Cheese” con el proyecto „Save Module”. Todas las donaciones que ganemos serán donadas a los ratones que juegan #parkour para sobornarlos y que vengan a jugar nuestro módulo.\n\nSólo estamos bromeando, ¡gracias por jugar nuestro módulo! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
     playtime = "Tiempo de juego",
     firsts = "Firsts",
     finishedMaps = "Mapas completados",
@@ -36,5 +36,6 @@ translations.es = {
     shopNotice = "La tienda está en desarrollo.",
     leaderboardsNotice = "Una tabla de clasificación será implementada cuando el módulo se vuelva oficial.",
     notValidCommand = "no es un comando válido.",
-    cantSetPass = "No se puede cambiar la contraseña de esta sala."
+    cantSetPass = "No se puede cambiar la contraseña de esta sala.",
+    translator = "Traducido por Tocutoeltuco#0000."
 }

@@ -3,7 +3,7 @@ translations.en = {
     lastBestTime = "Your best time",
     helpToolTip = "<p align='center'>Press <b>H</b> for help.</p>",
     optionsYes = "<font color='#53ba58'>Yes</font>",
-    optionsNo = "<font color='#ba5353'>No</font>",
+    optionsNo = "<font color='#f73625'>No</font>",
     graffitiSetting = "Enable graffitis",
     particlesSetting = "Enable dash/jump particles",
     timePanelsSetting = "Enable time panels",
@@ -23,7 +23,7 @@ translations.en = {
     settingsTitle = "Settings",
     aboutTitle = "About",
     -- END
-    aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGameplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGameplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
     playtime = "Playtime",
     firsts = "Firsts",
     finishedMaps = "Completed maps",

@@ -3,7 +3,7 @@ translations.ro = {
     lastBestTime = "Cel mai bun timp",
     helpToolTip = "<p align='center'>Apasă <b>H</b> pentru ajutor.</p>",
     optionsYes = "<font color='#53ba58'>Da</font>", -- 12
-    optionsNo = "<font color='#ba5353'>Nu</font>",  -- 13
+    optionsNo = "<font color='#f73625'>Nu</font>",  -- 13
     graffitiSetting = "Activezi graffitiurile", -- 14
     particlesSetting = "Activezi particulele de dash", -- 15
     timePanelsSetting = "Activezi panourile de timp", -- 16
@@ -21,7 +21,7 @@ translations.ro = {
     leaderboardsTitle = "Clasamente", -- 27
     settingsTitle = "Configurare", -- 28
     aboutTitle = "Despre", -- 29
-    aboutBody = "Modul codat de <font color='#FFD991'>Extremq#0000</font>.\nIdei de joc, bug-testing și hărți asigurate de <font color='#FFD991'>Railysse#0000</font>.\n\nAcest modul este susținut în întregime de fundația șoricească „Brânza Roșie” în cadrul proiectului „Salvați Module”. Toate fondurile pe care le primim vor fi donate șoarecilor care stau pe #parkour cu scopul de a-i mitui să vină aici.\n\nGlumim, mulțumim că ne-ai încercat jocul! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    aboutBody = "Modul codat de <font color='#FFD991'>Extremq#0000</font>.\nIdei de joc, bug-testing și hărți asigurate de <font color='#FFD991'>Railysse#0000</font>.\n\nAcest modul este susținut în întregime de fundația șoricească „Brânza Roșie” în cadrul proiectului „Salvați Module”. Toate fondurile pe care le primim vor fi donate șoarecilor care stau pe #parkour cu scopul de a-i mitui să vină aici.\n\nGlumim, mulțumim că ne-ai încercat jocul! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
     playtime = "Timp jucat",
     firsts = "First-uri",
     finishedMaps = "Hărți completate",

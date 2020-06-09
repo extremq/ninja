@@ -22,8 +22,6 @@ end
 local languages = {"ro", "en", "fr", "lv", "es"}
 local translations = {}
 
-VERSION = "1.5.4, 09.06.2020"
-
 --[[ Directory translations ]]--
 --[[ File translations/en.lua ]]--
 translations.en = {
@@ -241,12 +239,6 @@ translations.ro = {
 --[[ End of directory translations ]]--
 
 --[[ File maps.lua ]]--
---[[
-    name: maps.lua
-    description: Contains the maps.
-]]--
-
-
 -- Standard maps
 stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
 stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
@@ -256,14 +248,9 @@ hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
 hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
 --[[ End of file maps.lua ]]--
 
---[[ File mapUtils.lua ]]--
---[[
-    name: mapUtils.lua
-    description: Contains functions that help with the map picker algorithm and title setter.
-]]--
+VERSION = "1.5.4, 09.06.2020"
 
-MAPTIME = 4 * 60 + 3
-BASETIME = MAPTIME -- after difficulty
+--[[ File mapUtils.lua ]]--
 
 -- CHOOSE MAP
 function randomMap(mapsLeft, mapCodes)
@@ -363,12 +350,6 @@ end
 --[[ End of file mapUtils.lua ]]--
 
 --[[ File vars.lua ]]--
---[[
-    name: vars.lua
-    description: contains all player and map variables (shop, player structures and map vars)
-]]--
-
-
 function shopListing(values, imgId, tooltip, reqs)
     return {
         ['values'] = values,
@@ -488,13 +469,9 @@ playerVars = {
 --[[ End of file vars.lua ]]--
 
 --[[ File abilities.lua ]]--
---[[
-    name: abilities.lua
-    description: Contains keyboard and mouse events + eventloop, all of which update ability cooldowns
-    and such.
-]]--
-
 --CONSTANTS
+MAPTIME = 4 * 60 + 3
+BASETIME = MAPTIME -- after difficulty
 STATSTIME = 10 * 1000
 DASHCOOLDOWN = 1 * 1000
 JUMPCOOLDOWN = 3 * 1000
@@ -705,17 +682,6 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     end
 end
 
--- I need the X for mouse computations
-function extractMapDimensions()
-    xml = tfm.get.room.xmlMapInfo.xml
-    local p = string.match(xml, '<P(.*)/>')
-    local x = string.match(p, 'L="(%d+)"')
-    if x == nil then
-        return 800
-    end
-    return tonumber(x)
-end
-
 function eventMouse(playerName, xMousePosition, yMousePosition)
     local id = playerId(playerName)
     local playerX = room.playerList[playerName].x
@@ -830,12 +796,6 @@ end
 --[[ End of file abilities.lua ]]--
 
 --[[ File events.lua ]]--
---[[
-    name: events.lua
-    description: Contains playerRespawn, playerDied, playerWon, playerLeft and playerJoined
-]]--
-
-
 -- PLAYER COLOR SETTER
 function eventPlayerRespawn(playerName)
     local ostime = os.time()
@@ -963,11 +923,6 @@ end
 --[[ End of file events.lua ]]--
 
 --[[ File initialization.lua ]]--
---[[
-    name: initialization.lua
-    description: Inits player variables, color, hud, language
-]]--
-
 function setColor(playerName)
     id = playerId(playerName)
     local color = 0x40a594
@@ -1173,16 +1128,21 @@ function generateHud(playerName)
     -- SEND HELP message
     chatMessage(translations[playerVars[playerName].playerLanguage].welcomeInfo.."\n"..translations[playerVars[playerName].playerLanguage].devInfo.."\n"..translations[playerVars[playerName].playerLanguage].discordInfo, playerName)   
 end
+
+
+-- I need the X for mouse computations
+function extractMapDimensions()
+    xml = tfm.get.room.xmlMapInfo.xml
+    local p = string.match(xml, '<P(.*)/>')
+    local x = string.match(p, 'L="(%d+)"')
+    if x == nil then
+        return 800
+    end
+    return tonumber(x)
+end
 --[[ End of file initialization.lua ]]--
 
 --[[ File ui.lua ]]--
---[[
-    name: ui.lua
-    description: Contains textAreaCallback and the functions that handle UI.
-    and such.
-]]--
-
-
 DASH_BTN_X = 675
 DASH_BTN_Y = 340
 JUMP_BTN_X = 740
@@ -1431,10 +1391,6 @@ end
 --[[ End of file ui.lua ]]--
 
 --[[ File chatUtils.lua ]]--
---[[
-    name: chatUtils.lua
-    description: Contains eventChatMessage and eventChatCommand. Handles chat operations.
-]]--
 
 function eventChatMessage(playerName, msg)
     if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
@@ -1603,11 +1559,7 @@ end
 --[[ End of file chatUtils.lua ]]--
 
 --[[ File startFuncs.lua ]]--
---[[
-    name: startFuncs.lua
-    description: Contains code that must be executed at start.
-]]--
-
+-- Others
 do
     local _, msg = pcall(nil)
     local img = tfm.exec.addImage("a.jpg", "_0", 1, 1)
