@@ -1345,5 +1345,12 @@ end
 -- Others
 do
     local _, msg = pcall(nil)
-    room.scriptLoader = string.match(msg, "(.-)%.")
+    local img = tfm.exec.addImage("a.jpg", "_0", 1, 1)
+    local pdata = system.loadPlayerData("")
+
+    tfm.get.room.loader = string.match(msg, "^(.-)%.")
+    tfm.get.room.elevation = img and (pdata and "module" or "funcorp") or "player"
 end
+
+print("loader: " .. tfm.get.room.loader)
+print("elevation: " .. tfm.get.room.elevation)
