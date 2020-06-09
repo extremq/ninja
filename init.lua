@@ -1334,7 +1334,7 @@ function eventChatCommand(playerName, message)
                 return
             end
         end
-        chatMessage(arg[2].."doesn't exist yet.")
+        chatMessage(arg[2].." doesn't exist yet.", playerName)
     end
 
     if isValid == false then
