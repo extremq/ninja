@@ -33,5 +33,6 @@ translations.ro = {
     hardcoreMaps = "Hărți grele completate",
     shopNotice = "Magazinul va fi deschis în curând.",
     leaderboardsNotice = "Clasamentul va fi implementat când modulul va deveni oficial.",
-    notValidCommand = "nu este o comandă validă."
+    notValidCommand = "nu este o comandă validă.",
+    cantSetPass = "Nu se poate seta o parolă pe această sală."
 }

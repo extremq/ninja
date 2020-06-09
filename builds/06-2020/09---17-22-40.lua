@@ -14,24 +14,15 @@ local random = math.random
 local addTextArea = ui.addTextArea
 local removeTextArea = ui.removeTextArea
 
--- Others
 do
     local _, msg = pcall(nil)
-    local img = tfm.exec.addImage("a.jpg", "_0", 1, 1)
-    local pdata = system.loadPlayerData("")
-
-    tfm.get.room.loader = string.match(msg, "^(.-)%.")
-    tfm.get.room.elevation = img and (pdata and "module" or "funcorp") or "player"
+    room.scriptLoader = string.match(msg, "(.-)%.")
 end
 
-print("loader: " .. tfm.get.room.loader)
-print("elevation: " .. tfm.get.room.elevation)
+print(room.scriptLoader)
 
-if tfm.get.room.elevation == "player" then
-    addImage = function() end
-    removeImage = function() end
-    chatMessage = function() end
-end
+-- addImage = function() end
+-- removeImage = function() end
 
 local languages = {"ro", "en", "fr", "lv"}
 local translations = {}
@@ -74,8 +65,7 @@ translations.en = {
     hardcoreMaps = "Hardcore maps completed",
     shopNotice = "The shop is in development.",
     leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
-    notValidCommand = "is not a valid command.",
-    cantSetPass = "Cannot set a password in this room."
+    notValidCommand = "is not a valid command."
 }
 --[[ End of file translations/en.lua ]]--
 --[[ File translations/fr.lua ]]--
@@ -116,8 +106,7 @@ translations.fr = {
     hardcoreMaps = "Cartes compliquées complétées",
     shopNotice = "La boutique est en developpement.",
     leaderboardsNotice = "Un classement sera implenté quand le module deviendra officiel.",
-    notValidCommand = "n'est pas une commande valide.",
-    cantSetPass = "Cannot set a password in this room."
+    notValidCommand = "n'est pas une commande valide."
 }
 --[[ End of file translations/fr.lua ]]--
 --[[ File translations/lv.lua ]]--
@@ -158,8 +147,7 @@ translations.lv = {
     hardcoreMaps = "Pabeigtās „Hardcore” mapes",
     shopNotice = "Veikals ir izveides procesā.",
     leaderboardsNotice = "Rezultātu tablo tiks ieviests, kad modulis kļūs oficiāls.",
-    notValidCommand = "nav derīga komanda.",
-    cantSetPass = "Cannot set a password in this room."
+    notValidCommand = "nav derīga komanda."
 }
 --[[ End of file translations/lv.lua ]]--
 --[[ File translations/ro.lua ]]--
@@ -198,15 +186,14 @@ translations.ro = {
     hardcoreMaps = "Hărți grele completate",
     shopNotice = "Magazinul va fi deschis în curând.",
     leaderboardsNotice = "Clasamentul va fi implementat când modulul va deveni oficial.",
-    notValidCommand = "nu este o comandă validă.",
-    cantSetPass = "Nu se poate seta o parolă pe această sală."
+    notValidCommand = "nu este o comandă validă."
 }
 --[[ End of file translations/ro.lua ]]--
 --[[ End of directory translations ]]--
 
 -- Standard maps
-stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
-stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 4}, {"@7735771", 3}, {"@7048028", 1}}
 
 -- Hardcore maps
 hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
@@ -465,8 +452,11 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
         ]]--
         if (keyCode == 0 or keyCode == 2) and ostime - cooldowns[playerName].lastDashTime > DASHCOOLDOWN then
             local dashUsed = false
-            local direction = keyCode - 1 -- Tocu
+            local direction = 1 -- assume its right
 
+            if keyCode == 0 then
+                direction = -1
+            end
             -- we check wether its left or right and if we double-tapped or not (can't shorten this)
             if keyCode == 2 and ostime - cooldowns[playerName].lastRightPressTime < 200 then
                 dashUsed = true;
@@ -1480,11 +1470,6 @@ function eventChatCommand(playerName, message)
 
     if arg[1] == "pw" and playerName == admin then
         isValid = true
-
-        if string.find(room.name, "^[a-z][a-z2]%-#ninja%d*$") then
-            return chatMessage(translations[playerVars[playerName].playerLanguage].cantSetPass, player)
-        end
-
         if arg[2] ~= nil then
             customRoom = true
             tfm.exec.setRoomPassword(arg[2])

@@ -74,8 +74,7 @@ translations.en = {
     hardcoreMaps = "Hardcore maps completed",
     shopNotice = "The shop is in development.",
     leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
-    notValidCommand = "is not a valid command.",
-    cantSetPass = "Cannot set a password in this room."
+    notValidCommand = "is not a valid command."
 }
 --[[ End of file translations/en.lua ]]--
 --[[ File translations/fr.lua ]]--
@@ -116,8 +115,7 @@ translations.fr = {
     hardcoreMaps = "Cartes compliquées complétées",
     shopNotice = "La boutique est en developpement.",
     leaderboardsNotice = "Un classement sera implenté quand le module deviendra officiel.",
-    notValidCommand = "n'est pas une commande valide.",
-    cantSetPass = "Cannot set a password in this room."
+    notValidCommand = "n'est pas une commande valide."
 }
 --[[ End of file translations/fr.lua ]]--
 --[[ File translations/lv.lua ]]--
@@ -158,8 +156,7 @@ translations.lv = {
     hardcoreMaps = "Pabeigtās „Hardcore” mapes",
     shopNotice = "Veikals ir izveides procesā.",
     leaderboardsNotice = "Rezultātu tablo tiks ieviests, kad modulis kļūs oficiāls.",
-    notValidCommand = "nav derīga komanda.",
-    cantSetPass = "Cannot set a password in this room."
+    notValidCommand = "nav derīga komanda."
 }
 --[[ End of file translations/lv.lua ]]--
 --[[ File translations/ro.lua ]]--
@@ -198,8 +195,7 @@ translations.ro = {
     hardcoreMaps = "Hărți grele completate",
     shopNotice = "Magazinul va fi deschis în curând.",
     leaderboardsNotice = "Clasamentul va fi implementat când modulul va deveni oficial.",
-    notValidCommand = "nu este o comandă validă.",
-    cantSetPass = "Nu se poate seta o parolă pe această sală."
+    notValidCommand = "nu este o comandă validă."
 }
 --[[ End of file translations/ro.lua ]]--
 --[[ End of directory translations ]]--
@@ -1480,11 +1476,6 @@ function eventChatCommand(playerName, message)
 
     if arg[1] == "pw" and playerName == admin then
         isValid = true
-
-        if string.find(room.name, "^[a-z][a-z2]%-#ninja%d*$") then
-            return chatMessage(translations[playerVars[playerName].playerLanguage].cantSetPass, player)
-        end
-
         if arg[2] ~= nil then
             customRoom = true
             tfm.exec.setRoomPassword(arg[2])
