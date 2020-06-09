@@ -35,5 +35,6 @@ translations.lv = {
     hardcoreMaps = "Pabeigtās „Hardcore” mapes",
     shopNotice = "Veikals ir izveides procesā.",
     leaderboardsNotice = "Rezultātu tablo tiks ieviests, kad modulis kļūs oficiāls.",
-    notValidCommand = "nav derīga komanda."
+    notValidCommand = "nav derīga komanda.",
+    cantSetPass = "Cannot set a password in this room."
 }

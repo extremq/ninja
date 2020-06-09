@@ -35,5 +35,6 @@ translations.en = {
     hardcoreMaps = "Hardcore maps completed",
     shopNotice = "The shop is in development.",
     leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
-    notValidCommand = "is not a valid command."
+    notValidCommand = "is not a valid command.",
+    cantSetPass = "Cannot set a password in this room."
 }

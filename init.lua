@@ -1313,6 +1313,11 @@ function eventChatCommand(playerName, message)
 
     if arg[1] == "pw" and playerName == admin then
         isValid = true
+
+        if string.find(room.name, "^[a-z][a-z2]%-#ninja%d*$") then
+            return chatMessage(translations[playerVars[playerName].playerLanguage].cantSetPass, player)
+        end
+
         if arg[2] ~= nil then
             customRoom = true
             tfm.exec.setRoomPassword(arg[2])

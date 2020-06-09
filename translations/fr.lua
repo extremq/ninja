@@ -35,5 +35,6 @@ translations.fr = {
     hardcoreMaps = "Cartes compliquées complétées",
     shopNotice = "La boutique est en developpement.",
     leaderboardsNotice = "Un classement sera implenté quand le module deviendra officiel.",
-    notValidCommand = "n'est pas une commande valide."
+    notValidCommand = "n'est pas une commande valide.",
+    cantSetPass = "Cannot set a password in this room."
 }
