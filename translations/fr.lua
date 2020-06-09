@@ -36,5 +36,6 @@ translations.fr = {
     shopNotice = "La boutique est en developpement.",
     leaderboardsNotice = "Un classement sera implenté quand le module deviendra officiel.",
     notValidCommand = "n'est pas une commande valide.",
-    cantSetPass = "Cannot set a password in this room."
+    cantSetPass = "Cannot set a password in this room.",
+    translator = "Translated by Jaker#9310."
 }

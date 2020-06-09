@@ -36,5 +36,6 @@ translations.en = {
     shopNotice = "The shop is in development.",
     leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
     notValidCommand = "is not a valid command.",
-    cantSetPass = "Cannot set a password in this room."
+    cantSetPass = "Cannot set a password in this room.",
+    translator = "Translated by Extremq#0000."
 }

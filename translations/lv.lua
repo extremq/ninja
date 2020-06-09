@@ -36,5 +36,6 @@ translations.lv = {
     shopNotice = "Veikals ir izveides procesā.",
     leaderboardsNotice = "Rezultātu tablo tiks ieviests, kad modulis kļūs oficiāls.",
     notValidCommand = "nav derīga komanda.",
-    cantSetPass = "Cannot set a password in this room."
+    cantSetPass = "Cannot set a password in this room.",
+    translator = "Translated by Syrius#8114."
 }

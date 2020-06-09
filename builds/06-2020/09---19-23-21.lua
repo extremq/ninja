@@ -35,7 +35,178 @@ end
 
 local languages = {"ro", "en", "fr", "lv"}
 local translations = {}
-{% require-dir "translations" %}
+--[[ Directory translations ]]--
+--[[ File translations/en.lua ]]--
+translations.en = {
+    lastTime = "Your last time",
+    lastBestTime = "Your best time",
+    helpToolTip = "<p align='center'>Press <b>H</b> for help.</p>",
+    optionsYes = "<font color='#53ba58'>Yes</font>",
+    optionsNo = "<font color='#ba5353'>No</font>",
+    graffitiSetting = "Enable graffitis",
+    particlesSetting = "Enable dash/jump particles",
+    timePanelsSetting = "Enable time panels",
+    globalChatSetting = "Enable global chat",
+    voteStart = " started a vote to skip the current map. Type !yes to vote positively.",
+    newRecord = " finished the map in the fastest time!",
+    devInfo = "<V>Want to submit a map? Check this link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>This module is in development. Please report any bugs to Extremq#0000 or Railysse#0000.</font>",
+    discordInfo = "<BV>Join our discord! https://discord.gg/WawZVaq</BV>",
+    welcomeInfo = "Welcome to <font color='#E68D43'>#ninja</font>! Press <font color='#E68D43'>H</font> for help.",
+    finishedInfo = "You finished the map! Time: ",
+    helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (3s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Commands</b>:\n» !p Name#id - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n» !langue country - Change the language of the module. (only for you)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
+    Xbtn = "X",
+    -- IF YOUR LANGUAGE HAS SEPCIAL CHARACTERS, PLEASE JUST LEAVE THESE AS DEFAULT
+    shopTitle = "Collection",
+    profileTitle = "Profile",
+    leaderboardsTitle = "Leaderboards",
+    settingsTitle = "Settings",
+    aboutTitle = "About",
+    -- END
+    aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGameplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    playtime = "Playtime",
+    firsts = "Firsts",
+    finishedMaps = "Completed maps",
+    firstRate = "First rate",
+    holeEnters = "Times entered the hole",
+    graffitiUses = "Graffiti uses",
+    dashUses = "Times dashed",
+    rewindUses = "Times rewinded",
+    hardcoreMaps = "Hardcore maps completed",
+    shopNotice = "The shop is in development.",
+    leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
+    notValidCommand = "is not a valid command.",
+    cantSetPass = "Cannot set a password in this room.",
+    translator = "Translated by Extremq#0000."
+}
+--[[ End of file translations/en.lua ]]--
+--[[ File translations/fr.lua ]]--
+translations.fr = {
+    lastTime = "La dernière fois",
+    lastBestTime = "Votre meilleur temps",
+    helpToolTip = "<p align='center'>Appuyez sur <b>H</b> pour de l'aide.</p>",
+    optionsYes = "<font color='#53ba58'>Oui</font>",
+    optionsNo = "<font color='#ba5353'>Non</font>",
+    graffitiSetting = "Activer les graffitis",
+    particlesSetting = "Activer les particules de boost et de saut",
+    timePanelsSetting = "Activer les panneaux de temps",
+    globalChatSetting = "Activer la discussion global",
+    voteStart = " a comencé un vote pour passer la carte actuelle. Ecrivez !yes pour voter positivement.",
+    newRecord = " a fini la carte avec le meilleur temps!",
+    devInfo = "<V>Vous voulez proposer une carte? Allez sur ce lien : https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>Ce module est toujours en développement. Merci de signaler tous les bugs à Extremq#0000 ou Railysse#0000.</font>",
+    discordInfo = "<BV>Rejoignez le discord! https://discord.gg/WawZVaq</BV>",
+    welcomeInfo = "Bienvenue dans <font color='#E68D43'>#ninja</font>! Appuyez sur <font color='#E68D43'>H</font> pour de l'aide.",
+    finishedInfo = "Vous avez fini la carte! Temps: ",
+    helpBody = "Vous devez ramener le fromage dans le trou le plus rapidement possible.\n\n<b>Capacités </b>:\n» Boost - Appuyez deux fois sur <b><font color='#CB546B'>la flèche gauche</font></b> ou <b><font color='#CB546B'>la flèche droite</font></b>. (1s de rechargement)\n» Saut - Appuyez deux fois sur <b><font color='#CB546B'>la flèche du haut</font></b>. (3s de rechargement)\n» Retour - Appuyez sur <b><font color='#CB546B'>espace</font></b> pour laisser un point de sauvegarde. Appuyez sur <b><font color='#CB546B'></font></b> encore une fois dans les 3 secondes qui suivent pour vous téléporter sur ce point de sauvegarde. (10s de recharge)\n\n<b>Autres raccourcis</b>:\n» Se tuer - Appuyez sur <b><font color='#CB546B'>X</font></b> ou écrivez /mort pour tuer la souris.\n» Ouvrir le menu - Apuyez sur <b><font color='#CB546B'>M</font></b> ou cliquez sur la partie gauche de votre écran pour ouvrir/fermer le menu.\n» Placer un graffiti - Appuyez sur <b><font color='#CB546B'>C</font></b> pour afficher un graffiti. (60s de rechargement)\n» Ouvrir l'aide - Appuyez sur <b><font color='#CB546B'>H</font></b> pour ouvrir/fermer cette affichage.\n\n<b>Commands</b>:\n» !p Name#id - Affiche les statistiques d'un autre joueur.\n» !pw mot de passe - Ajoute un mot de passe au salon. (le salon doit être créé par vous)\n» !m @code - Charge n'importe quel carte que vous voulez. (le salon doit avoir un mot de passe)\n» !langue pays - Change la langue du module. (seulement pour toi)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Fermer</font></b></a></p>", --23
+    Xbtn = "X",
+    -- IF YOUR LANGUAGE HAS SEPCIAL CHARACTERS, PLEASE JUST LEAVE THESE AS DEFAULT
+    shopTitle = "Collection",
+    profileTitle = "Profile",
+    leaderboardsTitle = "Classement",
+    settingsTitle = "Parametres",
+    aboutTitle = "A propos",
+    -- END
+    aboutBody = "Module codé par <font color='#FFD991'>Extremq#0000</font>.\nIdée de jeu, test des bugs and cartes fournies par <font color='#FFD991'>Railysse#0000</font>.\n\nCe module est complétement soutenu par la fondation „Red Cheese” avec le projet „Save Module”. Tous les revenus que nous recevrons seront directement versées aux joueur qui jouent à #parkour comme ça on les supplie de jouer à notre module.\n\nC'est une blague! Merci d'avoir joué à notre module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    playtime = "Playtime",
+    firsts = "Cartes complétées en premiere",
+    finishedMaps = "Cartes complétées",
+    firstRate = "Taux de cartes complétées en premiere",
+    holeEnters = "Nombre de fois entrée dans le trou",
+    graffitiUses = "Graffitis utilisés",
+    dashUses = "Nombre de Boosts utilisés",
+    rewindUses = "Nombre de Retour utilisés",
+    hardcoreMaps = "Cartes compliquées complétées",
+    shopNotice = "La boutique est en developpement.",
+    leaderboardsNotice = "Un classement sera implenté quand le module deviendra officiel.",
+    notValidCommand = "n'est pas une commande valide.",
+    cantSetPass = "Cannot set a password in this room.",
+    translator = "Translated by Jaker#9310."
+}
+--[[ End of file translations/fr.lua ]]--
+--[[ File translations/lv.lua ]]--
+translations.lv = {
+    lastTime = "Tavs pēdējais laiks",
+    lastBestTime = "Tavs labākais laiks",
+    helpToolTip = "<p align='center'>Spied <b>H</b>, lai atvērtu palīdzību.</p>",
+    optionsYes = "<font color='#53ba58'>Jā</font>",
+    optionsNo = "<font color='#ba5353'>Nē</font>",
+    graffitiSetting = "Iespējot grafiti",
+    particlesSetting = "Iespējot paātrināšanas/lēkšanas efektus",
+    timePanelsSetting = "Iespējot laika paneļus",
+    globalChatSetting = "Iespējot globālo čatu",
+    voteStart = " sāka balsojumu esošās mapes izlaišanai. Raksti !yes, lai balsotu par.",
+    newRecord = " pabeidza mapi visīsākajā laikā!",
+    devInfo = "<V>Vēlies iesniegt mapi? Skaties šeit: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>Šis modulis ir izveides procesā. Lūdzu, ziņo par jebkādām kļūdām Extremq#0000 vai Railysse#0000.</font>",
+    discordInfo = "<BV>Pievienojies mūsu Discord! https://discord.gg/WawZVaq</BV>",
+    welcomeInfo = "Esi sveicināts <font color='#E68D43'>#ninja</font>! Spied <font color='#E68D43'>H</font>, lai atvērtu palīdzību.",
+    finishedInfo = "Tu pabeidzi mapi! Laiks: ",
+    helpBody = "Tev ir jānogādā siers atpakaļ uz alu, cik vien ātri spēj.\n\n<b>Spējas</b>:\n» Paātrināšana - Nospied <b><font color='#CB546B'>kreiso</font></b> vai <b><font color='#CB546B'>labo bultiņu</font></b> divreiz. (1s noildze)\n» Lēkšana - Nospied <b><font color='#CB546B'>augšējo bultiņu</font></b> divreiz. (3s noildze)\n» Attīt - Nospied <b><font color='#CB546B'>atstarpi</font></b>, lai izveidotu atskaites punktu. Nospied <b><font color='#CB546B'>atstarpi</font></b> vēlreiz 3 sekunžu laikā, lai teleportētos atpakaļ uz to. (10s noildze)\n\n<b>Citi īsceļi</b>:\n» Peles nogalināšana - Nospied <b><font color='#CB546B'>X</font></b> vai ieraksti /mort, lai nogalinātu peli.\n» Atvērt izvēlni - Nospied <b><font color='#CB546B'>M</font></b> vai klikšķini ekrāna kreisajā pusē, lai  atvērtu/aizvērtu izvēlni.\n» Atstāt grafiti - Nospied <b><font color='#CB546B'>C</font></b>, lai atstātu grafiti. (60s noildze)\n» Atvērt palīdzību - Nospied <b><font color='#CB546B'>H</font></b>, lai atvērtu/aizvērtu šo logu.\n\n<b>Komandas</b>:\n» !p Vārds#id - Pārbauda cita spēlētāja statistiku.\n» !pw Parole - Iestata paroli istabai. (istabai ir jābūt tevis veidotai)\n» !m @kods - Ielādē jebkuru mapi, kuru vēlies. (istabai ir jābūt parolei)\n» !langue valsts - Maina moduļa valodu. (tikai tev)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Aizvērt</font></b></a></p>", --23
+    Xbtn = "X",
+    -- IF YOUR LANGUAGE HAS SEPCIAL CHARACTERS, PLEASE JUST LEAVE THESE AS DEFAULT
+    shopTitle = "Kolekcija",
+    profileTitle = "Profils",
+    leaderboardsTitle = "Tablo",
+    settingsTitle = "Opcijas",
+    aboutTitle = "Par",
+    -- END
+    aboutBody = "Moduli kodēja <font color='#FFD991'>Extremq#0000</font>.\nIdejas spēlei, kļūdu testēšanu un mapes nodrošināja <font color='#FFD991'>Railysse#0000</font>.\n\nŠo moduli pilnībā atbalsta peļu organizācija „Red Cheese” ar „Save Module” projektu. Visas iegūtās finanses tiks ziedotas pelēm, kuras spēlē #parkour, lai varam piekukuļot viņas spēlēt mūsu moduli.\n\nMēs tikai jokojam, paldies, ka izmēģinājāt mūsu moduli! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    playtime = "Playtime",
+    firsts = "Pirmās vietas",
+    finishedMaps = "Pabeigtās mapes",
+    firstRate = "Pirmo vietu attiecība",
+    holeEnters = "Reizes, cik ieiets alā",
+    graffitiUses = "Reizes, cik lietots grafiti",
+    dashUses = "Reizes, cik lietota paātrināšana",
+    rewindUses = "Reizes, cik lietota attīšana",
+    hardcoreMaps = "Pabeigtās „Hardcore” mapes",
+    shopNotice = "Veikals ir izveides procesā.",
+    leaderboardsNotice = "Rezultātu tablo tiks ieviests, kad modulis kļūs oficiāls.",
+    notValidCommand = "nav derīga komanda.",
+    cantSetPass = "Cannot set a password in this room.",
+    translator = "Translated by Syrius#8114."
+}
+--[[ End of file translations/lv.lua ]]--
+--[[ File translations/ro.lua ]]--
+translations.ro = {
+    lastTime = "Ultimul timp",
+    lastBestTime = "Cel mai bun timp",
+    helpToolTip = "<p align='center'>Apasă <b>H</b> pentru ajutor.</p>",
+    optionsYes = "<font color='#53ba58'>Da</font>", -- 12
+    optionsNo = "<font color='#ba5353'>Nu</font>",  -- 13
+    graffitiSetting = "Activezi graffitiurile", -- 14
+    particlesSetting = "Activezi particulele de dash", -- 15
+    timePanelsSetting = "Activezi panourile de timp", -- 16
+    globalChatSetting = "Activezi chatul global",
+    voteStart = " a inițiat un vot pentru a trece la următoarea mapă. Scrie !yes pentru a vota pozitiv.", -- 18
+    newRecord = " a terminat harta cel mai rapid!", --19
+    devInfo = "<V>Vrei să faci o hartă pentru acest modul? Întră pe acest link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>Acest modul este în curs de dezvoltare. Raportează orice problemă lui Extremq#0000 sau Railysse#0000.</font>", -- 20
+    discordInfo = "<BV>Alătură-te discordului nostru! https://discord.gg/WawZVaq</BV>",
+    welcomeInfo = "Bine ai venit pe <font color='#E68D43'>#ninja</font>! Apasă <font color='#E68D43'>H</font> pentru ajutor.", -- 21
+    finishedInfo = "Ai terminat harta! Timp: ", --22
+    helpBody = "Trebuie să aduci brânza înapoi la gaură cât mai rapid posibil.\n\n<b>Abilități</b>:\n» Dash - Apasă <b><font color='#CB546B'>săgeată Stânga</font></b> sau <b><font color='#CB546B'>Dreapta</font></b> de două ori. (reîncărcare 1s)\n» Jump - Apasă <b><font color='#CB546B'>săgeată Sus</font></b> de două ori. (reîncărcare 3s)\n» Rewind - Apasă <b><font color='#CB546B'>Spațiu</font></b> pentru a lăsa un checkpoint. Apasă <b><font color='#CB546B'>Spațiu</font></b> din nou în maximum 3 secunde pentru a te teleporta înapoi la checkpoint. (reîncărcare 10s)\n\n<b>Alte scurtături</b>:\n» Deschide meniul - Apasă <b><font color='#CB546B'>M</font></b> sau dă click în partea stângă a ecranului pentru a închide/deschide meniul.\n» Pune un graffiti - Apasă <b><font color='#CB546B'>C</font></b> pentru a lăsa un graffiti. (reîncărcare 60s\n» Omoară șoricelul - Apasă <b><font color='#CB546B'>X</font></b> sau scrie /mort pentru a omorî șoarecele.\n» Deschide instrucțiunile - Apasă <b><font color='#CB546B'>H</font></b> pentru a deschide/închide acest ecran.\n\n<b>Comenzi</b>:\n» !p Nume#id - Verifică statisticile altui player.\n» !pw Parolă - Pune parolă pe sală. (sala trebuie făcută de tine)\n» !m @cod - Încarcă ce hartă vrei tu. (trebuie ca sala să aibă parolă)\n» !langue țară - Schimbă limba modulului. (doar pentru tine)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Închide</font></b></a></p>", --23
+    Xbtn = "X", -- 24
+    shopTitle = "Colectie", -- 25
+    profileTitle = "Profil", -- 26
+    leaderboardsTitle = "Clasamente", -- 27
+    settingsTitle = "Configurare", -- 28
+    aboutTitle = "Despre", -- 29
+    aboutBody = "Modul codat de <font color='#FFD991'>Extremq#0000</font>.\nIdei de joc, bug-testing și hărți asigurate de <font color='#FFD991'>Railysse#0000</font>.\n\nAcest modul este susținut în întregime de fundația șoricească „Brânza Roșie” în cadrul proiectului „Salvați Module”. Toate fondurile pe care le primim vor fi donate șoarecilor care stau pe #parkour cu scopul de a-i mitui să vină aici.\n\nGlumim, mulțumim că ne-ai încercat jocul! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    playtime = "Timp jucat",
+    firsts = "First-uri",
+    finishedMaps = "Hărți completate",
+    firstRate = "Rata first-urilor",
+    holeEnters = "Intrări în gaură",
+    graffitiUses = "Utilizări graffiti",
+    dashUses = "Dash-uri folosite",
+    rewindUses = "Rewind-uri folosite",
+    hardcoreMaps = "Hărți grele completate",
+    shopNotice = "Magazinul va fi deschis în curând.",
+    leaderboardsNotice = "Clasamentul va fi implementat când modulul va deveni oficial.",
+    notValidCommand = "nu este o comandă validă.",
+    cantSetPass = "Nu se poate seta o parolă pe această sală.",
+    translator = "Tradus de Extremq#0000."
+}
+--[[ End of file translations/ro.lua ]]--
+--[[ End of directory translations ]]--
 
 -- Standard maps
 stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
@@ -1084,7 +1255,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             openPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
         end
         if eventName == "AboutOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].aboutTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>"..translations[playerVars[playerName].playerLanguage].translator.." version: "..VERSION.."</G></p></font>", playerName, "about")
+            openPage(translations[playerVars[playerName].playerLanguage].aboutTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>"..translations[playerVars[playerName].playerLanguage].translator.."version: "..VERSION.."</G></p></font>", playerName, "about")
         end
     end
 
