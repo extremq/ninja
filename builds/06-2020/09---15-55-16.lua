@@ -121,7 +121,7 @@ translations.ro = {
     finishedInfo = "Ai terminat harta! Timp: ", --22
     helpBody = "Trebuie să aduci brânza înapoi la gaură cât mai rapid posibil.\n\n<b>Abilități</b>:\n» Dash - Apasă <b><font color='#CB546B'>săgeată Stânga</font></b> sau <b><font color='#CB546B'>Dreapta</font></b> de două ori. (reîncărcare 1s)\n» Jump - Apasă <b><font color='#CB546B'>săgeată Sus</font></b> de două ori. (reîncărcare 3s)\n» Rewind - Apasă <b><font color='#CB546B'>Spațiu</font></b> pentru a lăsa un checkpoint. Apasă <b><font color='#CB546B'>Spațiu</font></b> din nou în maximum 3 secunde pentru a te teleporta înapoi la checkpoint. (reîncărcare 10s)\n\n<b>Alte scurtături</b>:\n» Deschide meniul - Apasă <b><font color='#CB546B'>M</font></b> sau dă click în partea stângă a ecranului pentru a închide/deschide meniul.\n» Pune un graffiti - Apasă <b><font color='#CB546B'>C</font></b> pentru a lăsa un graffiti. (reîncărcare 60s\n» Omoară șoricelul - Apasă <b><font color='#CB546B'>X</font></b> sau scrie /mort pentru a omorî șoarecele.\n» Deschide instrucțiunile - Apasă <b><font color='#CB546B'>H</font></b> pentru a deschide/închide acest ecran.\n\n<b>Comenzi</b>:\n» !p Nume#id - Verifică statisticile altui player.\n» !pw Parolă - Pune parolă pe sală. (sala trebuie făcută de tine)\n» !m @cod - Încarcă ce hartă vrei tu. (trebuie ca sala să aibă parolă)\n» !langue țară - Schimbă limba modulului. (doar pentru tine)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Închide</font></b></a></p>", --23
     Xbtn = "X", -- 24
-    shopTitle = "Colectie", -- 25
+    shopTitle = "Colecție", -- 25
     profileTitle = "Profil", -- 26
     leaderboardsTitle = "Clasamente", -- 27
     settingsTitle = "Configurare", -- 28
@@ -553,9 +553,9 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     -- OPEN GUIDE / HELP (H)
     elseif keyCode == 72 then
         -- Help system
-        if playerVars[playerName].menuPage ~= "help" then
-            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].helpBody.."</font>", playerName, "help")
-        elseif playerVars[playerName].menuPage == "help" then
+        if playerVars[playerName].menuPage == 0 then
+            openPage("#ninja", translations[playerVars[playerName].playerLanguage].helpBody, playerName, "help")
+        else
             closePage(playerName)
         end
     end
@@ -1067,14 +1067,13 @@ end
 function pageOperation(title, body, playerName, pageId)
     clear(playerName)
     local id = playerId(playerName)
-    local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerVars[playerName].playerLanguage].Xbtn.."</a></font>"
+    local closebtn = "<p align='center'><font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerVars[playerName].playerLanguage].Xbtn.."</a></font></p>"
 
     local spaceLength = 40 - #translations[playerVars[playerName].playerLanguage].Xbtn - #title
     local padding = ""
     for i = 1, spaceLength do
         padding = padding.." "
     end
-
     local pageTitle = "<font size='16' face='Lucida Console'>"..title.."<textformat>"..padding.."</textformat>"..closebtn.."</font>\n"
     local pageBody = body
     playerVars[playerName].menuPage = pageId
@@ -1130,13 +1129,14 @@ function stats(playerName, creatorName)
     body = body.." » "..translations[playerVars[creatorName].playerLanguage].rewindUses..": <R>"..playerStats[playerName].timesRewinded.."</R>\n"
     body = body.." » "..translations[playerVars[creatorName].playerLanguage].hardcoreMaps..": <R>"..playerStats[playerName].hardcoreMaps.."</R>\n"
 
-    return "<font face='Verdana' size='11'>"..body.."</font>"
+    return body
 end
 
 -- This generates the settings body
 function remakeOptions(playerName)
     -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
     local id = playerId(playerName)
+
 
     toggles = {}
     for i = 1, #playerVars[playerName].playerPreferences do
@@ -1149,7 +1149,7 @@ function remakeOptions(playerName)
 
     local body = " » <a href=\"event:ToggleGraffiti\">"..translations[playerVars[playerName].playerLanguage].graffitiSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[playerName].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[playerName].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
     body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..translations[playerVars[playerName].playerLanguage].globalChatSetting.."?</a> "..toggles[4].."\n"
-    return "\n<font face='Verdana' size='11'>"..body.."</font>"
+    return body
 end
 
 -- This only is the welcome screen :D
@@ -1159,7 +1159,7 @@ function generateShopWelcome(playerName)
 
     imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
 
-    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p>\n\n\n\n\n\n<textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p></font>\n\n\n\n\n\n\n\n\n<font face='Lucida Console' size='16'><textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
     return body
 end
 
@@ -1185,13 +1185,13 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
         end
         if eventName == "LeaderOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].leaderboardsNotice.."</font>", playerName, "leaderboards")
+            openPage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, translations[playerVars[playerName].playerLanguage].leaderboardsNotice, playerName, "leaderboards")
         end
         if eventName == "SettingsOpen" then
             openPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
         end
         if eventName == "AboutOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].aboutTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p></font>", playerName, "about")
+            openPage(translations[playerVars[playerName].playerLanguage].aboutTitle, translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p>", playerName, "about")
         end
     end
 
@@ -1237,9 +1237,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
                 playerVars[playerName].playerPreferences[4] = true
             end
         end
-        if eventName ~= "CloseMenu" then
-            updatePage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
-        end
+        updatePage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
     end
 
     if eventName == "CloseMenu" then

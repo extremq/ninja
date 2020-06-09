@@ -554,7 +554,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     elseif keyCode == 72 then
         -- Help system
         if playerVars[playerName].menuPage ~= "help" then
-            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].helpBody.."</font>", playerName, "help")
+            openPage("#ninja", "<font face='Lucida Console' size='11'>"..translations[playerVars[playerName].playerLanguage].helpBody.."</font>", playerName, "help")
         elseif playerVars[playerName].menuPage == "help" then
             closePage(playerName)
         end
@@ -1130,7 +1130,7 @@ function stats(playerName, creatorName)
     body = body.." » "..translations[playerVars[creatorName].playerLanguage].rewindUses..": <R>"..playerStats[playerName].timesRewinded.."</R>\n"
     body = body.." » "..translations[playerVars[creatorName].playerLanguage].hardcoreMaps..": <R>"..playerStats[playerName].hardcoreMaps.."</R>\n"
 
-    return "<font face='Verdana' size='11'>"..body.."</font>"
+    return "<font face='Lucida Console' size='11'>"..body.."</font>"
 end
 
 -- This generates the settings body
@@ -1149,7 +1149,7 @@ function remakeOptions(playerName)
 
     local body = " » <a href=\"event:ToggleGraffiti\">"..translations[playerVars[playerName].playerLanguage].graffitiSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[playerName].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[playerName].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
     body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..translations[playerVars[playerName].playerLanguage].globalChatSetting.."?</a> "..toggles[4].."\n"
-    return "\n<font face='Verdana' size='11'>"..body.."</font>"
+    return "\n<font face='Lucida Console' size='11'>"..body.."</font>"
 end
 
 -- This only is the welcome screen :D
@@ -1185,13 +1185,13 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
         end
         if eventName == "LeaderOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].leaderboardsNotice.."</font>", playerName, "leaderboards")
+            openPage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, "\n<font face='Lucida Console' size='11'>"..translations[playerVars[playerName].playerLanguage].leaderboardsNotice.."</font>", playerName, "leaderboards")
         end
         if eventName == "SettingsOpen" then
             openPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
         end
         if eventName == "AboutOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].aboutTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p></font>", playerName, "about")
+            openPage(translations[playerVars[playerName].playerLanguage].aboutTitle, "\n<font face='Lucida Console' size='11'>"..translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p></font>", playerName, "about")
         end
     end
 
