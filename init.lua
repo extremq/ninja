@@ -38,7 +38,7 @@ mapStartTime = 0
 mapDiff = 0
 mapCount = 1
 
-VERSION = "1.5.4, 08.06.2020"
+VERSION = "1.5.4, 09.06.2020"
 
 --CONSTANTS
 MAPTIME = 4 * 60 + 3
