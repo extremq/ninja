@@ -35,5 +35,6 @@ translations.es = {
     hardcoreMaps = "Mapas difíciles completados",
     shopNotice = "La tienda está en desarrollo.",
     leaderboardsNotice = "Una tabla de clasificación será implementada cuando el módulo se vuelva oficial.",
-    notValidCommand = "no es un comando válido."
+    notValidCommand = "no es un comando válido.",
+    cantSetPass = "No se puede cambiar la contraseña de esta sala."
 }
