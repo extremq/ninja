@@ -17,7 +17,7 @@ local removeTextArea = ui.removeTextArea
 -- addImage = function() end
 -- removeImage = function() end
 
-local languages = {"ro", "en", "fr", "lv"}
+local languages = {"ro", "en", "fr"}
 local translations = {}
 --[[ Directory translations ]]--
 --[[ File translations/en.lua ]]--

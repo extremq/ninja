@@ -17,7 +17,7 @@ local removeTextArea = ui.removeTextArea
 -- addImage = function() end
 -- removeImage = function() end
 
-local languages = {"ro", "en", "fr"}
+local languages = {"ro", "en", "fr", "lv"}
 local translations = {}
 {% require-dir "translations" %}
 
@@ -874,6 +874,8 @@ function chooselang(playerName)
         playerVars[playerName].playerLanguage = "ro"
     elseif community == "fr" then
         playerVars[playerName].playerLanguage = "fr"
+    elseif community == "lv" then
+        playerVars[playerName].playerLanguage = "lv"
     else
         playerVars[playerName].playerLanguage = "en"
     end
