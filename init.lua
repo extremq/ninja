@@ -431,17 +431,10 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     -- OPEN GUIDE / HELP (H)
     elseif keyCode == 72 then
         -- Help system
-        if playerVars[playerName].helpOpen == false then
-            -- If we are on some page, we just update that textarea
-            if playerVars[playerName].menuPage ~= 0 then
-                updatePage("#ninja", translations[playerVars[playerName].playerLanguage].helpBody, playerName, "help")
-            else
-                createPage("#ninja", translations[playerVars[playerName].playerLanguage].helpBody, playerName, "help")
-            end
-            playerVars[playerName].helpOpen = true
-        elseif playerVars[playerName].helpOpen == true then
+        if playerVars[playerName].menuPage ~= "help" then
+            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].helpBody.."</font>", playerName, "help")
+        elseif playerVars[playerName].menuPage == "help" then
             closePage(playerName)
-            playerVars[playerName].helpOpen = false
         end
     end
 end
@@ -536,11 +529,7 @@ function showStats()
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
         local _id = value.id
-        if playerVars[name].menuPage == 0 then
-            createPage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
-        else
-            updatePage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
-        end
+        openPage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" then
@@ -572,7 +561,7 @@ function eventLoop(elapsedTime, timeRemaining)
         mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
         -- Choose maptipe
-        if mapCount % 5 == 0 then -- I don't want to run this yet
+        if mapCount % 6 == 0 then -- I don't want to run this yet
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
             tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
@@ -949,39 +938,36 @@ end
 --[[
     The way i manage UI in this module is basically this:
     Every page of the UI is the same textarea.
-    When i open something for the first time, i use createPage.
+    When i open something for the first time, i use openPage.
     When i open something and already have some ui active, i use updatePage.
     This way i have standard UI and never have conflicts.
 ]]--
 function pageOperation(title, body, playerName, pageId)
     clear(playerName)
     local id = playerId(playerName)
-    if playerVars[playerName].menuPage ~= "help" then
-        playerVars[playerName].helpOpen = false
-    end
-    local closebtn = "<p align='center'><font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerVars[playerName].playerLanguage].Xbtn.."</a></font></p>"
+    local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerVars[playerName].playerLanguage].Xbtn.."</a></font>"
 
     local spaceLength = 40 - #translations[playerVars[playerName].playerLanguage].Xbtn - #title
     local padding = ""
     for i = 1, spaceLength do
         padding = padding.." "
     end
+
     local pageTitle = "<font size='16' face='Lucida Console'>"..title.."<textformat>"..padding.."</textformat>"..closebtn.."</font>\n"
     local pageBody = body
     playerVars[playerName].menuPage = pageId
     return pageTitle..pageBody
 end
 
--- Used to create a page
-function createPage(title, body, playerName, pageId)
-    ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x241f13, 0xbfa26d, 1, true)
+-- Used to open a page
+function openPage(title, body, playerName, pageId)
+    if playerVars[playerName].menuPage == 0 then
+        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x241f13, 0xbfa26d, 1, true)
+    else  
+        ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
+    end
 end
 
-
--- Used to update a page
-function updatePage(title, body, playerName, pageId)
-    ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
-end
 
 -- Used to close a page
 function closePage(playerName)
@@ -991,7 +977,6 @@ function closePage(playerName)
     removeTextArea(12, playerName)
     removeImage(imgs[playerName].menuImgId)
     playerVars[playerName].menuPage = 0
-    playerVars[playerName].helpOpen = false
     imgs[playerName].menuImgId = -1
 end
 
@@ -1023,14 +1008,13 @@ function stats(playerName, creatorName)
     body = body.." » "..translations[playerVars[creatorName].playerLanguage].rewindUses..": <R>"..playerStats[playerName].timesRewinded.."</R>\n"
     body = body.." » "..translations[playerVars[creatorName].playerLanguage].hardcoreMaps..": <R>"..playerStats[playerName].hardcoreMaps.."</R>\n"
 
-    return body
+    return "<font face='Verdana' size='11'>"..body.."</font>"
 end
 
 -- This generates the settings body
 function remakeOptions(playerName)
     -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
     local id = playerId(playerName)
-
 
     toggles = {}
     for i = 1, #playerVars[playerName].playerPreferences do
@@ -1043,7 +1027,7 @@ function remakeOptions(playerName)
 
     local body = " » <a href=\"event:ToggleGraffiti\">"..translations[playerVars[playerName].playerLanguage].graffitiSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[playerName].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[playerName].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
     body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..translations[playerVars[playerName].playerLanguage].globalChatSetting.."?</a> "..toggles[4].."\n"
-    return body
+    return "\n<font face='Verdana' size='11'>"..body.."</font>"
 end
 
 -- This only is the welcome screen :D
@@ -1053,7 +1037,7 @@ function generateShopWelcome(playerName)
 
     imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
 
-    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p></font>\n\n\n\n\n\n\n\n\n<font face='Lucida Console' size='16'><textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p>\n\n\n\n\n\n<textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
     return body
 end
 
@@ -1071,41 +1055,21 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     -- 12 is the id for the menu buttons
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
-            if playerVars[playerName].menuPage == 0 then
-                createPage(translations[playerVars[playerName].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
-            else
-                updatePage(translations[playerVars[playerName].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
-            end
+            openPage(translations[playerVars[playerName].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
             local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
             ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
         end
         if eventName == "StatsOpen" then
-            if playerVars[playerName].menuPage == 0 then
-                createPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
-            else
-                updatePage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
-            end
+            openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
         end
         if eventName == "LeaderOpen" then
-            if playerVars[playerName].menuPage == 0 then
-                createPage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, translations[playerVars[playerName].playerLanguage].leaderboardsNotice, playerName, "leaderboards")
-            else
-                updatePage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, translations[playerVars[playerName].playerLanguage].leaderboardsNotice, playerName, "leaderboards")
-            end
+            openPage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].leaderboardsNotice.."</font>", playerName, "leaderboards")
         end
         if eventName == "SettingsOpen" then
-            if playerVars[playerName].menuPage == 0 then
-                createPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
-            else
-                updatePage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
-            end
+            openPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
         end
         if eventName == "AboutOpen" then
-            if playerVars[playerName].menuPage == 0 then
-                createPage(translations[playerVars[playerName].playerLanguage].aboutTitle, translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p>", playerName, "about")
-            else
-                updatePage(translations[playerVars[playerName].playerLanguage].aboutTitle, translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p>", playerName, "about")
-            end
+            openPage(translations[playerVars[playerName].playerLanguage].aboutTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p></font>", playerName, "about")
         end
     end
 
@@ -1151,7 +1115,9 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
                 playerVars[playerName].playerPreferences[4] = true
             end
         end
-        updatePage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
+        if eventName ~= "CloseMenu" then
+            updatePage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
+        end
     end
 
     if eventName == "CloseMenu" then
@@ -1346,21 +1312,13 @@ function eventChatCommand(playerName, message)
     if arg[1] == "p" or arg[1] == "profile" then
         isValid = true
         if arg[2] == nil then
-            if playerVars[playerName].menuPage == 0 then
-                createPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
-            else
-                updatePage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
-            end
+            openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
             return
         end
 
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
-                if playerVars[playerName].menuPage == 0 then
-                    createPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
-                else
-                    updatePage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
-                end
+                openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
                 break
             end
         end

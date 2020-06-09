@@ -46,7 +46,7 @@ translations.en = {
     settingsTitle = "Settings",
     aboutTitle = "About",
     -- END
-    aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGameplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
+    aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGamplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#EB1D51'>&lt;3</font></p>", -- 30
     playtime = "Playtime",
     firsts = "Firsts",
     finishedMaps = "Completed maps",
@@ -121,7 +121,7 @@ translations.ro = {
     finishedInfo = "Ai terminat harta! Timp: ", --22
     helpBody = "Trebuie să aduci brânza înapoi la gaură cât mai rapid posibil.\n\n<b>Abilități</b>:\n» Dash - Apasă <b><font color='#CB546B'>săgeată Stânga</font></b> sau <b><font color='#CB546B'>Dreapta</font></b> de două ori. (reîncărcare 1s)\n» Jump - Apasă <b><font color='#CB546B'>săgeată Sus</font></b> de două ori. (reîncărcare 3s)\n» Rewind - Apasă <b><font color='#CB546B'>Spațiu</font></b> pentru a lăsa un checkpoint. Apasă <b><font color='#CB546B'>Spațiu</font></b> din nou în maximum 3 secunde pentru a te teleporta înapoi la checkpoint. (reîncărcare 10s)\n\n<b>Alte scurtături</b>:\n» Deschide meniul - Apasă <b><font color='#CB546B'>M</font></b> sau dă click în partea stângă a ecranului pentru a închide/deschide meniul.\n» Pune un graffiti - Apasă <b><font color='#CB546B'>C</font></b> pentru a lăsa un graffiti. (reîncărcare 60s\n» Omoară șoricelul - Apasă <b><font color='#CB546B'>X</font></b> sau scrie /mort pentru a omorî șoarecele.\n» Deschide instrucțiunile - Apasă <b><font color='#CB546B'>H</font></b> pentru a deschide/închide acest ecran.\n\n<b>Comenzi</b>:\n» !p Nume#id - Verifică statisticile altui player.\n» !pw Parolă - Pune parolă pe sală. (sala trebuie făcută de tine)\n» !m @cod - Încarcă ce hartă vrei tu. (trebuie ca sala să aibă parolă)\n» !langue țară - Schimbă limba modulului. (doar pentru tine)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Închide</font></b></a></p>", --23
     Xbtn = "X", -- 24
-    shopTitle = "Colectie", -- 25
+    shopTitle = "Colecție", -- 25
     profileTitle = "Profil", -- 26
     leaderboardsTitle = "Clasamente", -- 27
     settingsTitle = "Configurare", -- 28
@@ -553,10 +553,17 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
     -- OPEN GUIDE / HELP (H)
     elseif keyCode == 72 then
         -- Help system
-        if playerVars[playerName].menuPage ~= "help" then
-            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].helpBody.."</font>", playerName, "help")
-        elseif playerVars[playerName].menuPage == "help" then
+        if playerVars[playerName].helpOpen == false then
+            -- If we are on some page, we just update that textarea
+            if playerVars[playerName].menuPage ~= 0 then
+                updatePage("#ninja", translations[playerVars[playerName].playerLanguage].helpBody, playerName, "help")
+            else
+                createPage("#ninja", translations[playerVars[playerName].playerLanguage].helpBody, playerName, "help")
+            end
+            playerVars[playerName].helpOpen = true
+        elseif playerVars[playerName].helpOpen == true then
             closePage(playerName)
+            playerVars[playerName].helpOpen = false
         end
     end
 end
@@ -651,7 +658,11 @@ function showStats()
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
         local _id = value.id
-        openPage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
+        if playerVars[name].menuPage == 0 then
+            createPage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
+        else
+            updatePage(translations[playerVars[name].playerLanguage].leaderboardsTitle, message, name, "roomStats")
+        end
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" then
@@ -683,7 +694,7 @@ function eventLoop(elapsedTime, timeRemaining)
         mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
         -- Choose maptipe
-        if mapCount % 6 == 0 then -- I don't want to run this yet
+        if mapCount % 5 == 0 then -- I don't want to run this yet
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
             tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
@@ -1060,36 +1071,39 @@ end
 --[[
     The way i manage UI in this module is basically this:
     Every page of the UI is the same textarea.
-    When i open something for the first time, i use openPage.
+    When i open something for the first time, i use createPage.
     When i open something and already have some ui active, i use updatePage.
     This way i have standard UI and never have conflicts.
 ]]--
 function pageOperation(title, body, playerName, pageId)
     clear(playerName)
     local id = playerId(playerName)
-    local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerVars[playerName].playerLanguage].Xbtn.."</a></font>"
+    if playerVars[playerName].menuPage ~= "help" then
+        playerVars[playerName].helpOpen = false
+    end
+    local closebtn = "<p align='center'><font color='#CB546B'><a href='event:CloseMenu'>"..translations[playerVars[playerName].playerLanguage].Xbtn.."</a></font></p>"
 
     local spaceLength = 40 - #translations[playerVars[playerName].playerLanguage].Xbtn - #title
     local padding = ""
     for i = 1, spaceLength do
         padding = padding.." "
     end
-
     local pageTitle = "<font size='16' face='Lucida Console'>"..title.."<textformat>"..padding.."</textformat>"..closebtn.."</font>\n"
     local pageBody = body
     playerVars[playerName].menuPage = pageId
     return pageTitle..pageBody
 end
 
--- Used to open a page
-function openPage(title, body, playerName, pageId)
-    if playerVars[playerName].menuPage == 0 then
-        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x241f13, 0xbfa26d, 1, true)
-    else  
-        ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
-    end
+-- Used to create a page
+function createPage(title, body, playerName, pageId)
+    ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x241f13, 0xbfa26d, 1, true)
 end
 
+
+-- Used to update a page
+function updatePage(title, body, playerName, pageId)
+    ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
+end
 
 -- Used to close a page
 function closePage(playerName)
@@ -1099,6 +1113,7 @@ function closePage(playerName)
     removeTextArea(12, playerName)
     removeImage(imgs[playerName].menuImgId)
     playerVars[playerName].menuPage = 0
+    playerVars[playerName].helpOpen = false
     imgs[playerName].menuImgId = -1
 end
 
@@ -1130,13 +1145,14 @@ function stats(playerName, creatorName)
     body = body.." » "..translations[playerVars[creatorName].playerLanguage].rewindUses..": <R>"..playerStats[playerName].timesRewinded.."</R>\n"
     body = body.." » "..translations[playerVars[creatorName].playerLanguage].hardcoreMaps..": <R>"..playerStats[playerName].hardcoreMaps.."</R>\n"
 
-    return "<font face='Verdana' size='11'>"..body.."</font>"
+    return body
 end
 
 -- This generates the settings body
 function remakeOptions(playerName)
     -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
     local id = playerId(playerName)
+
 
     toggles = {}
     for i = 1, #playerVars[playerName].playerPreferences do
@@ -1149,7 +1165,7 @@ function remakeOptions(playerName)
 
     local body = " » <a href=\"event:ToggleGraffiti\">"..translations[playerVars[playerName].playerLanguage].graffitiSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translations[playerVars[playerName].playerLanguage].particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translations[playerVars[playerName].playerLanguage].timePanelsSetting.."?</a> "..toggles[3]
     body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..translations[playerVars[playerName].playerLanguage].globalChatSetting.."?</a> "..toggles[4].."\n"
-    return "\n<font face='Verdana' size='11'>"..body.."</font>"
+    return body
 end
 
 -- This only is the welcome screen :D
@@ -1159,7 +1175,7 @@ function generateShopWelcome(playerName)
 
     imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
 
-    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p>\n\n\n\n\n\n<textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p></font>\n\n\n\n\n\n\n\n\n<font face='Lucida Console' size='16'><textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
     return body
 end
 
@@ -1177,21 +1193,41 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     -- 12 is the id for the menu buttons
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
+            if playerVars[playerName].menuPage == 0 then
+                createPage(translations[playerVars[playerName].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
+            else
+                updatePage(translations[playerVars[playerName].playerLanguage].shopTitle, generateShopWelcome(playerName), playerName, "shop")
+            end
             local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
             ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
         end
         if eventName == "StatsOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
+            if playerVars[playerName].menuPage == 0 then
+                createPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
+            else
+                updatePage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
+            end
         end
         if eventName == "LeaderOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].leaderboardsNotice.."</font>", playerName, "leaderboards")
+            if playerVars[playerName].menuPage == 0 then
+                createPage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, translations[playerVars[playerName].playerLanguage].leaderboardsNotice, playerName, "leaderboards")
+            else
+                updatePage(translations[playerVars[playerName].playerLanguage].leaderboardsTitle, translations[playerVars[playerName].playerLanguage].leaderboardsNotice, playerName, "leaderboards")
+            end
         end
         if eventName == "SettingsOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
+            if playerVars[playerName].menuPage == 0 then
+                createPage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
+            else
+                updatePage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
+            end
         end
         if eventName == "AboutOpen" then
-            openPage(translations[playerVars[playerName].playerLanguage].aboutTitle, "\n<font face='Verdana' size='11'>"..translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p></font>", playerName, "about")
+            if playerVars[playerName].menuPage == 0 then
+                createPage(translations[playerVars[playerName].playerLanguage].aboutTitle, translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p>", playerName, "about")
+            else
+                updatePage(translations[playerVars[playerName].playerLanguage].aboutTitle, translations[playerVars[playerName].playerLanguage].aboutBody.."\n\n\n\n\n\n<p align='right'><G>version: "..VERSION.."</G></p>", playerName, "about")
+            end
         end
     end
 
@@ -1237,9 +1273,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
                 playerVars[playerName].playerPreferences[4] = true
             end
         end
-        if eventName ~= "CloseMenu" then
-            updatePage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
-        end
+        updatePage(translations[playerVars[playerName].playerLanguage].settingsTitle, remakeOptions(playerName), playerName, "settings")
     end
 
     if eventName == "CloseMenu" then
@@ -1434,13 +1468,21 @@ function eventChatCommand(playerName, message)
     if arg[1] == "p" or arg[1] == "profile" then
         isValid = true
         if arg[2] == nil then
-            openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
+            if playerVars[playerName].menuPage == 0 then
+                createPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
+            else
+                updatePage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
+            end
             return
         end
 
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
-                openPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
+                if playerVars[playerName].menuPage == 0 then
+                    createPage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
+                else
+                    updatePage(translations[playerVars[playerName].playerLanguage].profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
+                end
                 break
             end
         end
