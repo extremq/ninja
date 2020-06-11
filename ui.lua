@@ -65,9 +65,11 @@ function closePage(playerName)
     local id = playerId(playerName)
     removeTextArea(13, playerName)
     removeTextArea(12, playerName)
-    removeImage(imgs[playerName].menuImgId)
+    if imgs[playerName].menuImgId ~= nil then
+        removeImage(imgs[playerName].menuImgId)
+        imgs[playerName].menuImgId = nil
+    end
     playerVars[playerName].menuPage = 0
-    imgs[playerName].menuImgId = nil
 end
 
 -- End of round stats
@@ -152,8 +154,11 @@ end
 -- Clears welcomeScreen images
 function clearWelcomeImages(playerName)
     local id = playerId(playerName)
-    removeImage(imgs[playerName].shopWelcomeDash, playerName)
-    imgs[playerName].shopWelcomeDash = nil
+    if imgs[playerName].shopWelcomeDash ~= nil then
+        removeImage(imgs[playerName].shopWelcomeDash, playerName)
+        imgs[playerName].shopWelcomeDash = nil
+    end
+
     local graffitiTextOffset = 1000000000
     removeTextArea(id + graffitiTextOffset, playerName)
 end
