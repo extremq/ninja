@@ -5,7 +5,7 @@
 
 
 -- PLAYER COLOR SETTER
-function eventPlayerRespawn(playerName)
+eventPlayerRespawn = secureWrapper(function(playerName)
     local ostime = os.time()
     id = playerId(playerName)
     setColor(playerName)
@@ -22,19 +22,19 @@ function eventPlayerRespawn(playerName)
 
     removeImage(imgs[playerName].dashButtonId)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-end
+end, true)
 
-function eventPlayerDied(playerName)
+eventPlayerDied = secureWrapper(function(playerName)
     local id = playerId(playerName)
     playerVars[playerName].rewindPos = {0, 0, false}
     -- Remove rewind Mouse
     if imgs[playerName].mouseImgId ~= nil then
         removeImage(imgs[playerName].mouseImgId)
     end
-end
+end, true)
 
 -- PLAYER WIN
-function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
+eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinceRespawn)
     local id = playerId(playerName)
 
     if imgs[playerName].mouseImgId ~= nil then
@@ -108,7 +108,7 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
             --print(message)
         end
     end
-end
+end, true)
 
 function eventPlayerLeft(playerName)
     inRoom[playerName] = nil

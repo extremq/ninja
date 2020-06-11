@@ -48,7 +48,7 @@ function showRewindParticles(type, playerName, x, y)
 end
 
 -- MOUSE POWERS
-function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPosition)
+eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPosition, yPlayerPosition)
     local id = playerId(playerName)
 
     local ostime = os.time()
@@ -213,7 +213,7 @@ function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPositi
             closePage(playerName)
         end
     end
-end
+end, true)
 
 -- I need the X for mouse computations
 function extractMapDimensions()
@@ -226,7 +226,7 @@ function extractMapDimensions()
     return tonumber(x)
 end
 
-function eventMouse(playerName, xMousePosition, yMousePosition)
+eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
     local id = playerId(playerName)
     local playerX = room.playerList[playerName].x
     -- print("click at "..xMousePosition)
@@ -256,7 +256,7 @@ function eventMouse(playerName, xMousePosition, yMousePosition)
             end
         end
     end
-end
+end, true)
 
 -- UI UPDATER & PLAYER RESPAWNER & REWINDER
 function eventLoop(elapsedTime, timeRemaining)

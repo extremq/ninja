@@ -405,9 +405,9 @@ keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a562c334.png", "This is the default particle.", "Free."),
-        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Secret."),
-        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.")
+        shopListing({3}, "172a424f181.png", "This is the default particle.", "Free."),
+        shopListing({3, 31}, "172a424da0e.png", "Add some hearts to your dash!", "Secret."),
+        shopListing({3, 13}, "172a42508f4.png", "Sleek. Just like you.", "Finish 1 map first.")
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free."),
@@ -1236,8 +1236,7 @@ REWIND_BTN_ACTIVE = "17257e94902.png"
 HELP_IMG = "172533e3f7b.png"
 CHECKPOINT_MOUSE = "17257fd86f3.png"
 MENU_BUTTONS = "1725ce45065.png"
-HIDDEN_DASH = "172a559bc3d.png"
-BLOCKED_DASH = "172a55a0456.png"
+HIDDEN_DASH = "172a4a7795e.png"
 
 --[[
     The way i manage UI in this module is basically this:

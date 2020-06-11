@@ -405,9 +405,9 @@ keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a562c334.png", "This is the default particle.", "Free."),
-        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Secret."),
-        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.")
+        shopListing({3}, "172a424f181.png", "This is the default particle.", "Free."),
+        shopListing({3, 31}, "172a424da0e.png", "Add some hearts to your dash!", "Secret."),
+        shopListing({3, 13}, "172a42508f4.png", "Sleek. Just like you.", "Finish 1 map first.")
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free."),
@@ -573,7 +573,7 @@ function showRewindParticles(type, playerName, x, y)
 end
 
 -- MOUSE POWERS
-eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPosition, yPlayerPosition)
+function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPosition)
     local id = playerId(playerName)
 
     local ostime = os.time()
@@ -738,7 +738,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             closePage(playerName)
         end
     end
-end, true)
+end
 
 -- I need the X for mouse computations
 function extractMapDimensions()
@@ -751,7 +751,7 @@ function extractMapDimensions()
     return tonumber(x)
 end
 
-eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
+function eventMouse(playerName, xMousePosition, yMousePosition)
     local id = playerId(playerName)
     local playerX = room.playerList[playerName].x
     -- print("click at "..xMousePosition)
@@ -781,7 +781,7 @@ eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
             end
         end
     end
-end, true)
+end
 
 -- UI UPDATER & PLAYER RESPAWNER & REWINDER
 function eventLoop(elapsedTime, timeRemaining)
@@ -893,7 +893,7 @@ eventPlayerRespawn = secureWrapper(function(playerName)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
 end, true)
 
-eventPlayerDied = secureWrapper(function(playerName)
+eventPlayerDiedeventPlayerWon = secureWrapper(function(playerName)
     local id = playerId(playerName)
     playerVars[playerName].rewindPos = {0, 0, false}
     -- Remove rewind Mouse
@@ -1236,8 +1236,7 @@ REWIND_BTN_ACTIVE = "17257e94902.png"
 HELP_IMG = "172533e3f7b.png"
 CHECKPOINT_MOUSE = "17257fd86f3.png"
 MENU_BUTTONS = "1725ce45065.png"
-HIDDEN_DASH = "172a559bc3d.png"
-BLOCKED_DASH = "172a55a0456.png"
+HIDDEN_DASH = "172a4a7795e.png"
 
 --[[
     The way i manage UI in this module is basically this:

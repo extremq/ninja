@@ -24,6 +24,8 @@ REWIND_BTN_ACTIVE = "17257e94902.png"
 HELP_IMG = "172533e3f7b.png"
 CHECKPOINT_MOUSE = "17257fd86f3.png"
 MENU_BUTTONS = "1725ce45065.png"
+HIDDEN_DASH = "172a559bc3d.png"
+BLOCKED_DASH = "172a55a0456.png"
 
 --[[
     The way i manage UI in this module is basically this:
@@ -51,7 +53,7 @@ end
 -- Used to open a page
 function openPage(title, body, playerName, pageId)
     if playerVars[playerName].menuPage == 0 then
-        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x3C2A1B, 0xBFA26D, 1, true)
+        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x7B5A35, 1, true)
     else  
         ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
     end

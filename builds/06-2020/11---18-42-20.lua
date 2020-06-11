@@ -405,9 +405,9 @@ keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a562c334.png", "This is the default particle.", "Free."),
-        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Secret."),
-        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.")
+        shopListing({3}, "172a424f181.png", "This is the default particle.", "Free."),
+        shopListing({3, 31}, "172a424da0e.png", "Add some hearts to your dash!", "Secret."),
+        shopListing({3, 13}, "172a42508f4.png", "Sleek. Just like you.", "Finish 1 map first.")
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free."),
@@ -493,35 +493,6 @@ playerVars = {
 }
 --[[ End of file vars.lua ]]--
 
---[[ File eventWrapper.lua ]]--
-local secureWrapper
-do
-  local function playerChecker(player)
-    if loaded[player] == true and inRoom[player] == true then
-        return true
-    else
-        return false
-    end
-  end
-
-  function secureWrapper(fnc, first)
-    if first then 
-        return function(a, b, c, d, e)
-        if playerChecker(a) then
-          return fnc(a, b, c, d, e)
-        end
-      end
-    else
-      return function(a, b, c, d, e)
-        if playerChecker(b) then
-          return fnc(a, b, c, d, e)
-        end
-      end
-    end
-  end
-end
---[[ End of file eventWrapper.lua ]]--
-
 --[[ File abilities.lua ]]--
 --[[
     name: abilities.lua
@@ -573,7 +544,7 @@ function showRewindParticles(type, playerName, x, y)
 end
 
 -- MOUSE POWERS
-eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPosition, yPlayerPosition)
+function eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPosition)
     local id = playerId(playerName)
 
     local ostime = os.time()
@@ -738,7 +709,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             closePage(playerName)
         end
     end
-end, true)
+end
 
 -- I need the X for mouse computations
 function extractMapDimensions()
@@ -751,7 +722,7 @@ function extractMapDimensions()
     return tonumber(x)
 end
 
-eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
+function eventMouse(playerName, xMousePosition, yMousePosition)
     local id = playerId(playerName)
     local playerX = room.playerList[playerName].x
     -- print("click at "..xMousePosition)
@@ -781,7 +752,7 @@ eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
             end
         end
     end
-end, true)
+end
 
 -- UI UPDATER & PLAYER RESPAWNER & REWINDER
 function eventLoop(elapsedTime, timeRemaining)
@@ -874,7 +845,7 @@ end
 
 
 -- PLAYER COLOR SETTER
-eventPlayerRespawn = secureWrapper(function(playerName)
+function eventPlayerRespawn(playerName)
     local ostime = os.time()
     id = playerId(playerName)
     setColor(playerName)
@@ -891,19 +862,19 @@ eventPlayerRespawn = secureWrapper(function(playerName)
 
     removeImage(imgs[playerName].dashButtonId)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-end, true)
+end
 
-eventPlayerDied = secureWrapper(function(playerName)
+function eventPlayerDied(playerName)
     local id = playerId(playerName)
     playerVars[playerName].rewindPos = {0, 0, false}
     -- Remove rewind Mouse
     if imgs[playerName].mouseImgId ~= nil then
         removeImage(imgs[playerName].mouseImgId)
     end
-end, true)
+end
 
 -- PLAYER WIN
-eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinceRespawn)
+function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
     local id = playerId(playerName)
 
     if imgs[playerName].mouseImgId ~= nil then
@@ -977,7 +948,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
             --print(message)
         end
     end
-end, true)
+end
 
 function eventPlayerLeft(playerName)
     inRoom[playerName] = nil
@@ -1236,8 +1207,7 @@ REWIND_BTN_ACTIVE = "17257e94902.png"
 HELP_IMG = "172533e3f7b.png"
 CHECKPOINT_MOUSE = "17257fd86f3.png"
 MENU_BUTTONS = "1725ce45065.png"
-HIDDEN_DASH = "172a559bc3d.png"
-BLOCKED_DASH = "172a55a0456.png"
+HIDDEN_DASH = "172a4a7795e.png"
 
 --[[
     The way i manage UI in this module is basically this:
@@ -1265,7 +1235,7 @@ end
 -- Used to open a page
 function openPage(title, body, playerName, pageId)
     if playerVars[playerName].menuPage == 0 then
-        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x7B5A35, 1, true)
+        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0xA77948, 1, true)
     else  
         ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
     end

@@ -31,6 +31,8 @@ VERSION = "1.5.4, 09.06.2020"
 
 {% require-file "vars.lua" %}
 
+{% require-file "eventWrapper.lua" %}
+
 {% require-file "abilities.lua" %}
 
 {% require-file "events.lua" %}
