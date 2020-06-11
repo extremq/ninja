@@ -171,7 +171,7 @@ end
 
 function generateShopImgs(playerName)
     local id = playerId(playerName)
-    local dashX, dashY = 255, 150
+    local dashX, dashY = 260, 150
 
     if playerVars[playerName].menuPage == "shop" then
         clearWelcomeImages(playerName)
