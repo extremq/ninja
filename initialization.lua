@@ -114,7 +114,7 @@ function initPlayer(playerName)
         helpImgId = hlpid,
         helpImgId = hlpid,
         mouseImgId = nil,
-        menuImgId = -1,
+        menuImgId = nil,
         shopWelcomeDash = nil,
         shopWelcomeGraffiti = nil,
         graffitiImg = nil

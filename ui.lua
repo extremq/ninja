@@ -66,7 +66,7 @@ function closePage(playerName)
     removeTextArea(12, playerName)
     removeImage(imgs[playerName].menuImgId)
     playerVars[playerName].menuPage = 0
-    imgs[playerName].menuImgId = -1
+    imgs[playerName].menuImgId = nil
 end
 
 -- Used to clear images from menu
@@ -75,6 +75,15 @@ function clear(playerName)
     if page == "shop" then
         clearWelcomeImages(playerName)
     end
+end
+
+-- Clears welcomeScreen images
+function clearWelcomeImages(playerName)
+    local id = playerId(playerName)
+    removeImage(imgs[playerName].shopWelcomeDash, playerName)
+    imgs[playerName].shopWelcomeDash = nil
+    local graffitiTextOffset = 1000000000
+    removeTextArea(id + graffitiTextOffset, playerName)
 end
 
 -- End of round stats
@@ -154,18 +163,12 @@ function generateShopWelcome(playerName)
     local id = playerId(playerName)
     local dashX, dashY = 255, 150
 
-    imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
-
+    if imgs[playerName].shopWelcomeDash == nil then
+        imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
+    end
+    
     local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p>\n\n\n\n\n\n<textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
     return body
-end
-
--- Clears welcomeScreen images
-function clearWelcomeImages(playerName)
-    local id = playerId(playerName)
-    removeImage(imgs[playerName].shopWelcomeDash, playerName)
-    local graffitiTextOffset = 1000000000
-    removeTextArea(id + graffitiTextOffset, playerName)
 end
 
 function eventTextAreaCallback(textAreaId, playerName, eventName)
@@ -244,7 +247,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     end
 
     if eventName == "CloseWelcome" then
-        if imgs[playerName].helpImgId ~= 0 then
+        if imgs[playerName].helpImgId ~= nil then
             removeImage(imgs[playerName].helpImgId)
         end
         removeTextArea(10, playerName)
