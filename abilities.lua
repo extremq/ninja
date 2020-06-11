@@ -293,46 +293,48 @@ function eventLoop(elapsedTime, timeRemaining)
     else
         for playerName in pairs(room.playerList) do
             local id = playerId(playerName)
-            -- RESPAWN PLAYER
-            tfm.exec.respawnPlayer(playerName)
-            -- UPDATE UI
-            --[[
-                This is where i use states: i basically keep track if i changed an icon's cooldown indicator. Why?
-                For example, lets say i have my cooldown ready. Without a state, i have no idea if i just got it now
-                or i had it already, so i have to remove the image and make it available, even if it was available.
-                With states, i can do it once and then just check if the state was changed (basically if i used the ability).
-            ]]--
-            if states[playerName].jumpState == false and ostime - cooldowns[playerName].lastJumpTime > JUMPCOOLDOWN then
-                states[playerName].jumpState = true
-                removeImage(imgs[playerName].jumpButtonId)
-                imgs[playerName].jumpButtonId = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
-            end
-            if states[playerName].dashState == false and ostime - cooldowns[playerName].lastDashTime > DASHCOOLDOWN then
-                states[playerName].dashState = true
-                removeImage(imgs[playerName].dashButtonId)
-                imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-            end
+            if inRoom[playerName] ~= nil and loaded[playerName] ~= nil then 
+                -- RESPAWN PLAYER
+                tfm.exec.respawnPlayer(playerName)
+                -- UPDATE UI
+                --[[
+                    This is where i use states: i basically keep track if i changed an icon's cooldown indicator. Why?
+                    For example, lets say i have my cooldown ready. Without a state, i have no idea if i just got it now
+                    or i had it already, so i have to remove the image and make it available, even if it was available.
+                    With states, i can do it once and then just check if the state was changed (basically if i used the ability).
+                ]]--
+                if states[playerName].jumpState == false and ostime - cooldowns[playerName].lastJumpTime > JUMPCOOLDOWN then
+                    states[playerName].jumpState = true
+                    removeImage(imgs[playerName].jumpButtonId)
+                    imgs[playerName].jumpButtonId = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
+                end
+                if states[playerName].dashState == false and ostime - cooldowns[playerName].lastDashTime > DASHCOOLDOWN then
+                    states[playerName].dashState = true
+                    removeImage(imgs[playerName].dashButtonId)
+                    imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
+                end
 
-            -- Don't forget i have 3 states for rewind, this happens if we are in state 2 (can rewind) but passed the time we had.
-            if cooldowns[playerName].canRewind == true and ostime - cooldowns[playerName].checkpointTime > 3000 then
-                cooldowns[playerName].canRewind = false
-                cooldowns[playerName].lastRewindTime = ostime
-                removeImage(imgs[playerName].mouseImgId)
-                showRewindParticles(2, playerName, playerVars[playerName].rewindPos[1], playerVars[playerName].rewindPos[2])
-            end
+                -- Don't forget i have 3 states for rewind, this happens if we are in state 2 (can rewind) but passed the time we had.
+                if cooldowns[playerName].canRewind == true and ostime - cooldowns[playerName].checkpointTime > 3000 then
+                    cooldowns[playerName].canRewind = false
+                    cooldowns[playerName].lastRewindTime = ostime
+                    removeImage(imgs[playerName].mouseImgId)
+                    showRewindParticles(2, playerName, playerVars[playerName].rewindPos[1], playerVars[playerName].rewindPos[2])
+                end
 
-            if cooldowns[playerName].canRewind == true and states[playerName].rewindState ~= 2 then
-                states[playerName].rewindState = 2
-                removeImage(imgs[playerName].rewindButtonId)
-                imgs[playerName].rewindButtonId = addImage(REWIND_BTN_ACTIVE, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
-            elseif cooldowns[playerName].canRewind == false and states[playerName].rewindState ~= 1 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDONW then
-                states[playerName].rewindState = 1
-                removeImage(imgs[playerName].rewindButtonId)
-                imgs[playerName].rewindButtonId = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
-            elseif states[playerName].rewindState ~= 3 and ostime - cooldowns[playerName].lastRewindTime <= REWINDCOOLDONW then
-                states[playerName].rewindState = 3
-                removeImage(imgs[playerName].rewindButtonId)
-                imgs[playerName].rewindButtonId = addImage(REWIND_BTN_OFF, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
+                if cooldowns[playerName].canRewind == true and states[playerName].rewindState ~= 2 then
+                    states[playerName].rewindState = 2
+                    removeImage(imgs[playerName].rewindButtonId)
+                    imgs[playerName].rewindButtonId = addImage(REWIND_BTN_ACTIVE, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
+                elseif cooldowns[playerName].canRewind == false and states[playerName].rewindState ~= 1 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDONW then
+                    states[playerName].rewindState = 1
+                    removeImage(imgs[playerName].rewindButtonId)
+                    imgs[playerName].rewindButtonId = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
+                elseif states[playerName].rewindState ~= 3 and ostime - cooldowns[playerName].lastRewindTime <= REWINDCOOLDONW then
+                    states[playerName].rewindState = 3
+                    removeImage(imgs[playerName].rewindButtonId)
+                    imgs[playerName].rewindButtonId = addImage(REWIND_BTN_OFF, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
+                end
             end
         end
     end

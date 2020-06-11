@@ -111,6 +111,8 @@ function eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
 end
 
 function eventPlayerLeft(playerName)
+    inRoom[playerName] = nil
+    loaded[playerName] = nil
     -- Throws an error if i retrieve playerId from room
     local id = playerIds[playerName]
     for player, data in pairs(room.playerList) do
@@ -126,5 +128,7 @@ end
 
 -- WHEN SOMEBODY JOINS, INIT THE PLAYER
 function eventNewPlayer(playerName)
+    inRoom[playerName] = true
+    loaded[playerName] = nil
     initPlayer(playerName)
 end

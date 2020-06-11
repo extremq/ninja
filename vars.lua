@@ -36,9 +36,9 @@ keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "1728b45b3eb.png", "This is the default particle.", "Free."),
-        shopListing({3, 31}, "1728b44464b.png", "Add some hearts to your dash!", "Secret."),
-        shopListing({3, 13}, "1728b442708.png", "Sleek. Just like you.", "Finish 1 map first.")
+        shopListing({3}, "172a424f181.png", "This is the default particle.", "Free."),
+        shopListing({3, 31}, "172a424da0e.png", "Add some hearts to your dash!", "Secret."),
+        shopListing({3, 13}, "172a42508f4.png", "Sleek. Just like you.", "Finish 1 map first.")
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free."),
@@ -58,6 +58,8 @@ shop = {
 
 -- We save ids so when a player leaves we still have their id (mostly to remove graffitis)
 playerIds = {}
+loaded = {}
+inRoom = {}
 
 playerStats = {
     -- {

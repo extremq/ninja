@@ -33,5 +33,6 @@ tfm.exec.setGameTime(MAPTIME, true)
 
 -- INIT ALL EXISTING PLAYERS
 for playerName in pairs(room.playerList) do
+    inRoom[playerName] = true
     initPlayer(playerName)
 end

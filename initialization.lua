@@ -129,6 +129,7 @@ function initPlayer(playerName)
     -- AUTOMATICALLY CHOOSE LANGUAGE
     chooselang(playerName)
     generateHud(playerName)
+    loaded[playerName] = true
 end
 
 -- RESET ALL PLAYERS

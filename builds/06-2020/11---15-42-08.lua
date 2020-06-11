@@ -252,8 +252,8 @@ translations.ro = {
 
 
 -- Standard maps
-stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}}
-stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}}
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7048028", 1}}
 
 -- Hardcore maps
 hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7734451", 6}}
@@ -405,9 +405,9 @@ keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a424f181.png", "This is the default particle.", "Free."),
-        shopListing({3, 31}, "172a424da0e.png", "Add some hearts to your dash!", "Secret."),
-        shopListing({3, 13}, "172a42508f4.png", "Sleek. Just like you.", "Finish 1 map first.")
+        shopListing({3}, "1728b45b3eb.png", "This is the default particle.", "Free."),
+        shopListing({3, 31}, "1728b44464b.png", "Add some hearts to your dash!", "Secret."),
+        shopListing({3, 13}, "1728b442708.png", "Sleek. Just like you.", "Finish 1 map first.")
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free."),

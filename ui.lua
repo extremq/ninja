@@ -51,7 +51,7 @@ end
 -- Used to open a page
 function openPage(title, body, playerName, pageId)
     if playerVars[playerName].menuPage == 0 then
-        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x2b5860, 1, true)
+        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x3C2A1B, 0xBFA26D, 1, true)
     else  
         ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
     end
