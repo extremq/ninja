@@ -163,10 +163,15 @@ function generateShopWelcome(playerName)
     local id = playerId(playerName)
     local dashX, dashY = 255, 150
 
-    if imgs[playerName].shopWelcomeDash == nil then
-        imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
+    if playerVars[playerName].menuPage == "shop" then
+        clearWelcomeImages(playerName)
     end
+
+    imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
     
+    local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
+    ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
+
     local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p>\n\n\n\n\n\n<textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
     return body
 end
@@ -178,8 +183,6 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
             openPage(playerVars[playerName].playerLanguage.shopTitle, generateShopWelcome(playerName), playerName, "shop")
-            local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
-            ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
         end
         if eventName == "StatsOpen" then
             openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
