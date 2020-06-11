@@ -32,6 +32,7 @@ MENU_BUTTONS = "1725ce45065.png"
     This way i have standard UI and never have conflicts.
 ]]--
 function pageOperation(title, body, playerName, pageId)
+    clear(playerName)
     local id = playerId(playerName)
     local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>"..playerVars[playerName].playerLanguage.Xbtn.."</a></font>"
 
@@ -65,15 +66,6 @@ function closePage(playerName)
     removeImage(imgs[playerName].menuImgId)
     playerVars[playerName].menuPage = 0
     imgs[playerName].menuImgId = nil
-end
-
--- Clears welcomeScreen images
-function clearWelcomeImages(playerName)
-    local id = playerId(playerName)
-    removeImage(imgs[playerName].shopWelcomeDash, playerName)
-    imgs[playerName].shopWelcomeDash = nil
-    local graffitiTextOffset = 1000000000
-    removeTextArea(id + graffitiTextOffset, playerName)
 end
 
 -- End of round stats
@@ -148,8 +140,29 @@ function remakeOptions(playerName)
     return "\n<font face='Verdana' size='11'>"..body.."</font>"
 end
 
+function clear(playerName)
+    local page = playerVars[playerName].menuPage
+    if page == "shop" then
+        clearWelcomeImages(playerName)
+    end
+end
+
+-- Clears welcomeScreen images
+function clearWelcomeImages(playerName)
+    local id = playerId(playerName)
+    removeImage(imgs[playerName].shopWelcomeDash, playerName)
+    imgs[playerName].shopWelcomeDash = nil
+    local graffitiTextOffset = 1000000000
+    removeTextArea(id + graffitiTextOffset, playerName)
+end
+
 -- This only is the welcome screen :D
 function generateShopWelcome(playerName)
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p>\n\n\n\n\n\n\n<textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
+    return body
+end
+
+function generateShopImgs(playerName)
     local id = playerId(playerName)
     local dashX, dashY = 255, 150
 
@@ -158,13 +171,11 @@ function generateShopWelcome(playerName)
     end
 
     imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
-    
-    local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
-    ui.addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
 
-    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p>\n\n\n\n\n\n<textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
-    return body
+    local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
+    addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
 end
+
 
 function eventTextAreaCallback(textAreaId, playerName, eventName)
     local id = playerId(playerName)
@@ -173,6 +184,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
             openPage(playerVars[playerName].playerLanguage.shopTitle, generateShopWelcome(playerName), playerName, "shop")
+            generateShopImgs(playerName)
         end
         if eventName == "StatsOpen" then
             openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")

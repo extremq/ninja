@@ -1215,7 +1215,6 @@ MENU_BUTTONS = "1725ce45065.png"
     This way i have standard UI and never have conflicts.
 ]]--
 function pageOperation(title, body, playerName, pageId)
-    clear(playerName)
     local id = playerId(playerName)
     local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>"..playerVars[playerName].playerLanguage.Xbtn.."</a></font>"
 
@@ -1242,7 +1241,6 @@ end
 
 -- Used to close a page
 function closePage(playerName)
-    clear(playerName)
     local id = playerId(playerName)
     removeTextArea(13, playerName)
     removeTextArea(12, playerName)
@@ -1323,13 +1321,6 @@ function remakeOptions(playerName)
     return "\n<font face='Verdana' size='11'>"..body.."</font>"
 end
 
-function clear(playerName)
-    local page = playerVars[playerName].menuPage
-    if page == "shop" then
-        clearWelcomeImages(playerName)
-    end
-end
-
 -- Clears welcomeScreen images
 function clearWelcomeImages(playerName)
     local id = playerId(playerName)
@@ -1355,6 +1346,7 @@ function generateShopImgs(playerName)
 
     imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
 
+    print ("abc")
     local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
     addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
 end
