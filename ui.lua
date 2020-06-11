@@ -32,7 +32,6 @@ MENU_BUTTONS = "1725ce45065.png"
     This way i have standard UI and never have conflicts.
 ]]--
 function pageOperation(title, body, playerName, pageId)
-    clear(playerName)
     local id = playerId(playerName)
     local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>"..playerVars[playerName].playerLanguage.Xbtn.."</a></font>"
 
@@ -57,7 +56,6 @@ function openPage(title, body, playerName, pageId)
     end
 end
 
-
 -- Used to close a page
 function closePage(playerName)
     clear(playerName)
@@ -67,14 +65,6 @@ function closePage(playerName)
     removeImage(imgs[playerName].menuImgId)
     playerVars[playerName].menuPage = 0
     imgs[playerName].menuImgId = nil
-end
-
--- Used to clear images from menu
-function clear(playerName)
-    local page = playerVars[playerName].menuPage
-    if page == "shop" then
-        clearWelcomeImages(playerName)
-    end
 end
 
 -- Clears welcomeScreen images
