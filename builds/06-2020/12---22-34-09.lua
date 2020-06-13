@@ -19,12 +19,6 @@ function playerId(playerName)
     return playerIds[playerName]
 end
 
-function removeTag(playerName)
-    return playerName:gsub("#%d%d%d%d", "")
-end
-
-VERSION = "1.5.5, 13.06.2020"
-
 local translations = {}
 
 --[[ Directory translations ]]--
@@ -67,7 +61,7 @@ translations.en = {
     hardcoreMaps = "Hardcore maps completed",
     shopNotice = "The shop is in development.",
     leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
-    notValidCommand = "%s is not a valid command or you mistyped an argument.",
+    notValidCommand = "%s is not a valid command or you typed an argument wrong.",
     cantSetPass = "Cannot set a password in this room.",
     translator = "Translated by Extremq#0000.",
     version = "Version: %s"
@@ -112,10 +106,9 @@ translations.es = {
     hardcoreMaps = "Mapas difíciles completados",
     shopNotice = "La tienda está en desarrollo.",
     leaderboardsNotice = "Una tabla de clasificación será implementada cuando el módulo se vuelva oficial.",
-    notValidCommand = "%s no es un comando válido o escribiste mal un argumento.",
+    notValidCommand = "%s no es un comando válido.",
     cantSetPass = "No se puede cambiar la contraseña de esta sala.",
-    translator = "Traducido por Tocutoeltuco#0000.",
-    version = "Versión: %s"
+    translator = "Traducido por Tocutoeltuco#0000."
 }
 --[[ End of file translations/es.lua ]]--
 --[[ File translations/fr.lua ]]--
@@ -209,8 +202,8 @@ translations.lv = {
 --[[ File translations/ro.lua ]]--
 translations.ro = {
     name = "ro",
-    lastTime = "Ultimul timp: %ss",
-    lastBestTime = "Cel mai bun timp: %ss",
+    lastTime = "Ultimul timp: %s",
+    lastBestTime = "Cel mai bun timp: %s",
     helpToolTip = "<p align='center'>Apasă <b>H</b> pentru ajutor.</p>",
     optionsYes = "<font color='#53ba58'>Da</font>", -- 12
     optionsNo = "<font color='#f73625'>Nu</font>",  -- 13
@@ -223,7 +216,7 @@ translations.ro = {
     devInfo = "<V>Vrei să faci o hartă pentru acest modul? Întră pe acest link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>Acest modul este în curs de dezvoltare. Raportează orice problemă lui Extremq#0000 sau Railysse#0000.</font>", -- 20
     discordInfo = "<BV>Alătură-te discordului nostru! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "Bine ai venit pe <font color='#E68D43'>#ninja</font>! Apasă <font color='#E68D43'>H</font> pentru ajutor.", -- 21
-    finishedInfo = "Ai terminat harta! <V>(%ss)</V>", --22
+    finishedInfo = "Ai terminat harta! (%ss)", --22
     helpBody = "Trebuie să aduci brânza înapoi la gaură cât mai rapid posibil.\n\n<b>Abilități</b>:\n» Dash - Apasă <b><font color='#CB546B'>săgeată Stânga</font></b> sau <b><font color='#CB546B'>Dreapta</font></b> de două ori. (reîncărcare 1s)\n» Jump - Apasă <b><font color='#CB546B'>săgeată Sus</font></b> de două ori. (reîncărcare 2s)\n» Rewind - Apasă <b><font color='#CB546B'>Spațiu</font></b> pentru a lăsa un checkpoint. Apasă <b><font color='#CB546B'>Spațiu</font></b> din nou în maximum 3 secunde pentru a te teleporta înapoi la checkpoint. (reîncărcare 10s)\n\n<b>Alte scurtături</b>:\n» Deschide meniul - Apasă <b><font color='#CB546B'>M</font></b> sau dă click în partea stângă a ecranului pentru a închide/deschide meniul.\n» Pune un graffiti - Apasă <b><font color='#CB546B'>C</font></b> pentru a lăsa un graffiti. (reîncărcare 60s\n» Omoară șoricelul - Apasă <b><font color='#CB546B'>X</font></b> sau scrie /mort pentru a omorî șoarecele.\n» Deschide instrucțiunile - Apasă <b><font color='#CB546B'>H</font></b> pentru a deschide/închide acest ecran.\n\n<b>Comenzi</b>:\n» !p Nume#id - Verifică statisticile altui player.\n» !pw Parolă - Pune parolă pe sală. (sala trebuie făcută de tine)\n» !m @cod - Încarcă ce hartă vrei tu. (trebuie ca sala să aibă parolă)\n» !langue țară - Schimbă limba modulului. (doar pentru tine)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Închide</font></b></a></p>", --23
     Xbtn = "X", -- 24
     shopTitle = "Colectie", -- 25
@@ -1012,7 +1005,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
             local _id = room.playerList[index].id
             local message = translate(index, "newRecord", fastestplayer, bestTime/100)
             chatMessage(message, index)
-            --print(message)
+            print(message)
         end
     end
 end, true)
@@ -1250,6 +1243,8 @@ end
     and such.
 ]]--
 
+VERSION = "1.5.4, 09.06.2020"
+
 DASH_BTN_X = 675
 DASH_BTN_Y = 340
 JUMP_BTN_X = 740
@@ -1339,7 +1334,7 @@ function showStats()
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
         local _id = value.id
-        openPage(translate(name, "leaderboardsTitle"), message, name, "roomStats")
+        openPage(translate(playerName, "leaderboardsTitle"), message, name, "roomStats")
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" then
@@ -1384,7 +1379,7 @@ function remakeOptions(playerName)
         end
     end
 
-    local body = " » <a href=\"event:ToggleGraffiti\">"..translate(playerName, "graffitiSetting").."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translate(playerName, "particlesSetting").."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translate(playerName, "timePanelsSetting").."?</a> "..toggles[3]
+    local body = " » <a href=\"event:ToggleGraffiti\">"..translate(playerName, "graffitiSetting").."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translate(playerName, "particleSetting").."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translate(playerName, "timePanelsSetting").."?</a> "..toggles[3]
     body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..translate(playerName, "globalChatSetting").."?</a> "..toggles[4].."\n"
     return "\n<font face='Verdana' size='11'>"..body.."</font>"
 end
@@ -1524,21 +1519,11 @@ function eventChatMessage(playerName, msg)
     end
 
     local data = room.playerList[playerName]
-    local color 
 
     if playerVars[playerName].playerPreferences[4] == true then
         for name, playerData in pairs(room.playerList) do 
-            -- playerName sends, name recieves
             if playerVars[name].playerPreferences[4] == true and playerName ~= name and playerData.community ~= data.community then
-                color = "#C2C2DA"
-                separatedName = removeTag(playerName)
-                separatedTag = string.match(playerName, "#%d%d%d%d")
-                coloredName = "<V>["..separatedName.."</V><G>"..separatedTag.."</G><V>]</V>"
-                -- if player has been mentioned
-                if string.find(string.lower(msg), string.lower(removeTag(name))) ~= nil then
-                    color = "#BABD2F"
-                end
-                chatMessage("<V>["..data.community.."] "..coloredName.."</V> <font color='"..color.."'>"..msg.."</font>", name)
+                chatMessage("<V>["..data.community.."] ["..playerName.."]</V> <font color='#C2C2DA'>"..msg.."</font>", name)
             end
         end
     end
@@ -1689,7 +1674,7 @@ function eventChatCommand(playerName, message)
     end
 
     if isValid == false then
-        chatMessage(translate(playerName, "notValidCommand", arg[1]), playerName)
+        chatMessage(arg[1].." "..translate(playerName, "notValidCommand"), playerName)
     end
 end
 --[[ End of file chatUtils.lua ]]--

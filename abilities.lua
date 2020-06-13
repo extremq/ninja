@@ -7,7 +7,7 @@
 --CONSTANTS
 STATSTIME = 10 * 1000
 DASHCOOLDOWN = 1 * 1000
-JUMPCOOLDOWN = 3 * 1000
+JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDONW = 10 * 1000
 GRAFFITICOOLDOWN = 15 * 1000
 
@@ -198,7 +198,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     elseif keyCode == 77 then
         -- If we don't have the menu open, then we dont have an image
         if imgs[playerName].menuImgId == nil then
-            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..playerVars[playerName].playerLanguage.shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..playerVars[playerName].playerLanguage.profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..playerVars[playerName].playerLanguage.leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..playerVars[playerName].playerLanguage.settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..playerVars[playerName].playerLanguage.aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
             imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
         -- Else we had it already open, so we close the page
         else
@@ -208,7 +208,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     elseif keyCode == 72 then
         -- Help system
         if playerVars[playerName].menuPage ~= "help" then
-            openPage("#ninja", "\n<font face='Verdana' size='11'>"..playerVars[playerName].playerLanguage.helpBody.."</font>", playerName, "help")
+            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translate(playerName, "helpBody").."</font>", playerName, "help")
         elseif playerVars[playerName].menuPage == "help" then
             closePage(playerName)
         end
@@ -249,7 +249,7 @@ eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
         -- print("uimouse "..uiMouseX)
         if -100 <= uiMouseX and uiMouseX <= 250 then
             if imgs[playerName].menuImgId == nil then
-                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..playerVars[playerName].playerLanguage.shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..playerVars[playerName].playerLanguage.profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..playerVars[playerName].playerLanguage.leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..playerVars[playerName].playerLanguage.settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..playerVars[playerName].playerLanguage.aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
                 imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
             else
                 closePage(playerName)

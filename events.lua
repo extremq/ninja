@@ -49,7 +49,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     playerStats[playerName].timesEnteredInHole = playerStats[playerName].timesEnteredInHole + 1
 
     -- SEND CHAT MESSAGE FOR PLAYER
-    chatMessage(playerVars[playerName].playerLanguage.finishedInfo.."(<V>"..(timeElapsedSinceRespawn/100).."s</V>)", playerName)
+    chatMessage(translate(playerName, "finishedInfo", timeElapsedSinceRespawn/100), playerName)
 
     if playerVars[playerName].playerFinished == false then
         playerStats[playerName].mapsFinished = playerStats[playerName].mapsFinished + 1
@@ -83,8 +83,8 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     end
 
     -- UPDATE "YOUR TIME"
-    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": "..(timeElapsedSinceRespawn/100).."s", playerName)
-    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": "..(playerVars[playerName].playerBestTime/100).."s", playerName)
+    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastTime", timeElapsedSinceRespawn/100), playerName)
+    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastBestTime", playerVars[playerName].playerBestTime/100), playerName)
 
     -- bestTime is a global variable for record
     if timeElapsedSinceRespawn <= bestTime then
@@ -103,7 +103,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
-            local message = "<font color='#CB546B'>"..fastestplayer..playerVars[index].playerLanguage.newRecord.." ("..(bestTime/100).."s)</font>"
+            local message = translate(index, "newRecord", fastestplayer, bestTime/100)
             chatMessage(message, index)
             --print(message)
         end

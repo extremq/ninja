@@ -88,12 +88,8 @@ function initPlayer(playerName)
         timesDashed = 0,
         timesRewinded = 0,
         hardcoreMaps = 0,
-        equipment = {2, 3, 1, 3}
+        equipment = {1, 1, 1, 1}
     }
-    
-    if playerName ~= "Extremq#0000" then
-        playerStats[playerName].equipment = {1, 1, 1, 1}
-    end
  
     states[playerName] = {
         jumpState = true,
@@ -173,8 +169,8 @@ function resetAll()
         end 
         -- UPDATE THE TEXT
         if playerVars[playerName].playerPreferences[3] == true then
-            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": N/A", playerName)
-            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": N/A", playerName)
+            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastBestTime", "N/A"), playerName)
+            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastTime", "N/A"), playerName)
         end
     end
     tfm.exec.setGameTime(MAPTIME, true)
@@ -196,8 +192,8 @@ function generateHud(playerName)
 
     removeTextArea(6, playerName)
     -- GENERATE UI
-    addTextArea(6, playerVars[playerName].playerLanguage.helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
+    addTextArea(6, translate(playerName, "helpToolTip"), playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
 
     -- SEND HELP message
-    chatMessage(playerVars[playerName].playerLanguage.welcomeInfo.."\n"..playerVars[playerName].playerLanguage.devInfo.."\n"..playerVars[playerName].playerLanguage.discordInfo, playerName)   
+    chatMessage(translate(playerName, "welcomeInfo").."\n"..translate(playerName, "devInfo").."\n"..translate(playerName, "discordInfo"), playerName)   
 end

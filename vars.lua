@@ -4,12 +4,21 @@
 ]]--
 
 
-function shopListing(values, imgId, tooltip, reqs)
+function shopListing(values, imgId, tooltip, reqs, fncArgs)
     return {
         ['values'] = values,
         ['imgId'] = imgId,
         ['tooltip'] = tooltip,
-        ['reqs'] = reqs
+        ['reqs'] = reqs,
+        ['fnc'] = function(playerName)
+            if fncArgs == nil then 
+                return true 
+            elseif playerStats[playerName][fncArgs[1]] >= fncArgs[2] then
+                return true
+            else
+                return false
+            end
+        end
     }
 end
 
@@ -36,23 +45,23 @@ keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a562c334.png", "This is the default particle.", "Free."),
-        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Secret."),
-        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.")
+        shopListing({3}, "172a562c334.png", "This is the default particle.", "Free.", nil),
+        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Finish 10 maps.", {"mapsFinished", 1}),
+        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first."), {"mapsFinishedFirst", 1}
     },
     graffitiCol = {
-        shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free."),
-        shopListing('#000000', '#000000', "You're a dark person.", "Finish 10 maps."),
-        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.")
+        shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free.", nil),
+        shopListing('#000000', '#000000', "You're a dark person.", "Finish 50 maps.", {"mapsFinished", 50}),
+        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.", {"timesDashed", 100})
     },
     graffitiImgs = {
-        shopListing(nil, nil, "This is the default image (no image).", "Free."),
-        shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.")
+        shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
+        shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.", {"hardcoreMaps", 1})
     },
     graffitiFonts = {
-        shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free."),
-        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 20."),
-        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.")
+        shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free.", nil),
+        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 50}),
+        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 10})
     }
 }
 

@@ -19,11 +19,17 @@ function playerId(playerName)
     return playerIds[playerName]
 end
 
+function removeTag(playerName)
+    return playerName:gsub("#%d%d%d%d", "")
+end
+
+VERSION = "1.5.5, 13.06.2020"
+
 local translations = {}
 
-VERSION = "1.5.4, 09.06.2020"
-
 {% require-dir "translations" %}
+
+{% require-file "translationUtils.lua" %}
 
 {% require-file "maps.lua" %}
 

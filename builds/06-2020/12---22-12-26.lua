@@ -19,12 +19,6 @@ function playerId(playerName)
     return playerIds[playerName]
 end
 
-function removeTag(playerName)
-    return playerName:gsub("#%d%d%d%d", "")
-end
-
-VERSION = "1.5.5, 13.06.2020"
-
 local translations = {}
 
 --[[ Directory translations ]]--
@@ -41,7 +35,7 @@ translations.en = {
     timePanelsSetting = "Enable time panels",
     globalChatSetting = "Enable global chat",
     voteStart = "%s started a vote to skip the current map. Type !yes to vote positively.",
-    newRecord = "<R>%s finished the map in the fastest time! %ss</R>",
+    newRecord = "<R>%s finished the map in the fastest time!</R>",
     devInfo = "<V>Want to submit a map? Check this link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>This module is in development. Please report any bugs to Extremq#0000 or Railysse#0000.</font>",
     discordInfo = "<BV>Join our discord! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "Welcome to <font color='#E68D43'>#ninja</font>! Press <font color='#E68D43'>H</font> for help.",
@@ -67,7 +61,7 @@ translations.en = {
     hardcoreMaps = "Hardcore maps completed",
     shopNotice = "The shop is in development.",
     leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
-    notValidCommand = "%s is not a valid command or you mistyped an argument.",
+    notValidCommand = "%s is not a valid command or you typed an argument wrong.",
     cantSetPass = "Cannot set a password in this room.",
     translator = "Translated by Extremq#0000.",
     version = "Version: %s"
@@ -86,7 +80,7 @@ translations.es = {
     timePanelsSetting = "Activar paneles de tiempos",
     globalChatSetting = "Activar chat global",
     voteStart = "%s empezó a votar para saltar el mapa. Escribe !yes para votar.",
-    newRecord = "<R>%s finalizó el mapa con el tiempo más rápido! %ss</R>",
+    newRecord = "<R>%s finalizó el mapa con el tiempo más rápido!</R>",
     devInfo = "<V>¿Quieres enviar un mapa? Usa este enlace: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>El módulo está en desarrollo. Por favor reporta cualquier bug a Extremq#0000 o Railysse#0000.</font>",
     discordInfo = "<BV>¡Únete a nuestro discord! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "¡Bienvenido a <font color='#E68D43'>#ninja</font>! Presiona <font color='#E68D43'>H</font> para obtener ayuda.",
@@ -112,10 +106,9 @@ translations.es = {
     hardcoreMaps = "Mapas difíciles completados",
     shopNotice = "La tienda está en desarrollo.",
     leaderboardsNotice = "Una tabla de clasificación será implementada cuando el módulo se vuelva oficial.",
-    notValidCommand = "%s no es un comando válido o escribiste mal un argumento.",
+    notValidCommand = "%s no es un comando válido.",
     cantSetPass = "No se puede cambiar la contraseña de esta sala.",
-    translator = "Traducido por Tocutoeltuco#0000.",
-    version = "Versión: %s"
+    translator = "Traducido por Tocutoeltuco#0000."
 }
 --[[ End of file translations/es.lua ]]--
 --[[ File translations/fr.lua ]]--
@@ -131,7 +124,7 @@ translations.fr = {
     timePanelsSetting = "Activer les panneaux de temps",
     globalChatSetting = "Activer la discussion global",
     voteStart = "%s a comencé un vote pour passer la carte actuelle. Ecrivez !yes pour voter positivement.",
-    newRecord = "<R>%s a fini la carte avec le meilleur temps! %ss</R>",
+    newRecord = "<R>%s a fini la carte avec le meilleur temps!</R>",
     devInfo = "<V>Vous voulez proposer une carte? Allez sur ce lien : https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>Ce module est toujours en développement. Merci de signaler tous les bugs à Extremq#0000 ou Railysse#0000.</font>",
     discordInfo = "<BV>Rejoignez le discord! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "Bienvenue dans <font color='#E68D43'>#ninja</font>! Appuyez sur <font color='#E68D43'>H</font> pour de l'aide.",
@@ -175,7 +168,7 @@ translations.lv = {
     timePanelsSetting = "Iespējot laika paneļus",
     globalChatSetting = "Iespējot globālo čatu",
     voteStart = "%s sāka balsojumu esošās mapes izlaišanai. Raksti !yes, lai balsotu par.",
-    newRecord = "<R>%s pabeidza mapi visīsākajā laikā! %ss</R>",
+    newRecord = "<R>%s pabeidza mapi visīsākajā laikā!</R>",
     devInfo = "<V>Vēlies iesniegt mapi? Skaties šeit: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>Šis modulis ir izveides procesā. Lūdzu, ziņo par jebkādām kļūdām Extremq#0000 vai Railysse#0000.</font>",
     discordInfo = "<BV>Pievienojies mūsu Discord! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "Esi sveicināts <font color='#E68D43'>#ninja</font>! Spied <font color='#E68D43'>H</font>, lai atvērtu palīdzību.",
@@ -209,8 +202,8 @@ translations.lv = {
 --[[ File translations/ro.lua ]]--
 translations.ro = {
     name = "ro",
-    lastTime = "Ultimul timp: %ss",
-    lastBestTime = "Cel mai bun timp: %ss",
+    lastTime = "Ultimul timp: %s",
+    lastBestTime = "Cel mai bun timp: %s",
     helpToolTip = "<p align='center'>Apasă <b>H</b> pentru ajutor.</p>",
     optionsYes = "<font color='#53ba58'>Da</font>", -- 12
     optionsNo = "<font color='#f73625'>Nu</font>",  -- 13
@@ -219,11 +212,11 @@ translations.ro = {
     timePanelsSetting = "Activezi panourile de timp", -- 16
     globalChatSetting = "Activezi chatul global",
     voteStart = "%s a inițiat un vot pentru a trece la următoarea mapă. Scrie !yes pentru a vota pozitiv.", -- 18
-    newRecord = "<R>%s a terminat harta cel mai rapid! %ss</R>", --19
+    newRecord = "<R>%s a terminat harta cel mai rapid!</R>", --19
     devInfo = "<V>Vrei să faci o hartă pentru acest modul? Întră pe acest link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>Acest modul este în curs de dezvoltare. Raportează orice problemă lui Extremq#0000 sau Railysse#0000.</font>", -- 20
     discordInfo = "<BV>Alătură-te discordului nostru! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "Bine ai venit pe <font color='#E68D43'>#ninja</font>! Apasă <font color='#E68D43'>H</font> pentru ajutor.", -- 21
-    finishedInfo = "Ai terminat harta! <V>(%ss)</V>", --22
+    finishedInfo = "Ai terminat harta! (%ss)", --22
     helpBody = "Trebuie să aduci brânza înapoi la gaură cât mai rapid posibil.\n\n<b>Abilități</b>:\n» Dash - Apasă <b><font color='#CB546B'>săgeată Stânga</font></b> sau <b><font color='#CB546B'>Dreapta</font></b> de două ori. (reîncărcare 1s)\n» Jump - Apasă <b><font color='#CB546B'>săgeată Sus</font></b> de două ori. (reîncărcare 2s)\n» Rewind - Apasă <b><font color='#CB546B'>Spațiu</font></b> pentru a lăsa un checkpoint. Apasă <b><font color='#CB546B'>Spațiu</font></b> din nou în maximum 3 secunde pentru a te teleporta înapoi la checkpoint. (reîncărcare 10s)\n\n<b>Alte scurtături</b>:\n» Deschide meniul - Apasă <b><font color='#CB546B'>M</font></b> sau dă click în partea stângă a ecranului pentru a închide/deschide meniul.\n» Pune un graffiti - Apasă <b><font color='#CB546B'>C</font></b> pentru a lăsa un graffiti. (reîncărcare 60s\n» Omoară șoricelul - Apasă <b><font color='#CB546B'>X</font></b> sau scrie /mort pentru a omorî șoarecele.\n» Deschide instrucțiunile - Apasă <b><font color='#CB546B'>H</font></b> pentru a deschide/închide acest ecran.\n\n<b>Comenzi</b>:\n» !p Nume#id - Verifică statisticile altui player.\n» !pw Parolă - Pune parolă pe sală. (sala trebuie făcută de tine)\n» !m @cod - Încarcă ce hartă vrei tu. (trebuie ca sala să aibă parolă)\n» !langue țară - Schimbă limba modulului. (doar pentru tine)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Închide</font></b></a></p>", --23
     Xbtn = "X", -- 24
     shopTitle = "Colectie", -- 25
@@ -761,7 +754,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     elseif keyCode == 77 then
         -- If we don't have the menu open, then we dont have an image
         if imgs[playerName].menuImgId == nil then
-            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..playerVars[playerName].playerLanguage.shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..playerVars[playerName].playerLanguage.profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..playerVars[playerName].playerLanguage.leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..playerVars[playerName].playerLanguage.settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..playerVars[playerName].playerLanguage.aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
             imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
         -- Else we had it already open, so we close the page
         else
@@ -771,7 +764,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     elseif keyCode == 72 then
         -- Help system
         if playerVars[playerName].menuPage ~= "help" then
-            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translate(playerName, "helpBody").."</font>", playerName, "help")
+            openPage("#ninja", "\n<font face='Verdana' size='11'>"..playerVars[playerName].playerLanguage.helpBody.."</font>", playerName, "help")
         elseif playerVars[playerName].menuPage == "help" then
             closePage(playerName)
         end
@@ -812,7 +805,7 @@ eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
         -- print("uimouse "..uiMouseX)
         if -100 <= uiMouseX and uiMouseX <= 250 then
             if imgs[playerName].menuImgId == nil then
-                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..playerVars[playerName].playerLanguage.shopTitle.."</a>\n\n\n\n<a href='event:StatsOpen'>             "..playerVars[playerName].playerLanguage.profileTitle.."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..playerVars[playerName].playerLanguage.leaderboardsTitle.."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..playerVars[playerName].playerLanguage.settingsTitle.."</a>\n\n\n\n<a href='event:AboutOpen'>             "..playerVars[playerName].playerLanguage.aboutTitle.."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
                 imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
             else
                 closePage(playerName)
@@ -990,8 +983,8 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     end
 
     -- UPDATE "YOUR TIME"
-    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastTime", timeElapsedSinceRespawn/100), playerName)
-    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastBestTime", playerVars[playerName].playerBestTime/100), playerName)
+    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": "..(timeElapsedSinceRespawn/100).."s", playerName)
+    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": "..(playerVars[playerName].playerBestTime/100).."s", playerName)
 
     -- bestTime is a global variable for record
     if timeElapsedSinceRespawn <= bestTime then
@@ -1010,7 +1003,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
-            local message = translate(index, "newRecord", fastestplayer, bestTime/100)
+            local message = "<font color='#CB546B'>"..fastestplayer..playerVars[index].playerLanguage.newRecord.." ("..(bestTime/100).."s)</font>"
             chatMessage(message, index)
             --print(message)
         end
@@ -1213,8 +1206,8 @@ function resetAll()
         end 
         -- UPDATE THE TEXT
         if playerVars[playerName].playerPreferences[3] == true then
-            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastBestTime", "N/A"), playerName)
-            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastTime", "N/A"), playerName)
+            ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": N/A", playerName)
+            ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": N/A", playerName)
         end
     end
     tfm.exec.setGameTime(MAPTIME, true)
@@ -1236,10 +1229,10 @@ function generateHud(playerName)
 
     removeTextArea(6, playerName)
     -- GENERATE UI
-    addTextArea(6, translate(playerName, "helpToolTip"), playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
+    addTextArea(6, playerVars[playerName].playerLanguage.helpToolTip, playerName, 267, 382, 265, 18, 0x324650, 0x000000, 0, true)
 
     -- SEND HELP message
-    chatMessage(translate(playerName, "welcomeInfo").."\n"..translate(playerName, "devInfo").."\n"..translate(playerName, "discordInfo"), playerName)   
+    chatMessage(playerVars[playerName].playerLanguage.welcomeInfo.."\n"..playerVars[playerName].playerLanguage.devInfo.."\n"..playerVars[playerName].playerLanguage.discordInfo, playerName)   
 end
 --[[ End of file initialization.lua ]]--
 
@@ -1249,6 +1242,8 @@ end
     description: Contains textAreaCallback and the functions that handle UI.
     and such.
 ]]--
+
+VERSION = "1.5.4, 09.06.2020"
 
 DASH_BTN_X = 675
 DASH_BTN_Y = 340
@@ -1281,9 +1276,9 @@ BLOCKED_DASH = "172a55a0456.png"
 function pageOperation(title, body, playerName, pageId)
     clear(playerName)
     local id = playerId(playerName)
-    local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>X</a></font>"
+    local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>"..playerVars[playerName].playerLanguage.Xbtn.."</a></font>"
 
-    local spaceLength = 39 - #title
+    local spaceLength = 40 - #playerVars[playerName].playerLanguage.Xbtn - #title
     local padding = ""
     for i = 1, spaceLength do
         padding = padding.." "
@@ -1339,7 +1334,7 @@ function showStats()
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
         local _id = value.id
-        openPage(translate(name, "leaderboardsTitle"), message, name, "roomStats")
+        openPage(playerVars[name].playerLanguage.leaderboardsTitle, message, name, "roomStats")
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" then
@@ -1353,19 +1348,19 @@ function stats(playerName, creatorName)
 
     local seconds = math.floor((os.time() - playerVars[playerName].joinTime) / 1000)
 
-    body = body.." » "..translate(playerName, "playtime")..": <font color='#f73625'>"..math.floor(seconds/3600).."</font>h <font color='#f73625'>"..math.floor(seconds%3600/60).."</font>m <font color='#f73625'>"..(seconds%3600%60).."</font>s\n"
-    body = body.." » "..translate(playerName, "firsts")..": <font color='#f73625'>"..playerStats[playerName].mapsFinishedFirst.."</font>\n"
-    body = body.." » "..translate(playerName, "finishedMaps")..": <font color='#f73625'>"..playerStats[playerName].mapsFinished.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.playtime..": <font color='#f73625'>"..math.floor(seconds/3600).."</font>h <font color='#f73625'>"..math.floor(seconds%3600/60).."</font>m <font color='#f73625'>"..(seconds%3600%60).."</font>s\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.firsts..": <font color='#f73625'>"..playerStats[playerName].mapsFinishedFirst.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.finishedMaps..": <font color='#f73625'>"..playerStats[playerName].mapsFinished.."</font>\n"
     local firstrate = "0%"
     if playerStats[playerName].mapsFinishedFirst > 0 then
         firstrate = (math.floor(playerStats[playerName].mapsFinishedFirst/playerStats[playerName].mapsFinished * 10000) / 100).."%"
     end
-    body = body.." » "..translate(playerName, "firstRate")..": <font color='#f73625'>"..firstrate.."</font>\n"
-    body = body.." » "..translate(playerName, "holeEnters")..": <font color='#f73625'>"..playerStats[playerName].timesEnteredInHole.."</font>\n"
-    body = body.." » "..translate(playerName, "graffitiUses")..": <font color='#f73625'>"..playerStats[playerName].graffitiSprays.."</font>\n"
-    body = body.." » "..translate(playerName, "dashUses")..": <font color='#f73625'>"..playerStats[playerName].timesDashed.."</font>\n"
-    body = body.." » "..translate(playerName, "rewindUses")..": <font color='#f73625'>"..playerStats[playerName].timesRewinded.."</font>\n"
-    body = body.." » "..translate(playerName, "hardcoreMaps")..": <font color='#f73625'>"..playerStats[playerName].hardcoreMaps.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.firstRate..": <font color='#f73625'>"..firstrate.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.holeEnters..": <font color='#f73625'>"..playerStats[playerName].timesEnteredInHole.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.graffitiUses..": <font color='#f73625'>"..playerStats[playerName].graffitiSprays.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.dashUses..": <font color='#f73625'>"..playerStats[playerName].timesDashed.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.rewindUses..": <font color='#f73625'>"..playerStats[playerName].timesRewinded.."</font>\n"
+    body = body.." » "..playerVars[creatorName].playerLanguage.hardcoreMaps..": <font color='#f73625'>"..playerStats[playerName].hardcoreMaps.."</font>\n"
 
     return "<font face='Verdana' size='11'>"..body.."</font>"
 end
@@ -1378,14 +1373,14 @@ function remakeOptions(playerName)
     toggles = {}
     for i = 1, #playerVars[playerName].playerPreferences do
         if playerVars[playerName].playerPreferences[i] == true then
-            toggles[i] = translate(playerName, "optionsYes")
+            toggles[i] = playerVars[playerName].playerLanguage.optionsYes
         else
-            toggles[i] = translate(playerName, "optionsNo")
+            toggles[i] = playerVars[playerName].playerLanguage.optionsNo
         end
     end
 
-    local body = " » <a href=\"event:ToggleGraffiti\">"..translate(playerName, "graffitiSetting").."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translate(playerName, "particlesSetting").."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translate(playerName, "timePanelsSetting").."?</a> "..toggles[3]
-    body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..translate(playerName, "globalChatSetting").."?</a> "..toggles[4].."\n"
+    local body = " » <a href=\"event:ToggleGraffiti\">"..playerVars[playerName].playerLanguage.graffitiSetting.."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..playerVars[playerName].playerLanguage.particlesSetting.."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..playerVars[playerName].playerLanguage.timePanelsSetting.."?</a> "..toggles[3]
+    body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..playerVars[playerName].playerLanguage.globalChatSetting.."?</a> "..toggles[4].."\n"
     return "\n<font face='Verdana' size='11'>"..body.."</font>"
 end
 
@@ -1435,20 +1430,20 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     -- 12 is the id for the menu buttons
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
-            openPage(translate(playerName, "shopTitle"), generateShopWelcome(playerName), playerName, "shop")
+            openPage(playerVars[playerName].playerLanguage.shopTitle, generateShopWelcome(playerName), playerName, "shop")
             generateShopImgs(playerName)
         end
         if eventName == "StatsOpen" then
-            openPage(translate(playerName, "profileTitle").." - "..playerName, stats(playerName, playerName), playerName, "profile")
+            openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..playerName, stats(playerName, playerName), playerName, "profile")
         end
         if eventName == "LeaderOpen" then
-            openPage(translate(playerName, "leaderboardsTitle"), "\n<font face='Verdana' size='11'>"..translate(playerName, "leaderboardsNotice").."</font>", playerName, "leaderboards")
+            openPage(playerVars[playerName].playerLanguage.leaderboardsTitle, "\n<font face='Verdana' size='11'>"..playerVars[playerName].playerLanguage.leaderboardsNotice.."</font>", playerName, "leaderboards")
         end
         if eventName == "SettingsOpen" then
-            openPage(translate(playerName, "settingsTitle"), remakeOptions(playerName), playerName, "settings")
+            openPage(playerVars[playerName].playerLanguage.settingsTitle, remakeOptions(playerName), playerName, "settings")
         end
         if eventName == "AboutOpen" then
-            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='11'>"..translate(playerName, "aboutBody").."\n\n\n\n\n\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION).."</V></p></font>", playerName, "about")
+            openPage(playerVars[playerName].playerLanguage.aboutTitle, "\n<font face='Verdana' size='11'>"..playerVars[playerName].playerLanguage.aboutBody.."\n\n\n\n\n\n<p align='right'><CS>"..playerVars[playerName].playerLanguage.translator.."\n</CS><V>"..translate(playerName, "version", VERSION).."</V></p></font>", playerName, "about")
         end
     end
 
@@ -1480,11 +1475,11 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             else
                 -- REGENERATE PANELS
                 playerVars[playerName].playerPreferences[3] = true
-                addTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastTime", "N/A"), playerName, 10, 45, 200, 21, 0xffffff, 0x000000, 0, true)
-                addTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastBestTime", "N/A"), playerName, 10, 30, 200, 21, 0xffffff, 0x000000, 0, true)
+                addTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": N/A", playerName, 10, 45, 200, 21, 0xffffff, 0x000000, 0, true)
+                addTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": N/A", playerName, 10, 30, 200, 21, 0xffffff, 0x000000, 0, true)
                 if playerVars[playerName].playerFinished == true then
-                    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastTime", playerVars[playerName].playerLastTime/100), playerName)
-                    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastBestTime", playerVars[playerName].playerBestTime/100), playerName)
+                    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastTime..": "..(playerVars[playerName].playerLastTime/100).."s", playerName)
+                    ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..playerVars[playerName].playerLanguage.lastBestTime..": "..(playerVars[playerName].playerBestTime/100).."s", playerName)
                 end
             end
         elseif eventName == "ToggleGlobalChat" then
@@ -1495,7 +1490,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
             end
         end
         if eventName ~= "CloseMenu" then
-            openPage(translate(playerName, "settingsTitle"), remakeOptions(playerName), playerName, "settings")
+            openPage(playerVars[playerName].playerLanguage.settingsTitle, remakeOptions(playerName), playerName, "settings")
         end
     end
 
@@ -1524,21 +1519,11 @@ function eventChatMessage(playerName, msg)
     end
 
     local data = room.playerList[playerName]
-    local color 
 
     if playerVars[playerName].playerPreferences[4] == true then
         for name, playerData in pairs(room.playerList) do 
-            -- playerName sends, name recieves
             if playerVars[name].playerPreferences[4] == true and playerName ~= name and playerData.community ~= data.community then
-                color = "#C2C2DA"
-                separatedName = removeTag(playerName)
-                separatedTag = string.match(playerName, "#%d%d%d%d")
-                coloredName = "<V>["..separatedName.."</V><G>"..separatedTag.."</G><V>]</V>"
-                -- if player has been mentioned
-                if string.find(string.lower(msg), string.lower(removeTag(name))) ~= nil then
-                    color = "#BABD2F"
-                end
-                chatMessage("<V>["..data.community.."] "..coloredName.."</V> <font color='"..color.."'>"..msg.."</font>", name)
+                chatMessage("<V>["..data.community.."] ["..playerName.."]</V> <font color='#C2C2DA'>"..msg.."</font>", name)
             end
         end
     end
@@ -1646,7 +1631,7 @@ function eventChatCommand(playerName, message)
         isValid = true
 
         if string.find(room.name, "^[a-z][a-z2]%-#ninja%d*$") then
-            return chatMessage(translate(playerName, "cantSetPass"), player)
+            return chatMessage(playerVars[playerName].playerLanguage.cantSetPass, player)
         end
 
         if arg[2] ~= nil then
@@ -1663,13 +1648,13 @@ function eventChatCommand(playerName, message)
     if arg[1] == "p" or arg[1] == "profile" then
         isValid = true
         if arg[2] == nil then
-            openPage(translate(playerName, "profileTitle").." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
+            openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
             return
         end
 
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
-                openPage(translate(playerName, "profileTitle").." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
+                openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
                 break
             end
         end
@@ -1689,7 +1674,7 @@ function eventChatCommand(playerName, message)
     end
 
     if isValid == false then
-        chatMessage(translate(playerName, "notValidCommand", arg[1]), playerName)
+        chatMessage(arg[1].." "..playerVars[playerName].playerLanguage.notValidCommand, playerName)
     end
 end
 --[[ End of file chatUtils.lua ]]--

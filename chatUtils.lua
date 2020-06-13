@@ -4,18 +4,26 @@
 ]]--
 
 function eventChatMessage(playerName, msg)
-    if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
+    if room.community ~= "en" then
         return
     end
 
-    local id = playerId(playerName)
     local data = room.playerList[playerName]
+    local color 
 
     if playerVars[playerName].playerPreferences[4] == true then
         for name, playerData in pairs(room.playerList) do 
+            -- playerName sends, name recieves
             if playerVars[name].playerPreferences[4] == true and playerName ~= name and playerData.community ~= data.community then
-                print("<V>["..data.community.."] ["..playerName.."]</V> <font color='#C2C2DA'>"..msg.."</font>")
-                chatMessage("<V>["..data.community.."] ["..playerName.."]</V> <font color='#C2C2DA'>"..msg.."</font>", name)
+                color = "#C2C2DA"
+                separatedName = removeTag(playerName)
+                separatedTag = string.match(playerName, "#%d%d%d%d")
+                coloredName = "<V>["..separatedName.."</V><G>"..separatedTag.."</G><V>]</V>"
+                -- if player has been mentioned
+                if string.find(string.lower(msg), string.lower(removeTag(name))) ~= nil then
+                    color = "#BABD2F"
+                end
+                chatMessage("<V>["..data.community.."] "..coloredName.."</V> <font color='"..color.."'>"..msg.."</font>", name)
             end
         end
     end
@@ -123,7 +131,7 @@ function eventChatCommand(playerName, message)
         isValid = true
 
         if string.find(room.name, "^[a-z][a-z2]%-#ninja%d*$") then
-            return chatMessage(playerVars[playerName].playerLanguage.cantSetPass, player)
+            return chatMessage(translate(playerName, "cantSetPass"), player)
         end
 
         if arg[2] ~= nil then
@@ -140,13 +148,13 @@ function eventChatCommand(playerName, message)
     if arg[1] == "p" or arg[1] == "profile" then
         isValid = true
         if arg[2] == nil then
-            openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
+            openPage(translate(playerName, "profileTitle").." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
             return
         end
 
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
-                openPage(playerVars[playerName].playerLanguage.profileTitle.." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
+                openPage(translate(playerName, "profileTitle").." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
                 break
             end
         end
@@ -161,7 +169,11 @@ function eventChatCommand(playerName, message)
         chatMessage(arg[2].." doesn't exist yet.", playerName)
     end
 
+    if arg[1] == "test" then
+        print(shop.dashAcc[2].fnc(playerName))
+    end
+
     if isValid == false then
-        chatMessage(arg[1].." "..playerVars[playerName].playerLanguage.notValidCommand, playerName)
+        chatMessage(translate(playerName, "notValidCommand", arg[1]), playerName)
     end
 end

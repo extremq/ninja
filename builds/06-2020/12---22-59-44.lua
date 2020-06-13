@@ -19,12 +19,6 @@ function playerId(playerName)
     return playerIds[playerName]
 end
 
-function removeTag(playerName)
-    return playerName:gsub("#%d%d%d%d", "")
-end
-
-VERSION = "1.5.5, 13.06.2020"
-
 local translations = {}
 
 --[[ Directory translations ]]--
@@ -1250,6 +1244,8 @@ end
     and such.
 ]]--
 
+VERSION = "1.5.4, 09.06.2020"
+
 DASH_BTN_X = 675
 DASH_BTN_Y = 340
 JUMP_BTN_X = 740
@@ -1524,21 +1520,11 @@ function eventChatMessage(playerName, msg)
     end
 
     local data = room.playerList[playerName]
-    local color 
 
     if playerVars[playerName].playerPreferences[4] == true then
         for name, playerData in pairs(room.playerList) do 
-            -- playerName sends, name recieves
             if playerVars[name].playerPreferences[4] == true and playerName ~= name and playerData.community ~= data.community then
-                color = "#C2C2DA"
-                separatedName = removeTag(playerName)
-                separatedTag = string.match(playerName, "#%d%d%d%d")
-                coloredName = "<V>["..separatedName.."</V><G>"..separatedTag.."</G><V>]</V>"
-                -- if player has been mentioned
-                if string.find(string.lower(msg), string.lower(removeTag(name))) ~= nil then
-                    color = "#BABD2F"
-                end
-                chatMessage("<V>["..data.community.."] "..coloredName.."</V> <font color='"..color.."'>"..msg.."</font>", name)
+                chatMessage("<V>["..data.community.."] ["..playerName.."]</V> <font color='#C2C2DA'>"..msg.."</font>", name)
             end
         end
     end
