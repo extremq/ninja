@@ -39,5 +39,16 @@ translations.fr = {
     notValidCommand = "%s n'est pas une commande valide ou vous avez mal écris l'argument.",
     cantSetPass = "Impossible d'instaurer un mot de passe dans ce salon.",
     translator = "Traduit par Jaker#9310.",
-    version = "Version: %s"
+    version = "Version: %s",
+    yourLoadout = "Votre chargement !",
+    yourGraffiti = "Votre graffiti !",
+    change = "Changer",
+    select = "Choisir",
+    selected = "Choisi",
+    locked = "Verouillé",
+    back = "Retour",
+    comingSoon = "Prochainement !",
+    particleUnlock = "<ROSE>Vous avez débloqué de nouvelles particules ! Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
+    graffitiColorUnlock = "<ROSE>Vous avez débloqué une nouvelle couleur de graffiti ! Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
+    graffitiFontUnlock = "<ROSE>Vous avez débloqué une nouvelle police de graffiti !Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>"
 }
