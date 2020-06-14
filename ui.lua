@@ -25,6 +25,8 @@ CHECKPOINT_MOUSE = "17257fd86f3.png"
 MENU_BUTTONS = "1725ce45065.png"
 HIDDEN_DASH = "172a559bc3d.png"
 BLOCKED_DASH = "172a55a0456.png"
+COLOR_IMG = "172b489f973.png"
+FONTS_IMG = "172b48a10e4.png"
 
 --[[
     The way i manage UI in this module is basically this:
@@ -37,7 +39,7 @@ function pageOperation(title, body, playerName, pageId)
     local id = playerId(playerName)
     local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>X</a></font>"
 
-    local spaceLength = 39 - #title
+    local spaceLength = 39 - #string.utf8(title)
     local padding = ""
     for i = 1, spaceLength do
         padding = padding.." "
@@ -52,10 +54,17 @@ end
 -- Used to open a page
 function openPage(title, body, playerName, pageId)
     if playerVars[playerName].menuPage == 0 then
-        ui.addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x7B5A35, 1, true)
-    else  
-        ui.updateTextArea(13, pageOperation(title, body, playerName, pageId), playerName)
+        addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x7B5A35, 1, true)
+    else        
+        -- I HATE YOU FROM THE DEEPEST HOLE OF MY SOUL
+        -- WHY DO YOU FUCK UP THE TEXT IF I UPDATE?
+        -- WHY DO YOU ADD A NEW LINE?
+        -- WHY DO YOU KEEP THE FORMATTING?
+        -- UPDATETEXTAREA HAS BUGS AND I HATE IT
+        removeTextArea(13, playerName)
+        addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 198, 50, 406, 300, 0x122529, 0x7B5A35, 1, true)
     end
+    lateUI(playerName)
 end
 
 -- Used to close a page
@@ -97,6 +106,7 @@ function showStats()
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" then
+        checkUnlock(bestPlayers[1][1], "dashAcc", 3, "particleUnlock")
         playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
     end
 end
@@ -147,6 +157,22 @@ function clear(playerName)
     local page = playerVars[playerName].menuPage
     if page == "shop" then
         clearWelcomeImages(playerName)
+    elseif string.find(page, "shopPart") then
+        clearShopPageImgsTextAreas(playerName)
+    elseif page == "graffiti" then
+        clearGraffitiImgs(playerName)
+    end
+end
+
+-- For some textareas we have to add later than the main textarea
+function lateUI(playerName)
+    local page = playerVars[playerName].menuPage
+    if page == "shop" then
+        generateShopImgs(playerName)
+    elseif string.find(page, "shopPart") then
+        generateShopPartImgsText(playerName, tonumber(string.match(page, "%d+")))
+    elseif page == "graffiti" then
+        generateGraffitiImages(playerName)
     end
 end
 
@@ -164,7 +190,46 @@ end
 
 -- This only is the welcome screen :D
 function generateShopWelcome(playerName)
-    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>Your loadout!</CS></p>\n\n\n\n\n\n\n<textformat>       <textformat><a href='event:ChangePart'>[change]</a><textformat>         <textformat><a href='event:ChangeGraffiti'>[change]</a></font>\n\n\n"
+    local wordLength = #string.utf8(translate(playerName, "change"))
+    local paddingCount = 10 - (wordLength - 6)
+    local padding = ""
+    for i = 1, paddingCount do
+        padding = padding.." "
+    end
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>"..translate(playerName, "yourLoadout").."</CS></p>\n\n\n\n\n\n\n<p align='center'><a href='event:ChangePart'>["..translate(playerName, "change").."]</a><textformat>"..padding.."<textformat><a href='event:ChangeGraffiti'>["..translate(playerName, "change").."]\n</a></p>\n\n\n\n</font>"
+    return body
+end
+
+function generateGraffitiWelcome(playerName)
+    local wordLength = #string.utf8(translate(playerName, "change"))
+    local paddingCount = 10 - (wordLength - 6)
+    local padding = ""
+    for i = 1, paddingCount do
+        padding = padding.." "
+    end
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>"..translate(playerName, "yourGraffiti").."</CS></p>\n\n\n\n\n\n\n<p align='center'><a href='event:GraffitiChangeColor'>["..translate(playerName, "change").."]</a><textformat>"..padding.."<textformat><a href='event:GraffitiChangeFont'>["..translate(playerName, "change").."]\n</a></p></font>\n\n\n<font face='Lucida Console' size='12'><p align='center'><a href='event:Back'>["..translate(playerName, "back").."]</a></p></font>"
+    return body
+end
+
+function generateGraffitiImages(playerName)
+    local colorX, colorY = 265, 155
+    local fontX, fontY = 440, 155
+
+    imgs[playerName].graffitiColor = addImage(COLOR_IMG, "&2", colorX, colorY, playerName)
+    imgs[playerName].graffitiFont = addImage(FONTS_IMG, "&3", fontX, fontY, playerName)
+end
+
+function clearGraffitiImgs(playerName)
+    removeImage(imgs[playerName].graffitiColor, playerName)
+    removeImage(imgs[playerName].graffitiFont, playerName)
+
+    imgs[playerName].graffitiColor = nil
+    imgs[playerName].graffitiFont = nil
+end
+
+--TextAreaIds = 50, 51, 52
+function generateShopPage(playerName, pageNumber, type)
+    local body = "<font face='Lucida Console' size='16'>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</font><font face='Lucida Console' size='12'><p align='center'><a href='event:PrevPage'>&lt;</a> "..pageNumber.." / "..maxShopPages(shop[type]).." <a href='event:NextPage'>&gt;\n</a>\n<a href='event:Back'>["..translate(playerName, "back").."]\n</a></p></font>"
     return body
 end
 
@@ -178,10 +243,48 @@ function generateShopImgs(playerName)
 
     imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
 
-    local graffitiTextX, graffitiTextY, graffitiTextOffset = 365, 185, 1000000000
+    local graffitiTextX, graffitiTextY, graffitiTextOffset = 375, 185, 1000000000
     addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
 end
 
+function maxShopPages(category)
+    local value = #category / 3
+    if value - math.floor(value) > 0 then
+        value = math.ceil(value)
+    end
+    return value
+end
+
+function generateShopPartImgsText(playerName, pageNumber)
+    local ids = {50, 51, 52}
+    local x = {230, 350, 470}
+    
+    for i = 1, 3 do
+        if shop.dashAcc[(pageNumber - 1) * 3 + i] == nil then
+            imgs[playerName]["shopPart"..i] = addImage(BLOCKED_DASH, "&"..i, x[i], 80, playerName)
+            addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+        elseif shop.dashAcc[(pageNumber - 1) * 3 + i].fnc(playerName) == false then
+            imgs[playerName]["shopPart"..i] = addImage(HIDDEN_DASH, "&"..i, x[i], 80, playerName)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..shop.dashAcc[(pageNumber - 1) * 3 + i].tooltip.."</CS></i>\n\nRequirements:\n"..shop.dashAcc[(pageNumber - 1) * 3 + i].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+        else
+            imgs[playerName]["shopPart"..i] = addImage(shop.dashAcc[(pageNumber - 1) * 3 + i].imgId, "&"..i, x[i], 80, playerName)
+            local selectState = "<a href='event:SelectDash"..i.."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
+            if playerStats[playerName].equipment[1] == (pageNumber - 1) * 3 + i then
+                selectState = "<V>["..translate(playerName, "selected").."]</V>"
+            end
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..shop.dashAcc[(pageNumber - 1) * 3 + i].tooltip.."</CS></i>\n\nRequirements:\n"..shop.dashAcc[(pageNumber - 1) * 3 + i].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+        end
+    end
+end
+
+function clearShopPageImgsTextAreas(playerName)
+    local ids = {50, 51, 52}
+    for i = 1, 3 do
+        removeTextArea(ids[i], playerName)
+        removeImage(imgs[playerName]["shopPart"..i], playerName)
+        imgs[playerName]["shopPart"..i] = nil
+    end
+end
 
 function eventTextAreaCallback(textAreaId, playerName, eventName)
     local id = playerId(playerName)
@@ -190,7 +293,6 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
     if textAreaId == 12 then
         if eventName == "ShopOpen" then
             openPage(translate(playerName, "shopTitle"), generateShopWelcome(playerName), playerName, "shop")
-            generateShopImgs(playerName)
         end
         if eventName == "StatsOpen" then
             openPage(translate(playerName, "profileTitle").." - "..playerName, stats(playerName, playerName), playerName, "profile")
@@ -206,8 +308,10 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         end
     end
 
+    local currentPage = playerVars[playerName].menuPage
+
     -- SETTINGS PAGE
-    if playerVars[playerName].menuPage == "settings" and textAreaId == 13 then
+    if currentPage == "settings" and textAreaId == 13 then
         if eventName == "ToggleGraffiti" then
             if playerVars[playerName].playerPreferences[1] == true then
                 playerVars[playerName].playerPreferences[1] = false
@@ -250,6 +354,32 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         end
         if eventName ~= "CloseMenu" then
             openPage(translate(playerName, "settingsTitle"), remakeOptions(playerName), playerName, "settings")
+        end
+    elseif currentPage == "shop" then
+        if eventName == "ChangePart" then
+            openPage(translate(playerName, "shopTitle"), generateShopPage(playerName, 1, "dashAcc"), playerName, "shopPart#1")
+        elseif eventName == "ChangeGraffiti" then
+            openPage(translate(playerName, "shopTitle"), generateGraffitiWelcome(playerName), playerName, "graffiti")
+        end
+    elseif string.find(currentPage, "shopPart") then
+        local currentPageNumber = tonumber(string.match(currentPage, "%d+"))
+
+        if eventName == "NextPage" and currentPageNumber + 1 <= maxShopPages(shop.dashAcc) then
+            openPage(translate(playerName, "shopTitle"), generateShopPage(playerName, currentPageNumber + 1, "dashAcc"), playerName, "shopPart#"..(currentPageNumber + 1))
+        elseif eventName == "PrevPage" and tonumber(currentPageNumber) - 1 > 0 then
+            openPage(translate(playerName, "shopTitle"), generateShopPage(playerName, currentPageNumber - 1, "dashAcc"), playerName, "shopPart#"..(currentPageNumber - 1))
+        end
+
+        if string.find(eventName, "SelectDash") then
+            local selectedcurrentPageNumber = tonumber(string.match(eventName, "%d+"))
+            playerStats[playerName].equipment[1] = selectedcurrentPageNumber
+            openPage(translate(playerName, "shopTitle"), generateShopPage(playerName, currentPageNumber, "dashAcc"), playerName, "shopPart#"..currentPageNumber)
+        end
+    end
+
+    if eventName == "Back" then
+        if string.find(currentPage, "shopPart") or currentPage == "graffiti" then
+            openPage(translate(playerName, "shopTitle"), generateShopWelcome(playerName), playerName, "shop")
         end
     end
 

@@ -4,7 +4,7 @@
 ]]--
 
 function eventChatMessage(playerName, msg)
-    if room.community ~= "en" then
+    if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
         return
     end
 
@@ -32,6 +32,10 @@ end
 -- Chat commands
 function eventChatCommand(playerName, message)
     local id = playerId(playerName)
+
+    for key, value in pairs(modList) do
+        chatMessage("<T><b>Ξ</b> ["..playerName.."] !"..message.."</T>", key)
+    end
 
     local ostime = os.time()
     local arg = {}
@@ -114,6 +118,10 @@ function eventChatCommand(playerName, message)
             end
         end
 
+        if arg[1] == "cheese" then
+            tfm.exec.giveCheese(playerName)
+        end
+
         if arg[1] == "a" then
             isValid = true
             if arg[2] ~= nil then
@@ -171,6 +179,10 @@ function eventChatCommand(playerName, message)
 
     if arg[1] == "test" then
         print(shop.dashAcc[2].fnc(playerName))
+    end
+
+    if arg[1] == "uptime" then
+        chatMessage("Uptime: "..math.floor(os.time() - roomCreate)/1000)
     end
 
     if isValid == false then

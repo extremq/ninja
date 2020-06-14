@@ -27,6 +27,7 @@ end, true)
 eventPlayerDied = secureWrapper(function(playerName)
     local id = playerId(playerName)
     playerVars[playerName].rewindPos = {0, 0, false}
+    playerVars[playerName].hasDiedThisRound = true
     -- Remove rewind Mouse
     if imgs[playerName].mouseImgId ~= nil then
         removeImage(imgs[playerName].mouseImgId)
@@ -49,7 +50,12 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     playerStats[playerName].timesEnteredInHole = playerStats[playerName].timesEnteredInHole + 1
 
     -- SEND CHAT MESSAGE FOR PLAYER
-    chatMessage(translate(playerName, "finishedInfo", timeElapsedSinceRespawn/100), playerName)
+    local finishTime = timeElapsedSinceRespawn
+    if playerVars[playerName].hasDiedThisRound == false then
+        -- We don't count the starting 3 seconds
+        finishTime = finishTime - 3 * 100
+    end
+    chatMessage(translate(playerName, "finishedInfo", finishTime/100), playerName)
 
     if playerVars[playerName].playerFinished == false then
         playerStats[playerName].mapsFinished = playerStats[playerName].mapsFinished + 1
@@ -57,13 +63,14 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
             playerStats[playerName].hardcoreMaps = playerStats[playerName].hardcoreMaps + 1
         end
         playerWon = playerWon + 1
+        checkUnlock(playerName, "dashAcc", 2, "particleUnlock")
     end
 
     setPlayerScore(playerName, 1, true)
     -- RESET TIMERS
-    playerVars[playerName].playerLastTime = timeElapsedSinceRespawn
+    playerVars[playerName].playerLastTime = finishTime
     playerVars[playerName].playerFinished = true
-    playerVars[playerName].playerBestTime = math.min(playerVars[playerName].playerBestTime, timeElapsedSinceRespawn)
+    playerVars[playerName].playerBestTime = math.min(playerVars[playerName].playerBestTime, finishTime)
 
     --[[
         If the player decides to leave and come back, we need to have his best time saved in a separate array.
@@ -83,12 +90,12 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     end
 
     -- UPDATE "YOUR TIME"
-    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastTime", timeElapsedSinceRespawn/100), playerName)
+    ui.updateTextArea(5, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastTime", finishTime/100), playerName)
     ui.updateTextArea(4, "<p align='center'><font face='Lucida console' color='#ffffff'>"..translate(playerName, "lastBestTime", playerVars[playerName].playerBestTime/100), playerName)
 
     -- bestTime is a global variable for record
-    if timeElapsedSinceRespawn <= bestTime then
-        bestTime = timeElapsedSinceRespawn
+    if finishTime <= bestTime then
+        bestTime = finishTime
 
         if fastestplayer ~= -1 then
             local oldFastestPlayer = fastestplayer

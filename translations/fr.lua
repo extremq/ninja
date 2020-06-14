@@ -21,7 +21,7 @@ translations.fr = {
     shopTitle = "Collection",
     profileTitle = "Profile",
     leaderboardsTitle = "Classement",
-    settingsTitle = "Parametres",
+    settingsTitle = "Paramètres",
     aboutTitle = "A propos",
     -- END
     aboutBody = "Module codé par <font color='#FFD991'>Extremq#0000</font>.\nIdée de jeu, test des bugs and cartes fournies par <font color='#FFD991'>Railysse#0000</font>.\n\nCe module est complétement soutenu par la fondation „Red Cheese” avec le projet „Save Module”. Tous les revenus que nous recevrons seront directement versées aux joueur qui jouent à #parkour comme ça on les supplie de jouer à notre module.\n\nC'est une blague! Merci d'avoir joué à notre module! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
@@ -36,7 +36,8 @@ translations.fr = {
     hardcoreMaps = "Cartes compliquées complétées",
     shopNotice = "La boutique est en developpement.",
     leaderboardsNotice = "Un classement sera implenté quand le module deviendra officiel.",
-    notValidCommand = "%s n'est pas une commande valide.",
+    notValidCommand = "%s n'est pas une commande valide ou vous avez mal écris l'argument.",
     cantSetPass = "Impossible d'instaurer un mot de passe dans ce salon.",
-    translator = "Traduit par Jaker#9310."
+    translator = "Traduit par Jaker#9310.",
+    version = "Version: %s"
 }

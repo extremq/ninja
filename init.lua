@@ -1,3 +1,5 @@
+local roomCreate = os.time()
+
 -- LOCALS FOR SPEED
 local room = tfm.get.room
 local displayParticle = tfm.exec.displayParticle
@@ -12,6 +14,7 @@ local setPlayerScore = tfm.exec.setPlayerScore
 local setMapName = ui.setMapName
 local random = math.random
 local addTextArea = ui.addTextArea
+local updateTextArea = ui.updateTextArea
 local removeTextArea = ui.removeTextArea
 
 -- RETURN PLAYER ID
@@ -26,6 +29,8 @@ end
 VERSION = "1.5.5, 13.06.2020"
 
 local translations = {}
+
+{% require-file "string.utf8.lua" %}
 
 {% require-dir "translations" %}
 

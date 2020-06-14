@@ -47,7 +47,7 @@ shop = {
     dashAcc = {
         shopListing({3}, "172a562c334.png", "This is the default particle.", "Free.", nil),
         shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Finish 10 maps.", {"mapsFinished", 1}),
-        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first."), {"mapsFinishedFirst", 1}
+        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.", {"mapsFinishedFirst", 1})
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free.", nil),
@@ -61,7 +61,8 @@ shop = {
     graffitiFonts = {
         shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free.", nil),
         shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 50}),
-        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 10})
+        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 10}),
+        shopListing("CenturyGothic", "Verdana", "Wow, you're so modern.", "Dash 50 times.", {"timesDashed", 10})
     }
 }
 
@@ -82,6 +83,17 @@ playerStats = {
     --     hardcoreMaps = 0,
     --     equipment = {0, 0, 0, 0}
     -- }
+}
+
+function checkUnlock(playerName, what, index, message, ...)
+    if unlocks[playerName][what][index] == false and shop[what][index].fnc(playerName) == true then
+        chatMessage(translate(playerName, message, ...), playerName)
+        unlocks[playerName][what][index] = true
+    end
+end
+
+unlocks = {
+    -- same struct as shop
 }
 
 cooldowns = {

@@ -20,12 +20,12 @@ translations.lv = {
     -- IF YOUR LANGUAGE HAS SEPCIAL CHARACTERS, PLEASE JUST LEAVE THESE AS DEFAULT
     shopTitle = "Kolekcija",
     profileTitle = "Profils",
-    leaderboardsTitle = "Tablo",
-    settingsTitle = "Opcijas",
+    leaderboardsTitle = "Rezultātu tablo",
+    settingsTitle = "Iestatījumi",
     aboutTitle = "Par",
     -- END
     aboutBody = "Moduli kodēja <font color='#FFD991'>Extremq#0000</font>.\nIdejas spēlei, kļūdu testēšanu un mapes nodrošināja <font color='#FFD991'>Railysse#0000</font>.\n\nŠo moduli pilnībā atbalsta peļu organizācija „Red Cheese” ar „Save Module” projektu. Visas iegūtās finanses tiks ziedotas pelēm, kuras spēlē #parkour, lai varam piekukuļot viņas spēlēt mūsu moduli.\n\nMēs tikai jokojam, paldies, ka izmēģinājāt mūsu moduli! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
-    playtime = "Playtime",
+    playtime = "Kopumā nospēlētais laiks",
     firsts = "Pirmās vietas",
     finishedMaps = "Pabeigtās mapes",
     firstRate = "Pirmo vietu attiecība",
@@ -36,7 +36,8 @@ translations.lv = {
     hardcoreMaps = "Pabeigtās „Hardcore” mapes",
     shopNotice = "Veikals ir izveides procesā.",
     leaderboardsNotice = "Rezultātu tablo tiks ieviests, kad modulis kļūs oficiāls.",
-    notValidCommand = "%s nav derīga komanda.",
+    notValidCommand = "%s nav derīga komanda vai tu nepareizi ievadīji kādu argumentu.",
     cantSetPass = "Nevar iestatīt paroli šajā istabā.",
-    translator = "Tulkoja Syrius#8114."
+    translator = "Tulkoja Syrius#8114.",
+    version = "Versija: %s"
 }

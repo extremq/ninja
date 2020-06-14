@@ -42,7 +42,10 @@ function initPlayer(playerName)
     system.bindMouse(playerName, true)
 
     -- CURRENT PLAYERCOUNT
-    playerCount = playerCount + 1
+    -- We don't count souris
+    if string.find(playerName, '*') == nil then
+        playerCount = playerCount + 1
+    end
 
     -- RESET SCORE
     setPlayerScore(playerName, 0)
@@ -69,7 +72,8 @@ function initPlayer(playerName)
         rewindPos = {0, 0},
         menuPage = 0,
         helpOpen = false,
-        joinTime = os.time()
+        joinTime = os.time(),
+        hasDiedThisRound = false
     }
 
     -- If the player finished
@@ -97,6 +101,27 @@ function initPlayer(playerName)
         rewindState = 1
     }
 
+    -- only unlock default if we have no savedata
+    if unlocks[playerName] == nil then
+        unlocks[playerName] = {
+            dashAcc = {},
+            graffitiCol = {},
+            graffitiFonts = {}
+        }
+        unlocks[playerName].dashAcc[1] = true -- default
+        for i = 2, #shop.dashAcc do
+            unlocks[playerName].dashAcc[i] = false
+        end
+        unlocks[playerName].graffitiCol[1] = true -- default
+        for i = 2, #shop.graffitiCol do
+            unlocks[playerName].graffitiCol[i] = false
+        end
+        unlocks[playerName].graffitiFonts[1] = true -- default
+        for i = 2, #shop.graffitiFonts do
+            unlocks[playerName].graffitiFonts[i] = false
+        end
+    end
+
     local jmpid = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
     local dshid = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
     local rwdid = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
@@ -113,7 +138,12 @@ function initPlayer(playerName)
         menuImgId = nil,
         shopWelcomeDash = nil,
         shopWelcomeGraffiti = nil,
-        graffitiImg = nil
+        graffitiImg = nil,
+        shopPart1 = nil,
+        shopPart2 = nil, 
+        shopPart3 = nil,
+        graffitiColor = nil,
+        graffitiFonts = nil
     }
 
     -- SET DEFAULT COLOR
@@ -139,10 +169,12 @@ function resetAll()
     --[[
         Manually checking the players that remained in cache, because someone
         might leave when the map is changing and we don't want to use the older time.
+        Also reset the death thingy.
     ]]--
     for index, value in pairs(playerVars) do
         playerVars[index].playerBestTime = 999999
         playerVars[index].playerBestTime = 999999
+        playerVars[index].hasDiedThisRound = false
     end
 
     -- Close stats if they have it opened
