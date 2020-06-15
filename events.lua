@@ -64,6 +64,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         end
         playerWon = playerWon + 1
         checkUnlock(playerName, "dashAcc", 2, "particleUnlock")
+        checkUnlock(playerName, "graffitiCol", 2, "graffitiColorUnlock")
     end
 
     setPlayerScore(playerName, 1, true)

@@ -119,6 +119,7 @@ function eventChatCommand(playerName, message)
         end
 
         if arg[1] == "cheese" then
+            isValid = true
             tfm.exec.giveCheese(playerName)
         end
 
@@ -160,6 +161,8 @@ function eventChatCommand(playerName, message)
             return
         end
 
+        -- convert extREMQ#0000 to Extremq#0000
+        arg[2] = string.upper(string.sub(arg[2], 1, 1))..string.lower(string.sub(arg[2], 2, #arg[2]))
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
                 openPage(translate(playerName, "profileTitle").." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
@@ -182,6 +185,7 @@ function eventChatCommand(playerName, message)
     end
 
     if arg[1] == "uptime" then
+        isValid = true
         chatMessage("Uptime: "..math.floor(os.time() - roomCreate)/1000)
     end
 

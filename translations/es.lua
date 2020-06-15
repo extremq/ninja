@@ -18,11 +18,11 @@ translations.es = {
     helpBody = "Tienes que traer el queso de vuelta al agujero tan rápido como puedas.\n\n<b>Habilidades</b>:\n» Impulso - Presiona <b><font color='#CB546B'>Izquierda</font></b> o <b><font color='#CB546B'>Derecha</font></b> dos veces. (espera de 1s)\n» Salto - Presiona <b><font color='#CB546B'>Arriba</font></b> dos veces. (espera de 2s)\n» Rebobinar - Presiona <b><font color='#CB546B'>Espacio</font></b> para dejar un checkpoint. Presiona <b><font color='#CB546B'>Espacio</font></b> de nuevo dentro de 3 segundos para teletransportarte al checkpoint. (espera de 10s)\n\n<b>Otros atajos</b>:\n» Matar tu ratón - Presiona <b><font color='#CB546B'>X</font></b> o escribe /mort para matar a tu ratón.\n» Abrir menú - Presionar <b><font color='#CB546B'>M</font></b> o clickea en el lado izquierdo de tu pantalla para abrir/cerrar el menú.\n» Colocar un graffiti - Presiona <b><font color='#CB546B'>C</font></b> para dejar un graffiti. (espera de 60s)\n» Abrir ayuda - Presiona <b><font color='#CB546B'>H</font></b> para abrir/cerrar esta ventana.\n\n<b>Comandos</b>:\n» !p Nombre#id - Ver las estadísticas de otro jugador.\n» !pw Contraseña - Cambiar la contraseña de la sala. (debe ser creada por tí)\n» !m @code - Cargar cualquier mapa que quieras. (la sala debe tener una contraseña)\n» !langue país - Cambiar el lenguaje del módulo. (sólo para tí)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Cerrar</font></b></a></p>", --23
     Xbtn = "X",
     -- IF YOUR LANGUAGE HAS SEPCIAL CHARACTERS, PLEASE JUST LEAVE THESE AS DEFAULT
-    shopTitle = "Tienda",
+    shopTitle = "Colección",
     profileTitle = "Perfil",
     leaderboardsTitle = "Rankings",
-    settingsTitle = "Configuracion",
-    aboutTitle = "Acerca",
+    settingsTitle = "Ajustes",
+    aboutTitle = "Acerca de",
     -- END
     aboutBody = "Módulo programado por <font color='#FFD991'>Extremq#0000</font>.\nIdeas de juego, testeo de errores y mapas por <font color='#FFD991'>Railysse#0000</font>.\n\nEste módulo está totalmente respaldado por la fundación de ratones „Red Cheese” con el proyecto „Save Module”. Todas las donaciones que ganemos serán donadas a los ratones que juegan #parkour para sobornarlos y que vengan a jugar nuestro módulo.\n\nSólo estamos bromeando, ¡gracias por jugar nuestro módulo! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
     playtime = "Tiempo de juego",
@@ -39,5 +39,16 @@ translations.es = {
     notValidCommand = "%s no es un comando válido o escribiste mal un argumento.",
     cantSetPass = "No se puede cambiar la contraseña de esta sala.",
     translator = "Traducido por Tocutoeltuco#0000.",
-    version = "Versión: %s"
+    version = "Versión: %s",
+    yourLoadout = "Tus objetos:",
+    yourGraffiti = "Tu graffiti:",
+    change = "Cambiar",
+    select = "Seleccionar",
+    selected = "Seleccionado",
+    locked = "Bloqueado",
+    back = "Atrás",
+    comingSoon = "¡Muy pronto!",
+    particleUnlock = "<ROSE>¡Desbloqueaste una nueva partícula! Presiona M y navega a Colección para probarla.</ROSE>",
+    graffitiColorUnlock = "<ROSE>¡Desbloqueaste un nuevo color de graffiti! Presiona M y navega a Colección para probarlo.</ROSE>",
+    graffitiFontUnlock = "<ROSE>¡Desbloqueaste una nueva letra de graffiti! Presiona M y navega a Colección para probarla.</ROSE>"
 }

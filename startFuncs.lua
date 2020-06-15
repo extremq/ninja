@@ -30,6 +30,7 @@ tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
 tfm.exec.disablePhysicalConsumables(true)
 system.disableChatCommandDisplay()
 tfm.exec.setGameTime(MAPTIME, true)
+tfm.exec.setRoomMaxPlayers(36)
 
 -- INIT ALL EXISTING PLAYERS
 for playerName in pairs(room.playerList) do

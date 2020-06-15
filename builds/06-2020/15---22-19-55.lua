@@ -706,7 +706,7 @@ STATSTIME = 10 * 1000
 DASHCOOLDOWN = 1 * 1000
 JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDONW = 10 * 1000
-GRAFFITICOOLDOWN = 10 * 1000
+GRAFFITICOOLDOWN = 1 * 1000
 
 function showDashParticles(types, direction, x, y)
     -- Only display particles to the players who haven't disabled the setting

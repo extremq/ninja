@@ -41,7 +41,7 @@ customRoom = false
 hasShownStats = false
 bestTime = 99999
 
-keys = {0, 1, 2, 3, 32, 67, 71, 72, 77, 84, 88}
+keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 84, 88}
 
 shop = {
     dashAcc = {
@@ -51,7 +51,7 @@ shop = {
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free.", nil),
-        shopListing('#000000', '#000000', "You're a dark person.", "Finish 50 maps.", {"mapsFinished", 50}),
+        shopListing('#000000', '#000000', "You're a dark person.", "Finish 50 maps.", {"mapsFinished", 2}),
         shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.", {"timesDashed", 100})
     },
     graffitiImgs = {
@@ -60,9 +60,9 @@ shop = {
     },
     graffitiFonts = {
         shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free.", nil),
-        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 50}),
-        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 10}),
-        shopListing("CenturyGothic", "Verdana", "Wow, you're so modern.", "Dash 50 times.", {"timesDashed", 10})
+        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 10}),
+        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 1}),
+        shopListing("Century Gothic", "Century Gothic", "Wow, you're so modern.", "Dash 50 times.", {"timesDashed", 50})
     }
 }
 

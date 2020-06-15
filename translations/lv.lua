@@ -39,5 +39,16 @@ translations.lv = {
     notValidCommand = "%s nav derīga komanda vai tu nepareizi ievadīji kādu argumentu.",
     cantSetPass = "Nevar iestatīt paroli šajā istabā.",
     translator = "Tulkoja Syrius#8114.",
-    version = "Versija: %s"
+    version = "Versija: %s",
+    yourLoadout = "Tavi piederumi:",
+    yourGraffiti = "Tavi grafiti:",
+    change = "Mainīt",
+    select = "Izvēlēties",
+    selected = "Izvēlēts",
+    locked = "Slēgts",
+    back = "Atpakaļ",
+    comingSoon = "Drīzumā!",
+    particleUnlock = "<ROSE>Tu atbloķēji jaunu efektu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
+    graffitiColorUnlock = "<ROSE>Tu atbloķēji jaunu grafiti krāsu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
+    graffitiFontUnlock = "<ROSE>Tu atbloķēji jaunu grafiti fontu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>"
 }

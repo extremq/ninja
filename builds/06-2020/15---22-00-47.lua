@@ -566,13 +566,13 @@ keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 84, 88}
 shop = {
     dashAcc = {
         shopListing({3}, "172a562c334.png", "This is the default particle.", "Free.", nil),
-        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Finish 10 maps.", {"mapsFinished", 1}),
+        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Finish 10 maps.", {"mapsFinished", 0}),
         shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.", {"mapsFinishedFirst", 1})
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free.", nil),
-        shopListing('#000000', '#000000', "You're a dark person.", "Finish 50 maps.", {"mapsFinished", 2}),
-        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.", {"timesDashed", 100})
+        shopListing('#000000', '#000000', "You're a dark person.", "Finish 50 maps.", {"mapsFinished", 1}),
+        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.", {"timesDashed", 0})
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
@@ -580,9 +580,9 @@ shop = {
     },
     graffitiFonts = {
         shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free.", nil),
-        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 10}),
-        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 1}),
-        shopListing("Century Gothic", "Century Gothic", "Wow, you're so modern.", "Dash 50 times.", {"timesDashed", 50})
+        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 0}),
+        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 10}),
+        shopListing("Century Gothic", "Century Gothic", "Wow, you're so modern.", "Dash 50 times.", {"timesDashed", 0})
     }
 }
 
@@ -706,7 +706,7 @@ STATSTIME = 10 * 1000
 DASHCOOLDOWN = 1 * 1000
 JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDONW = 10 * 1000
-GRAFFITICOOLDOWN = 10 * 1000
+GRAFFITICOOLDOWN = 15 * 1000
 
 function showDashParticles(types, direction, x, y)
     -- Only display particles to the players who haven't disabled the setting
@@ -781,10 +781,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
                 -- Update stats
                 playerStats[playerName].timesDashed = playerStats[playerName].timesDashed + 1
 
-                -- Check achievement
-                checkUnlock(playerName, "graffitiCol", 3, "graffitiColorUnlock")
-                checkUnlock(playerName, "graffitiFonts", 4, "graffitiFontUnlock")
-
                 -- Move the palyer
                 movePlayer(playerName, 0, 0, true, 150 * direction, 0, false)
 
@@ -808,9 +804,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
             -- Update stats
             playerStats[playerName].timesDashed = playerStats[playerName].timesDashed + 1
-
-            -- Check achievement
-            checkUnlock(playerName, "graffitiCol", 3, "graffitiColorUnlock")
 
             -- Move player
             movePlayer(playerName, 0, 0, true, 0, -60, false)
@@ -852,9 +845,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
                 -- Add to stats
                 playerStats[playerName].timesRewinded = playerStats[playerName].timesRewinded + 1
-
-                -- Check achiev
-                checkUnlock(playerName, "graffitiFonts", 3, "graffitiFontUnlock")
             else
                 -- Update cooldowns
                 cooldowns[playerName].canRewind = true
@@ -878,10 +868,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
             -- Update stats
             playerStats[playerName].graffitiSprays = playerStats[playerName].graffitiSprays + 1
-
-            
-            -- Check achiev
-            checkUnlock(playerName, "graffitiFonts", 2, "graffitiFontUnlock")
 
             -- Create graffiti
             for player, data in pairs(room.playerList) do
@@ -1124,7 +1110,6 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         end
         playerWon = playerWon + 1
         checkUnlock(playerName, "dashAcc", 2, "particleUnlock")
-        checkUnlock(playerName, "graffitiCol", 2, "graffitiColorUnlock")
     end
 
     setPlayerScore(playerName, 1, true)
@@ -1713,7 +1698,7 @@ function generatedashAccImgsText(playerName, pageNumber)
             addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..shop.dashAcc[(pageNumber - 1) * 3 + i].tooltip.."</CS></i>\n\nRequirements:\n"..shop.dashAcc[(pageNumber - 1) * 3 + i].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
             imgs[playerName]["dashAcc"..i] = addImage(shop.dashAcc[(pageNumber - 1) * 3 + i].imgId, "&"..i, x[i], 80, playerName)
-            local selectState = "<a href='event:Select"..(pageNumber - 1) * 3 + i.."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
+            local selectState = "<a href='event:Select"..i.."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
             if playerStats[playerName].equipment[1] == (pageNumber - 1) * 3 + i then
                 selectState = "<V>["..translate(playerName, "selected").."]</V>"
             end
@@ -1738,7 +1723,7 @@ function generateGraffitiShopText(playerName, pageNumber, type)
             addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..shop[type][(pageNumber - 1) * 3 + i].tooltip.."</CS></i>\n\nRequirements:\n"..shop[type][(pageNumber - 1) * 3 + i].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
             --imgs[playerName]["dashAcc"..i] = addImage(shop.graffitiCol[(pageNumber - 1) * 3 + i].imgId, "&"..i, x[i], 80, playerName)
-            local selectState = "<a href='event:Select"..(pageNumber - 1) * 3 + i.."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
+            local selectState = "<a href='event:Select"..i.."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
             local index = 2
             if type == "graffitiFonts" then
                 index = 4

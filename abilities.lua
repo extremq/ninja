@@ -9,7 +9,7 @@ STATSTIME = 10 * 1000
 DASHCOOLDOWN = 1 * 1000
 JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDONW = 10 * 1000
-GRAFFITICOOLDOWN = 15 * 1000
+GRAFFITICOOLDOWN = 10 * 1000
 
 function showDashParticles(types, direction, x, y)
     -- Only display particles to the players who haven't disabled the setting
@@ -84,6 +84,10 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
                 -- Update stats
                 playerStats[playerName].timesDashed = playerStats[playerName].timesDashed + 1
 
+                -- Check achievement
+                checkUnlock(playerName, "graffitiCol", 3, "graffitiColorUnlock")
+                checkUnlock(playerName, "graffitiFonts", 4, "graffitiFontUnlock")
+
                 -- Move the palyer
                 movePlayer(playerName, 0, 0, true, 150 * direction, 0, false)
 
@@ -107,6 +111,9 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
             -- Update stats
             playerStats[playerName].timesDashed = playerStats[playerName].timesDashed + 1
+
+            -- Check achievement
+            checkUnlock(playerName, "graffitiCol", 3, "graffitiColorUnlock")
 
             -- Move player
             movePlayer(playerName, 0, 0, true, 0, -60, false)
@@ -148,6 +155,9 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
                 -- Add to stats
                 playerStats[playerName].timesRewinded = playerStats[playerName].timesRewinded + 1
+
+                -- Check achiev
+                checkUnlock(playerName, "graffitiFonts", 3, "graffitiFontUnlock")
             else
                 -- Update cooldowns
                 cooldowns[playerName].canRewind = true
@@ -172,12 +182,16 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             -- Update stats
             playerStats[playerName].graffitiSprays = playerStats[playerName].graffitiSprays + 1
 
+            
+            -- Check achiev
+            checkUnlock(playerName, "graffitiFonts", 2, "graffitiFontUnlock")
+
             -- Create graffiti
             for player, data in pairs(room.playerList) do
                 local _id = data.id
                 -- If the player has graffitis enabled, we display them
                 if _id ~= 0 and playerVars[player].playerPreferences[1] == true then
-                    addTextArea(id, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..playerName.."</font></p>", player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
+                    addTextArea(id, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..string.gsub(playerName, "#%d%d%d%d", "").."</font></p>", player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
                 end
             end
         end
@@ -210,6 +224,11 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
         if playerVars[playerName].menuPage ~= "help" then
             openPage("#ninja", "\n<font face='Verdana' size='11'>"..translate(playerName, "helpBody").."</font>", playerName, "help")
         elseif playerVars[playerName].menuPage == "help" then
+            closePage(playerName)
+        end
+    -- CLOSE (ESC)
+    elseif keyCode == 27 then
+        if playerVars[playerName].menuPage ~= nil then
             closePage(playerName)
         end
     end

@@ -566,13 +566,13 @@ keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 84, 88}
 shop = {
     dashAcc = {
         shopListing({3}, "172a562c334.png", "This is the default particle.", "Free.", nil),
-        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Finish 10 maps.", {"mapsFinished", 1}),
-        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.", {"mapsFinishedFirst", 1})
+        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Finish 10 maps.", {"mapsFinished", 0}),
+        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.", {"mapsFinishedFirst", 0})
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free.", nil),
-        shopListing('#000000', '#000000', "You're a dark person.", "Finish 50 maps.", {"mapsFinished", 2}),
-        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.", {"timesDashed", 100})
+        shopListing('#000000', '#000000', "You're a dark person.", "Finish 50 maps.", {"mapsFinished", 1}),
+        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.", {"timesDashed", 2})
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
@@ -580,9 +580,9 @@ shop = {
     },
     graffitiFonts = {
         shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free.", nil),
-        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 10}),
+        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 3}),
         shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 1}),
-        shopListing("Century Gothic", "Century Gothic", "Wow, you're so modern.", "Dash 50 times.", {"timesDashed", 50})
+        shopListing("Century Gothic", "Century Gothic", "Wow, you're so modern.", "Dash 50 times.", {"timesDashed", 3})
     }
 }
 
@@ -706,7 +706,7 @@ STATSTIME = 10 * 1000
 DASHCOOLDOWN = 1 * 1000
 JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDONW = 10 * 1000
-GRAFFITICOOLDOWN = 10 * 1000
+GRAFFITICOOLDOWN = 1 * 1000
 
 function showDashParticles(types, direction, x, y)
     -- Only display particles to the players who haven't disabled the setting

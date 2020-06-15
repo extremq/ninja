@@ -139,9 +139,9 @@ function initPlayer(playerName)
         shopWelcomeDash = nil,
         shopWelcomeGraffiti = nil,
         graffitiImg = nil,
-        shopPart1 = nil,
-        shopPart2 = nil, 
-        shopPart3 = nil,
+        dashAcc1 = nil,
+        dashAcc2 = nil, 
+        dashAcc3 = nil,
         graffitiColor = nil,
         graffitiFonts = nil
     }
