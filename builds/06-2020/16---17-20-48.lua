@@ -143,26 +143,9 @@ translations.en = {
     finishMaps = "Finish %s map(s).",
     finishMapsFirst = "Finish %s map(s) first.",
     dashTimes = "Dash %s times.",
-    finishHardcoreMap = "Finish %s hardcore map(s).",
-    sprayGraffiti = "Spray a graffiti %s times.",
-    rewindTimes = "Rewind %s times.",
-
-    --- PARTICLE START
-    particleDef = "This is the default particle.",
-    particleHearts = "Add some hearts to your dash!",
-    particleSleek = "Sleek. Just like you.",
-
-    --- GRAFFITI COLOR START
-    graffitiColDef = "This is the default graffiti color.",
-    graffitiColBlack = "You're a dark person.",
-    graffitiColDarkRed = "Where's this... blood from?",
-
-    --- GRAFFITI FONT START
-    graffitiFontDef = "This is the default font for graffitis.",
-    graffitiFontPapyrus = "You seem old.",
-    graffitiFontVerdana = "A classic.",
-    graffitiFontCenturyGothic = "Wow, you're so modern."
-
+    finishHardcoreMap = "Finish % harcore map(s).",
+    sprayGraffiti = "Spray a graffiti % times.",
+    rewindTimes = "Rewind % times."
 }
 --[[ End of file translations/en.lua ]]--
 --[[ File translations/es.lua ]]--
@@ -212,36 +195,13 @@ translations.es = {
     yourGraffiti = "Tu graffiti:",
     change = "Cambiar",
     select = "Seleccionar",
-    selected = "Select",
+    selected = "Seleccionado",
     locked = "Bloqueado",
     back = "Atrás",
     comingSoon = "¡Muy pronto!",
     particleUnlock = "<ROSE>¡Desbloqueaste una nueva partícula! Presiona M y navega a Colección para probarla.</ROSE>",
     graffitiColorUnlock = "<ROSE>¡Desbloqueaste un nuevo color de graffiti! Presiona M y navega a Colección para probarlo.</ROSE>",
-    graffitiFontUnlock = "<ROSE>¡Desbloqueaste una nueva letra de graffiti! Presiona M y navega a Colección para probarla.</ROSE>",
-    free = "Gratis.",
-    finishMaps = "Completa %s mapa(s).",
-    finishMapsFirst = "Completa %s mapa(s) siendo primero.",
-    dashTimes = "Impulsate %s veces.",
-    finishHardcoreMap = "Completa %s mapa(s) difíciles.",
-    sprayGraffiti = "Usa un graffiti %s veces.",
-    rewindTimes = "Usa un checkpoint %s veces.",
-
-    --- PARTICLE START
-    particleDef = "Esta es la partícula por defecto.",
-    particleHearts = "¡Añade algunos corazones a tu impulso!",
-    particleSleek = "Cool. Como tú.",
-
-    --- GRAFFITI COLOR START
-    graffitiColDef = "Este es el color de graffiti por defecto.",
-    graffitiColBlack = "Eres una persona oscura.",
-    graffitiColDarkRed = "¿De dónde... salió la sangre?",
-
-    --- GRAFFITI FONT START
-    graffitiFontDef = "Este es la letra de graffiti por defecto.",
-    graffitiFontPapyrus = "Pareces viejo.",
-    graffitiFontVerdana = "Un clásico.",
-    graffitiFontCenturyGothic = "Wow, bastante moderno."
+    graffitiFontUnlock = "<ROSE>¡Desbloqueaste una nueva letra de graffiti! Presiona M y navega a Colección para probarla.</ROSE>"
 }
 --[[ End of file translations/es.lua ]]--
 --[[ File translations/fr.lua ]]--
@@ -297,30 +257,7 @@ translations.fr = {
     comingSoon = "Prochainement !",
     particleUnlock = "<ROSE>Vous avez débloqué de nouvelles particules ! Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
     graffitiColorUnlock = "<ROSE>Vous avez débloqué une nouvelle couleur de graffiti ! Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Vous avez débloqué une nouvelle police de graffiti !Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
-    free = "Gratuit.",
-    finishMaps = "Terminez %s carte(s).",
-    finishMapsFirst = "Terminez %s cartes(s) en premier.",
-    dashTimes = "Faite des boosts %s fois.",
-    finishHardcoreMap = "Finissez % carte(s) compliquées.",
-    sprayGraffiti = "Dessinez un graffiti % fois.",
-    rewindTimes = "Utilisez Retour % fois.",
-
-    --- PARTICLE START
-    particleDef = "Ce sont les particules par défaut.",
-    particleHearts = "Ajoutez quelques coeurs à vos boosts !",
-    particleSleek = "Thug. Comme toi.",
-
-    --- GRAFFITI COLOR START
-    graffitiColDef = "Couleur apr défaut des graffitis.",
-    graffitiColBlack = "Vous êtes une personne sombre.",
-    graffitiColDarkRed = "D'où vient... ce sang ?",
-
-    --- GRAFFITI FONT START
-    graffitiFontDef = "C'est la police par défaut des graffitis.",
-    graffitiFontPapyrus = "T'es vieux.",
-    graffitiFontVerdana = "Un classique.",
-    graffitiFontCenturyGothic = "Wow, tu es tellement moderne."
+    graffitiFontUnlock = "<ROSE>Vous avez débloqué une nouvelle police de graffiti !Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>"
 }
 --[[ End of file translations/fr.lua ]]--
 --[[ File translations/lv.lua ]]--
@@ -376,31 +313,7 @@ translations.lv = {
     comingSoon = "Drīzumā!",
     particleUnlock = "<ROSE>Tu atbloķēji jaunu efektu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
     graffitiColorUnlock = "<ROSE>Tu atbloķēji jaunu grafiti krāsu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Tu atbloķēji jaunu grafiti fontu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
-    free = "Bezmaksas.",
-    finishMaps = "Pabeidz %s mapes.",
-    finishMapsFirst = "Pabeidz %s mapes pirmais.",
-    dashTimes = "Lieto paātrinājumu %s reizes.",
-    finishHardcoreMap = "Pabeidz %s „Hardcore” mapes.",
-    sprayGraffiti = "Lieto paātrinājumu %s reizes.",
-    rewindTimes = "Lieto attīšanu %s reizes.",
-
-    --- PARTICLE START
-    particleDef = "Šis ir noklusējuma efekts.",
-    particleHearts = "Pievieno sirsniņas savam paātrinājumam!",
-    particleSleek = "Foršs. Gluži kā tu.",
-
-    --- GRAFFITI COLOR START
-    graffitiColDef = "Šī ir noklusētā grafiti krāsa.",
-    graffitiColBlack = "Tu esi tumšs cilvēks.",
-    graffitiColDarkRed = "No kurienes ir šīs asinis?",
-
-    --- GRAFFITI FONT START
-    graffitiFontDef = "Šis ir noklusējuma grafiti fonts.",
-    graffitiFontPapyrus = "Tu šķieti vecs.",
-    graffitiFontVerdana = "Klasika.",
-    graffitiFontCenturyGothic = "Ak, cik tu esi moderns."
-
+    graffitiFontUnlock = "<ROSE>Tu atbloķēji jaunu grafiti fontu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>"
 }
 --[[ End of file translations/lv.lua ]]--
 --[[ File translations/ro.lua ]]--
@@ -610,9 +523,6 @@ end
     description: contains all player and map variables (shop, player structures and map vars)
 ]]--
 
-unlocks = {
-    -- same struct as shop
-}
 
 function shopListing(values, imgId, tooltip, reqs, fncArgs)
     return {
@@ -655,24 +565,24 @@ keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a562c334.png", "particleDef", "Free.", nil),
-        shopListing({3, 31}, "172a5639431.png", "particleHearts", "Finish 10 maps.", {"mapsFinished", 1}),
-        shopListing({3, 13}, "172a5629c24.png", "particleSleek", "Finish 1 map first.", {"mapsFinishedFirst", 1})
+        shopListing({3}, "172a562c334.png", "This is the default particle.", "Free.", nil),
+        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Finish 10 maps.", {"mapsFinished", 1}),
+        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.", {"mapsFinishedFirst", 0})
     },
     graffitiCol = {
-        shopListing('#ffffff', '#ffffff', "graffitiColDef", "Free.", nil),
-        shopListing('#000000', '#000000', "graffitiColBlack", "Finish 50 maps.", {"mapsFinished", 2}),
-        shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", "Dash 100 times.", {"timesDashed", 1})
+        shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free.", nil),
+        shopListing('#000000', '#000000', "You're a dark person.", "Finish 50 maps.", {"mapsFinished", 2}),
+        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.", {"timesDashed", 0})
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
         shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.", {"hardcoreMaps", 1})
     },
     graffitiFonts = {
-        shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", "Free.", nil),
-        shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", "Spray a graffiti 50 times.", {"graffitiSprays", 10}),
-        shopListing("Verdana", "Verdana", "graffitiFontVerdana", "Rewind 10 times.", {"timesRewinded", 1}),
-        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", "Dash 50 times.", {"timesDashed", 1})
+        shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free.", nil),
+        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 10}),
+        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 1}),
+        shopListing("Century Gothic", "Century Gothic", "Wow, you're so modern.", "Dash 50 times.", {"timesDashed", 0})
     }
 }
 
@@ -702,6 +612,9 @@ function checkUnlock(playerName, what, index, message, ...)
     end
 end
 
+unlocks = {
+    -- same struct as shop
+}
 
 cooldowns = {
     -- id = {
@@ -795,10 +708,10 @@ JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDONW = 10 * 1000
 GRAFFITICOOLDOWN = 10 * 1000
 
-function showDashParticles(playerName, types, direction, x, y)
+function showDashParticles(types, direction, x, y)
     -- Only display particles to the players who haven't disabled the setting
     for name, data in pairs(room.playerList) do
-        if playerVars[name].playerPreferences[2] == true or playerName == name then
+        if playerVars[name].playerPreferences[2] == true then
             for i = 1, #types do
                 displayParticle(types[i], x, y, random() * direction, random(), 0, 0, name)
                 displayParticle(types[i], x, y, random() * direction, -random(), 0, 0, name)
@@ -810,10 +723,10 @@ function showDashParticles(playerName, types, direction, x, y)
 end
 
 -- This is different because jump has other directions
-function showJumpParticles(playerName, types, x, y)
+function showJumpParticles(types, x, y)
     -- Only display particles to the players who haven't disabled the setting
     for name, data in pairs(room.playerList) do
-        if playerVars[name].playerPreferences[2] == true or playerName == name then
+        if playerVars[name].playerPreferences[2] == true then
             for i = 1, #types do
                 displayParticle(types[i], x, y, random(), -random()*2, 0, 0, name)
                 displayParticle(types[i], x, y, -random(), -random()*2, 0, 0, name)
@@ -876,7 +789,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
                 movePlayer(playerName, 0, 0, true, 150 * direction, 0, false)
 
                 -- Now, we can change the 3 with whatever the player has equipped in the shop!
-                showDashParticles(playerName, shop.dashAcc[playerStats[playerName].equipment[1]].values, direction, xPlayerPosition, yPlayerPosition)
+                showDashParticles(shop.dashAcc[playerStats[playerName].equipment[1]].values, direction, xPlayerPosition, yPlayerPosition)
             end
         --[[
             We check for the key, then if its a double press, then the cooldown. (by the way, if it fails to check, for example,
@@ -903,7 +816,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             movePlayer(playerName, 0, 0, true, 0, -60, false)
 
             -- Display jump particles
-            showJumpParticles(playerName, shop.dashAcc[playerStats[playerName].equipment[1]].values, xPlayerPosition, yPlayerPosition)
+            showJumpParticles(shop.dashAcc[playerStats[playerName].equipment[1]].values, xPlayerPosition, yPlayerPosition)
         --[[
             The rewind is a bit more complicated, since it has 3 states: available, in use, not available.
             My first check is if I can rewind (state 2), then if my cooldown is available (state 1).
@@ -1801,13 +1714,13 @@ function generatedashAccImgsText(playerName, pageNumber)
     -- We sort them so the player only sees the unlocked items first
     local sortedOrder = {}
     for i = 1, #shop.dashAcc do
-        if unlocks[playerName].dashAcc[i] == true then
+        if unlocks[playerName].dashAcc == true then
             sortedOrder[#sortedOrder + 1] = i
         end
     end
     
     for i = 1, #shop.dashAcc do
-        if unlocks[playerName].dashAcc[i] == false then
+        if unlocks[playerName].dashAcc == false then
             sortedOrder[#sortedOrder + 1] = i
         end
     end
@@ -1818,14 +1731,14 @@ function generatedashAccImgsText(playerName, pageNumber)
             addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         elseif shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].fnc(playerName) == false then
             imgs[playerName]["dashAcc"..i] = addImage(HIDDEN_DASH, "&"..i, x[i], 80, playerName)
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].tooltip.."</CS></i>\n\nRequirements:\n"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
             imgs[playerName]["dashAcc"..i] = addImage(shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].imgId, "&"..i, x[i], 80, playerName)
             local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 3 + i].."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
             if playerStats[playerName].equipment[1] == sortedOrder[(pageNumber - 1) * 3 + i] then
                 selectState = "<V>["..translate(playerName, "selected").."]</V>"
             end
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..translate(playerName, shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].tooltip.."</CS></i>\n\nRequirements:\n"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         end
     end
 end
@@ -1840,13 +1753,13 @@ function generateGraffitiShopText(playerName, pageNumber, type)
     -- We sort them so the player only sees the unlocked items first
     local sortedOrder = {}
     for i = 1, #shop[type] do
-        if unlocks[playerName][type][i] == true then
+        if unlocks[playerName][type] == true then
             sortedOrder[#sortedOrder + 1] = i
         end
     end
     
     for i = 1, #shop[type] do
-        if unlocks[playerName][type][i] == false then
+        if unlocks[playerName][type] == false then
             sortedOrder[#sortedOrder + 1] = i
         end
     end
@@ -1857,7 +1770,7 @@ function generateGraffitiShopText(playerName, pageNumber, type)
             addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         elseif shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].fnc(playerName) == false then
             addTextArea(colIds[i], "<p align='center'><font face='Lucida Console' size='16' color='#FFFFFF'>?</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip.."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
             --imgs[playerName]["dashAcc"..i] = addImage(shop.graffitiCol[sortedOrder[(pageNumber - 1) * 3 + i]].imgId, "&"..i, x[i], 80, playerName)
             local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 3 + i].."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
@@ -1873,7 +1786,7 @@ function generateGraffitiShopText(playerName, pageNumber, type)
             elseif type == "graffitiFonts" then
                 addTextArea(colIds[i], "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 3 + i]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>"..string.gsub(playerName, "#%d%d%d%d", "").."</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
             end
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..translate(playerName, shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip.."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         end
     end
 end

@@ -157,7 +157,7 @@ function eventChatCommand(playerName, message)
     if arg[1] == "p" or arg[1] == "profile" then
         isValid = true
         if arg[2] == nil then
-            openPage(translate(playerName, "profileTitle").." - "..playerName, stats(playerName, playerName), playerName, id, "profile")
+            openPage(translate(playerName, "profileTitle").." - "..playerName, stats(playerName, playerName), playerName, "profile")
             return
         end
 
@@ -165,7 +165,7 @@ function eventChatCommand(playerName, message)
         arg[2] = string.upper(string.sub(arg[2], 1, 1))..string.lower(string.sub(arg[2], 2, #arg[2]))
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
-                openPage(translate(playerName, "profileTitle").." - "..arg[2], stats(arg[2], playerName), playerName, id, "profile")
+                openPage(translate(playerName, "profileTitle").." - "..arg[2], stats(arg[2], playerName), playerName, "profile")
                 break
             end
         end

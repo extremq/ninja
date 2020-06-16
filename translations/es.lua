@@ -44,11 +44,34 @@ translations.es = {
     yourGraffiti = "Tu graffiti:",
     change = "Cambiar",
     select = "Seleccionar",
-    selected = "Seleccionado",
+    selected = "Select",
     locked = "Bloqueado",
     back = "Atrás",
     comingSoon = "¡Muy pronto!",
     particleUnlock = "<ROSE>¡Desbloqueaste una nueva partícula! Presiona M y navega a Colección para probarla.</ROSE>",
     graffitiColorUnlock = "<ROSE>¡Desbloqueaste un nuevo color de graffiti! Presiona M y navega a Colección para probarlo.</ROSE>",
-    graffitiFontUnlock = "<ROSE>¡Desbloqueaste una nueva letra de graffiti! Presiona M y navega a Colección para probarla.</ROSE>"
+    graffitiFontUnlock = "<ROSE>¡Desbloqueaste una nueva letra de graffiti! Presiona M y navega a Colección para probarla.</ROSE>",
+    free = "Gratis.",
+    finishMaps = "Completa %s mapa(s).",
+    finishMapsFirst = "Completa %s mapa(s) siendo primero.",
+    dashTimes = "Impulsate %s veces.",
+    finishHardcoreMap = "Completa %s mapa(s) difíciles.",
+    sprayGraffiti = "Usa un graffiti %s veces.",
+    rewindTimes = "Usa un checkpoint %s veces.",
+
+    --- PARTICLE START
+    particleDef = "Esta es la partícula por defecto.",
+    particleHearts = "¡Añade algunos corazones a tu impulso!",
+    particleSleek = "Cool. Como tú.",
+
+    --- GRAFFITI COLOR START
+    graffitiColDef = "Este es el color de graffiti por defecto.",
+    graffitiColBlack = "Eres una persona oscura.",
+    graffitiColDarkRed = "¿De dónde... salió la sangre?",
+
+    --- GRAFFITI FONT START
+    graffitiFontDef = "Este es la letra de graffiti por defecto.",
+    graffitiFontPapyrus = "Pareces viejo.",
+    graffitiFontVerdana = "Un clásico.",
+    graffitiFontCenturyGothic = "Wow, bastante moderno."
 }

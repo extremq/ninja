@@ -50,5 +50,28 @@ translations.fr = {
     comingSoon = "Prochainement !",
     particleUnlock = "<ROSE>Vous avez débloqué de nouvelles particules ! Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
     graffitiColorUnlock = "<ROSE>Vous avez débloqué une nouvelle couleur de graffiti ! Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Vous avez débloqué une nouvelle police de graffiti !Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>"
+    graffitiFontUnlock = "<ROSE>Vous avez débloqué une nouvelle police de graffiti !Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
+    free = "Gratuit.",
+    finishMaps = "Terminez %s carte(s).",
+    finishMapsFirst = "Terminez %s cartes(s) en premier.",
+    dashTimes = "Faite des boosts %s fois.",
+    finishHardcoreMap = "Finissez % carte(s) compliquées.",
+    sprayGraffiti = "Dessinez un graffiti % fois.",
+    rewindTimes = "Utilisez Retour % fois.",
+
+    --- PARTICLE START
+    particleDef = "Ce sont les particules par défaut.",
+    particleHearts = "Ajoutez quelques coeurs à vos boosts !",
+    particleSleek = "Thug. Comme toi.",
+
+    --- GRAFFITI COLOR START
+    graffitiColDef = "Couleur apr défaut des graffitis.",
+    graffitiColBlack = "Vous êtes une personne sombre.",
+    graffitiColDarkRed = "D'où vient... ce sang ?",
+
+    --- GRAFFITI FONT START
+    graffitiFontDef = "C'est la police par défaut des graffitis.",
+    graffitiFontPapyrus = "T'es vieux.",
+    graffitiFontVerdana = "Un classique.",
+    graffitiFontCenturyGothic = "Wow, tu es tellement moderne."
 }

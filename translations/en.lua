@@ -53,7 +53,24 @@ translations.en = {
     finishMaps = "Finish %s map(s).",
     finishMapsFirst = "Finish %s map(s) first.",
     dashTimes = "Dash %s times.",
-    finishHardcoreMap = "Finish % harcore map(s).",
-    sprayGraffiti = "Spray a graffiti % times.",
-    rewindTimes = "Rewind % times."
+    finishHardcoreMap = "Finish %s hardcore map(s).",
+    sprayGraffiti = "Spray a graffiti %s times.",
+    rewindTimes = "Rewind %s times.",
+
+    --- PARTICLE START
+    particleDef = "This is the default particle.",
+    particleHearts = "Add some hearts to your dash!",
+    particleSleek = "Sleek. Just like you.",
+
+    --- GRAFFITI COLOR START
+    graffitiColDef = "This is the default graffiti color.",
+    graffitiColBlack = "You're a dark person.",
+    graffitiColDarkRed = "Where's this... blood from?",
+
+    --- GRAFFITI FONT START
+    graffitiFontDef = "This is the default font for graffitis.",
+    graffitiFontPapyrus = "You seem old.",
+    graffitiFontVerdana = "A classic.",
+    graffitiFontCenturyGothic = "Wow, you're so modern."
+
 }

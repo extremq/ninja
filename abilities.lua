@@ -11,10 +11,10 @@ JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDONW = 10 * 1000
 GRAFFITICOOLDOWN = 10 * 1000
 
-function showDashParticles(types, direction, x, y)
+function showDashParticles(playerName, types, direction, x, y)
     -- Only display particles to the players who haven't disabled the setting
     for name, data in pairs(room.playerList) do
-        if playerVars[name].playerPreferences[2] == true then
+        if playerVars[name].playerPreferences[2] == true or playerName == name then
             for i = 1, #types do
                 displayParticle(types[i], x, y, random() * direction, random(), 0, 0, name)
                 displayParticle(types[i], x, y, random() * direction, -random(), 0, 0, name)
@@ -26,10 +26,10 @@ function showDashParticles(types, direction, x, y)
 end
 
 -- This is different because jump has other directions
-function showJumpParticles(types, x, y)
+function showJumpParticles(playerName, types, x, y)
     -- Only display particles to the players who haven't disabled the setting
     for name, data in pairs(room.playerList) do
-        if playerVars[name].playerPreferences[2] == true then
+        if playerVars[name].playerPreferences[2] == true or playerName == name then
             for i = 1, #types do
                 displayParticle(types[i], x, y, random(), -random()*2, 0, 0, name)
                 displayParticle(types[i], x, y, -random(), -random()*2, 0, 0, name)
@@ -92,7 +92,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
                 movePlayer(playerName, 0, 0, true, 150 * direction, 0, false)
 
                 -- Now, we can change the 3 with whatever the player has equipped in the shop!
-                showDashParticles(shop.dashAcc[playerStats[playerName].equipment[1]].values, direction, xPlayerPosition, yPlayerPosition)
+                showDashParticles(playerName, shop.dashAcc[playerStats[playerName].equipment[1]].values, direction, xPlayerPosition, yPlayerPosition)
             end
         --[[
             We check for the key, then if its a double press, then the cooldown. (by the way, if it fails to check, for example,
@@ -119,7 +119,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             movePlayer(playerName, 0, 0, true, 0, -60, false)
 
             -- Display jump particles
-            showJumpParticles(shop.dashAcc[playerStats[playerName].equipment[1]].values, xPlayerPosition, yPlayerPosition)
+            showJumpParticles(playerName, shop.dashAcc[playerStats[playerName].equipment[1]].values, xPlayerPosition, yPlayerPosition)
         --[[
             The rewind is a bit more complicated, since it has 3 states: available, in use, not available.
             My first check is if I can rewind (state 2), then if my cooldown is available (state 1).
@@ -218,7 +218,14 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
         else
             closePage(playerName)
         end
-    -- OPEN GUIDE / HELP (H)
+    -- PROFILE (P)
+    elseif keyCode == 80 then
+        if playerVars[playerName].menuPage ~= "profile" then
+            openPage(translate(playerName, "profileTitle").." - "..playerName, stats(playerName, playerName), playerName, "profile")
+        elseif playerVars[playerName].menuPage == "profile" then
+            closePage(playerName)
+        end
+        -- OPEN GUIDE / HELP (H)
     elseif keyCode == 72 then
         -- Help system
         if playerVars[playerName].menuPage ~= "help" then

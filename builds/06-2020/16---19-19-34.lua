@@ -212,36 +212,13 @@ translations.es = {
     yourGraffiti = "Tu graffiti:",
     change = "Cambiar",
     select = "Seleccionar",
-    selected = "Select",
+    selected = "Seleccionado",
     locked = "Bloqueado",
     back = "Atrás",
     comingSoon = "¡Muy pronto!",
     particleUnlock = "<ROSE>¡Desbloqueaste una nueva partícula! Presiona M y navega a Colección para probarla.</ROSE>",
     graffitiColorUnlock = "<ROSE>¡Desbloqueaste un nuevo color de graffiti! Presiona M y navega a Colección para probarlo.</ROSE>",
-    graffitiFontUnlock = "<ROSE>¡Desbloqueaste una nueva letra de graffiti! Presiona M y navega a Colección para probarla.</ROSE>",
-    free = "Gratis.",
-    finishMaps = "Completa %s mapa(s).",
-    finishMapsFirst = "Completa %s mapa(s) siendo primero.",
-    dashTimes = "Impulsate %s veces.",
-    finishHardcoreMap = "Completa %s mapa(s) difíciles.",
-    sprayGraffiti = "Usa un graffiti %s veces.",
-    rewindTimes = "Usa un checkpoint %s veces.",
-
-    --- PARTICLE START
-    particleDef = "Esta es la partícula por defecto.",
-    particleHearts = "¡Añade algunos corazones a tu impulso!",
-    particleSleek = "Cool. Como tú.",
-
-    --- GRAFFITI COLOR START
-    graffitiColDef = "Este es el color de graffiti por defecto.",
-    graffitiColBlack = "Eres una persona oscura.",
-    graffitiColDarkRed = "¿De dónde... salió la sangre?",
-
-    --- GRAFFITI FONT START
-    graffitiFontDef = "Este es la letra de graffiti por defecto.",
-    graffitiFontPapyrus = "Pareces viejo.",
-    graffitiFontVerdana = "Un clásico.",
-    graffitiFontCenturyGothic = "Wow, bastante moderno."
+    graffitiFontUnlock = "<ROSE>¡Desbloqueaste una nueva letra de graffiti! Presiona M y navega a Colección para probarla.</ROSE>"
 }
 --[[ End of file translations/es.lua ]]--
 --[[ File translations/fr.lua ]]--
@@ -297,30 +274,7 @@ translations.fr = {
     comingSoon = "Prochainement !",
     particleUnlock = "<ROSE>Vous avez débloqué de nouvelles particules ! Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
     graffitiColorUnlock = "<ROSE>Vous avez débloqué une nouvelle couleur de graffiti ! Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Vous avez débloqué une nouvelle police de graffiti !Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>",
-    free = "Gratuit.",
-    finishMaps = "Terminez %s carte(s).",
-    finishMapsFirst = "Terminez %s cartes(s) en premier.",
-    dashTimes = "Faite des boosts %s fois.",
-    finishHardcoreMap = "Finissez % carte(s) compliquées.",
-    sprayGraffiti = "Dessinez un graffiti % fois.",
-    rewindTimes = "Utilisez Retour % fois.",
-
-    --- PARTICLE START
-    particleDef = "Ce sont les particules par défaut.",
-    particleHearts = "Ajoutez quelques coeurs à vos boosts !",
-    particleSleek = "Thug. Comme toi.",
-
-    --- GRAFFITI COLOR START
-    graffitiColDef = "Couleur apr défaut des graffitis.",
-    graffitiColBlack = "Vous êtes une personne sombre.",
-    graffitiColDarkRed = "D'où vient... ce sang ?",
-
-    --- GRAFFITI FONT START
-    graffitiFontDef = "C'est la police par défaut des graffitis.",
-    graffitiFontPapyrus = "T'es vieux.",
-    graffitiFontVerdana = "Un classique.",
-    graffitiFontCenturyGothic = "Wow, tu es tellement moderne."
+    graffitiFontUnlock = "<ROSE>Vous avez débloqué une nouvelle police de graffiti !Appuyez sur M et allez dans Collection pour l'essayer.</ROSE>"
 }
 --[[ End of file translations/fr.lua ]]--
 --[[ File translations/lv.lua ]]--
@@ -376,31 +330,7 @@ translations.lv = {
     comingSoon = "Drīzumā!",
     particleUnlock = "<ROSE>Tu atbloķēji jaunu efektu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
     graffitiColorUnlock = "<ROSE>Tu atbloķēji jaunu grafiti krāsu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Tu atbloķēji jaunu grafiti fontu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
-    free = "Bezmaksas.",
-    finishMaps = "Pabeidz %s mapes.",
-    finishMapsFirst = "Pabeidz %s mapes pirmais.",
-    dashTimes = "Lieto paātrinājumu %s reizes.",
-    finishHardcoreMap = "Pabeidz %s „Hardcore” mapes.",
-    sprayGraffiti = "Lieto paātrinājumu %s reizes.",
-    rewindTimes = "Lieto attīšanu %s reizes.",
-
-    --- PARTICLE START
-    particleDef = "Šis ir noklusējuma efekts.",
-    particleHearts = "Pievieno sirsniņas savam paātrinājumam!",
-    particleSleek = "Foršs. Gluži kā tu.",
-
-    --- GRAFFITI COLOR START
-    graffitiColDef = "Šī ir noklusētā grafiti krāsa.",
-    graffitiColBlack = "Tu esi tumšs cilvēks.",
-    graffitiColDarkRed = "No kurienes ir šīs asinis?",
-
-    --- GRAFFITI FONT START
-    graffitiFontDef = "Šis ir noklusējuma grafiti fonts.",
-    graffitiFontPapyrus = "Tu šķieti vecs.",
-    graffitiFontVerdana = "Klasika.",
-    graffitiFontCenturyGothic = "Ak, cik tu esi moderns."
-
+    graffitiFontUnlock = "<ROSE>Tu atbloķēji jaunu grafiti fontu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>"
 }
 --[[ End of file translations/lv.lua ]]--
 --[[ File translations/ro.lua ]]--
@@ -1818,7 +1748,7 @@ function generatedashAccImgsText(playerName, pageNumber)
             addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         elseif shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].fnc(playerName) == false then
             imgs[playerName]["dashAcc"..i] = addImage(HIDDEN_DASH, "&"..i, x[i], 80, playerName)
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].tooltip.."</CS></i>\n\nRequirements:\n"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
             imgs[playerName]["dashAcc"..i] = addImage(shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].imgId, "&"..i, x[i], 80, playerName)
             local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 3 + i].."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
@@ -1857,7 +1787,7 @@ function generateGraffitiShopText(playerName, pageNumber, type)
             addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         elseif shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].fnc(playerName) == false then
             addTextArea(colIds[i], "<p align='center'><font face='Lucida Console' size='16' color='#FFFFFF'>?</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip.."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
             --imgs[playerName]["dashAcc"..i] = addImage(shop.graffitiCol[sortedOrder[(pageNumber - 1) * 3 + i]].imgId, "&"..i, x[i], 80, playerName)
             local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 3 + i].."'><font size='11'>["..translate(playerName, "select").."]</font></a>"

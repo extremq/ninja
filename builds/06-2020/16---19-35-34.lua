@@ -1818,7 +1818,7 @@ function generatedashAccImgsText(playerName, pageNumber)
             addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         elseif shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].fnc(playerName) == false then
             imgs[playerName]["dashAcc"..i] = addImage(HIDDEN_DASH, "&"..i, x[i], 80, playerName)
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].tooltip.."</CS></i>\n\nRequirements:\n"..shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
             imgs[playerName]["dashAcc"..i] = addImage(shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]].imgId, "&"..i, x[i], 80, playerName)
             local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 3 + i].."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
@@ -1857,7 +1857,7 @@ function generateGraffitiShopText(playerName, pageNumber, type)
             addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         elseif shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].fnc(playerName) == false then
             addTextArea(colIds[i], "<p align='center'><font face='Lucida Console' size='16' color='#FFFFFF'>?</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip.."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
             --imgs[playerName]["dashAcc"..i] = addImage(shop.graffitiCol[sortedOrder[(pageNumber - 1) * 3 + i]].imgId, "&"..i, x[i], 80, playerName)
             local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 3 + i].."'><font size='11'>["..translate(playerName, "select").."]</font></a>"

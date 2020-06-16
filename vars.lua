@@ -3,6 +3,9 @@
     description: contains all player and map variables (shop, player structures and map vars)
 ]]--
 
+unlocks = {
+    -- same struct as shop
+}
 
 function shopListing(values, imgId, tooltip, reqs, fncArgs)
     return {
@@ -41,28 +44,28 @@ customRoom = false
 hasShownStats = false
 bestTime = 99999
 
-keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 84, 88}
+keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a562c334.png", "This is the default particle.", "Free.", nil),
-        shopListing({3, 31}, "172a5639431.png", "Add some hearts to your dash!", "Finish 10 maps.", {"mapsFinished", 1}),
-        shopListing({3, 13}, "172a5629c24.png", "Sleek. Just like you.", "Finish 1 map first.", {"mapsFinishedFirst", 1})
+        shopListing({3}, "172a562c334.png", "particleDef", "Free.", nil),
+        shopListing({3, 31}, "172a5639431.png", "particleHearts", "Finish 10 maps.", {"mapsFinished", 1}),
+        shopListing({3, 13}, "172a5629c24.png", "particleSleek", "Finish 1 map first.", {"mapsFinishedFirst", 1})
     },
     graffitiCol = {
-        shopListing('#ffffff', '#ffffff', "This is the default graffiti color.", "Free.", nil),
-        shopListing('#000000', '#000000', "You're a dark person.", "Finish 50 maps.", {"mapsFinished", 2}),
-        shopListing('#8c0404', '#8c0404', "Where's this... blood from?", "Dash 100 times.", {"timesDashed", 100})
+        shopListing('#ffffff', '#ffffff', "graffitiColDef", "Free.", nil),
+        shopListing('#000000', '#000000', "graffitiColBlack", "Finish 50 maps.", {"mapsFinished", 2}),
+        shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", "Dash 100 times.", {"timesDashed", 1})
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
         shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.", {"hardcoreMaps", 1})
     },
     graffitiFonts = {
-        shopListing("Comic Sans MS", "Comic Sans MS", "This is the default font for graffitis.", "Free.", nil),
-        shopListing("Papyrus", "Papyrus", "You seem old.", "Spray a graffiti 50 times.", {"graffitiSprays", 10}),
-        shopListing("Verdana", "Verdana", "A classic.", "Rewind 10 times.", {"timesRewinded", 1}),
-        shopListing("Century Gothic", "Century Gothic", "Wow, you're so modern.", "Dash 50 times.", {"timesDashed", 50})
+        shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", "Free.", nil),
+        shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", "Spray a graffiti 50 times.", {"graffitiSprays", 10}),
+        shopListing("Verdana", "Verdana", "graffitiFontVerdana", "Rewind 10 times.", {"timesRewinded", 1}),
+        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", "Dash 50 times.", {"timesDashed", 1})
     }
 }
 
@@ -92,9 +95,6 @@ function checkUnlock(playerName, what, index, message, ...)
     end
 end
 
-unlocks = {
-    -- same struct as shop
-}
 
 cooldowns = {
     -- id = {

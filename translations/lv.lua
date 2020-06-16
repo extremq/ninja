@@ -50,5 +50,29 @@ translations.lv = {
     comingSoon = "Drīzumā!",
     particleUnlock = "<ROSE>Tu atbloķēji jaunu efektu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
     graffitiColorUnlock = "<ROSE>Tu atbloķēji jaunu grafiti krāsu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Tu atbloķēji jaunu grafiti fontu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>"
+    graffitiFontUnlock = "<ROSE>Tu atbloķēji jaunu grafiti fontu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
+    free = "Bezmaksas.",
+    finishMaps = "Pabeidz %s mapes.",
+    finishMapsFirst = "Pabeidz %s mapes pirmais.",
+    dashTimes = "Lieto paātrinājumu %s reizes.",
+    finishHardcoreMap = "Pabeidz %s „Hardcore” mapes.",
+    sprayGraffiti = "Lieto paātrinājumu %s reizes.",
+    rewindTimes = "Lieto attīšanu %s reizes.",
+
+    --- PARTICLE START
+    particleDef = "Šis ir noklusējuma efekts.",
+    particleHearts = "Pievieno sirsniņas savam paātrinājumam!",
+    particleSleek = "Foršs. Gluži kā tu.",
+
+    --- GRAFFITI COLOR START
+    graffitiColDef = "Šī ir noklusētā grafiti krāsa.",
+    graffitiColBlack = "Tu esi tumšs cilvēks.",
+    graffitiColDarkRed = "No kurienes ir šīs asinis?",
+
+    --- GRAFFITI FONT START
+    graffitiFontDef = "Šis ir noklusējuma grafiti fonts.",
+    graffitiFontPapyrus = "Tu šķieti vecs.",
+    graffitiFontVerdana = "Klasika.",
+    graffitiFontCenturyGothic = "Ak, cik tu esi moderns."
+
 }
