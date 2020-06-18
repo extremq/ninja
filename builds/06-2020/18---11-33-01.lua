@@ -461,8 +461,9 @@ translations.ro = {
     comingSoon = "În curând!",
     particleUnlock = "<ROSE>Ai deblocat o nouă particulă! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     graffitiColorUnlock = "<ROSE>Ai deblocat o nouă culoare pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>"
+    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
 
+    infobarLevel = "Nivel:",
 }
 --[[ End of file translations/ro.lua ]]--
 --[[ End of directory translations ]]--

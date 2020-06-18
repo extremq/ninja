@@ -477,9 +477,7 @@ do
     function translate(playerName, what, ...)
         -- if we don't have this string translated, use english
         local language
-        if playerName == nil then
-            language = translations.en
-        elseif string.sub(playerName, 1, 1) ~= "*" and string.find(playerName, "#") == nil then
+        if #playerName == 2 then
             language = translations.playerName or translations.en
         else
             language = playerVars[playerName].playerLanguage or translations.en
@@ -563,7 +561,7 @@ end
 function updateMapName(timeRemaining)
     -- in case it hasn't loaded for some reason, we wait for 3 seconds
     if MAPTIME * 1000 - timeRemaining < 3000 then
-        setMapName(translate(room.community, "infobarLoading").."<")
+        setMapName(translate(roomCommunity, "infobarLoading").."<")
         return
     end
 
@@ -610,7 +608,7 @@ function updateMapName(timeRemaining)
 
     -- If the map is over, we show stats
     if timeRemaining < 0 then
-        name = "..translate(roomCommunity, "infobarTimeOver").."
+        name = "..translate(roomCommunity, "infobarLevel").."
     end
 
     name = name.."<"

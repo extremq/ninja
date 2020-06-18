@@ -477,9 +477,7 @@ do
     function translate(playerName, what, ...)
         -- if we don't have this string translated, use english
         local language
-        if playerName == nil then
-            language = translations.en
-        elseif string.sub(playerName, 1, 1) ~= "*" and string.find(playerName, "#") == nil then
+        if #playerName == 2 then
             language = translations.playerName or translations.en
         else
             language = playerVars[playerName].playerLanguage or translations.en
