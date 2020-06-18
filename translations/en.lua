@@ -72,7 +72,7 @@ translations.en = {
     graffitiFontDef = "This is the default font for graffitis.",
     graffitiFontPapyrus = "You seem old.",
     graffitiFontVerdana = "A classic.",
-    graffitiFontCenturyGothic = "Wow, you're so modern."
+    graffitiFontCenturyGothic = "Wow, you're so modern.",
 
     infobarLevel = "Level:",
     infobarMice = "Mice:",
