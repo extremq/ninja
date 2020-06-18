@@ -55,5 +55,11 @@ translations.en = {
     dashTimes = "Dash %s times.",
     finishHardcoreMap = "Finish % hardcore map(s).",
     sprayGraffiti = "Spray a graffiti % times.",
-    rewindTimes = "Rewind % times."
+    rewindTimes = "Rewind % times.",
+    infobarLevel = "Level:",
+    infobarMice = "Mice:",
+    infobarHardcore = "<R>HARDCORE</R>",
+    infobarTimeOver = "STATISTICS TIME!",
+    infobarRecord = "Record:",
+    infobarLoading = "Loading..."
 }
