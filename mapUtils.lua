@@ -48,7 +48,7 @@ end
 function updateMapName(timeRemaining)
     -- in case it hasn't loaded for some reason, we wait for 3 seconds
     if MAPTIME * 1000 - timeRemaining < 3000 then
-        setMapName("Loading...<")
+        setMapName(translate(roomCommunity, "infobarLoading").."<")
         return
     end
 
@@ -83,19 +83,19 @@ function updateMapName(timeRemaining)
 
     local difficultyMessage = "<J>"..difficulty.."/5</J>"
     if difficulty == 6 then
-        difficultyMessage = "<R>HARDCORE</R>"
+        difficultyMessage = translate(roomCommunity, "infobarHardcore")
     end
 
-    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> Level: "..difficultyMessage.." <G>|<G> <N>Mice:</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
+    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> "..translate(roomCommunity, "infobarLevel").." "..difficultyMessage.." <G>|<G> <N>"..translate(roomCommunity, "infobarMice").."</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
     -- Append record
     if fastestplayer ~= -1 then
         local record = (bestTime / 100)
-        name = name.." <G>|<G> <N2>Record: </N2><R>"..fastestplayer.." - "..record.."s</R>"
+        name = name.." <G>|<G> <N2>"..translate(roomCommunity, "infobarRecord").." </N2><R>"..fastestplayer.." - "..record.."s</R>"
     end
 
     -- If the map is over, we show stats
     if timeRemaining < 0 then
-        name = "STATISTICS TIME!"
+        name = "..translate(roomCommunity, "infobarLevel").."
     end
 
     name = name.."<"
