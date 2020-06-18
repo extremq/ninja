@@ -1821,9 +1821,9 @@ function generatedashAccImgsText(playerName, pageNumber)
     for i = 1, 3 do
         local currentShopItem = shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]]
         local reqs
-        if currentShopItem ~= nil and currentShopItem.reqs[2] == nil then
+        if currentShopItem.reqs[2] == nil then
             reqs = translate(playerName, currentShopItem.reqs[1])
-        elseif currentShopItem ~= nil then
+        else
             reqs = translate(playerName, currentShopItem.reqs[1], currentShopItem.reqs[2])
         end
         if currentShopItem == nil then
@@ -1867,9 +1867,9 @@ function generateGraffitiShopText(playerName, pageNumber, type)
     for i = 1, 3 do
         local currentShopItem = shop[type][sortedOrder[(pageNumber - 1) * 3 + i]]
         local reqs
-        if currentShopItem ~= nil and currentShopItem.reqs[2] == nil then
+        if currentShopItem.reqs[2] == nil then
             reqs = translate(playerName, currentShopItem.reqs[1])
-        elseif currentShopItem ~= nil then
+        else
             reqs = translate(playerName, currentShopItem.reqs[1], currentShopItem.reqs[2])
         end
 

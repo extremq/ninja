@@ -136,7 +136,6 @@ translations.en = {
     locked = "Locked",
     back = "Back",
     comingSoon = "Coming soon!",
-    requirements = "Requirements",
     particleUnlock = "<ROSE>You unlocked a new particle! Press M and navigate to Collection to try it.</ROSE>",
     graffitiColorUnlock = "<ROSE>You unlocked a new graffiti color! Press M and navigate to Collection to try it.</ROSE>",
     graffitiFontUnlock = "<ROSE>You unlocked a new grafitti font! Press M and navigate to Collection to try it.</ROSE>",
@@ -661,12 +660,12 @@ keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a562c334.png", "particleDef", {"free", nil}, nil),
+        shopListing({3}, "172a562c334.png", "particleDef", {"free"}, nil),
         shopListing({3, 31}, "172a5639431.png", "particleHearts", {"finishMaps", 10}, {"mapsFinished", 1}),
         shopListing({3, 13}, "172a5629c24.png", "particleSleek", {"finishMapsFirst", 1}, {"mapsFinishedFirst", 1})
     },
     graffitiCol = {
-        shopListing('#ffffff', '#ffffff', "graffitiColDef", {"free", nil}, nil),
+        shopListing('#ffffff', '#ffffff', "graffitiColDef", {"free"}, nil),
         shopListing('#000000', '#000000', "graffitiColBlack", {"finishMaps", 50}, {"mapsFinished", 2}),
         shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 1})
     },
@@ -675,7 +674,7 @@ shop = {
         shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.", {"hardcoreMaps", 1})
     },
     graffitiFonts = {
-        shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free", nil}, nil),
+        shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free"}, nil),
         shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", {"sprayGraffiti", 50}, {"graffitiSprays", 10}),
         shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"rewindUses", 10}, {"timesRewinded", 1}),
         shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 50}, {"timesDashed", 1})
@@ -1819,26 +1818,26 @@ function generatedashAccImgsText(playerName, pageNumber)
     end
 
     for i = 1, 3 do
-        local currentShopItem = shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]]
+        shopAccVar = shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]]
         local reqs
-        if currentShopItem ~= nil and currentShopItem.reqs[2] == nil then
-            reqs = translate(playerName, currentShopItem.reqs[1])
-        elseif currentShopItem ~= nil then
-            reqs = translate(playerName, currentShopItem.reqs[1], currentShopItem.reqs[2])
+        if shopAccVar.reqs[2] == nil then
+            reqs = translate(playerName, shopAccVar.reqs[1])
+        else
+            reqs = translate(playerName, shopAccVar.reqs[1], shopAccVar.reqs[2])
         end
-        if currentShopItem == nil then
+        if shopAccVar == nil then
             imgs[playerName]["dashAcc"..i] = addImage(BLOCKED_DASH, "&"..i, x[i], 80, playerName)
             addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
-        elseif currentShopItem.fnc(playerName) == false then
+        elseif shopAccVar.fnc(playerName) == false then
             imgs[playerName]["dashAcc"..i] = addImage(HIDDEN_DASH, "&"..i, x[i], 80, playerName)
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, currentShopItem.tooltip).."</CS></i>\n\n"..translate(playerName, "requirements")..":\n"..reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, shopAccVar.tooltip).."</CS></i>\n\nRequirements:\n"..reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
-            imgs[playerName]["dashAcc"..i] = addImage(currentShopItem.imgId, "&"..i, x[i], 80, playerName)
+            imgs[playerName]["dashAcc"..i] = addImage(shopAccVar.imgId, "&"..i, x[i], 80, playerName)
             local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 3 + i].."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
             if playerStats[playerName].equipment[1] == sortedOrder[(pageNumber - 1) * 3 + i] then
                 selectState = "<V>["..translate(playerName, "selected").."]</V>"
             end
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..translate(playerName, currentShopItem.tooltip).."</CS></i>\n\n"..translate(playerName, "requirements")..":\n"..reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..translate(playerName, shopAccVar.tooltip).."</CS></i>\n\nRequirements:\n"..reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         end
     end
 end
@@ -1865,20 +1864,12 @@ function generateGraffitiShopText(playerName, pageNumber, type)
     end
 
     for i = 1, 3 do
-        local currentShopItem = shop[type][sortedOrder[(pageNumber - 1) * 3 + i]]
-        local reqs
-        if currentShopItem ~= nil and currentShopItem.reqs[2] == nil then
-            reqs = translate(playerName, currentShopItem.reqs[1])
-        elseif currentShopItem ~= nil then
-            reqs = translate(playerName, currentShopItem.reqs[1], currentShopItem.reqs[2])
-        end
-
-        if currentShopItem == nil then
+        if shop[type][sortedOrder[(pageNumber - 1) * 3 + i]] == nil then
             addTextArea(colIds[i], "<p align='center'><font face='Lucida Console' size='16' color='#FFFFFF'>X</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
             addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
-        elseif currentShopItem.fnc(playerName) == false then
+        elseif shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].fnc(playerName) == false then
             addTextArea(colIds[i], "<p align='center'><font face='Lucida Console' size='16' color='#FFFFFF'>?</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, currentShopItem.tooltip).."</CS></i>\n\n"..translate(playerName, "requirements")..":\n"..reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         else
             --imgs[playerName]["dashAcc"..i] = addImage(shop.graffitiCol[sortedOrder[(pageNumber - 1) * 3 + i]].imgId, "&"..i, x[i], 80, playerName)
             local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 3 + i].."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
@@ -1894,7 +1885,7 @@ function generateGraffitiShopText(playerName, pageNumber, type)
             elseif type == "graffitiFonts" then
                 addTextArea(colIds[i], "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 3 + i]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>"..string.gsub(playerName, "#%d%d%d%d", "").."</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
             end
-            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..translate(playerName, currentShopItem.tooltip).."</CS></i>\n\n"..translate(playerName, "requirements")..":\n"..reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..translate(playerName, shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].tooltip).."</CS></i>\n\nRequirements:\n"..shop[type][sortedOrder[(pageNumber - 1) * 3 + i]].reqs, playerName, x[i], 200, 100, 100, 0x0a1517, 0x122529, 1, true)
         end
     end
 end

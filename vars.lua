@@ -48,24 +48,24 @@ keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a562c334.png", "particleDef", "Free.", nil),
-        shopListing({3, 31}, "172a5639431.png", "particleHearts", "Finish 10 maps.", {"mapsFinished", 1}),
-        shopListing({3, 13}, "172a5629c24.png", "particleSleek", "Finish 1 map first.", {"mapsFinishedFirst", 1})
+        shopListing({3}, "172a562c334.png", "particleDef", {"free", nil}, nil),
+        shopListing({3, 31}, "172a5639431.png", "particleHearts", {"finishMaps", 10}, {"mapsFinished", 1}),
+        shopListing({3, 13}, "172a5629c24.png", "particleSleek", {"finishMapsFirst", 1}, {"mapsFinishedFirst", 1})
     },
     graffitiCol = {
-        shopListing('#ffffff', '#ffffff', "graffitiColDef", "Free.", nil),
-        shopListing('#000000', '#000000', "graffitiColBlack", "Finish 50 maps.", {"mapsFinished", 2}),
-        shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", "Dash 100 times.", {"timesDashed", 1})
+        shopListing('#ffffff', '#ffffff', "graffitiColDef", {"free", nil}, nil),
+        shopListing('#000000', '#000000', "graffitiColBlack", {"finishMaps", 50}, {"mapsFinished", 2}),
+        shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 1})
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
         shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.", {"hardcoreMaps", 1})
     },
     graffitiFonts = {
-        shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", "Free.", nil),
-        shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", "Spray a graffiti 50 times.", {"graffitiSprays", 10}),
-        shopListing("Verdana", "Verdana", "graffitiFontVerdana", "Rewind 10 times.", {"timesRewinded", 1}),
-        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", "Dash 50 times.", {"timesDashed", 1})
+        shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free", nil}, nil),
+        shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", {"sprayGraffiti", 50}, {"graffitiSprays", 10}),
+        shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"rewindUses", 10}, {"timesRewinded", 1}),
+        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 50}, {"timesDashed", 1})
     }
 }
 

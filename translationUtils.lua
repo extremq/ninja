@@ -6,7 +6,12 @@
 do
     function translate(playerName, what, ...)
         -- if we don't have this string translated, use english
-        local language = playerVars[playerName].playerLanguage or translations.en
+        local language
+        if #playerName == 2 then
+            language = translations.playerName or translations.en
+        else
+            language = playerVars[playerName].playerLanguage or translations.en
+        end
         local translated = language[what] or translations.en[what]
         
         assert(translated, "'"..what.."' is an invalid argument.")

@@ -46,6 +46,7 @@ translations.en = {
     locked = "Locked",
     back = "Back",
     comingSoon = "Coming soon!",
+    requirements = "Requirements",
     particleUnlock = "<ROSE>You unlocked a new particle! Press M and navigate to Collection to try it.</ROSE>",
     graffitiColorUnlock = "<ROSE>You unlocked a new graffiti color! Press M and navigate to Collection to try it.</ROSE>",
     graffitiFontUnlock = "<ROSE>You unlocked a new grafitti font! Press M and navigate to Collection to try it.</ROSE>",

@@ -661,12 +661,12 @@ keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
 shop = {
     dashAcc = {
-        shopListing({3}, "172a562c334.png", "particleDef", {"free", nil}, nil),
+        shopListing({3}, "172a562c334.png", "particleDef", {"free"}, nil),
         shopListing({3, 31}, "172a5639431.png", "particleHearts", {"finishMaps", 10}, {"mapsFinished", 1}),
         shopListing({3, 13}, "172a5629c24.png", "particleSleek", {"finishMapsFirst", 1}, {"mapsFinishedFirst", 1})
     },
     graffitiCol = {
-        shopListing('#ffffff', '#ffffff', "graffitiColDef", {"free", nil}, nil),
+        shopListing('#ffffff', '#ffffff', "graffitiColDef", {"free"}, nil),
         shopListing('#000000', '#000000', "graffitiColBlack", {"finishMaps", 50}, {"mapsFinished", 2}),
         shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 1})
     },
@@ -675,7 +675,7 @@ shop = {
         shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.", {"hardcoreMaps", 1})
     },
     graffitiFonts = {
-        shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free", nil}, nil),
+        shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free"}, nil),
         shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", {"sprayGraffiti", 50}, {"graffitiSprays", 10}),
         shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"rewindUses", 10}, {"timesRewinded", 1}),
         shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 50}, {"timesDashed", 1})
@@ -1821,9 +1821,9 @@ function generatedashAccImgsText(playerName, pageNumber)
     for i = 1, 3 do
         local currentShopItem = shop.dashAcc[sortedOrder[(pageNumber - 1) * 3 + i]]
         local reqs
-        if currentShopItem ~= nil and currentShopItem.reqs[2] == nil then
+        if currentShopItem.reqs[2] == nil then
             reqs = translate(playerName, currentShopItem.reqs[1])
-        elseif currentShopItem ~= nil then
+        else
             reqs = translate(playerName, currentShopItem.reqs[1], currentShopItem.reqs[2])
         end
         if currentShopItem == nil then
@@ -1867,9 +1867,9 @@ function generateGraffitiShopText(playerName, pageNumber, type)
     for i = 1, 3 do
         local currentShopItem = shop[type][sortedOrder[(pageNumber - 1) * 3 + i]]
         local reqs
-        if currentShopItem ~= nil and currentShopItem.reqs[2] == nil then
+        if currentShopItem.reqs[2] == nil then
             reqs = translate(playerName, currentShopItem.reqs[1])
-        elseif currentShopItem ~= nil then
+        else
             reqs = translate(playerName, currentShopItem.reqs[1], currentShopItem.reqs[2])
         end
 
