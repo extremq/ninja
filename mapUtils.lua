@@ -48,7 +48,7 @@ end
 function updateMapName(timeRemaining)
     -- in case it hasn't loaded for some reason, we wait for 3 seconds
     if MAPTIME * 1000 - timeRemaining < 3000 then
-        setMapName(translate(roomCommunity, "infobarLoading").."<")
+        setMapName(translate(room.community, "infobarLoading").."<")
         return
     end
 
