@@ -475,9 +475,9 @@ translations.ro = {
     finishMaps = "Termină %s hărți.",
     finishMapsFirst = "Termină %s hărți primul.",
     dashTimes = "Folosește abilitatea de dash de %s ori.",
-    finishHardcoreMap = "Termină %s hărți hardcore.",
-    sprayGraffiti = "Folosește graffiti-ul de %s ori.",
-    rewindTimes = "Folosește abilitatea de rewind de %s ori.",
+    finishHardcoreMap = "Termină % hărți hardcore.",
+    sprayGraffiti = "Folosește graffiti-ul de % ori.",
+    rewindTimes = "Folosește abilitatea de rewind de % ori.",
 
     --- PARTICLE START
     particleDef = "Aceasta este particula de bază",

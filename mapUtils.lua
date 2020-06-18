@@ -95,7 +95,7 @@ function updateMapName(timeRemaining)
 
     -- If the map is over, we show stats
     if timeRemaining < 0 then
-        name = "..translate(roomCommunity, "infobarTimeOver").."
+        name = translate(roomCommunity, "infobarTimeOver")
     end
 
     name = name.."<"

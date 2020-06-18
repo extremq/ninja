@@ -48,6 +48,7 @@ translations.lv = {
     locked = "Slēgts",
     back = "Atpakaļ",
     comingSoon = "Drīzumā!",
+    requirements = "Priekšnoteikumi",
     particleUnlock = "<ROSE>Tu atbloķēji jaunu efektu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
     graffitiColorUnlock = "<ROSE>Tu atbloķēji jaunu grafiti krāsu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
     graffitiFontUnlock = "<ROSE>Tu atbloķēji jaunu grafiti fontu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
@@ -73,6 +74,13 @@ translations.lv = {
     graffitiFontDef = "Šis ir noklusējuma grafiti fonts.",
     graffitiFontPapyrus = "Tu šķieti vecs.",
     graffitiFontVerdana = "Klasika.",
-    graffitiFontCenturyGothic = "Ak, cik tu esi moderns."
+    graffitiFontCenturyGothic = "Ak, cik tu esi moderns.",
+
+    infobarLevel = "Grūtība:", -- "Difficulty" makes more sense in this case so I used that
+    infobarMice = "Peles:",
+    infobarHardcore = "<R>HARDCORE</R>", -- didn't touch
+    infobarTimeOver = "LAIKS STATISTIKAI!",
+    infobarRecord = "Rekords:",
+    infobarLoading = "Notiek ielāde..."
 
 }

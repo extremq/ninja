@@ -46,8 +46,38 @@ translations.ro = {
     locked = "Blocat",
     back = "Înapoi",
     comingSoon = "În curând!",
+    requirements = "Cerințe",
     particleUnlock = "<ROSE>Ai deblocat o nouă particulă! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     graffitiColorUnlock = "<ROSE>Ai deblocat o nouă culoare pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>"
+    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
+    free = "Gratis.",
+    finishMaps = "Termină %s hărți.",
+    finishMapsFirst = "Termină %s hărți primul.",
+    dashTimes = "Folosește abilitatea de dash de %s ori.",
+    finishHardcoreMap = "Termină %s hărți hardcore.",
+    sprayGraffiti = "Folosește graffiti-ul de %s ori.",
+    rewindTimes = "Folosește abilitatea de rewind de %s ori.",
 
+    --- PARTICLE START
+    particleDef = "Aceasta este particula de bază",
+    particleHearts = "Adaugă inimi dash-ului tău!",
+    particleSleek = "Șmecher. Exact ca tine.",
+
+    --- GRAFFITI COLOR START
+    graffitiColDef = "Aceasta este culoarea de bază a graffiti-ului",
+    graffitiColBlack = "Ești o persoană întunecată.",
+    graffitiColDarkRed = "De unde este... sângele acesta?",
+
+    --- GRAFFITI FONT START
+    graffitiFontDef = "Acesta este font-ul de bază pentru graffiti-uri.",
+    graffitiFontPapyrus = "Pari bărtân.",
+    graffitiFontVerdana = "Un clasic.",
+    graffitiFontCenturyGothic = "Wow, ești așa de modern.",
+    
+    infobarLevel = "Nivel:",
+    infobarMice = "Șoareci:",
+    infobarHardcore = "<R>DIFICIL</R>",
+    infobarTimeOver = "STATISTICI!",
+    infobarRecord = "Record:",
+    infobarLoading = "Se încarcă..."
 }

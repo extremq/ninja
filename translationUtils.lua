@@ -15,7 +15,6 @@ do
             language = playerVars[playerName].playerLanguage or translations.en
         end
         local translated = language[what] or translations.en[what]
-        
         assert(translated, "'"..what.."' is an invalid argument.")
         
         if select("#", ...) > 0 then

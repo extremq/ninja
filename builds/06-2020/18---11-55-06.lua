@@ -381,7 +381,6 @@ translations.lv = {
     locked = "Slēgts",
     back = "Atpakaļ",
     comingSoon = "Drīzumā!",
-    requirements = "Priekšnoteikumi",
     particleUnlock = "<ROSE>Tu atbloķēji jaunu efektu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
     graffitiColorUnlock = "<ROSE>Tu atbloķēji jaunu grafiti krāsu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
     graffitiFontUnlock = "<ROSE>Tu atbloķēji jaunu grafiti fontu! Spied M un dodies uz kolekciju, lai to izmēģinātu.</ROSE>",
@@ -407,14 +406,7 @@ translations.lv = {
     graffitiFontDef = "Šis ir noklusējuma grafiti fonts.",
     graffitiFontPapyrus = "Tu šķieti vecs.",
     graffitiFontVerdana = "Klasika.",
-    graffitiFontCenturyGothic = "Ak, cik tu esi moderns.",
-
-    infobarLevel = "Grūtība:", -- "Difficulty" makes more sense in this case so I used that
-    infobarMice = "Peles:",
-    infobarHardcore = "<R>HARDCORE</R>", -- didn't touch
-    infobarTimeOver = "LAIKS STATISTIKAI!",
-    infobarRecord = "Rekords:",
-    infobarLoading = "Notiek ielāde..."
+    graffitiFontCenturyGothic = "Ak, cik tu esi moderns."
 
 }
 --[[ End of file translations/lv.lua ]]--
@@ -475,9 +467,9 @@ translations.ro = {
     finishMaps = "Termină %s hărți.",
     finishMapsFirst = "Termină %s hărți primul.",
     dashTimes = "Folosește abilitatea de dash de %s ori.",
-    finishHardcoreMap = "Termină %s hărți hardcore.",
-    sprayGraffiti = "Folosește graffiti-ul de %s ori.",
-    rewindTimes = "Folosește abilitatea de rewind de %s ori.",
+    finishHardcoreMap = "Termină % hărți hardcore.",
+    sprayGraffiti = "Folosește graffiti-ul de % ori.",
+    rewindTimes = "Folosește abilitatea de rewind de % ori.",
 
     --- PARTICLE START
     particleDef = "Aceasta este particula de bază",
@@ -523,6 +515,7 @@ do
             language = playerVars[playerName].playerLanguage or translations.en
         end
         local translated = language[what] or translations.en[what]
+        translated = string.utf8(translated)
         assert(translated, "'"..what.."' is an invalid argument.")
         
         if select("#", ...) > 0 then

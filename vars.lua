@@ -64,7 +64,7 @@ shop = {
     graffitiFonts = {
         shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free", nil}, nil),
         shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", {"sprayGraffiti", 50}, {"graffitiSprays", 10}),
-        shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"rewindUses", 10}, {"timesRewinded", 1}),
+        shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"rewindTimes", 10}, {"timesRewinded", 1}),
         shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 50}, {"timesDashed", 1})
     }
 }
