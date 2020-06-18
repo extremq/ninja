@@ -74,4 +74,10 @@ translations.en = {
     graffitiFontVerdana = "A classic.",
     graffitiFontCenturyGothic = "Wow, you're so modern."
 
+    infobarLevel = "Level:",
+    infobarMice = "Mice:",
+    infobarHardcore = "<R>HARDCORE</R>",
+    infobarTimeOver = "STATISTICS TIME!",
+    infobarRecord = "Record:",
+    infobarLoading = "Loading..."
 }
