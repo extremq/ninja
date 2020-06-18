@@ -30,6 +30,7 @@ translations.en = {
     holeEnters = "Times entered the hole",
     graffitiUses = "Graffiti uses",
     dashUses = "Times dashed",
+    timesDoubleJumped = "Double jumps",
     rewindUses = "Times rewinded",
     hardcoreMaps = "Hardcore maps completed",
     shopNotice = "The shop is in development.",
@@ -54,7 +55,8 @@ translations.en = {
     finishMaps = "Finish %s map(s).",
     finishMapsFirst = "Finish %s map(s) first.",
     dashTimes = "Dash %s times.",
-    finishHardcoreMap = "Finish %s hardcore map(s).",
+    doubleJumps = "Double jump %s times.",
+    finishHardcoreMaps = "Finish %s hardcore map(s).",
     sprayGraffiti = "Spray a graffiti %s times.",
     rewindTimes = "Rewind %s times.",
 
@@ -62,6 +64,9 @@ translations.en = {
     particleDef = "This is the default particle.",
     particleHearts = "Add some hearts to your dash!",
     particleSleek = "Sleek. Just like you.",
+    particleLikeNinja = "Wow, you really like playing #ninja.",
+    particleYouPro = "Cool. You're a pro now.",
+    particleToSky = "To the sky!",
 
     --- GRAFFITI COLOR START
     graffitiColDef = "This is the default graffiti color.",

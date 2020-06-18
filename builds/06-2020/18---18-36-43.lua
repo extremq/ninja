@@ -146,7 +146,7 @@ translations.en = {
     finishMapsFirst = "Finish %s map(s) first.",
     dashTimes = "Dash %s times.",
     doubleJumps = "Double jump %s times.",
-    finishHardcoreMaps = "Finish %s hardcore map(s).",
+    finishHardcoreMap = "Finish %s hardcore map(s).",
     sprayGraffiti = "Spray a graffiti %s times.",
     rewindTimes = "Rewind %s times.",
 
@@ -154,9 +154,8 @@ translations.en = {
     particleDef = "This is the default particle.",
     particleHearts = "Add some hearts to your dash!",
     particleSleek = "Sleek. Just like you.",
-    particleLikeNinja = "Wow, you really like playing #ninja.",
-    particleYouPro = "Cool. You're a pro now.",
-    particleToSky = "To the sky!",
+    particleLikeNinja = "Wow, you really like playing #ninja."
+    particleToSky = "To the sky!"
 
     --- GRAFFITI COLOR START
     graffitiColDef = "This is the default graffiti color.",
@@ -228,7 +227,6 @@ translations.es = {
     locked = "Bloqueado",
     back = "Atrás",
     comingSoon = "¡Muy pronto!",
-    requirements = "Requisitos",
     particleUnlock = "<ROSE>¡Desbloqueaste una nueva partícula! Presiona M y navega a Colección para probarla.</ROSE>",
     graffitiColorUnlock = "<ROSE>¡Desbloqueaste un nuevo color de graffiti! Presiona M y navega a Colección para probarlo.</ROSE>",
     graffitiFontUnlock = "<ROSE>¡Desbloqueaste una nueva letra de graffiti! Presiona M y navega a Colección para probarla.</ROSE>",
@@ -254,15 +252,7 @@ translations.es = {
     graffitiFontDef = "Este es la letra de graffiti por defecto.",
     graffitiFontPapyrus = "Pareces viejo.",
     graffitiFontVerdana = "Un clásico.",
-    graffitiFontCenturyGothic = "Wow, bastante moderno.",
-
-    
-    infobarLevel = "Nivel:",
-    infobarMice = "Ratones:",
-    infobarHardcore = "<R>DIFICIL</R>",
-    infobarTimeOver = "¡ESTADISTICAS!",
-    infobarRecord = "Record:",
-    infobarLoading = "Cargando..."
+    graffitiFontCenturyGothic = "Wow, bastante moderno."
 }
 --[[ End of file translations/es.lua ]]--
 --[[ File translations/fr.lua ]]--
@@ -724,8 +714,8 @@ shop = {
         shopListing({3, 31}, "172a5639431.png", "particleHearts", {"finishMaps", 10}, {"mapsFinished", 1}),
         shopListing({3, 13}, "172a5629c24.png", "particleSleek", {"finishMapsFirst", 1}, {"mapsFinishedFirst", 1}),
         shopListing({31, 32, 31}, "172a5629c24.png", "particleLikeNinja", {"finishMaps", 50}, {"mapsFinished", 3}),
-        shopListing({9, 14}, "172a5629c24.png", "particleYouPro", {"finishHardcoreMaps", 50}, {"hardcoreMaps", 1}),
-        shopListing({2, 24, 11}, "172a5629c24.png", "particleToSky", {"doubleJumps", 50}, {"doubleJumps", 25})
+        shopListing({9, 14}, "172a5629c24.png", "particleLikeNinja", {"hardcoreMaps", 50}, {"hardcoreMaps", 1}),
+        shopListing({9, 14}, "172a5629c24.png", "particleToSky", {"doubleJumps", 50}, {"doubleJumps", 25})
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "graffitiColDef", {"free", nil}, nil),
@@ -1284,12 +1274,9 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         playerStats[playerName].mapsFinished = playerStats[playerName].mapsFinished + 1
         if mapDiff == 6 then
             playerStats[playerName].hardcoreMaps = playerStats[playerName].hardcoreMaps + 1
-            -- Check achievement
-            checkUnlock(playerName, "dashAcc", 5, "particleUnlock")
         end
         playerWon = playerWon + 1
         checkUnlock(playerName, "dashAcc", 2, "particleUnlock")
-        checkUnlock(playerName, "dashAcc", 4, "particleUnlock")
         checkUnlock(playerName, "graffitiCol", 2, "graffitiColorUnlock")
     end
 

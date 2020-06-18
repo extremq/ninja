@@ -50,12 +50,15 @@ shop = {
     dashAcc = {
         shopListing({3}, "172a562c334.png", "particleDef", {"free", nil}, nil),
         shopListing({3, 31}, "172a5639431.png", "particleHearts", {"finishMaps", 10}, {"mapsFinished", 1}),
-        shopListing({3, 13}, "172a5629c24.png", "particleSleek", {"finishMapsFirst", 1}, {"mapsFinishedFirst", 1})
+        shopListing({3, 13}, "172a5629c24.png", "particleSleek", {"finishMapsFirst", 1}, {"mapsFinishedFirst", 1}),
+        shopListing({31, 32, 31}, "172a5629c24.png", "particleLikeNinja", {"finishMaps", 50}, {"mapsFinished", 3}),
+        shopListing({9, 14}, "172a5629c24.png", "particleYouPro", {"finishHardcoreMaps", 50}, {"hardcoreMaps", 1}),
+        shopListing({2, 24, 11}, "172a5629c24.png", "particleToSky", {"doubleJumps", 50}, {"doubleJumps", 25})
     },
     graffitiCol = {
         shopListing('#ffffff', '#ffffff', "graffitiColDef", {"free", nil}, nil),
-        shopListing('#000000', '#000000', "graffitiColBlack", {"finishMaps", 50}, {"mapsFinished", 2}),
-        shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 1})
+        shopListing('#000000', '#000000', "graffitiColBlack", {"finishMaps", 25}, {"mapsFinished", 2}),
+        shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 50})
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),

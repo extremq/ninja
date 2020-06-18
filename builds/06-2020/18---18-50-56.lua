@@ -228,7 +228,6 @@ translations.es = {
     locked = "Bloqueado",
     back = "Atrás",
     comingSoon = "¡Muy pronto!",
-    requirements = "Requisitos",
     particleUnlock = "<ROSE>¡Desbloqueaste una nueva partícula! Presiona M y navega a Colección para probarla.</ROSE>",
     graffitiColorUnlock = "<ROSE>¡Desbloqueaste un nuevo color de graffiti! Presiona M y navega a Colección para probarlo.</ROSE>",
     graffitiFontUnlock = "<ROSE>¡Desbloqueaste una nueva letra de graffiti! Presiona M y navega a Colección para probarla.</ROSE>",
@@ -254,15 +253,7 @@ translations.es = {
     graffitiFontDef = "Este es la letra de graffiti por defecto.",
     graffitiFontPapyrus = "Pareces viejo.",
     graffitiFontVerdana = "Un clásico.",
-    graffitiFontCenturyGothic = "Wow, bastante moderno.",
-
-    
-    infobarLevel = "Nivel:",
-    infobarMice = "Ratones:",
-    infobarHardcore = "<R>DIFICIL</R>",
-    infobarTimeOver = "¡ESTADISTICAS!",
-    infobarRecord = "Record:",
-    infobarLoading = "Cargando..."
+    graffitiFontCenturyGothic = "Wow, bastante moderno."
 }
 --[[ End of file translations/es.lua ]]--
 --[[ File translations/fr.lua ]]--

@@ -90,6 +90,7 @@ function initPlayer(playerName)
         timesEnteredInHole = 0,
         graffitiSprays = 0,
         timesDashed = 0,
+        doubleJumps = 0,
         timesRewinded = 0,
         hardcoreMaps = 0,
         equipment = {1, 1, 1, 1}

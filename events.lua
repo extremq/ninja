@@ -10,6 +10,7 @@ eventPlayerRespawn = secureWrapper(function(playerName)
     id = playerId(playerName)
     setColor(playerName)
 
+    playerVars[playerName].hasDiedThisRound = true
     -- UPDATE COOLDOWNS
     cooldowns[playerName].lastJumpTime = ostime - JUMPCOOLDOWN
     cooldowns[playerName].lastDashTime = ostime - DASHCOOLDOWN
@@ -61,9 +62,12 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         playerStats[playerName].mapsFinished = playerStats[playerName].mapsFinished + 1
         if mapDiff == 6 then
             playerStats[playerName].hardcoreMaps = playerStats[playerName].hardcoreMaps + 1
+            -- Check achievement
+            checkUnlock(playerName, "dashAcc", 5, "particleUnlock")
         end
         playerWon = playerWon + 1
         checkUnlock(playerName, "dashAcc", 2, "particleUnlock")
+        checkUnlock(playerName, "dashAcc", 4, "particleUnlock")
         checkUnlock(playerName, "graffitiCol", 2, "graffitiColorUnlock")
     end
 

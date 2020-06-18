@@ -110,10 +110,10 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             imgs[playerName].jumpButtonId = addImage(JUMP_BTN_OFF, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
 
             -- Update stats
-            playerStats[playerName].timesDashed = playerStats[playerName].timesDashed + 1
+            playerStats[playerName].doubleJumps = playerStats[playerName].doubleJumps + 1
 
             -- Check achievement
-            checkUnlock(playerName, "graffitiCol", 3, "graffitiColorUnlock")
+            checkUnlock(playerName, "dashAcc", 6, "particleUnlock")
 
             -- Move player
             movePlayer(playerName, 0, 0, true, 0, -60, false)
