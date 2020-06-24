@@ -728,9 +728,9 @@ shop = {
         shopListing({2, 24, 11}, "172a5629c24.png", "particleToSky", {"doubleJumps", 50}, {"doubleJumps", 25})
     },
     graffitiCol = {
-        shopListing(0xffffff, '#ffffff', "graffitiColDef", {"free", nil}, nil),
-        shopListing(0x000001, '#000001', "graffitiColBlack", {"finishMaps", 25}, {"mapsFinished", 2}),
-        shopListing(0x8c0404, '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 50})
+        shopListing('#ffffff', '#ffffff', "graffitiColDef", {"free", nil}, nil),
+        shopListing('#000000', '#000000', "graffitiColBlack", {"finishMaps", 25}, {"mapsFinished", 2}),
+        shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 50})
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
@@ -1514,13 +1514,6 @@ function initPlayer(playerName)
         dashAcc1 = nil,
         dashAcc2 = nil, 
         dashAcc3 = nil,
-        dashAcc4 = nil, 
-        dashAcc5 = nil,
-        status1 = nil,
-        status2 = nil, 
-        status3 = nil,
-        status4 = nil, 
-        status5 = nil,
         graffitiColor = nil,
         graffitiFonts = nil,
         closeBtn = nil,
@@ -1646,9 +1639,6 @@ FONTS_IMG = "172b48a10e4.png"
 CLOSE_BTN = "172e0c9820e.png"
 SMALL_HEADER = "172cc5e81dd.png"
 AREA_402_302 = "172e1893b19.png"
-FORBIDDEN = "172cbf668e3.png"
-LOCK = "172cbf0f080.png"
-SELECTED = "172e3aa95bf.png"
 
 --[[
     The way i manage UI in this module is basically this:
@@ -1661,9 +1651,18 @@ SELECTED = "172e3aa95bf.png"
 function pageOperation(title, body, playerName, pageId)
     clear(playerName)
     local id = playerId(playerName)
+    local closebtn = "<font color='#CB546B'><a href='event:CloseMenu'>X</a></font>"
 
+    local spaceLength = 39 - #string.utf8(title)
+    local padding = ""
+    for i = 1, spaceLength do
+        padding = padding.." "
+    end
+
+    --local pageTitle = "<font size='16' face='Lucida Console'>"..title.."<textformat>"..padding.."</textformat>"..closebtn.."</font>\n"
+    local pageBody = body
     playerVars[playerName].menuPage = pageId
-    return body
+    return pageBody
 end
 
 -- Used to open a page
@@ -1673,11 +1672,14 @@ function openPage(title, body, playerName, pageId)
     lateUI(playerName)
 
     -- Area, Header and closebtn
-    imgs[playerName].area = addImage(AREA_402_302, ":100", 198, 63, playerName)
-    imgs[playerName].header = addImage(SMALL_HEADER, ":100", 316, 35, playerName)
-    imgs[playerName].closeBtn = addImage(CLOSE_BTN, ":100", 572, 55, playerName)
-    addTextArea(14, "<p align='center'><j><font size='16' face='tahoma' color='#F6CF34'><b>"..title.."</b></font></p>", playerName, 300, 45, 200, 26, 0x324650, 0x000000, 0, true)
-    addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 574, 53, 20, 20, 0x324650, 0x000000, 0, true) 
+    print("Generating "..pageId.." for "..playerName)
+    print(imgs[playerName].area)
+    imgs[playerName].area = addImage(AREA_402_302, ":1", 198, 63, playerName)
+    print(imgs[playerName].area)
+    imgs[playerName].header = addImage(SMALL_HEADER, ":2", 316, 35, playerName)
+    imgs[playerName].closeBtn = addImage(CLOSE_BTN, ":3", 572, 55, playerName)
+    ui.addTextArea(14, "<p align='center'><j><font size='16' face='tahoma' color='#F6CF34'><b>"..title.."</b></font></p>", playerName, 300, 45, 200, 26, 0x324650, 0x000000, 0, true)
+    ui.addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 574, 53, 20, 20, 0x324650, 0x000000, 0, true) 
 end
 
 -- Used to close a page
@@ -1841,7 +1843,7 @@ function generateShopWelcome(playerName)
     for i = 1, paddingCount do
         padding = padding.." "
     end
-    local body = "\n\n\n\n\n<font face='Verdana' size='16'><p align='center'><CS>"..translate(playerName, "yourLoadout").."</CS></p></font><font face='Lucida Console' size='16'>\n\n\n\n\n\n\n<p align='center'><a href='event:ChangePart'>["..translate(playerName, "change").."]</a><textformat>"..padding.."<textformat><a href='event:ChangeGraffiti'>["..translate(playerName, "change").."]\n</a></p>\n\n\n\n</font>"
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>"..translate(playerName, "yourLoadout").."</CS></p>\n\n\n\n\n\n\n<p align='center'><a href='event:ChangePart'>["..translate(playerName, "change").."]</a><textformat>"..padding.."<textformat><a href='event:ChangeGraffiti'>["..translate(playerName, "change").."]\n</a></p>\n\n\n\n</font>"
     return body
 end
 
@@ -1852,7 +1854,7 @@ function generateGraffitiWelcome(playerName)
     for i = 1, paddingCount do
         padding = padding.." "
     end
-    local body = "\n\n\n\n\n<font face='Verdana' size='16'><p align='center'><CS>"..translate(playerName, "yourGraffiti").."</CS></p></font><font face='Lucida Console' size='16'>\n\n\n\n\n\n\n<p align='center'><a href='event:GraffitiChangeColor'>["..translate(playerName, "change").."]</a><textformat>"..padding.."<textformat><a href='event:GraffitiChangeFont'>["..translate(playerName, "change").."]\n</a></p></font>\n\n\n<font face='Lucida Console' size='12'><p align='center'><a href='event:Back'>["..translate(playerName, "back").."]</a></p></font>"
+    local body = "\n\n\n\n<font face='Lucida Console' size='16'><p align='center'><CS>"..translate(playerName, "yourGraffiti").."</CS></p>\n\n\n\n\n\n\n<p align='center'><a href='event:GraffitiChangeColor'>["..translate(playerName, "change").."]</a><textformat>"..padding.."<textformat><a href='event:GraffitiChangeFont'>["..translate(playerName, "change").."]\n</a></p></font>\n\n\n<font face='Lucida Console' size='12'><p align='center'><a href='event:Back'>["..translate(playerName, "back").."]</a></p></font>"
     return body
 end
 
@@ -1889,7 +1891,7 @@ function generateShopImgs(playerName)
     imgs[playerName].shopWelcomeDash = addImage(shop.dashAcc[playerStats[playerName].equipment[1]].imgId, "&2", dashX, dashY, playerName)
 
     local graffitiTextX, graffitiTextY, graffitiTextOffset = 375, 185, 1000000000
-    addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>Test</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
+    addTextArea(id + graffitiTextOffset, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..string.gsub(playerName, "#%d%d%d%d", "").."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 25, 0x324650, 0x000000, 0, true)
 end
 
 function maxShopPages(size)
@@ -1902,11 +1904,8 @@ end
 
 function generatedashAccImgsText(playerName, pageNumber)
     local ids = {50, 51, 52, 53, 54}
-    local y = {85, 140, 195, 250, 305}
+    local y = {90, 145, 200, 255, 310}
     local x = 270
-    local imgBgX = 215
-    local statusOffset = 35
-
     
     -- We sort them so the player only sees the unlocked items first
     local sortedOrder = {}
@@ -1931,35 +1930,28 @@ function generatedashAccImgsText(playerName, pageNumber)
             reqs = translate(playerName, currentShopItem.reqs[1], currentShopItem.reqs[2])
         end
         if currentShopItem == nil then
-            imgs[playerName]["dashAcc"..i] = addImage(FORBIDDEN, "&"..i, imgBgX - 1, y[i] - 1, playerName)
-            imgs[playerName]["status"..i] = addImage(LOCK, "&"..i, imgBgX + statusOffset, y[i] + statusOffset, playerName)
-            addTextArea(ids[i], "<i><CS>"..translate(playerName, "comingSoon").."</CS></i>", playerName, x, y[i], 315, 33, 0x0a1517, 0x122529, 1, true)
+            imgs[playerName]["dashAcc"..i] = addImage(BLOCKED_DASH, "&"..i, y[i], 80, playerName)
+            addTextArea(ids[i], "<i><CS>"..translate(playerName, "comingSoon").."</CS></i>", playerName, x, y[i], 300, 33, 0x0a1517, 0x122529, 1, true)
         elseif currentShopItem.fnc(playerName) == false then
-            --imgs[playerName]["dashAcc"..i] = addImage(HIDDEN_DASH, "&"..i, imgBgX - 50, y[i] - 50, playerName)
-            imgs[playerName]["status"..i] = addImage(LOCK, "&"..i, imgBgX + statusOffset, y[i] + statusOffset, playerName)
-            addTextArea(ids[i], "<font size='12'><CS><i>"..translate(playerName, currentShopItem.tooltip).."</i></CS></font>\n"..reqs, playerName, x, y[i], 315, 33, 0x0a1517, 0x122529, 1, true)
+            imgs[playerName]["dashAcc"..i] = addImage(HIDDEN_DASH, "&"..i, y[i], 80, playerName)
+            addTextArea(ids[i], "<font size='12'><CS><i>"..translate(playerName, currentShopItem.tooltip).."</i></CS></font>\n"..reqs, playerName, x, y[i], 300, 33, 0x0a1517, 0x122529, 1, true)
         else
-            --imgs[playerName]["dashAcc"..i] = addImage(currentShopItem.imgId, "&"..i, imgBgX- 50, y[i]- 50, playerName)
+            imgs[playerName]["dashAcc"..i] = addImage(currentShopItem.imgId, "&"..i, y[i], 80, playerName)
             local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 5 + i].."'>"..translate(playerName, currentShopItem.tooltip).."</a>"
             if playerStats[playerName].equipment[1] == sortedOrder[(pageNumber - 1) * 5 + i] then
-                selectState = "<b>"..translate(playerName, currentShopItem.tooltip).."</b>"
-                imgs[playerName]["status"..i] = addImage(SELECTED, "&"..i, imgBgX + statusOffset, y[i] + statusOffset, playerName)
+                selectState = translate(playerName, currentShopItem.tooltip)
             end
-            addTextArea(ids[i], "<font size='12'><i><CS>"..selectState.."</CS></i></font>\n"..reqs, playerName, x, y[i], 315, 33, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font size='12'><i><CS>"..selectState.."</CS></i></font>\n"..reqs, playerName, x, y[i], 300, 33, 0x0a1517, 0x122529, 1, true)
         end
-        addTextArea(ids[i] + 20, "", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
     end
 end
 
 function generateGraffitiShopText(playerName, pageNumber, type)
-    local ids = {50, 51, 52, 53, 54}
-    local y = {85, 140, 195, 250, 305}
-    local colIds = {60, 61, 62, 63, 64}
+    local ids = {50, 51, 52}
+    local colIds = {61, 62, 63}
     local offsetX = 65
-    local imgBgX = 215
-    local statusOffset = 35
+    local y = {230, 350, 470}
     local xText = {230 - offsetX, 350 - offsetX, 470 - offsetX}
-    local x = 270
     
     -- We sort them so the player only sees the unlocked items first
     local sortedOrder = {}
@@ -1975,7 +1967,7 @@ function generateGraffitiShopText(playerName, pageNumber, type)
         end
     end
 
-    for i = 1, 5 do
+    for i = 1, 3 do
         local currentShopItem = shop[type][sortedOrder[(pageNumber - 1) * 5 + i]]
         local reqs
         if currentShopItem ~= nil and currentShopItem.reqs[2] == nil then
@@ -1985,37 +1977,27 @@ function generateGraffitiShopText(playerName, pageNumber, type)
         end
 
         if currentShopItem == nil then
-            imgs[playerName]["dashAcc"..i] = addImage(FORBIDDEN, "&"..i, imgBgX - 1, y[i] - 1, playerName)
-            imgs[playerName]["status"..i] = addImage(LOCK, "&"..i, imgBgX + statusOffset, y[i] + statusOffset, playerName)
-            addTextArea(ids[i] + 20, "", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
-            addTextArea(ids[i], "<i><CS>"..translate(playerName, "comingSoon").."</CS></i>", playerName, x, y[i], 315, 33, 0x0a1517, 0x122529, 1, true)
+            addTextArea(colIds[i], "<p align='center'><font face='Lucida Console' size='16' color='#FFFFFF'>X</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
+            addTextArea(ids[i], "<p align='center'><i>\n\n\n<CS>"..translate(playerName, "comingSoon").."</CS></i></p>", playerName, 290, y[i], 300, 33, 0x0a1517, 0x122529, 1, true)
         elseif currentShopItem.fnc(playerName) == false then
-            addTextArea(ids[i], "<font size='12'><CS><i>"..translate(playerName, currentShopItem.tooltip).."</i></CS></font>\n"..reqs, playerName, x, y[i], 315, 33, 0x0a1517, 0x122529, 1, true)
-            imgs[playerName]["status"..i] = addImage(LOCK, "&"..i, imgBgX + statusOffset, y[i] + statusOffset, playerName)
-            if type == "graffitiCol" then
-                addTextArea(ids[i] + 20, "", playerName, imgBgX, y[i] - 3, 40, 40, shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].values, shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].values, 1, true)
-            elseif type == "graffitiFonts" then
-                addTextArea(ids[i] + 20, "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 5 + i]].imgId.."' size='12' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>\nTest</font></p>", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
-                --addTextArea(colIds[i], "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 5 + i]].imgId.."' size='11' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>Test</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
-            end
+            addTextArea(colIds[i], "<p align='center'><font face='Lucida Console' size='16' color='#FFFFFF'>?</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'><R>["..translate(playerName, "locked").."]</R></p></font>\n<i><CS>"..translate(playerName, currentShopItem.tooltip).."</CS></i>\n\n"..translate(playerName, "requirements")..":\n"..reqs, playerName, 290, y[i], 300, 33, 0x0a1517, 0x122529, 1, true)
         else
             --imgs[playerName]["dashAcc"..i] = addImage(shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].imgId, "&"..i, y[i], 80, playerName)
-            local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 5 + i].."'>"..translate(playerName, currentShopItem.tooltip).."</a>"
+            local selectState = "<a href='event:Select"..sortedOrder[(pageNumber - 1) * 5 + i].."'><font size='11'>["..translate(playerName, "select").."]</font></a>"
             local index = 2
             if type == "graffitiFonts" then
                 index = 4
             end
             if playerStats[playerName].equipment[index] == sortedOrder[(pageNumber - 1) * 5 + i] then
-                selectState = "<b>"..translate(playerName, currentShopItem.tooltip).."</b>"
-                imgs[playerName]["status"..i] = addImage(SELECTED, "&"..i, imgBgX + statusOffset, y[i] + statusOffset, playerName)
+                selectState = "<V>["..translate(playerName, "selected").."]</V>"
             end
             if type == "graffitiCol" then
-                addTextArea(ids[i] + 20, "", playerName, imgBgX, y[i] - 3, 40, 40, shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].values, shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].values, 1, true)
+                addTextArea(colIds[i], "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].values.."'>"..string.gsub(playerName, "#%d%d%d%d", "").."</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true)
             elseif type == "graffitiFonts" then
-                addTextArea(ids[i] + 20, "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 5 + i]].imgId.."' size='12' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>\nTest</font></p>", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
-                --addTextArea(colIds[i], , playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
+                addTextArea(colIds[i], "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 5 + i]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>"..string.gsub(playerName, "#%d%d%d%d", "").."</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
             end
-            addTextArea(ids[i], "<font size='12'><i><CS>"..selectState.."</CS></i></font>\n"..reqs, playerName, x, y[i], 315, 33, 0x0a1517, 0x122529, 1, true)
+            addTextArea(ids[i], "<font face='lucida console' size='11'><p align='center'>"..selectState.."</p></font>\n<i><CS>"..translate(playerName, currentShopItem.tooltip).."</CS></i>\n\n"..translate(playerName, "requirements")..":\n"..reqs, playerName, 290, y[i], 300, 33, 0x0a1517, 0x122529, 1, true)
         end
     end
 end
@@ -2024,24 +2006,15 @@ function clearShopPageImgsTextAreas(playerName)
     local ids = {50, 51, 52, 53, 54}
     for i = 1, 5 do
         removeTextArea(ids[i], playerName)
-        removeTextArea(ids[i] + 20, playerName)
         removeImage(imgs[playerName]["dashAcc"..i], playerName)
-        removeImage(imgs[playerName]["status"..i], playerName)
-        imgs[playerName]["dashAcc"..i] = nil
         imgs[playerName]["dashAcc"..i] = nil
     end
 end
 
 function clearGraffitiColTextAreas(playerName)
-    local ids = {50, 51, 52, 53, 54}
-    for i = 1, 5 do
+    local ids = {50, 51, 52, 61, 62, 63}
+    for i = 1, 6 do
         removeTextArea(ids[i], playerName)
-        removeTextArea(ids[i] + 10, playerName)
-        removeTextArea(ids[i] + 20, playerName)
-        removeImage(imgs[playerName]["status"..i], playerName)
-        removeImage(imgs[playerName]["dashAcc"..i], playerName)
-        imgs[playerName]["status"..i] = nil
-        imgs[playerName]["dashAcc"..i] = nil
     end
 end
 
@@ -2327,7 +2300,7 @@ function eventChatCommand(playerName, message)
     if arg[1] == "p" or arg[1] == "profile" then
         isValid = true
         if arg[2] == nil then
-            openPage(translate(playerName, "profileTitle"), stats(playerName, playerName), playerName, "profile")
+            openPage(playerName, stats(playerName, playerName), playerName, "profile")
             return
         end
 
@@ -2335,7 +2308,7 @@ function eventChatCommand(playerName, message)
         arg[2] = string.upper(string.sub(arg[2], 1, 1))..string.lower(string.sub(arg[2], 2, #arg[2]))
         for name, value in pairs(room.playerList) do
             if name == arg[2] then
-                openPage(translate(playerName, "profileTitle"), stats(arg[2], playerName), playerName, "profile")
+                openPage(arg[2], stats(arg[2], playerName), playerName, "profile")
                 break
             end
         end

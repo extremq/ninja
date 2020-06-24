@@ -1995,7 +1995,7 @@ function generateGraffitiShopText(playerName, pageNumber, type)
             if type == "graffitiCol" then
                 addTextArea(ids[i] + 20, "", playerName, imgBgX, y[i] - 3, 40, 40, shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].values, shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].values, 1, true)
             elseif type == "graffitiFonts" then
-                addTextArea(ids[i] + 20, "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 5 + i]].imgId.."' size='12' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>\nTest</font></p>", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
+                addTextArea(ids[i] + 20, "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 5 + i]].imgId.."' size='11' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>Test</font></p>", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
                 --addTextArea(colIds[i], "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 5 + i]].imgId.."' size='11' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>Test</font></p>", playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
             end
         else
@@ -2012,7 +2012,7 @@ function generateGraffitiShopText(playerName, pageNumber, type)
             if type == "graffitiCol" then
                 addTextArea(ids[i] + 20, "", playerName, imgBgX, y[i] - 3, 40, 40, shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].values, shop.graffitiCol[sortedOrder[(pageNumber - 1) * 5 + i]].values, 1, true)
             elseif type == "graffitiFonts" then
-                addTextArea(ids[i] + 20, "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 5 + i]].imgId.."' size='12' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>\nTest</font></p>", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
+                addTextArea(ids[i] + 20, "<p align='center'><font face='"..shop.graffitiFonts[sortedOrder[(pageNumber - 1) * 5 + i]].imgId.."' size='11' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].values.."'>Test</font></p>", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
                 --addTextArea(colIds[i], , playerName, xText[i], 123, 230, 50, 0x324650, 0x000000, 0, true) 
             end
             addTextArea(ids[i], "<font size='12'><i><CS>"..selectState.."</CS></i></font>\n"..reqs, playerName, x, y[i], 315, 33, 0x0a1517, 0x122529, 1, true)

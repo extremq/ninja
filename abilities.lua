@@ -221,7 +221,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     -- PROFILE (P)
     elseif keyCode == 80 then
         if playerVars[playerName].menuPage ~= "profile" then
-            openPage(translate(playerName, "profileTitle").." - "..playerName, stats(playerName, playerName), playerName, "profile")
+            openPage(translate(playerName, "profileTitle"), stats(playerName, playerName), playerName, "profile")
         elseif playerVars[playerName].menuPage == "profile" then
             closePage(playerName)
         end

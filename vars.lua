@@ -56,9 +56,9 @@ shop = {
         shopListing({2, 24, 11}, "172a5629c24.png", "particleToSky", {"doubleJumps", 50}, {"doubleJumps", 25})
     },
     graffitiCol = {
-        shopListing('#ffffff', '#ffffff', "graffitiColDef", {"free", nil}, nil),
-        shopListing('#000000', '#000000', "graffitiColBlack", {"finishMaps", 25}, {"mapsFinished", 2}),
-        shopListing('#8c0404', '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 50})
+        shopListing(0xffffff, '#ffffff', "graffitiColDef", {"free", nil}, nil),
+        shopListing(0x000001, '#000001', "graffitiColBlack", {"finishMaps", 25}, {"mapsFinished", 2}),
+        shopListing(0x8c0404, '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 50})
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),

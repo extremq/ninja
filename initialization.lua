@@ -143,8 +143,18 @@ function initPlayer(playerName)
         dashAcc1 = nil,
         dashAcc2 = nil, 
         dashAcc3 = nil,
+        dashAcc4 = nil, 
+        dashAcc5 = nil,
+        status1 = nil,
+        status2 = nil, 
+        status3 = nil,
+        status4 = nil, 
+        status5 = nil,
         graffitiColor = nil,
-        graffitiFonts = nil
+        graffitiFonts = nil,
+        closeBtn = nil,
+        header = nil,
+        area = nil
     }
 
     -- SET DEFAULT COLOR
