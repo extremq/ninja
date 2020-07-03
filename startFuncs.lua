@@ -28,7 +28,6 @@ tfm.exec.disableAutoNewGame(true)
 tfm.exec.setAutoMapFlipMode(randomFlip())
 tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
 tfm.exec.disablePhysicalConsumables(true)
-system.disableChatCommandDisplay()
 tfm.exec.setGameTime(MAPTIME, true)
 tfm.exec.setRoomMaxPlayers(36)
 

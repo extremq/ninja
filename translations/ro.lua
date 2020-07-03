@@ -57,6 +57,7 @@ translations.ro = {
     finishHardcoreMap = "Termină %s hărți hardcore.",
     sprayGraffiti = "Folosește graffiti-ul de %s ori.",
     rewindTimes = "Folosește abilitatea de rewind de %s ori.",
+    dontRewind = "<CS>You rewinded, your stats haven't been saved!<CS>",
 
     --- PARTICLE START
     particleDef = "Aceasta este particula de bază",

@@ -30,6 +30,7 @@ function initPlayer(playerName)
 
     -- NUMBER OF THE PLAYER SINCE MAP WAS CREATED
     globalPlayerCount = globalPlayerCount + 1
+
     -- IF FIRST PLAYER, (NEW MAP) MAKE ADMIN
     if globalPlayerCount == 1 then
         admin = playerName
@@ -73,7 +74,8 @@ function initPlayer(playerName)
         menuPage = 0,
         helpOpen = false,
         joinTime = os.time(),
-        hasDiedThisRound = false
+        hasDiedThisRound = false,
+        hasUsedRewind = false
     }
 
     -- If the player finished
@@ -136,25 +138,13 @@ function initPlayer(playerName)
         helpImgId = hlpid,
         helpImgId = hlpid,
         mouseImgId = nil,
-        menuImgId = nil,
-        shopWelcomeDash = nil,
-        shopWelcomeGraffiti = nil,
-        graffitiImg = nil,
-        dashAcc1 = nil,
-        dashAcc2 = nil, 
-        dashAcc3 = nil,
-        dashAcc4 = nil, 
-        dashAcc5 = nil,
-        status1 = nil,
-        status2 = nil, 
-        status3 = nil,
-        status4 = nil, 
-        status5 = nil,
-        graffitiColor = nil,
-        graffitiFonts = nil,
-        closeBtn = nil,
-        header = nil,
-        area = nil
+        menuImgId = nil
+    }
+
+    -- items that must be cleared every ui interaction.
+    queue[playerName] = {
+        img = {},
+        area = {}
     }
 
     -- SET DEFAULT COLOR
@@ -166,6 +156,22 @@ function initPlayer(playerName)
     -- AUTOMATICALLY CHOOSE LANGUAGE
     chooselang(playerName)
     generateHud(playerName)
+
+    local newPlayerCount = room.uniquePlayers
+
+    if newPlayerCount > 3 then
+        chatMessage(translate(playerName, "enoughPlayers", newPlayerCount), playerName)
+    elseif newPlayerCount <= 2 then
+        chatMessage(translate(playerName, "notEnoughPlayers", newPlayerCount), playerName)
+    elseif newPlayerCount == 3 then
+        for key, value in pairs(room.playerList) do
+            if loaded[key] == true then
+                chatMessage(translate(key, "statsCount"), key)
+            end
+        end
+        chatMessage(translate(playerName, "statsCount"), playerName)
+    end
+
     loaded[playerName] = true
 end
 
@@ -186,6 +192,7 @@ function resetAll()
         playerVars[index].playerBestTime = 999999
         playerVars[index].playerBestTime = 999999
         playerVars[index].hasDiedThisRound = false
+        playerVars[index].hasUsedRewind = false
     end
 
     -- Close stats if they have it opened

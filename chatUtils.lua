@@ -16,9 +16,9 @@ function eventChatMessage(playerName, msg)
             -- playerName sends, name recieves
             if playerVars[name].playerPreferences[4] == true and playerName ~= name and playerData.community ~= data.community then
                 color = "#C2C2DA"
-                separatedName = removeTag(playerName)
-                separatedTag = string.match(playerName, "#%d%d%d%d")
-                coloredName = "<V>["..separatedName.."</V><G>"..separatedTag.."</G><V>]</V>"
+                local separatedName = removeTag(playerName)
+                local separatedTag = string.match(playerName, "#%d%d%d%d")
+                local coloredName = "<V>["..separatedName.."</V><G><font size='-3'>"..separatedTag.."</font></G><V>]</V>"
                 -- if player has been mentioned
                 if string.find(string.lower(msg), string.lower(removeTag(name))) ~= nil then
                     color = "#BABD2F"
@@ -30,6 +30,11 @@ function eventChatMessage(playerName, msg)
 end
 
 -- Chat commands
+commands = {"n", "mod", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime"}
+for i = 1, #commands do
+    system.disableChatCommandDisplay(commands[i])
+end
+
 function eventChatCommand(playerName, message)
     local id = playerId(playerName)
 
@@ -40,7 +45,7 @@ function eventChatCommand(playerName, message)
     local ostime = os.time()
     local arg = {}
     for argument in message:gmatch("[^%s]+") do
-        table.insert(arg, argument)
+        arg[#arg + 1] = argument
     end
 
     arg[1] = string.lower(arg[1])
@@ -129,7 +134,9 @@ function eventChatCommand(playerName, message)
                 for i = 3, #arg do
                     arg[2] = arg[2].." "..arg[i]
                 end
-                local message = "<font color='#72b6ff'>#ninja Owner "..playerName..": "..arg[2].."</font>"
+                local separatedName = removeTag(playerName)
+                local separatedTag = string.match(playerName, "#%d%d%d%d")
+                local message = "<font color='#5ca5d6'><b>[Owner "..separatedName.."<g><font size='-3'>"..separatedTag.."</font></g>".."]</b></font><font color='#67addb'> "..arg[2]
                 --print(message)
                 chatMessage(message)
             end
@@ -170,7 +177,6 @@ function eventChatCommand(playerName, message)
             end
         end
     end
-
     if arg[1] == "langue" and arg[2] ~= nil then
         if translations[arg[2]] ~= nil then
             playerVars[playerName].playerLanguage = translations[arg[2]]

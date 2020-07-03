@@ -128,6 +128,9 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
         ]]--
         elseif keyCode == 32 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDONW then
             if cooldowns[playerName].canRewind == true then
+                -- Tell game the player rewinded
+                playerVars[playerName].hasUsedRewind = true
+
                 -- Teleport the player to the checkpoint
                 movePlayer(playerName, playerVars[playerName].rewindPos[1], playerVars[playerName].rewindPos[2], false, 0, 0, false)
 

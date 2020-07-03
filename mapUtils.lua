@@ -11,7 +11,7 @@ function randomMap(mapsLeft, mapCodes)
     -- DELETE THE CHOSEN MAP
     if #mapsLeft == 0 then
         for key, value in pairs(mapCodes) do
-            table.insert(mapsLeft, value)
+            mapsLeft[#mapsLeft + 1] = value
         end
     end
     local pos = random(1, #mapsLeft)
@@ -21,7 +21,7 @@ function randomMap(mapsLeft, mapCodes)
         table.remove(mapsLeft, pos)
         pos = random(1, #mapsLeft)
         newMap = mapsLeft[pos]
-        table.insert(mapsLeft, lastMap)
+        mapsLeft[#mapsLeft + 1] = lastMap
     end
     table.remove(mapsLeft, pos)
     lastMap = newMap[1]
@@ -47,6 +47,7 @@ end
 -- UPDATE MAP NAME (custom timer)
 function updateMapName(timeRemaining)
     -- in case it hasn't loaded for some reason, we wait for 3 seconds
+    local roomCommunity = room.community
     if MAPTIME * 1000 - timeRemaining < 3000 then
         setMapName(translate(room.community, "infobarLoading").."<")
         return
@@ -86,7 +87,7 @@ function updateMapName(timeRemaining)
         difficultyMessage = translate(roomCommunity, "infobarHardcore")
     end
 
-    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> "..translate(roomCommunity, "infobarLevel").." "..difficultyMessage.." <G>|<G> <N>"..translate(roomCommunity, "infobarMice").."</N> <J>"..playerCount.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
+    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> "..translate(roomCommunity, "infobarLevel").." "..difficultyMessage.." <G>|<G> <N>"..translate(roomCommunity, "infobarMice").."</N> <J>"..room.uniquePlayers.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
     -- Append record
     if fastestplayer ~= -1 then
         local record = (bestTime / 100)

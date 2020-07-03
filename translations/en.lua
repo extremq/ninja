@@ -59,6 +59,11 @@ translations.en = {
     finishHardcoreMaps = "Finish %s hardcore map(s).",
     sprayGraffiti = "Spray a graffiti %s times.",
     rewindTimes = "Rewind %s times.",
+    dontRewind = "<CS>You rewinded, your stats haven't been saved!</CS>",
+    enoughPlayers = "<V>[•]<BL> There are %s players in this room and all stats are counted!",
+    notEnoughPlayers = "<V>[•]<BL> More players are needed for some stats to count. [%s/3]",
+    statsCount = "<V>[•]<BL> All stats are now counted!",
+    statsDontCount = "<V>[•]<BL> Some stats are not counted anymore!",
 
     --- PARTICLE START
     particleDef = "This is the default particle.",

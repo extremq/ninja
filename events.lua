@@ -11,6 +11,7 @@ eventPlayerRespawn = secureWrapper(function(playerName)
     setColor(playerName)
 
     playerVars[playerName].hasDiedThisRound = true
+    playerVars[playerName].hasUsedRewind = false
     -- UPDATE COOLDOWNS
     cooldowns[playerName].lastJumpTime = ostime - JUMPCOOLDOWN
     cooldowns[playerName].lastDashTime = ostime - DASHCOOLDOWN
@@ -43,32 +44,39 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         removeImage(imgs[playerName].mouseImgId)
     end
 
-    -- If we're a mod, then we don't count the win
-    if modRoom[playerName] == true or opList[playerName] == true then
-        return
-    end
-
-    playerStats[playerName].timesEnteredInHole = playerStats[playerName].timesEnteredInHole + 1
-
     -- SEND CHAT MESSAGE FOR PLAYER
     local finishTime = timeElapsedSinceRespawn
     if playerVars[playerName].hasDiedThisRound == false then
         -- We don't count the starting 3 seconds
         finishTime = finishTime - 3 * 100
     end
+
     chatMessage(translate(playerName, "finishedInfo", finishTime/100), playerName)
 
+    -- If we're a mod, then we don't count the win or if you rewind
+    if modRoom[playerName] == true or opList[playerName] == true then
+        return
+    elseif playerVars[playerName].hasUsedRewind == true then
+        tfm.exec.chatMessage(translate(playerName, "dontRewind"), playerName)
+        return
+    end
+
+    playerStats[playerName].timesEnteredInHole = playerStats[playerName].timesEnteredInHole + 1
+
     if playerVars[playerName].playerFinished == false then
-        playerStats[playerName].mapsFinished = playerStats[playerName].mapsFinished + 1
-        if mapDiff == 6 then
-            playerStats[playerName].hardcoreMaps = playerStats[playerName].hardcoreMaps + 1
-            -- Check achievement
-            checkUnlock(playerName, "dashAcc", 5, "particleUnlock")
+        if tfm.get.room.uniquePlayers > 2 then 
+            playerStats[playerName].mapsFinished = playerStats[playerName].mapsFinished + 1
+            if mapDiff == 6 then
+                playerStats[playerName].hardcoreMaps = playerStats[playerName].hardcoreMaps + 1
+                -- Check achievement
+                checkUnlock(playerName, "dashAcc", 5, "particleUnlock")
+            end
+        
+            checkUnlock(playerName, "dashAcc", 2, "particleUnlock")
+            checkUnlock(playerName, "dashAcc", 4, "particleUnlock")
+            checkUnlock(playerName, "graffitiCol", 2, "graffitiColorUnlock")
         end
         playerWon = playerWon + 1
-        checkUnlock(playerName, "dashAcc", 2, "particleUnlock")
-        checkUnlock(playerName, "dashAcc", 4, "particleUnlock")
-        checkUnlock(playerName, "graffitiCol", 2, "graffitiColorUnlock")
     end
 
     setPlayerScore(playerName, 1, true)
@@ -91,7 +99,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     end
     -- If this is the first time the player finishes the map, we take it as a best time.
     if foundvalue == false then
-        table.insert(playerSortedBestTime, {playerName, playerVars[playerName].playerBestTime})
+        playerSortedBestTime[#playerSortedBestTime + 1] = {playerName, playerVars[playerName].playerBestTime}
     end
 
     -- UPDATE "YOUR TIME"
@@ -129,6 +137,12 @@ function eventPlayerLeft(playerName)
     local id = playerIds[playerName]
     for player, data in pairs(room.playerList) do
         removeTextArea(id, player)
+    end
+
+    if room.uniquePlayers == 2 then
+        for key, value in pairs(room.playerList) do
+            chatMessage(translate(key, "statsDontCount"), key)
+        end
     end
 
     -- We don't count souris
