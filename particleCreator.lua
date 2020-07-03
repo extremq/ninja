@@ -1,3 +1,4 @@
+tfm.exec.disableAutoShaman(true)
 tfm.exec.newGame("@7735241")
 tfm.exec.setGameTime(10000)
 tfm.exec.disableAfkDeath(true)
