@@ -21,6 +21,83 @@ function setColor(playerName)
     setNameColor(playerName, color)
 end
 
+function calculateLevel(playerName)
+    local level, progress, exp
+    exp = playerStats[playerName].timesEnteredInHole * 10 + playerStats[playerName].mapsFinished * 30 + 
+    playerStats[playerName].hardcoreMaps * 60 + playerStats[playerName].mapsFinishedFirst * 100
+    level = math.floor(math.sqrt(exp / 10)) + 1
+
+    progress = exp - 10 * (level - 1) ^ 2 .. "/".. 10 + (level - 1) * 20
+    return {level, progress}
+end
+
+function saveProgress(name)
+    playerStats[name].playtime = playerStats[name].playtime + os.time() - playerVars[name].joinTime
+    playerVars[name].joinTime = os.time()
+    local newData = playerVars[name].cachedData:gsub("¤(.+)¤", "¤"..json.encode(playerStats[name]).."¤")
+    system.savePlayerData(name, newData)
+    playerVars[name].cachedData = newData
+end
+
+--[[
+for p,_ in pairs(tfm.get.room.playerList) do
+    system.savePlayerData(p, " ")
+end
+]]--
+
+function eventPlayerDataLoaded(playerName, data)
+    local ninjaSaveData 
+    if data then
+        ninjaSaveData = data:match("¤(.+)¤")
+    end
+
+    if not ninjaSaveData then
+        playerStats[playerName] = {
+            firstJoinTime = os.time(),
+            playtime = 0,
+            mapsFinished = 0,
+            mapsFinishedFirst = 0,
+            timesEnteredInHole = 0,
+            graffitiSprays = 0,
+            timesDashed = 0,
+            doubleJumps = 0,
+            timesRewinded = 0,
+            hardcoreMaps = 0,
+            equipment = {1, 1, 1, 1},
+            playerPreferences = {true, true, false, true}
+        }
+        
+        ninjaSaveData = json.encode(playerStats[playerName])
+        data = data .. "¤"..ninjaSaveData.."¤"
+        system.savePlayerData(playerName, data)
+    end
+    playerStats[playerName] = json.decode(ninjaSaveData)
+    playerVars[playerName].cachedData = data
+
+    -- only unlock default if we have no savedata
+    if unlocks[playerName] == nil then
+        unlocks[playerName] = {
+            dashAcc = {},
+            graffitiCol = {},
+            graffitiFonts = {}
+        }
+        unlocks[playerName].dashAcc[1] = true -- default
+        for i = 2, #shop.dashAcc do
+            unlocks[playerName].dashAcc[i] = shop.dashAcc[i].fnc(playerName)
+        end
+        unlocks[playerName].graffitiCol[1] = true -- default
+        for i = 2, #shop.graffitiCol do
+            unlocks[playerName].graffitiCol[i] =  shop.graffitiCol[i].fnc(playerName)
+        end
+        unlocks[playerName].graffitiFonts[1] = true -- default
+        for i = 2, #shop.graffitiFonts do
+            unlocks[playerName].graffitiFonts[i] =  shop.graffitiFonts[i].fnc(playerName)
+        end
+    end
+
+    loaded[playerName] = true
+end
+
 -- CALL THIS WHEN A PLAYER FIRST JOINS A ROOM
 function initPlayer(playerName)
     -- ID USED FOR PLAYER OBJECTS
@@ -53,18 +130,19 @@ function initPlayer(playerName)
 
     -- INIT PLAYER OBJECTS
     cooldowns[playerName] = {
-            lastDashTime = 0,
-            lastJumpTime = 0,
-            lastRewindTime = 0,
-            lastGraffitiTime = 0,
-            lastLeftPressTime = 0,
-            lastRightPressTime = 0,
-            lastJumpPressTime = 0,
-            checkpointTime = 0,
-            canRewind = false
+        lastDashTime = 0,
+        lastJumpTime = 0,
+        lastRewindTime = 0,
+        lastGraffitiTime = 0,
+        lastLeftPressTime = 0,
+        lastRightPressTime = 0,
+        lastJumpPressTime = 0,
+        checkpointTime = 0,
+        canRewind = false
     }
 
     playerVars[playerName] = {
+        joinTime = os.time(),
         playerBestTime = 999999,
         playerLastTime = 999999,
         playerPreferences = {true, true, false, true},
@@ -73,9 +151,10 @@ function initPlayer(playerName)
         rewindPos = {0, 0},
         menuPage = 0,
         helpOpen = false,
-        joinTime = os.time(),
         hasDiedThisRound = false,
-        hasUsedRewind = false
+        hasUsedRewind = false,
+        spectate = false,
+        cachedData = nil
     }
 
     -- If the player finished
@@ -85,45 +164,13 @@ function initPlayer(playerName)
         end
     end
 
-    playerStats[playerName] = {
-        playtime = 0,
-        mapsFinished = 0,
-        mapsFinishedFirst = 0,
-        timesEnteredInHole = 0,
-        graffitiSprays = 0,
-        timesDashed = 0,
-        doubleJumps = 0,
-        timesRewinded = 0,
-        hardcoreMaps = 0,
-        equipment = {1, 1, 1, 1}
-    }
+    system.loadPlayerData(playerName)
  
     states[playerName] = {
         jumpState = true,
         dashState = true,
         rewindState = 1
     }
-
-    -- only unlock default if we have no savedata
-    if unlocks[playerName] == nil then
-        unlocks[playerName] = {
-            dashAcc = {},
-            graffitiCol = {},
-            graffitiFonts = {}
-        }
-        unlocks[playerName].dashAcc[1] = true -- default
-        for i = 2, #shop.dashAcc do
-            unlocks[playerName].dashAcc[i] = false
-        end
-        unlocks[playerName].graffitiCol[1] = true -- default
-        for i = 2, #shop.graffitiCol do
-            unlocks[playerName].graffitiCol[i] = false
-        end
-        unlocks[playerName].graffitiFonts[1] = true -- default
-        for i = 2, #shop.graffitiFonts do
-            unlocks[playerName].graffitiFonts[i] = false
-        end
-    end
 
     local jmpid = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
     local dshid = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
@@ -135,7 +182,6 @@ function initPlayer(playerName)
         jumpButtonId = jmpid,
         dashButtonId = dshid,
         rewindButtonId = rwdid,
-        helpImgId = hlpid,
         helpImgId = hlpid,
         mouseImgId = nil,
         menuImgId = nil
@@ -159,20 +205,22 @@ function initPlayer(playerName)
 
     local newPlayerCount = room.uniquePlayers
 
-    if newPlayerCount > 3 then
-        chatMessage(translate(playerName, "enoughPlayers", newPlayerCount), playerName)
-    elseif newPlayerCount <= 2 then
-        chatMessage(translate(playerName, "notEnoughPlayers", newPlayerCount), playerName)
-    elseif newPlayerCount == 3 then
-        for key, value in pairs(room.playerList) do
-            if loaded[key] == true then
-                chatMessage(translate(key, "statsCount"), key)
+    if customRoom == false then
+        if newPlayerCount > 3 then
+            chatMessage(translate(playerName, "enoughPlayers", newPlayerCount), playerName)
+        elseif newPlayerCount <= 2 then
+            chatMessage(translate(playerName, "notEnoughPlayers", newPlayerCount), playerName)
+        elseif newPlayerCount == 3 then
+            for key, value in pairs(room.playerList) do
+                if loaded[key] == true then
+                    chatMessage(translate(key, "statsCount"), key)
+                end
             end
+            chatMessage(translate(playerName, "statsCount"), playerName)
         end
-        chatMessage(translate(playerName, "statsCount"), playerName)
+    else
+        chatMessage(translate(playerName, "statsDontCount"), playerName)
     end
-
-    loaded[playerName] = true
 end
 
 -- RESET ALL PLAYERS
@@ -200,6 +248,7 @@ function resetAll()
         if playerVars[name].menuPage == "roomStats" then
             closePage(name)
         end
+        saveProgress(name)
     end
 
     for playerName in pairs(room.playerList) do

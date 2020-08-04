@@ -1,5 +1,9 @@
 local roomCreate = os.time()
+tfm.exec.setRoomPassword("")
 
+if string.find(tfm.get.room.name, "^[a-z][a-z2]%-#ninja%d+trade%d*$") or string.find(tfm.get.room.name, "^%*?#ninja%d+trade%d*$") then
+{% require-file "trade.lua" %}
+else
 -- LOCALS FOR SPEED
 local room = tfm.get.room
 local displayParticle = tfm.exec.displayParticle
@@ -10,6 +14,7 @@ local bindKeyboard = system.bindKeyboard
 local chatMessage = tfm.exec.chatMessage
 local removeImage = tfm.exec.removeImage
 local killPlayer = tfm.exec.killPlayer
+local respawnPlayer = tfm.exec.respawnPlayer
 local setPlayerScore = tfm.exec.setPlayerScore
 local setMapName = ui.setMapName
 local random = math.random
@@ -30,11 +35,15 @@ VERSION = "1.5.5, 13.06.2020"
 
 local translations = {}
 
+{% require-file "json.lua" %}
+
 {% require-file "string.utf8.lua" %}
 
 {% require-dir "translations" %}
 
 {% require-file "translationUtils.lua" %}
+
+{% require-file "roles.lua" %}
 
 {% require-file "maps.lua" %}
 
@@ -55,3 +64,4 @@ local translations = {}
 {% require-file "chatUtils.lua" %}
 
 {% require-file "startFuncs.lua" %}
+end

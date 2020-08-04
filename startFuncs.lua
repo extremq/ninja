@@ -31,6 +31,10 @@ tfm.exec.disablePhysicalConsumables(true)
 tfm.exec.setGameTime(MAPTIME, true)
 tfm.exec.setRoomMaxPlayers(36)
 
+if not tfm.get.room.name:find('#') or string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*?#ninja%d+editor%d*$") then
+    customRoom = true
+end
+
 -- INIT ALL EXISTING PLAYERS
 for playerName in pairs(room.playerList) do
     inRoom[playerName] = true

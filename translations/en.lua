@@ -32,7 +32,7 @@ translations.en = {
     dashUses = "Times dashed",
     timesDoubleJumped = "Double jumps",
     rewindUses = "Times rewinded",
-    hardcoreMaps = "Hardcore maps completed",
+    hardcoreMaps = "Hardcore maps done",
     shopNotice = "The shop is in development.",
     leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
     notValidCommand = "%s is not a valid command or you mistyped an argument.",
@@ -63,7 +63,7 @@ translations.en = {
     enoughPlayers = "<V>[•]<BL> There are %s players in this room and all stats are counted!",
     notEnoughPlayers = "<V>[•]<BL> More players are needed for some stats to count. [%s/3]",
     statsCount = "<V>[•]<BL> All stats are now counted!",
-    statsDontCount = "<V>[•]<BL> Some stats are not counted anymore!",
+    statsDontCount = "<V>[•]<BL> Some stats are not counted!",
 
     --- PARTICLE START
     particleDef = "This is the default particle.",
@@ -89,5 +89,7 @@ translations.en = {
     infobarHardcore = "<R>HARDCORE</R>",
     infobarTimeOver = "STATISTICS TIME!",
     infobarRecord = "Record:",
-    infobarLoading = "Loading..."
+    infobarLoading = "Loading...",
+
+    levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!"
 }

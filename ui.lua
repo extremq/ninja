@@ -30,12 +30,18 @@ FONTS_IMG = "172b48a10e4.png"
 CLOSE_BTN = "173051dcff1.png"
 BACK_BTN = "173064c765a.png"
 SMALL_HEADER = "172cc5e81dd.png"
+WIDE_HEADER = "172cc77b99a.png"
 AREA_402_302 = "172e1893b19.png"
 AREA_642_302 = "172e18cb032.png"
 AREA_578_272 = "172e18ba635.png"
 FORBIDDEN = "172cbf668e3.png"
 LOCK = "172cbf0f080.png"
 SELECTED = "172e3aa95bf.png"
+PROFILE_LINE = "1731eef8db0.png"
+MOD_BADGE = "17324209e2a.png"
+DEV_BADGE = "172e0cf7ce5.png"
+TRS_BADGE = "17323cc5687.png"
+MPR_BADGE = "17323cc35d1.png"
 
 --[[
     The way i manage UI in this module is basically this:
@@ -55,7 +61,6 @@ function putInClearQueue(what, where, playerName)
 end
 
 function pageOperation(title, body, playerName, pageId)
-    clear(playerName)
     local id = playerId(playerName)
 
     playerVars[playerName].menuPage = pageId
@@ -64,16 +69,35 @@ end
 
 -- Used to open a page
 function openPage(title, body, playerName, pageId)
-    addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 200, 62, 400, 300, 0x1A353A, 0x7B5A35, 0, true)
-
-    -- Area, Header and closebtn
-    putInClearQueue(addImage(AREA_402_302, ":100", 198, 63, playerName), "img", playerName)
-    putInClearQueue(addImage(SMALL_HEADER, ":100", 316, 35, playerName), "img", playerName)
-    putInClearQueue(addImage(CLOSE_BTN, ":100", 572, 55, playerName), "img", playerName)
-    addTextArea(14, "<p align='center'><j><font size='16' face='tahoma' color='#F6CF34'><b>"..title.."</b></font></p>", playerName, 300, 45, 200, 26, 0x324650, 0x000000, 0, true)
-    addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 574, 53, 20, 20, 0x324650, 0x000000, 0, true) 
-    
+    updateTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             </a>\n\n\n\n<a href='event:StatsOpen'>             </a>\n\n\n\n<a href='event:LeaderOpen'>             </a>\n\n\n\n<a href='event:SettingsOpen'>             </a>\n\n\n\n<a href='event:AboutOpen'>             </a>", playerName)
+    clear(playerName)
+    windowConfig(title, body, playerName, pageId)
     lateUI(playerName)
+end
+
+function windowConfig(title, body, playerName, pageId)
+    
+    -- Area, Header and closebtn
+    if pageId:find("profile") ~= nil then
+        addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 126, 136, 410, 182, 0x1A353A, 0x7B5A35, 0, true)
+        putInClearQueue(addImage(AREA_578_272, ":100", 111, 63, playerName), "img", playerName)
+        putInClearQueue(addImage(CLOSE_BTN, ":100", 661, 55, playerName), "img", playerName)
+        putInClearQueue(addImage(PROFILE_LINE, "&100", 128, 123, playerName), "img", playerName)
+        addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 663, 53, 20, 20, 0x324650, 0x000000, 0, true) 
+    else
+        addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 200, 62, 400, 300, 0x1A353A, 0x7B5A35, 0, true)
+        putInClearQueue(addImage(AREA_402_302, ":100", 198, 63, playerName), "img", playerName)
+        putInClearQueue(addImage(CLOSE_BTN, ":100", 572, 55, playerName), "img", playerName)
+        addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 574, 53, 20, 20, 0x324650, 0x000000, 0, true) 
+        putInClearQueue(13, "area", playerName)
+    end
+    if #string.utf8(title) > 10 then
+        putInClearQueue(addImage(WIDE_HEADER, ":100", 299, 35, playerName), "img", playerName)
+    else 
+        putInClearQueue(addImage(SMALL_HEADER, ":100", 316, 35, playerName), "img", playerName)
+    end
+    addTextArea(14, "<p align='center'><j><font size='16' face='tahoma' color='#F6CF34'><b>"..title.."</b></font></p>", playerName, 300, 45, 200, 26, 0x324650, 0x000000, 0, true)
+    putInClearQueue({14,15}, "area", playerName)
 end
 
 -- Used to close a page
@@ -121,26 +145,75 @@ end
 
 --This returns the body of the profile screen, generating the stats of the selected player's profile.
 function stats(playerName, creatorName)
-    local body = "\n"
+    if playerName:sub(1,1) == "*" then return end
+    local body = "<font size='12' face='Verdana'>"
 
-    local seconds = math.floor((os.time() - playerVars[playerName].joinTime) / 1000)
+    local seconds = math.floor((playerStats[playerName].playtime + os.time() - playerVars[playerName].joinTime) / 1000)
 
-    body = body.." » "..translate(playerName, "playtime")..": <font color='#f73625'>"..math.floor(seconds/3600).."</font>h <font color='#f73625'>"..math.floor(seconds%3600/60).."</font>m <font color='#f73625'>"..(seconds%3600%60).."</font>s\n"
-    body = body.." » "..translate(playerName, "firsts")..": <font color='#f73625'>"..playerStats[playerName].mapsFinishedFirst.."</font>\n"
-    body = body.." » "..translate(playerName, "finishedMaps")..": <font color='#f73625'>"..playerStats[playerName].mapsFinished.."</font>\n"
+    local result = calculateLevel(playerName)
+
+    body = body.."<textformat tabstops='0,205' font='Verdana'>Title: <V>«Speedy»</V>\tLevel: <v>"..result[1].."</v> <bl><font size='10'>("..result[2]..")</font></bl>\n\n"
+    body = body..translate(creatorName, "firsts")..": <bl>"..playerStats[playerName].mapsFinishedFirst.."</bl>\t"..translate(creatorName, "graffitiUses")..": <bl>"..playerStats[playerName].graffitiSprays.."</bl>\n"
+    body = body..translate(creatorName, "finishedMaps")..": <bl>"..playerStats[playerName].mapsFinished.."</bl>\t"..translate(creatorName, "playtime")..": <bl>"..math.floor(seconds/3600).."h "..math.floor(seconds%3600/60).."m "..(seconds%3600%60).."s</bl>\n"
     local firstrate = "0%"
     if playerStats[playerName].mapsFinishedFirst > 0 then
         firstrate = (math.floor(playerStats[playerName].mapsFinishedFirst/playerStats[playerName].mapsFinished * 10000) / 100).."%"
     end
-    body = body.." » "..translate(playerName, "firstRate")..": <font color='#f73625'>"..firstrate.."</font>\n"
-    body = body.." » "..translate(playerName, "holeEnters")..": <font color='#f73625'>"..playerStats[playerName].timesEnteredInHole.."</font>\n"
-    body = body.." » "..translate(playerName, "graffitiUses")..": <font color='#f73625'>"..playerStats[playerName].graffitiSprays.."</font>\n"
-    body = body.." » "..translate(playerName, "dashUses")..": <font color='#f73625'>"..playerStats[playerName].timesDashed.."</font>\n"
-    body = body.." » "..translate(playerName, "timesDoubleJumped")..": <font color='#f73625'>"..playerStats[playerName].doubleJumps.."</font>\n"
-    body = body.." » "..translate(playerName, "rewindUses")..": <font color='#f73625'>"..playerStats[playerName].timesRewinded.."</font>\n"
-    body = body.." » "..translate(playerName, "hardcoreMaps")..": <font color='#f73625'>"..playerStats[playerName].hardcoreMaps.."</font>\n"
+    body = body..translate(creatorName, "firstRate")..": <bl>"..firstrate.."</bl>\t"..translate(creatorName, "holeEnters")..": <bl>"..playerStats[playerName].timesEnteredInHole.."</bl>\n"
+    body = body.."\t"..translate(creatorName, "hardcoreMaps")..": <bl>"..playerStats[playerName].hardcoreMaps.."</bl>\n"
+    body = body..translate(creatorName, "dashUses")..": <bl>"..playerStats[playerName].timesDashed.."</bl>\n"
+    body = body..translate(creatorName, "timesDoubleJumped")..": <bl>"..playerStats[playerName].doubleJumps.."</bl>\n"
+    body = body..translate(creatorName, "rewindUses")..": <bl>"..playerStats[playerName].timesRewinded.."</bl></textformat>"
 
     return "<font face='Verdana' size='11'>"..body.."</font>"
+end
+
+function generateProfileImgs(playerName, target)
+    
+    if target:sub(1,1) == "*" then return end
+    local graffitiTextX, graffitiTextY = 566, 245
+    local badge_x, badge_y = {515, 490, 465, 450}, 95
+    local currentBadges = {}
+
+    if translatorList[target] == true then
+        currentBadges[#currentBadges + 1] = TRS_BADGE
+    end
+    if mapperList[target] == true then
+        currentBadges[#currentBadges + 1] = MPR_BADGE
+    end
+    if modList[target] == true then
+        currentBadges[#currentBadges + 1] = MOD_BADGE
+    end
+    if devList[target] == true then
+        currentBadges[#currentBadges + 1] = DEV_BADGE
+    end
+
+    for i=1, #currentBadges do
+        putInClearQueue(addImage(currentBadges[i], "&100", badge_x[i], badge_y, playerName), "img", playerName)
+    end
+
+    local profileName = playerName
+    local pageId = playerVars[playerName].menuPage
+    if pageId:find("@") then
+        profileName = pageId:match("@(%w+#%d+)")
+    end
+    local playerTag = profileName:match("#%d%d%d%d")
+    local colorTag = 'V'
+    if playerTag == "#0010" then
+        colorTag = 'J'
+    elseif playerTag == "#0020" then
+        colorTag = 'BV'
+    elseif playerTag == "#0001" then
+        colorTag = 'R'
+    end
+    addTextArea(16, "<font face='Soopafresh,Verdana' size='30' color='#000000'>"..removeTag(profileName).." <font size='-5'>"..playerTag.." </font></font>", playerName, 128, 83, 438, 45, 0x324650, 0x000000, 0, true)
+    addTextArea(17, "<font face='Soopafresh,Verdana' size='30'><"..colorTag..">"..removeTag(profileName).."</v> <font size='-5'></"..colorTag.."><g>"..playerTag.." </g></font></font>", playerName, 126, 80, 438, 45, 0x324650, 0x000000, 0, true)
+
+    addTextArea(120, "", playerName, graffitiTextX, 89, 100, 100, 0x264E57, 0x264E57, 1, true)
+    addTextArea(121, "", playerName, graffitiTextX, 210, 100, 100, 0x264E57, 0x264E57, 1, true)
+    addTextArea(122, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[target].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[target].equipment[2]].imgId.."'>"..string.gsub(target, "#%d%d%d%d", "").."</font></p>", playerName, graffitiTextX, graffitiTextY, 100, 50, 0x324650, 0x000000, 0, true)
+    putInClearQueue(addImage(shop.dashAcc[playerStats[target].equipment[1]].imgId, "&2", 595, 115, playerName), "img", playerName)
+    putInClearQueue({16, 17, 120, 121, 122}, "area", playerName)
 end
 
 -- This generates the settings body
@@ -164,9 +237,6 @@ end
 
 function clear(playerName)
     removeTextArea(13, playerName)
-    removeTextArea(14, playerName)
-    removeTextArea(15, playerName)
-    removeTextArea(20, playerName)
     for i = 1, #queue[playerName].area do
         removeTextArea(queue[playerName].area[i], playerName)
     end
@@ -203,11 +273,18 @@ function lateUI(playerName)
         addBackButton(playerName)
         createPageNumber(pageNumber, "graffitiFonts", playerName)
         generateGraffitiShopText(playerName, tonumber(string.match(page, "%d+")), "graffitiFonts")
+    elseif string.sub(page, 1, 7) == "profile" then
+        local target = page:match("@(%w+#%d+)")
+        if target == nil then
+            target = playerName
+        end
+        generateProfileImgs(playerName, target)
     end
 end
 
 function createPageNumber(pageNumber, type, playerName)
     addTextArea(20, "<p align='center'><a href='event:PrevPage'>&lt;</a> "..pageNumber.."/"..maxShopPages(#shop[type]).." <a href='event:NextPage'>&gt;</a>", playerName, 367, 371, 66, 17, 0x1A353A, 0x7b5a35, 1, true) 
+    putInClearQueue(20, "area", playerName)
 end
 
 -- Clears welcomeScreen images
@@ -317,9 +394,8 @@ function generatedashAccImgsText(playerName, pageNumber)
         end
 
         if currentShopItem.fnc(playerName) == false then
-            putInClearQueue(addImage(currentShopItem.imgId, "&"..i, imgBgX, y[i] - 2, playerName), "img", playerName)
-            putInClearQueue(addImage(LOCK, "&"..i + 100, imgBgX + statusOffset, y[i] + statusOffset, playerName), "img", playerName)
             addTextArea(ids[i], "<font size='12'><CS><i>"..translate(playerName, currentShopItem.tooltip).."</i></CS></font>\n"..reqs, playerName, x, y[i], 315, 33, 0x0a1517, 0x122529, 0, true)
+            putInClearQueue(addImage(LOCK, "&"..i + 100, imgBgX + statusOffset, y[i] + statusOffset, playerName), "img", playerName)
             addTextArea(ids[i] + 20, "", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
         else
             putInClearQueue(addImage(currentShopItem.imgId, "&"..i, imgBgX, y[i] - 2, playerName), "img", playerName)
@@ -332,7 +408,8 @@ function generatedashAccImgsText(playerName, pageNumber)
                 addTextArea(ids[i] + 20, "", playerName, imgBgX, y[i] - 3, 40, 40, 0x264E57, 0x264E57, 1, true)
             end
             addTextArea(ids[i], "<font size='12'><i><CS>"..selectState.."</CS></i></font>\n"..reqs, playerName, x, y[i], 315, 33, 0x0a1517, 0x122529, 0, true)
-        end
+        end 
+        putInClearQueue(addImage(currentShopItem.imgId, "&"..i, imgBgX, y[i] - 2, playerName), "img", playerName)
         putInClearQueue({ids[i], ids[i] + 20}, "area", playerName)
     end
 end

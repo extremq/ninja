@@ -19,7 +19,6 @@ function showDashParticles(playerName, types, direction, x, y)
                 displayParticle(types[i], x, y, random() * direction, random(), 0, 0, name)
                 displayParticle(types[i], x, y, random() * direction, -random(), 0, 0, name)
                 displayParticle(types[i], x, y, random() * direction, -random(), 0, 0, name)
-                displayParticle(types[i], x, y, random() * direction, -random(), 0, 0, name)
             end
         end
     end
@@ -324,7 +323,11 @@ function eventLoop(elapsedTime, timeRemaining)
             local id = playerId(playerName)
             if inRoom[playerName] ~= nil and loaded[playerName] ~= nil then 
                 -- RESPAWN PLAYER
-                tfm.exec.respawnPlayer(playerName)
+                if playerVars[playerName].spectate == false then
+                    respawnPlayer(playerName)
+                else
+                    killPlayer(playerName)
+                end
                 -- UPDATE UI
                 --[[
                     This is where i use states: i basically keep track if i changed an icon's cooldown indicator. Why?

@@ -25,9 +25,6 @@ function shopListing(values, imgId, tooltip, reqs, fncArgs)
     }
 end
 
-modList = {['Extremq#0000'] = true, ['Railysse#0000'] = true}
-modRoom = {}
-opList = {}
 lastMap = ""
 mapWasSkipped = false
 mapStartTime = 0
@@ -49,16 +46,16 @@ keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 shop = {
     dashAcc = {
         shopListing({3}, "1730a4ad53e.png", "particleDef", {"free", nil}, nil),
-        shopListing({3, 31}, "1730a950dc4.png", "particleHearts", {"finishMaps", 10}, {"mapsFinished", 1}),
+        shopListing({3, 31}, "1730a950dc4.png", "particleHearts", {"finishMaps", 10}, {"mapsFinished", 10}),
         shopListing({3, 13}, "1730a952a0d.png", "particleSleek", {"finishMapsFirst", 1}, {"mapsFinishedFirst", 1}),
-        shopListing({31, 32, 31}, "1730a94d7af.png", "particleLikeNinja", {"finishMaps", 50}, {"mapsFinished", 3}),
-        shopListing({9, 14}, "1730a94f62a.png", "particleYouPro", {"finishHardcoreMaps", 50}, {"hardcoreMaps", 1}),
-        shopListing({2, 24, 11}, "1730a9544bd.png", "particleToSky", {"doubleJumps", 50}, {"doubleJumps", 25})
+        shopListing({31, 32, 31}, "1730a94d7af.png", "particleLikeNinja", {"finishMaps", 50}, {"mapsFinished", 50}),
+        shopListing({9, 14}, "1730a94f62a.png", "particleYouPro", {"finishHardcoreMaps", 1}, {"hardcoreMaps", 1}),
+        shopListing({2, 24, 11}, "1730a9544bd.png", "particleToSky", {"doubleJumps", 100}, {"doubleJumps", 100})
     },
     graffitiCol = {
         shopListing(0xffffff, '#ffffff', "graffitiColDef", {"free", nil}, nil),
-        shopListing(0x000001, '#000001', "graffitiColBlack", {"finishMaps", 25}, {"mapsFinished", 2}),
-        shopListing(0x8c0404, '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 50})
+        shopListing(0x000001, '#000001', "graffitiColBlack", {"finishMaps", 25}, {"mapsFinished", 25}),
+        shopListing(0x8c0404, '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 100})
     },
     graffitiImgs = {
         shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
@@ -66,9 +63,9 @@ shop = {
     },
     graffitiFonts = {
         shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free", nil}, nil),
-        shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", {"sprayGraffiti", 50}, {"graffitiSprays", 10}),
-        shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"rewindTimes", 10}, {"timesRewinded", 1}),
-        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 50}, {"timesDashed", 1})
+        shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", {"sprayGraffiti", 50}, {"graffitiSprays", 50}),
+        shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"doubleJumps", 200}, {"doubleJumps", 200}),
+        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 50}, {"timesDashed", 50})
     }
 }
 
@@ -96,6 +93,8 @@ playerStats = {
 }
 
 function checkUnlock(playerName, what, index, message, ...)
+    if customRoom == true then return end
+
     if unlocks[playerName][what][index] == false and shop[what][index].fnc(playerName) == true then
         chatMessage(translate(playerName, message, ...), playerName)
         unlocks[playerName][what][index] = true

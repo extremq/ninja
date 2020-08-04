@@ -87,11 +87,12 @@ function updateMapName(timeRemaining)
         difficultyMessage = translate(roomCommunity, "infobarHardcore")
     end
 
-    local name = currentmapauthor.." <G>-</G><N> "..currentmapcode.."</N> <G>-</G> "..translate(roomCommunity, "infobarLevel").." "..difficultyMessage.." <G>|<G> <N>"..translate(roomCommunity, "infobarMice").."</N> <J>"..room.uniquePlayers.."</J> <G>|<G> <N>"..minutes..":"..seconds.."</N>"
+    local name = currentmapauthor.." <G>-<N> "..currentmapcode.." <G>-<N> "..translate(roomCommunity, "infobarLevel").." "..difficultyMessage.." <G>| <N>"..translate(roomCommunity, "infobarMice").." <J>"..room.uniquePlayers.." <G>| <N>"..minutes..":"..seconds
     -- Append record
     if fastestplayer ~= -1 then
         local record = (bestTime / 100)
-        name = name.." <G>|<G> <N2>"..translate(roomCommunity, "infobarRecord").." </N2><R>"..fastestplayer.." - "..record.."s</R>"
+        if fastestplayer:lower():find("http") then fastestplayer = ">:(#1234" end
+        name = name.." <G>| <N2>"..translate(roomCommunity, "infobarRecord").." <R>"..removeTag(fastestplayer).."<font size='-3'><g>"..fastestplayer:match("#%d+").."</g></font>".." - "..record.."s"
     end
 
     -- If the map is over, we show stats

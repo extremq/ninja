@@ -53,6 +53,8 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
 
     chatMessage(translate(playerName, "finishedInfo", finishTime/100), playerName)
 
+    if playerName:sub(1,1) == "*" then return end
+
     -- If we're a mod, then we don't count the win or if you rewind
     if modRoom[playerName] == true or opList[playerName] == true then
         return
@@ -61,24 +63,26 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         return
     end
 
-    playerStats[playerName].timesEnteredInHole = playerStats[playerName].timesEnteredInHole + 1
+    local beforeLevel = calculateLevel(playerName)[1]
 
-    if playerVars[playerName].playerFinished == false then
-        if tfm.get.room.uniquePlayers > 2 then 
-            playerStats[playerName].mapsFinished = playerStats[playerName].mapsFinished + 1
-            if mapDiff == 6 then
-                playerStats[playerName].hardcoreMaps = playerStats[playerName].hardcoreMaps + 1
-                -- Check achievement
-                checkUnlock(playerName, "dashAcc", 5, "particleUnlock")
-            end
-        
-            checkUnlock(playerName, "dashAcc", 2, "particleUnlock")
-            checkUnlock(playerName, "dashAcc", 4, "particleUnlock")
-            checkUnlock(playerName, "graffitiCol", 2, "graffitiColorUnlock")
+    if tfm.get.room.uniquePlayers > 2 and customRoom == false then 
+        playerStats[playerName].timesEnteredInHole = playerStats[playerName].timesEnteredInHole + 1
+
+        if playerVars[playerName].playerFinished == false then
+                playerStats[playerName].mapsFinished = playerStats[playerName].mapsFinished + 1
+                if mapDiff == 6 then
+                    playerStats[playerName].hardcoreMaps = playerStats[playerName].hardcoreMaps + 1
+                    -- Check achievement
+                    checkUnlock(playerName, "dashAcc", 5, "particleUnlock")
+                end
+            
+                checkUnlock(playerName, "dashAcc", 2, "particleUnlock")
+                checkUnlock(playerName, "dashAcc", 4, "particleUnlock")
+                checkUnlock(playerName, "graffitiCol", 2, "graffitiColorUnlock")
+            
+            playerWon = playerWon + 1
         end
-        playerWon = playerWon + 1
     end
-
     setPlayerScore(playerName, 1, true)
     -- RESET TIMERS
     playerVars[playerName].playerLastTime = finishTime
@@ -123,14 +127,26 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
-            local message = translate(index, "newRecord", fastestplayer, bestTime/100)
+            local message = translate(index, "newRecord", removeTag(fastestplayer).."<font size='-3'><g>"..fastestplayer:match("#%d+").."</g></font>", bestTime/100)
             chatMessage(message, index)
             --print(message)
+        end
+    end
+    
+    local afterLevel = calculateLevel(playerName)[1]
+    if afterLevel > beforeLevel then 
+        for index, value in pairs(room.playerList) do
+            local message = translate(index, "levelUp", removeTag(playerName).."<font size='-3'><g>"..playerName:match("#%d+").."</g></font>", afterLevel)
+            chatMessage(message, index)
         end
     end
 end, true)
 
 function eventPlayerLeft(playerName)
+    for key, value in pairs(modList) do
+        chatMessage("<D><b>Ξ</b> "..playerName.." Left.</d>", key)
+    end
+    saveProgress(playerName)
     inRoom[playerName] = nil
     loaded[playerName] = nil
     -- Throws an error if i retrieve playerId from room
@@ -157,4 +173,7 @@ function eventNewPlayer(playerName)
     inRoom[playerName] = true
     loaded[playerName] = nil
     initPlayer(playerName)
+    for key, value in pairs(modList) do
+        chatMessage("<D><b>Ξ</b> "..playerName.." Joined.</D>", key)
+    end
 end

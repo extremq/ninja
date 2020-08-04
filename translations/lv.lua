@@ -25,14 +25,14 @@ translations.lv = {
     aboutTitle = "Par",
     -- END
     aboutBody = "Moduli kodēja <font color='#FFD991'>Extremq#0000</font>.\nIdejas spēlei, kļūdu testēšanu un mapes nodrošināja <font color='#FFD991'>Railysse#0000</font>.\n\nŠo moduli pilnībā atbalsta peļu organizācija „Red Cheese” ar „Save Module” projektu. Visas iegūtās finanses tiks ziedotas pelēm, kuras spēlē #parkour, lai varam piekukuļot viņas spēlēt mūsu moduli.\n\nMēs tikai jokojam, paldies, ka izmēģinājāt mūsu moduli! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
-    playtime = "Kopumā nospēlētais laiks",
+    playtime = "Nospēlētais laiks",
     firsts = "Pirmās vietas",
     finishedMaps = "Pabeigtās mapes",
     firstRate = "Pirmo vietu attiecība",
     holeEnters = "Reizes, cik ieiets alā",
     graffitiUses = "Reizes, cik lietots grafiti",
-    dashUses = "Reizes, cik lietota paātrināšana",
-    rewindUses = "Reizes, cik lietota attīšana",
+    dashUses = "Paātrināšanas reizes",
+    rewindUses = "Attīšanas reizes",
     hardcoreMaps = "Pabeigtās „Hardcore” mapes",
     shopNotice = "Veikals ir izveides procesā.",
     leaderboardsNotice = "Rezultātu tablo tiks ieviests, kad modulis kļūs oficiāls.",

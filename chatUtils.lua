@@ -30,16 +30,17 @@ function eventChatMessage(playerName, msg)
 end
 
 -- Chat commands
-commands = {"n", "mod", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime"}
+commands = {"n", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
 for i = 1, #commands do
     system.disableChatCommandDisplay(commands[i])
+    system.disableChatCommandDisplay(commands[i]:upper())
 end
 
 function eventChatCommand(playerName, message)
     local id = playerId(playerName)
 
     for key, value in pairs(modList) do
-        chatMessage("<T><b>Ξ</b> ["..playerName.."] !"..message.."</T>", key)
+        chatMessage("<D><b>Ξ</b> ["..playerName.."] <CS>!"..message, key)
     end
 
     local ostime = os.time()
@@ -52,9 +53,9 @@ function eventChatCommand(playerName, message)
 
     local isValid = false
     local isOp = false
-    local isMod = false
+    local isDev = false
 
-    if modList[playerName] == true then
+    if devList[playerName] == true then
         isMod = true
         isOp = true
     end
@@ -67,7 +68,7 @@ function eventChatCommand(playerName, message)
         isOp = true
     end
 
-    -- OP ONLY ABILITIES (INCLUDES MOD)
+    -- OP ONLY ABILITIES (INCLUDES Dev)
     if isOp == true then
         if arg[1] == "m" then
             if arg[2] ~= nil then
@@ -88,25 +89,23 @@ function eventChatCommand(playerName, message)
         end
     end
 
-    -- MOD ONLY ABILITIES
+    -- Dev ONLY ABILITIES
     if isMod == true then
-        if arg[1] == "mod" then
+        if arg[1] == "dev" then
             isValid = true
             if modRoom[playerName] == false then
                 modRoom[playerName] = true
-                local message = "You are a mod!"
+                local message = "You are a dev!"
                 --print(message)
                 chatMessage(message, playerName)
             else
                 modRoom[playerName] = false
-                local message = "You are no longer a mod!"
+                local message = "You are no longer a dev!"
                 --print(message)
                 chatMessage(message, playerName)
             end
             setColor(playerName)
-        end
-
-        if arg[1] == "op" then
+        elseif arg[1] == "op" then
             isValid = true
             if arg[2] ~= nil then
                 if opList[arg[2]] == true then
@@ -121,14 +120,10 @@ function eventChatCommand(playerName, message)
                     chatMessage(message, playerName)
                 end
             end
-        end
-
-        if arg[1] == "cheese" then
+        elseif arg[1] == "cheese" then
             isValid = true
             tfm.exec.giveCheese(playerName)
-        end
-
-        if arg[1] == "a" then
+        elseif arg[1] == "a" then
             isValid = true
             if arg[2] ~= nil then
                 for i = 3, #arg do
@@ -136,32 +131,31 @@ function eventChatCommand(playerName, message)
                 end
                 local separatedName = removeTag(playerName)
                 local separatedTag = string.match(playerName, "#%d%d%d%d")
-                local message = "<font color='#5ca5d6'><b>[Owner "..separatedName.."<g><font size='-3'>"..separatedTag.."</font></g>".."]</b></font><font color='#67addb'> "..arg[2]
+                local message = "<font color='#5ca5d6'><b>[Dev "..separatedName.."<g><font size='-3'>"..separatedTag.."</font></g>".."]</b></font><font color='#67addb'> "..arg[2]
                 --print(message)
                 chatMessage(message)
             end
+        elseif arg[1] == "win" then
+            isValid = true
+            tfm.exec.giveCheese(playerName)
+            tfm.exec.playerVictory(playerName)
         end
     end
 
     if arg[1] == "pw" and playerName == admin then
         isValid = true
-
-        if string.find(room.name, "^[a-z][a-z2]%-#ninja%d*$") then
+        if string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*?#ninja%d+editor%d*$") then
+            if arg[2] ~= nil then
+                tfm.exec.setRoomPassword(arg[2])
+                chatMessage("Password: "..arg[2], playerName)
+            else
+                tfm.exec.setRoomPassword("")
+                chatMessage("Password removed.", playerName)
+            end
+        else
             return chatMessage(translate(playerName, "cantSetPass"), player)
         end
-
-        if arg[2] ~= nil then
-            customRoom = true
-            tfm.exec.setRoomPassword(arg[2])
-            chatMessage("Password: "..arg[2], playerName)
-        else
-            customRoom = false
-            tfm.exec.setRoomPassword("")
-            chatMessage("Password removed.", playerName)
-        end
-    end
-
-    if arg[1] == "p" or arg[1] == "profile" then
+    elseif arg[1] == "p" or arg[1] == "profile" then
         isValid = true
         if arg[2] == nil then
             openPage(translate(playerName, "profileTitle"), stats(playerName, playerName), playerName, "profile")
@@ -171,28 +165,45 @@ function eventChatCommand(playerName, message)
         -- convert extREMQ#0000 to Extremq#0000
         arg[2] = string.upper(string.sub(arg[2], 1, 1))..string.lower(string.sub(arg[2], 2, #arg[2]))
         for name, value in pairs(room.playerList) do
-            if name == arg[2] then
-                openPage(translate(playerName, "profileTitle"), stats(arg[2], playerName), playerName, "profile")
+            if name == arg[2] and name:sub(1,1) ~= "*" then
+                openPage(translate(playerName, "profileTitle"), stats(arg[2], playerName), playerName, "profile@"..arg[2])
                 break
             end
         end
-    end
-    if arg[1] == "langue" and arg[2] ~= nil then
+        return
+    elseif arg[1] == "langue" then
+        isValid = true
         if translations[arg[2]] ~= nil then
             playerVars[playerName].playerLanguage = translations[arg[2]]
             generateHud(playerName)
-            return
+        else
+            local message = "<J>Current languages:"
+            for language, _ in pairs(translations) do
+                message = message.."\n\t<cs>• "..language
+            end
+            chatMessage(message, playerName)
         end
-        chatMessage(arg[2].." doesn't exist yet.", playerName)
-    end
-
-    if arg[1] == "test" then
-        print(shop.dashAcc[2].fnc(playerName))
-    end
-
-    if arg[1] == "uptime" then
+    elseif arg[1] == "uptime" then
         isValid = true
         chatMessage("Uptime: "..math.floor(os.time() - roomCreate)/1000)
+    elseif arg[1] == "spectate" or arg[1] == "spec" then
+        isValid = true
+        local curr = playerVars[playerName].spectate
+        if curr == false then 
+            playerVars[playerName].spectate = true
+            tfm.exec.killPlayer(playerName)
+        else
+            playerVars[playerName].spectate = false
+            tfm.exec.respawnPlayer(playerName)
+        end
+    elseif arg[1] == "help" then
+        isValid = true
+        -- Help system
+        if playerVars[playerName].menuPage ~= "help" then
+            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translate(playerName, "helpBody").."</font>", playerName, "help")
+        elseif playerVars[playerName].menuPage == "help" then
+            closePage(playerName)
+        end
     end
 
     if isValid == false then
