@@ -41,7 +41,7 @@ customRoom = false
 hasShownStats = false
 bestTime = 99999
 
-keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 80, 84, 88}
+keys = {0, 1, 2, 3, 9, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
 shop = {
     dashAcc = {

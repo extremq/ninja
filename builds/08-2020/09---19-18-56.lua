@@ -1003,10 +1003,10 @@ translations.en = {
     senseiReply8 = "gg",
     
     senseiLeaderboard1 = "You’ll become a good ninja one day, %s.",
-	senseiLeaderboard2 = "Your unmatched speed is a clear proof of your skill, %s.",
-	senseiLeaderboard3 = "He is %s. We can all agree %s is a very fast mouse. Be like %s.",
-	senseiLeaderboard4 = "1v1, bro? %s",
-	senseiLeaderboard5 = "You can all learn something from %s today. Well done, my student!"	
+	senseiLeaderboard1 = "Your unmatched speed is a clear proof of your skill, %s.",
+	senseiLeaderboard1 = "He is %s. We can all agree %s is a very fast mouse. Be like %s.",
+	senseiLeaderboard1 = "1v1, bro? %s",
+	senseiLeaderboard1 = "You can all learn something from %s today. Well done, my student!"	
 
 
 }
@@ -1318,7 +1318,7 @@ translations.ro = {
     requirements = "Cerințe",
     particleUnlock = "<ROSE>Ai deblocat o nouă particulă! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     graffitiColorUnlock = "<ROSE>Ai deblocat o nouă culoare pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a îl încerca.</ROSE>",
+    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     free = "Gratis.",
     finishMaps = "Termină %s hărți.",
     finishMapsFirst = "Termină %s hărți primul.",
@@ -1764,9 +1764,8 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             doublepress and keypress. (though i can make the checker variable an array but it would look ugly.)
         ]]--
         if (keyCode == 0 or keyCode == 2) and ostime - cooldowns[playerName].lastDashTime > DASHCOOLDOWN then
-            if ostime - playerVars[playerName].joinTime > 20 * 1000 and playerStats[playerName].timesDashed == 0 and playerVars[playerName].shownHelp == false then
+            if ostime - playerVars[playerName].joinTime > 20 * 1000 and playerStats[playerName].timesDashed == 0 then
                 chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiHelp1", playerName), playerName)
-                playerVars[playerName].shownHelp = true
             end
             local dashUsed = false
             local direction = keyCode - 1 -- Tocu
@@ -2109,10 +2108,6 @@ eventPlayerRespawn = secureWrapper(function(playerName)
 
     removeImage(imgs[playerName].dashButtonId)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-
-    if playerStats[playerName].timesEnteredInHole < 1 then
-        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
-    end
 end, true)
 
 eventPlayerDied = secureWrapper(function(playerName)
@@ -2202,27 +2197,23 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     -- bestTime is a global variable for record
     if finishTime <= bestTime then
         bestTime = finishTime
-        
+
         if fastestplayer ~= -1 then
             local oldFastestPlayer = fastestplayer
-            
+
             fastestplayer = playerName
-            
+
             setColor(oldFastestPlayer)
         else
             fastestplayer = playerName
         end
-        
+
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
             local message = translate(index, "newRecord", removeTag(fastestplayer).."<font size='-3'><g>"..fastestplayer:match("#%d+").."</g></font>", bestTime/100)
             chatMessage(message, index)
             --print(message)
-        end
-        
-        if math.random() < 1/2 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
     end
     
@@ -2433,7 +2424,6 @@ function initPlayer(playerName)
         hasDiedThisRound = false,
         hasUsedRewind = false,
         spectate = false,
-        shownHelp = false,
         cachedData = nil
     }
 
@@ -2720,22 +2710,15 @@ function showStats()
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" and tfm.get.room.uniquePlayers > 2 then
         local bestPlayer = bestPlayers[1][1]
-        
         checkUnlock(bestPlayer, "dashAcc", 3, "particleUnlock")
-        
         local beforeLevel = calculateLevel(bestPlayer)[1]
         playerStats[room.playerList[bestPlayer].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
         local afterLevel = calculateLevel(bestPlayer)[1]
-        
         if afterLevel > beforeLevel then
             for index, value in pairs(room.playerList) do
                 local message = translate(index, "levelUp", removeTag(bestPlayer).."<font size='-3'><g>"..bestPlayer:match("#%d+").."</g></font>", afterLevel)
                 chatMessage(message, index)
             end
-        end
-        
-        if math.random() < 1/2 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiLeaderboard"..math.random(1, 5), bestPlayer, bestPlayer, bestPlayer))
         end
     end
 end
@@ -3221,14 +3204,6 @@ end
 ]]--
 
 function eventChatMessage(playerName, msg)
-    if msg:lower():find("gg") or msg:lower():find("gj") then
-        if math.random() < 1/3 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
-        end
-    elseif msg == "." and playerName == "Extremq#0000" then
-        chatMessage("<V>[Sensei]</V> <N>.")
-    end
-
     if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
         return
     end

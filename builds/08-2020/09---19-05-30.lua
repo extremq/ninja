@@ -896,7 +896,7 @@ translations.en = {
     discordInfo = "<BV>Join our discord! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "Welcome to <font color='#E68D43'>#ninja</font>! Press <font color='#E68D43'>H</font> for help.",
     finishedInfo = "You finished the map! (<V>%ss</V>)",
-    helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (2s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Commands</b>:\n» !p %s - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n» !langue country - Change the language of the module. (only for you)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
+    helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (2s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Commands</b>:\n» !p Name#id - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n» !langue country - Change the language of the module. (only for you)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
     Xbtn = "X",
     shopTitle = "Collection",
     profileTitle = "Profile",
@@ -981,17 +981,17 @@ translations.en = {
     senseiHelp1 = "You need to double press in a direction to dash, %s!",
 
     senseiRecord1 = "I knew you could do it!",
-    senseiRecord2 = "I trained you well, %s!",
-    senseiRecord3 = "You’re faster than the wind, %s!",
+    senseiRecord2 = "I trained you well, name#id!",
+    senseiRecord3 = "You’re faster than the wind, name#id!",
     senseiRecord4 = "Impressive!",
     senseiRecord5 = "Such a clear expression of skill!",
     senseiRecord6 = "Some day you might even have a chance against me.",
-    senseiRecord7 = "Consider me impressed, %s.",
+    senseiRecord7 = "Consider me impressed, name#id.",
     senseiRecord8 = "One day you could take my place if you keep practicing!",
 
     senseiTip1 = "As your Sensei, it’s my duty to help. In order to become a true ninja, you must learn to use your abilities. Double press in a direction to dash.",
-	senseiTip2 = "%s, double press in a direction to dash.",
-	senseiTip3 = "Take your time, no need to rush, but I’d double press in a direction to dash if a were you, %s.",
+	senseiTip2 = "Name#id, double press in a direction to dash.",
+	senseiTip3 = "Take your time, no need to rush, but I’d double press in a direction to dash if a were you, name#id.",
 
     senseiReply1 = "GG",	
     senseiReply2 = "Gj!",
@@ -1002,11 +1002,11 @@ translations.en = {
 	senseiReply7 = "Ez?",
     senseiReply8 = "gg",
     
-    senseiLeaderboard1 = "You’ll become a good ninja one day, %s.",
-	senseiLeaderboard2 = "Your unmatched speed is a clear proof of your skill, %s.",
-	senseiLeaderboard3 = "He is %s. We can all agree %s is a very fast mouse. Be like %s.",
-	senseiLeaderboard4 = "1v1, bro? %s",
-	senseiLeaderboard5 = "You can all learn something from %s today. Well done, my student!"	
+    senseiLeaderboard1 = "You’ll become a good ninja one day, name#id.",
+	senseiLeaderboard1 = "Your unmatched speed is a clear proof of your skill, name#id.",
+	senseiLeaderboard1 = "He is name#id. We can all agree name#id is a very fast mouse. Be like name#id.",
+	senseiLeaderboard1 = "1v1, bro? name#id",
+	senseiLeaderboard1 = "You can all learn something from name#id today. Well done, my student!"	
 
 
 }
@@ -1318,7 +1318,7 @@ translations.ro = {
     requirements = "Cerințe",
     particleUnlock = "<ROSE>Ai deblocat o nouă particulă! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     graffitiColorUnlock = "<ROSE>Ai deblocat o nouă culoare pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a îl încerca.</ROSE>",
+    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     free = "Gratis.",
     finishMaps = "Termină %s hărți.",
     finishMapsFirst = "Termină %s hărți primul.",
@@ -1764,10 +1764,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             doublepress and keypress. (though i can make the checker variable an array but it would look ugly.)
         ]]--
         if (keyCode == 0 or keyCode == 2) and ostime - cooldowns[playerName].lastDashTime > DASHCOOLDOWN then
-            if ostime - playerVars[playerName].joinTime > 20 * 1000 and playerStats[playerName].timesDashed == 0 and playerVars[playerName].shownHelp == false then
-                chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiHelp1", playerName), playerName)
-                playerVars[playerName].shownHelp = true
-            end
             local dashUsed = false
             local direction = keyCode - 1 -- Tocu
 
@@ -2109,10 +2105,6 @@ eventPlayerRespawn = secureWrapper(function(playerName)
 
     removeImage(imgs[playerName].dashButtonId)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-
-    if playerStats[playerName].timesEnteredInHole < 1 then
-        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
-    end
 end, true)
 
 eventPlayerDied = secureWrapper(function(playerName)
@@ -2202,27 +2194,23 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     -- bestTime is a global variable for record
     if finishTime <= bestTime then
         bestTime = finishTime
-        
+
         if fastestplayer ~= -1 then
             local oldFastestPlayer = fastestplayer
-            
+
             fastestplayer = playerName
-            
+
             setColor(oldFastestPlayer)
         else
             fastestplayer = playerName
         end
-        
+
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
             local message = translate(index, "newRecord", removeTag(fastestplayer).."<font size='-3'><g>"..fastestplayer:match("#%d+").."</g></font>", bestTime/100)
             chatMessage(message, index)
             --print(message)
-        end
-        
-        if math.random() < 1/2 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
     end
     
@@ -2370,8 +2358,8 @@ function eventPlayerDataLoaded(playerName, data)
         end
     end
 
-    if playerStats[playerName].playtime < 40 * 1000 then
-        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiGreeting1"), playerName)
+    if playerStats[playerName].playtime < 40 then
+        chatMessage("<V>[•] [Sensei]</V> <N>"..translate(playerName, "senseiGreeting1"), playerName)
     end
 
     loaded[playerName] = true
@@ -2433,7 +2421,6 @@ function initPlayer(playerName)
         hasDiedThisRound = false,
         hasUsedRewind = false,
         spectate = false,
-        shownHelp = false,
         cachedData = nil
     }
 
@@ -2720,22 +2707,15 @@ function showStats()
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" and tfm.get.room.uniquePlayers > 2 then
         local bestPlayer = bestPlayers[1][1]
-        
         checkUnlock(bestPlayer, "dashAcc", 3, "particleUnlock")
-        
         local beforeLevel = calculateLevel(bestPlayer)[1]
         playerStats[room.playerList[bestPlayer].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
         local afterLevel = calculateLevel(bestPlayer)[1]
-        
         if afterLevel > beforeLevel then
             for index, value in pairs(room.playerList) do
                 local message = translate(index, "levelUp", removeTag(bestPlayer).."<font size='-3'><g>"..bestPlayer:match("#%d+").."</g></font>", afterLevel)
                 chatMessage(message, index)
             end
-        end
-        
-        if math.random() < 1/2 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiLeaderboard"..math.random(1, 5), bestPlayer, bestPlayer, bestPlayer))
         end
     end
 end
@@ -3221,14 +3201,6 @@ end
 ]]--
 
 function eventChatMessage(playerName, msg)
-    if msg:lower():find("gg") or msg:lower():find("gj") then
-        if math.random() < 1/3 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
-        end
-    elseif msg == "." and playerName == "Extremq#0000" then
-        chatMessage("<V>[Sensei]</V> <N>.")
-    end
-
     if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
         return
     end

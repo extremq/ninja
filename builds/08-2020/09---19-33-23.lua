@@ -1318,7 +1318,7 @@ translations.ro = {
     requirements = "Cerințe",
     particleUnlock = "<ROSE>Ai deblocat o nouă particulă! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     graffitiColorUnlock = "<ROSE>Ai deblocat o nouă culoare pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a îl încerca.</ROSE>",
+    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     free = "Gratis.",
     finishMaps = "Termină %s hărți.",
     finishMapsFirst = "Termină %s hărți primul.",
@@ -2109,16 +2109,13 @@ eventPlayerRespawn = secureWrapper(function(playerName)
 
     removeImage(imgs[playerName].dashButtonId)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-
-    if playerStats[playerName].timesEnteredInHole < 1 then
-        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
-    end
 end, true)
 
 eventPlayerDied = secureWrapper(function(playerName)
     local id = playerId(playerName)
     playerVars[playerName].rewindPos = {0, 0, false}
     playerVars[playerName].hasDiedThisRound = true
+    chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
     -- Remove rewind Mouse
     if imgs[playerName].mouseImgId ~= nil then
         removeImage(imgs[playerName].mouseImgId)
@@ -2221,9 +2218,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
             --print(message)
         end
         
-        if math.random() < 1/2 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
-        end
+        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
     end
     
     local afterLevel = calculateLevel(playerName)[1]
@@ -2734,9 +2729,7 @@ function showStats()
             end
         end
         
-        if math.random() < 1/2 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiLeaderboard"..math.random(1, 5), bestPlayer, bestPlayer, bestPlayer))
-        end
+        chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiLeaderboard"..math.random(1, 5), bestPlayer, bestPlayer, bestPlayer))
     end
 end
 
@@ -3225,8 +3218,6 @@ function eventChatMessage(playerName, msg)
         if math.random() < 1/3 then
             chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
         end
-    elseif msg == "." and playerName == "Extremq#0000" then
-        chatMessage("<V>[Sensei]</V> <N>.")
     end
 
     if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then

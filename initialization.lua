@@ -25,9 +25,9 @@ function calculateLevel(playerName)
     local level, progress, exp
     exp = playerStats[playerName].timesEnteredInHole * 10 + playerStats[playerName].mapsFinished * 30 + 
     playerStats[playerName].hardcoreMaps * 60 + playerStats[playerName].mapsFinishedFirst * 100
-    level = math.floor(math.sqrt(exp / 10)) + 1
+    level = math.floor((-1 + math.sqrt(1 + 4 * (2 + exp / 10))) / 2)
 
-    progress = exp - 10 * (level - 1) ^ 2 .. "/".. 10 + (level - 1) * 20
+    progress = exp - 10 * (level - 1) * (level + 2) .. "/".. 40 + (level - 1) * 20
     return {level, progress}
 end
 
@@ -95,6 +95,10 @@ function eventPlayerDataLoaded(playerName, data)
         end
     end
 
+    if playerStats[playerName].playtime < 40 * 1000 then
+        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiGreeting1"), playerName)
+    end
+
     loaded[playerName] = true
 end
 
@@ -154,6 +158,7 @@ function initPlayer(playerName)
         hasDiedThisRound = false,
         hasUsedRewind = false,
         spectate = false,
+        shownHelp = false,
         cachedData = nil
     }
 

@@ -6,7 +6,7 @@
 
 --CONSTANTS
 STATSTIME = 10 * 1000
-DASHCOOLDOWN = 1 * 1000
+DASHCOOLDOWN = 0.5 * 1000
 JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDONW = 10 * 1000
 GRAFFITICOOLDOWN = 10 * 1000
@@ -59,6 +59,10 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             doublepress and keypress. (though i can make the checker variable an array but it would look ugly.)
         ]]--
         if (keyCode == 0 or keyCode == 2) and ostime - cooldowns[playerName].lastDashTime > DASHCOOLDOWN then
+            if ostime - playerVars[playerName].joinTime > 20 * 1000 and playerStats[playerName].timesDashed == 0 and playerVars[playerName].shownHelp == false then
+                chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiHelp1", playerName), playerName)
+                playerVars[playerName].shownHelp = true
+            end
             local dashUsed = false
             local direction = keyCode - 1 -- Tocu
 
@@ -295,7 +299,7 @@ function eventLoop(elapsedTime, timeRemaining)
     --print(elapsedTime / 1000)
 
     -- When time reaches 0, we kill everyone and show stats
-    if (elapsedTime >= MAPTIME * 1000 and elapsedTime < MAPTIME * 1000 + STATSTIME) then
+    if ((ostime - mapStartTime) >= MAPTIME * 1000 and (ostime - mapStartTime) < MAPTIME * 1000 + STATSTIME) then
         for index, value in pairs(room.playerList) do
             killPlayer(index)
         end
@@ -304,7 +308,7 @@ function eventLoop(elapsedTime, timeRemaining)
             showStats()
         end
     -- When passing the stats time or when skipping a map, we choose a new map
-    elseif elapsedTime >= MAPTIME * 1000 + STATSTIME or mapWasSkipped == true then
+    elseif (ostime - mapStartTime) >= MAPTIME * 1000 + STATSTIME or mapWasSkipped == true then
         mapWasSkipped = false
 
         mapCount = mapCount + 1

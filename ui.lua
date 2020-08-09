@@ -127,7 +127,7 @@ function showStats()
         bestPlayers[i][2] = playerSortedBestTime[i][2]/100
     end
 
-    local message = "\n\n\n\n\n\n\n<p align='center'>"
+    local message = "\n\n\n\n\n\n\n\n<p align='center'>"
     message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
     message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
     message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
@@ -138,8 +138,24 @@ function showStats()
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" and tfm.get.room.uniquePlayers > 2 then
-        checkUnlock(bestPlayers[1][1], "dashAcc", 3, "particleUnlock")
-        playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
+        local bestPlayer = bestPlayers[1][1]
+        
+        checkUnlock(bestPlayer, "dashAcc", 3, "particleUnlock")
+        
+        local beforeLevel = calculateLevel(bestPlayer)[1]
+        playerStats[room.playerList[bestPlayer].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
+        local afterLevel = calculateLevel(bestPlayer)[1]
+        
+        if afterLevel > beforeLevel then
+            for index, value in pairs(room.playerList) do
+                local message = translate(index, "levelUp", removeTag(bestPlayer).."<font size='-3'><g>"..bestPlayer:match("#%d+").."</g></font>", afterLevel)
+                chatMessage(message, index)
+            end
+        end
+        
+        if math.random() < 1/2 then
+            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiLeaderboard"..math.random(1, 5), bestPlayer, bestPlayer, bestPlayer))
+        end
     end
 end
 

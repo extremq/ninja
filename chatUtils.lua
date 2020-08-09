@@ -4,6 +4,14 @@
 ]]--
 
 function eventChatMessage(playerName, msg)
+    if msg:lower():find("gg") or msg:lower():find("gj") then
+        if math.random() < 1/3 then
+            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
+        end
+    elseif msg == "." and playerName == "Extremq#0000" then
+        chatMessage("<V>[Sensei]</V> <N>.")
+    end
+
     if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
         return
     end
@@ -30,7 +38,7 @@ function eventChatMessage(playerName, msg)
 end
 
 -- Chat commands
-commands = {"n", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
+commands = {"n", "time", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
 for i = 1, #commands do
     system.disableChatCommandDisplay(commands[i])
     system.disableChatCommandDisplay(commands[i]:upper())
@@ -76,7 +84,7 @@ function eventChatCommand(playerName, message)
                 tfm.exec.newGame(arg[2])
                 tfm.exec.setAutoMapFlipMode(randomFlip())
                 mapDiff = "Custom"
-                MAPTIME = 10 * 60
+                MAPTIME = 4 * 60
                 resetAll()
             end
         end
@@ -86,6 +94,12 @@ function eventChatCommand(playerName, message)
             hasShownStats = false
             mapWasSkipped = true
             bestPlayers = {{"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}}
+        end
+
+        if arg[1] == "time" and arg[2]:match("^%d+$") then
+            isValid = true
+            MAPTIME = tonumber(arg[2])
+            mapStartTime = os.time()
         end
     end
 

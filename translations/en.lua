@@ -15,7 +15,7 @@ translations.en = {
     discordInfo = "<BV>Join our discord! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "Welcome to <font color='#E68D43'>#ninja</font>! Press <font color='#E68D43'>H</font> for help.",
     finishedInfo = "You finished the map! (<V>%ss</V>)",
-    helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (2s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Commands</b>:\n» !p Name#id - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n» !langue country - Change the language of the module. (only for you)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
+    helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (2s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Commands</b>:\n» !p %s - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n» !langue country - Change the language of the module. (only for you)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
     Xbtn = "X",
     shopTitle = "Collection",
     profileTitle = "Profile",
@@ -91,5 +91,41 @@ translations.en = {
     infobarRecord = "Record:",
     infobarLoading = "Loading...",
 
-    levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!"
+    levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!",
+
+    --- SENSEI
+
+    senseiGreeting1 = "Welcome to #ninja! You’ll have a great time here if you keep practicing!",
+
+    senseiHelp1 = "You need to double press in a direction to dash, %s!",
+
+    senseiRecord1 = "I knew you could do it!",
+    senseiRecord2 = "I trained you well, %s!",
+    senseiRecord3 = "You’re faster than the wind, %s!",
+    senseiRecord4 = "Impressive!",
+    senseiRecord5 = "Such a clear expression of skill!",
+    senseiRecord6 = "Some day you might even have a chance against me.",
+    senseiRecord7 = "Consider me impressed, %s.",
+    senseiRecord8 = "One day you could take my place if you keep practicing!",
+
+    senseiTip1 = "As your Sensei, it’s my duty to help. In order to become a true ninja, you must learn to use your abilities. Double press in a direction to dash.",
+	senseiTip2 = "%s, double press in a direction to dash.",
+	senseiTip3 = "Take your time, no need to rush, but I’d double press in a direction to dash if a were you, %s.",
+
+    senseiReply1 = "GG",	
+    senseiReply2 = "Gj!",
+	senseiReply3 = "Well played!",	
+	senseiReply4 = "Wow!",
+	senseiReply5 = "gg wp, bro",
+	senseiReply6 = "Wp!",
+	senseiReply7 = "Ez?",
+    senseiReply8 = "gg",
+    
+    senseiLeaderboard1 = "You’ll become a good ninja one day, %s.",
+	senseiLeaderboard2 = "Your unmatched speed is a clear proof of your skill, %s.",
+	senseiLeaderboard3 = "He is %s. We can all agree %s is a very fast mouse. Be like %s.",
+	senseiLeaderboard4 = "1v1, bro? %s",
+	senseiLeaderboard5 = "You can all learn something from %s today. Well done, my student!"	
+
+
 }

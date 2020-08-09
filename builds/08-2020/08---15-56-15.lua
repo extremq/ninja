@@ -896,7 +896,7 @@ translations.en = {
     discordInfo = "<BV>Join our discord! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "Welcome to <font color='#E68D43'>#ninja</font>! Press <font color='#E68D43'>H</font> for help.",
     finishedInfo = "You finished the map! (<V>%ss</V>)",
-    helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (2s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Commands</b>:\n» !p %s - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n» !langue country - Change the language of the module. (only for you)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
+    helpBody = "You have to bring the cheese back to the hole as fast as you can.\n\n<b>Abilities</b>:\n» Dash - Press <b><font color='#CB546B'>Left</font></b> or <b><font color='#CB546B'>Right Arrows</font></b> twice. (1s cooldown)\n» Jump - Press <b><font color='#CB546B'>Up Arrow</font></b> twice. (2s cooldown)\n» Rewind - Press <b><font color='#CB546B'>Space</font></b> to leave a checkpoint. Press <b><font color='#CB546B'>Space</font></b> again within 3 seconds to teleport back to the checkpoint. (10s cooldown)\n\n<b>Other shortcuts</b>:\n» Kill the mouse - Press <b><font color='#CB546B'>X</font></b> or write /mort to kill the mouse.\n» Open menu - Press <b><font color='#CB546B'>M</font></b> or click in the left side of your screen to open/close the menu.\n» Place a graffiti - Press <b><font color='#CB546B'>C</font></b> to leave a graffiti. (60s cooldown)\n» Open help - Press <b><font color='#CB546B'>H</font></b> to open/close this screen.\n\n<b>Commands</b>:\n» !p Name#id - Check the stats of another player.\n» !pw Password - Place a password on the room. (the room must be made by you)\n» !m @code - Load any map you want. (the room must have a password)\n» !langue country - Change the language of the module. (only for you)\n\n<p align='center'><a href='event:CloseMenu'><b><font color='#CB546B'>Close</font></b></a></p>", --23
     Xbtn = "X",
     shopTitle = "Collection",
     profileTitle = "Profile",
@@ -972,43 +972,7 @@ translations.en = {
     infobarRecord = "Record:",
     infobarLoading = "Loading...",
 
-    levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!",
-
-    --- SENSEI
-
-    senseiGreeting1 = "Welcome to #ninja! You’ll have a great time here if you keep practicing!",
-
-    senseiHelp1 = "You need to double press in a direction to dash, %s!",
-
-    senseiRecord1 = "I knew you could do it!",
-    senseiRecord2 = "I trained you well, %s!",
-    senseiRecord3 = "You’re faster than the wind, %s!",
-    senseiRecord4 = "Impressive!",
-    senseiRecord5 = "Such a clear expression of skill!",
-    senseiRecord6 = "Some day you might even have a chance against me.",
-    senseiRecord7 = "Consider me impressed, %s.",
-    senseiRecord8 = "One day you could take my place if you keep practicing!",
-
-    senseiTip1 = "As your Sensei, it’s my duty to help. In order to become a true ninja, you must learn to use your abilities. Double press in a direction to dash.",
-	senseiTip2 = "%s, double press in a direction to dash.",
-	senseiTip3 = "Take your time, no need to rush, but I’d double press in a direction to dash if a were you, %s.",
-
-    senseiReply1 = "GG",	
-    senseiReply2 = "Gj!",
-	senseiReply3 = "Well played!",	
-	senseiReply4 = "Wow!",
-	senseiReply5 = "gg wp, bro",
-	senseiReply6 = "Wp!",
-	senseiReply7 = "Ez?",
-    senseiReply8 = "gg",
-    
-    senseiLeaderboard1 = "You’ll become a good ninja one day, %s.",
-	senseiLeaderboard2 = "Your unmatched speed is a clear proof of your skill, %s.",
-	senseiLeaderboard3 = "He is %s. We can all agree %s is a very fast mouse. Be like %s.",
-	senseiLeaderboard4 = "1v1, bro? %s",
-	senseiLeaderboard5 = "You can all learn something from %s today. Well done, my student!"	
-
-
+    levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!"
 }
 --[[ End of file translations/en.lua ]]--
 --[[ File translations/es.lua ]]--
@@ -1318,7 +1282,7 @@ translations.ro = {
     requirements = "Cerințe",
     particleUnlock = "<ROSE>Ai deblocat o nouă particulă! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     graffitiColorUnlock = "<ROSE>Ai deblocat o nouă culoare pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
-    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a îl încerca.</ROSE>",
+    graffitiFontUnlock = "<ROSE>Ai deblocat un nou font pentru graffiti! Apasă M și selectează Colecție pentru a o încerca.</ROSE>",
     free = "Gratis.",
     finishMaps = "Termină %s hărți.",
     finishMapsFirst = "Termină %s hărți primul.",
@@ -1403,8 +1367,8 @@ opList = {}
 
 
 -- Standard maps
-stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7753263", 3}, {"@7734451", 5}, {"@7723036", 2}}
-stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7753263", 3}, {"@7734451", 5}, {"@7723036", 2}}
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 1}, {"@7048028", 2}, {"@7753263", 3}, {"@7734451", 5}, {"@7723036", 2}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 1}, {"@7048028", 2}, {"@7753263", 3}, {"@7734451", 5}, {"@7723036", 2}}
 
 -- Hardcore maps
 hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7737218", 6}, {"@7739215", 6}}
@@ -1442,7 +1406,7 @@ function randomMap(mapsLeft, mapCodes)
     mapDiff = newMap[2]
     MAPTIME = BASETIME + (mapDiff - 1) * 30
     if mapDiff == 6 then
-        MAPTIME = 4 * 60
+        MAPTIME = 5 * 60
     end
     return newMap[1]
 end
@@ -1563,7 +1527,7 @@ customRoom = false
 hasShownStats = false
 bestTime = 99999
 
-keys = {0, 1, 2, 3, 9, 27, 32, 67, 71, 72, 77, 80, 84, 88}
+keys = {0, 1, 2, 3, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
 shop = {
     dashAcc = {
@@ -1764,10 +1728,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             doublepress and keypress. (though i can make the checker variable an array but it would look ugly.)
         ]]--
         if (keyCode == 0 or keyCode == 2) and ostime - cooldowns[playerName].lastDashTime > DASHCOOLDOWN then
-            if ostime - playerVars[playerName].joinTime > 20 * 1000 and playerStats[playerName].timesDashed == 0 and playerVars[playerName].shownHelp == false then
-                chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiHelp1", playerName), playerName)
-                playerVars[playerName].shownHelp = true
-            end
             local dashUsed = false
             local direction = keyCode - 1 -- Tocu
 
@@ -2004,7 +1964,7 @@ function eventLoop(elapsedTime, timeRemaining)
     --print(elapsedTime / 1000)
 
     -- When time reaches 0, we kill everyone and show stats
-    if ((ostime - mapStartTime) >= MAPTIME * 1000 and (ostime - mapStartTime) < MAPTIME * 1000 + STATSTIME) then
+    if (elapsedTime >= MAPTIME * 1000 and elapsedTime < MAPTIME * 1000 + STATSTIME) then
         for index, value in pairs(room.playerList) do
             killPlayer(index)
         end
@@ -2013,7 +1973,7 @@ function eventLoop(elapsedTime, timeRemaining)
             showStats()
         end
     -- When passing the stats time or when skipping a map, we choose a new map
-    elseif (ostime - mapStartTime) >= MAPTIME * 1000 + STATSTIME or mapWasSkipped == true then
+    elseif elapsedTime >= MAPTIME * 1000 + STATSTIME or mapWasSkipped == true then
         mapWasSkipped = false
 
         mapCount = mapCount + 1
@@ -2109,10 +2069,6 @@ eventPlayerRespawn = secureWrapper(function(playerName)
 
     removeImage(imgs[playerName].dashButtonId)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-
-    if playerStats[playerName].timesEnteredInHole < 1 then
-        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
-    end
 end, true)
 
 eventPlayerDied = secureWrapper(function(playerName)
@@ -2202,27 +2158,23 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     -- bestTime is a global variable for record
     if finishTime <= bestTime then
         bestTime = finishTime
-        
+
         if fastestplayer ~= -1 then
             local oldFastestPlayer = fastestplayer
-            
+
             fastestplayer = playerName
-            
+
             setColor(oldFastestPlayer)
         else
             fastestplayer = playerName
         end
-        
+
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
             local message = translate(index, "newRecord", removeTag(fastestplayer).."<font size='-3'><g>"..fastestplayer:match("#%d+").."</g></font>", bestTime/100)
             chatMessage(message, index)
             --print(message)
-        end
-        
-        if math.random() < 1/2 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
     end
     
@@ -2300,9 +2252,9 @@ function calculateLevel(playerName)
     local level, progress, exp
     exp = playerStats[playerName].timesEnteredInHole * 10 + playerStats[playerName].mapsFinished * 30 + 
     playerStats[playerName].hardcoreMaps * 60 + playerStats[playerName].mapsFinishedFirst * 100
-    level = math.floor((-1 + math.sqrt(1 + 4 * (2 + exp / 10))) / 2)
+    level = math.floor(math.sqrt(exp / 10)) + 1
 
-    progress = exp - 10 * (level - 1) * (level + 2) .. "/".. 40 + (level - 1) * 20
+    progress = exp - 10 * (level - 1) ^ 2 .. "/".. 10 + (level - 1) * 20
     return {level, progress}
 end
 
@@ -2370,10 +2322,6 @@ function eventPlayerDataLoaded(playerName, data)
         end
     end
 
-    if playerStats[playerName].playtime < 40 * 1000 then
-        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiGreeting1"), playerName)
-    end
-
     loaded[playerName] = true
 end
 
@@ -2433,7 +2381,6 @@ function initPlayer(playerName)
         hasDiedThisRound = false,
         hasUsedRewind = false,
         spectate = false,
-        shownHelp = false,
         cachedData = nil
     }
 
@@ -2708,7 +2655,7 @@ function showStats()
         bestPlayers[i][2] = playerSortedBestTime[i][2]/100
     end
 
-    local message = "\n\n\n\n\n\n\n\n<p align='center'>"
+    local message = "\n\n\n\n\n\n\n<p align='center'>"
     message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
     message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
     message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
@@ -2719,24 +2666,8 @@ function showStats()
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" and tfm.get.room.uniquePlayers > 2 then
-        local bestPlayer = bestPlayers[1][1]
-        
-        checkUnlock(bestPlayer, "dashAcc", 3, "particleUnlock")
-        
-        local beforeLevel = calculateLevel(bestPlayer)[1]
-        playerStats[room.playerList[bestPlayer].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
-        local afterLevel = calculateLevel(bestPlayer)[1]
-        
-        if afterLevel > beforeLevel then
-            for index, value in pairs(room.playerList) do
-                local message = translate(index, "levelUp", removeTag(bestPlayer).."<font size='-3'><g>"..bestPlayer:match("#%d+").."</g></font>", afterLevel)
-                chatMessage(message, index)
-            end
-        end
-        
-        if math.random() < 1/2 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiLeaderboard"..math.random(1, 5), bestPlayer, bestPlayer, bestPlayer))
-        end
+        checkUnlock(bestPlayers[1][1], "dashAcc", 3, "particleUnlock")
+        playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst = playerStats[room.playerList[bestPlayers[1][1]].playerName].mapsFinishedFirst + 1
     end
 end
 
@@ -3221,14 +3152,6 @@ end
 ]]--
 
 function eventChatMessage(playerName, msg)
-    if msg:lower():find("gg") or msg:lower():find("gj") then
-        if math.random() < 1/3 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
-        end
-    elseif msg == "." and playerName == "Extremq#0000" then
-        chatMessage("<V>[Sensei]</V> <N>.")
-    end
-
     if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
         return
     end
@@ -3255,7 +3178,7 @@ function eventChatMessage(playerName, msg)
 end
 
 -- Chat commands
-commands = {"n", "time", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
+commands = {"n", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
 for i = 1, #commands do
     system.disableChatCommandDisplay(commands[i])
     system.disableChatCommandDisplay(commands[i]:upper())
@@ -3311,12 +3234,6 @@ function eventChatCommand(playerName, message)
             hasShownStats = false
             mapWasSkipped = true
             bestPlayers = {{"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}}
-        end
-
-        if arg[1] == "time" and arg[2]:match("^%d+$") then
-            isValid = true
-            MAPTIME = tonumber(arg[2])
-            mapStartTime = os.time()
         end
     end
 
@@ -3475,7 +3392,7 @@ tfm.exec.setAutoMapFlipMode(randomFlip())
 tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
 tfm.exec.disablePhysicalConsumables(true)
 tfm.exec.setGameTime(MAPTIME, true)
-tfm.exec.setRoomMaxPlayers(16)
+tfm.exec.setRoomMaxPlayers(36)
 
 if not tfm.get.room.name:find('#') or string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*?#ninja%d+editor%d*$") then
     customRoom = true

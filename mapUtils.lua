@@ -3,7 +3,7 @@
     description: Contains functions that help with the map picker algorithm and title setter.
 ]]--
 
-MAPTIME = 4 * 60 + 3
+MAPTIME = 3 * 60 + 3
 BASETIME = MAPTIME -- after difficulty
 
 -- CHOOSE MAP
@@ -28,7 +28,7 @@ function randomMap(mapsLeft, mapCodes)
     mapDiff = newMap[2]
     MAPTIME = BASETIME + (mapDiff - 1) * 30
     if mapDiff == 6 then
-        MAPTIME = 5 * 60
+        MAPTIME = 4 * 60
     end
     return newMap[1]
 end

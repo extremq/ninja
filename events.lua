@@ -24,6 +24,10 @@ eventPlayerRespawn = secureWrapper(function(playerName)
 
     removeImage(imgs[playerName].dashButtonId)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
+
+    if playerStats[playerName].timesEnteredInHole < 1 then
+        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
+    end
 end, true)
 
 eventPlayerDied = secureWrapper(function(playerName)
@@ -113,23 +117,27 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
     -- bestTime is a global variable for record
     if finishTime <= bestTime then
         bestTime = finishTime
-
+        
         if fastestplayer ~= -1 then
             local oldFastestPlayer = fastestplayer
-
+            
             fastestplayer = playerName
-
+            
             setColor(oldFastestPlayer)
         else
             fastestplayer = playerName
         end
-
+        
         -- send message to everyone in their language
         for index, value in pairs(room.playerList) do
             local _id = room.playerList[index].id
             local message = translate(index, "newRecord", removeTag(fastestplayer).."<font size='-3'><g>"..fastestplayer:match("#%d+").."</g></font>", bestTime/100)
             chatMessage(message, index)
             --print(message)
+        end
+        
+        if math.random() < 1/2 then
+            chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
     end
     
