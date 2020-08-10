@@ -30,6 +30,8 @@ tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
 tfm.exec.disablePhysicalConsumables(true)
 tfm.exec.setGameTime(MAPTIME, true)
 tfm.exec.setRoomMaxPlayers(16)
+tfm.exec.disablePrespawnPreview(true)
+tfm.exec.disableAllShamanSkills(true)
 
 if not tfm.get.room.name:find('#') or string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*?#ninja%d+editor%d*$") then
     customRoom = true

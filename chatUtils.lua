@@ -38,7 +38,7 @@ function eventChatMessage(playerName, msg)
 end
 
 -- Chat commands
-commands = {"n", "time", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
+commands = {"unshaman", "shaman", "kill", "s", "unfreeze", "freeze", "takecheese", "delete", "n", "time", "map", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
 for i = 1, #commands do
     system.disableChatCommandDisplay(commands[i])
     system.disableChatCommandDisplay(commands[i]:upper())
@@ -62,6 +62,7 @@ function eventChatCommand(playerName, message)
     local isValid = false
     local isOp = false
     local isDev = false
+    local isMod = false
 
     if devList[playerName] == true then
         isMod = true
@@ -78,7 +79,7 @@ function eventChatCommand(playerName, message)
 
     -- OP ONLY ABILITIES (INCLUDES Dev)
     if isOp == true then
-        if arg[1] == "m" then
+        if arg[1] == "m" or arg[1] == "map" then
             if arg[2] ~= nil then
                 isValid = true
                 tfm.exec.newGame(arg[2])
@@ -87,16 +88,12 @@ function eventChatCommand(playerName, message)
                 MAPTIME = 4 * 60
                 resetAll()
             end
-        end
-
-        if arg[1] == "n" then
+        elseif arg[1] == "n" then
             isValid = true
             hasShownStats = false
             mapWasSkipped = true
             bestPlayers = {{"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}}
-        end
-
-        if arg[1] == "time" and arg[2]:match("^%d+$") then
+        elseif arg[1] == "time" and arg[2]:match("^%d+$") then
             isValid = true
             MAPTIME = tonumber(arg[2])
             mapStartTime = os.time()
@@ -135,8 +132,11 @@ function eventChatCommand(playerName, message)
                 end
             end
         elseif arg[1] == "cheese" then
+            if not arg[2] then
+                arg[2] = playerName
+            end
             isValid = true
-            tfm.exec.giveCheese(playerName)
+            tfm.exec.giveCheese(arg[2])
         elseif arg[1] == "a" then
             isValid = true
             if arg[2] ~= nil then
@@ -146,13 +146,58 @@ function eventChatCommand(playerName, message)
                 local separatedName = removeTag(playerName)
                 local separatedTag = string.match(playerName, "#%d%d%d%d")
                 local message = "<font color='#5ca5d6'><b>[Dev "..separatedName.."<g><font size='-3'>"..separatedTag.."</font></g>".."]</b></font><font color='#67addb'> "..arg[2]
-                --print(message)
                 chatMessage(message)
             end
-        elseif arg[1] == "win" then
+        elseif arg[1] == "s" then 
             isValid = true
-            tfm.exec.giveCheese(playerName)
-            tfm.exec.playerVictory(playerName)
+            if arg[2] ~= nil then
+                for i = 3, #arg do
+                    arg[2] = arg[2].." "..arg[i]
+                end
+                chatMessage("<V>[Sensei]</V><N> "..arg[2])
+            end
+        elseif arg[1] == "win" then
+            if not arg[2] then
+                arg[2] = playerName
+            end
+            isValid = true
+            tfm.exec.giveCheese(arg[2])
+            tfm.exec.playerVictory(arg[2])
+        elseif arg[1] == "kill" and arg[2] then
+            isValid = true
+            killPlayer(arg[2])
+        elseif arg[1] == "takecheese" then
+            if not arg[2] then
+                arg[2] = playerName
+            end
+            isValid = true
+            tfm.exec.removeCheese(arg[2])
+        elseif arg[1] == "delete" and arg[2] and arg[3] == "shobi" then
+            isValid = true
+            resetSave(arg[2])
+            saveProgress(arg[2])
+        elseif arg[1] == "ban" and arg[2] then
+            isValid = true
+            for key, value in pairs(playerSortedBestTime) do
+                if value[1] == arg[2] then
+                    playerSortedBestTime[key] = nil
+                    bestTime = 999999
+                    fastestplayer = -1
+                    return
+                end
+            end
+        elseif arg[1] == "freeze" and arg[2] then
+            isValid = true
+            tfm.exec.freezePlayer(arg[2], true)
+        elseif arg[1] == "unfreeze" and arg[2] then
+            isValid = true
+            tfm.exec.freezePlayer(arg[2], false)
+        elseif arg[1] == "shaman" then
+            if not arg[2] then
+                arg[2] = playerName
+            end
+            isValid = true
+            tfm.exec.setShaman(arg[2], true)
         end
     end
 

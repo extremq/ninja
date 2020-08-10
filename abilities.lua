@@ -235,7 +235,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     elseif keyCode == 72 then
         -- Help system
         if playerVars[playerName].menuPage ~= "help" then
-            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translate(playerName, "helpBody").."</font>", playerName, "help")
+            openPage("#ninja", "\n<font face='Verdana' size='12'>"..translate(playerName, "helpBody").."</font>", playerName, "help")
         elseif playerVars[playerName].menuPage == "help" then
             closePage(playerName)
         end
@@ -264,35 +264,47 @@ eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
     -- print("click at "..xMousePosition)
     if modRoom[playerName] == true or opList[playerName] == true then
         movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
-    else
-        --[[
-            I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
-            in order to be able to open the menu when the mouse is in the left part of the screen.
-            :D
-        ]]--
-        local uiMouseX = xMousePosition
-        local mapX = extractMapDimensions()
-        -- print("mapX ".. mapX)
-        if playerX > 400 and playerX < mapX - 400 then
-            uiMouseX = xMousePosition - (playerX - 400)
-        elseif playerX > mapX - 400 then
-            uiMouseX = xMousePosition - (mapX - 800)
-        end
-        -- print("uimouse "..uiMouseX)
-        if -100 <= uiMouseX and uiMouseX <= 250 then
-            if imgs[playerName].menuImgId == nil then
-                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
-                imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
-            else
-                closePage(playerName)
-            end
-        end
     end
+    -- else
+    --     --[[
+    --         I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
+    --         in order to be able to open the menu when the mouse is in the left part of the screen.
+    --         :D
+    --     ]]--
+    --     local uiMouseX = xMousePosition
+    --     local mapX = extractMapDimensions()
+    --     -- print("mapX ".. mapX)
+    --     if playerX > 400 and playerX < mapX - 400 then
+    --         uiMouseX = xMousePosition - (playerX - 400)
+    --     elseif playerX > mapX - 400 then
+    --         uiMouseX = xMousePosition - (mapX - 800)
+    --     end
+    --     -- print("uimouse "..uiMouseX)
+    --     if -100 <= uiMouseX and uiMouseX <= 250 then
+    --         if imgs[playerName].menuImgId == nil then
+    --             addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+    --             imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
+    --         else
+    --             closePage(playerName)
+    --         end
+    --     end
+    -- end
 end, true)
+
+local lastGug = 0
 
 -- UI UPDATER & PLAYER RESPAWNER & REWINDER
 function eventLoop(elapsedTime, timeRemaining)
     local ostime = os.time()
+    local minute = os.date("%M", ostime)
+
+    if minute == "00" then
+        if ostime - lastGug > 60 * 1000 then
+            lastGug = ostime
+            local message = "GUG!"
+            chatMessage("<V>[Sensei]</V><N> "..message)
+        end 
+    end
 
     -- Can't rely on elapsedTime
     updateMapName(MAPTIME * 1000 - (ostime - mapStartTime))

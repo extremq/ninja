@@ -39,6 +39,23 @@ function saveProgress(name)
     playerVars[name].cachedData = newData
 end
 
+function resetSave(playerName)
+    playerStats[playerName] = {
+        firstJoinTime = os.time(),
+        playtime = 0,
+        mapsFinished = 0,
+        mapsFinishedFirst = 0,
+        timesEnteredInHole = 0,
+        graffitiSprays = 0,
+        timesDashed = 0,
+        doubleJumps = 0,
+        timesRewinded = 0,
+        hardcoreMaps = 0,
+        equipment = {1, 1, 1, 1},
+        playerPreferences = {true, true, false, true}
+    }
+end
+
 --[[
 for p,_ in pairs(tfm.get.room.playerList) do
     system.savePlayerData(p, " ")

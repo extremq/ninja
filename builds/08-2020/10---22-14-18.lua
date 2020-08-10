@@ -2123,7 +2123,7 @@ eventPlayerRespawn = secureWrapper(function(playerName)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
 
     if playerStats[playerName].timesEnteredInHole < 1 and math.random() < 1/5 then
-        chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
+        chatMessage("<CEP>&gt; [int] [<FC>Sensei</FC>] "..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
     end
 end, true)
 
@@ -2234,7 +2234,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         end
         
         if math.random() < 1/2 then
-            chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
+            chatMessage("<CEP>&gt; [int] [<FC>Sensei</FC>] "..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
     end
     

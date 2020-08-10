@@ -1940,7 +1940,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     elseif keyCode == 72 then
         -- Help system
         if playerVars[playerName].menuPage ~= "help" then
-            openPage("#ninja", "\n<font face='Verdana' size='12'>"..translate(playerName, "helpBody").."</font>", playerName, "help")
+            openPage("#ninja", "\n<font face='Verdana' size='11'>"..translate(playerName, "helpBody").."</font>", playerName, "help")
         elseif playerVars[playerName].menuPage == "help" then
             closePage(playerName)
         end
@@ -1969,47 +1969,35 @@ eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
     -- print("click at "..xMousePosition)
     if modRoom[playerName] == true or opList[playerName] == true then
         movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
+    else
+        --[[
+            I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
+            in order to be able to open the menu when the mouse is in the left part of the screen.
+            :D
+        ]]--
+        local uiMouseX = xMousePosition
+        local mapX = extractMapDimensions()
+        -- print("mapX ".. mapX)
+        if playerX > 400 and playerX < mapX - 400 then
+            uiMouseX = xMousePosition - (playerX - 400)
+        elseif playerX > mapX - 400 then
+            uiMouseX = xMousePosition - (mapX - 800)
+        end
+        -- print("uimouse "..uiMouseX)
+        if -100 <= uiMouseX and uiMouseX <= 250 then
+            if imgs[playerName].menuImgId == nil then
+                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+                imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
+            else
+                closePage(playerName)
+            end
+        end
     end
-    -- else
-    --     --[[
-    --         I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
-    --         in order to be able to open the menu when the mouse is in the left part of the screen.
-    --         :D
-    --     ]]--
-    --     local uiMouseX = xMousePosition
-    --     local mapX = extractMapDimensions()
-    --     -- print("mapX ".. mapX)
-    --     if playerX > 400 and playerX < mapX - 400 then
-    --         uiMouseX = xMousePosition - (playerX - 400)
-    --     elseif playerX > mapX - 400 then
-    --         uiMouseX = xMousePosition - (mapX - 800)
-    --     end
-    --     -- print("uimouse "..uiMouseX)
-    --     if -100 <= uiMouseX and uiMouseX <= 250 then
-    --         if imgs[playerName].menuImgId == nil then
-    --             addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
-    --             imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
-    --         else
-    --             closePage(playerName)
-    --         end
-    --     end
-    -- end
 end, true)
-
-local lastGug = 0
 
 -- UI UPDATER & PLAYER RESPAWNER & REWINDER
 function eventLoop(elapsedTime, timeRemaining)
     local ostime = os.time()
-    local minute = os.date("%M", ostime)
-
-    if minute == "00" then
-        if ostime - lastGug > 60 * 1000 then
-            lastGug = ostime
-            local message = "GUG!"
-            chatMessage("<V>[Sensei]</V><N> "..message)
-        end 
-    end
 
     -- Can't rely on elapsedTime
     updateMapName(MAPTIME * 1000 - (ostime - mapStartTime))
@@ -2123,7 +2111,7 @@ eventPlayerRespawn = secureWrapper(function(playerName)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
 
     if playerStats[playerName].timesEnteredInHole < 1 and math.random() < 1/5 then
-        chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
+        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
     end
 end, true)
 
@@ -2234,7 +2222,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         end
         
         if math.random() < 1/2 then
-            chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
+            chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
     end
     
@@ -2324,23 +2312,6 @@ function saveProgress(name)
     local newData = playerVars[name].cachedData:gsub("¤(.+)¤", "¤"..json.encode(playerStats[name]).."¤")
     system.savePlayerData(name, newData)
     playerVars[name].cachedData = newData
-end
-
-function resetSave(playerName)
-    playerStats[playerName] = {
-        firstJoinTime = os.time(),
-        playtime = 0,
-        mapsFinished = 0,
-        mapsFinishedFirst = 0,
-        timesEnteredInHole = 0,
-        graffitiSprays = 0,
-        timesDashed = 0,
-        doubleJumps = 0,
-        timesRewinded = 0,
-        hardcoreMaps = 0,
-        equipment = {1, 1, 1, 1},
-        playerPreferences = {true, true, false, true}
-    }
 end
 
 --[[
@@ -2694,12 +2665,6 @@ function windowConfig(title, body, playerName, pageId)
         putInClearQueue(addImage(CLOSE_BTN, ":100", 661, 55, playerName), "img", playerName)
         putInClearQueue(addImage(PROFILE_LINE, "&100", 128, 123, playerName), "img", playerName)
         addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 663, 53, 20, 20, 0x324650, 0x000000, 0, true) 
-    elseif pageId:find("about") ~= nil or pageId:find("help") ~= nil or pageId:find("leaderboards") ~= nil or pageId:find("settings") ~= nil then
-        addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 230, 82, 340, 260, 0x1A353A, 0x7B5A35, 0, true)
-        putInClearQueue(addImage(AREA_402_302, ":100", 198, 63, playerName), "img", playerName)
-        putInClearQueue(addImage(CLOSE_BTN, ":100", 572, 55, playerName), "img", playerName)
-        addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 574, 53, 20, 20, 0x324650, 0x000000, 0, true) 
-        putInClearQueue(13, "area", playerName)
     else
         addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 200, 62, 400, 300, 0x1A353A, 0x7B5A35, 0, true)
         putInClearQueue(addImage(AREA_402_302, ":100", 198, 63, playerName), "img", playerName)
@@ -2707,7 +2672,6 @@ function windowConfig(title, body, playerName, pageId)
         addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 574, 53, 20, 20, 0x324650, 0x000000, 0, true) 
         putInClearQueue(13, "area", playerName)
     end
-
     if #string.utf8(title) > 10 then
         putInClearQueue(addImage(WIDE_HEADER, ":100", 299, 35, playerName), "img", playerName)
     else 
@@ -2798,7 +2762,7 @@ function stats(playerName, creatorName)
     body = body..translate(creatorName, "timesDoubleJumped")..": <bl>"..playerStats[playerName].doubleJumps.."</bl>\n"
     body = body..translate(creatorName, "rewindUses")..": <bl>"..playerStats[playerName].timesRewinded.."</bl></textformat>"
 
-    return body
+    return "<font face='Verdana' size='11'>"..body.."</font>"
 end
 
 function generateProfileImgs(playerName, target)
@@ -2863,11 +2827,13 @@ function remakeOptions(playerName)
         end
     end
 
-    local body = "\n\n\n<font size='12' face='Verdana'><textformat tabstops='0, 280'>"
-    body = body .. "<a href=\"event:ToggleGraffiti\">"..translate(playerName, "graffitiSetting").."?</a> \t"..toggles[1].." \n"
-    body = body .. "\n<a href=\"event:ToggleDashPart\">"..translate(playerName, "particlesSetting").."?</a> \t"..toggles[2].." \n"
-    body = body .. "\n<a href=\"event:ToggleTimePanels\">"..translate(playerName, "timePanelsSetting").."?</a> \t"..toggles[3].." \n"
-    body = body .. "\n<a href=\"event:ToggleGlobalChat\">"..translate(playerName, "globalChatSetting").."?</a> \t"..toggles[4].." \n"
+    
+
+    local body = "\n\n\n<font size='12' face='Verdana'><textformat  tabstops='40,300'>"
+    body = body .. "\n\t<a href=\"event:ToggleGraffiti\">"..translate(playerName, "graffitiSetting").."?</a> \t"..toggles[1].."\n"
+    body = body .. "\n\t<a href=\"event:ToggleDashPart\">"..translate(playerName, "particlesSetting").."?</a> \t"..toggles[2].."\n"
+    body = body .. "\n\t<a href=\"event:ToggleTimePanels\">"..translate(playerName, "timePanelsSetting").."?</a> \t"..toggles[3].."\n"
+    body = body .. "\n\t<a href=\"event:ToggleGlobalChat\">"..translate(playerName, "globalChatSetting").."?</a> \t"..toggles[4].."\n"
 
     return body
 end
@@ -3142,11 +3108,11 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         elseif eventName == "StatsOpen" then
             openPage(translate(playerName, "profileTitle"), stats(playerName, playerName), playerName, "profile")
         elseif eventName == "LeaderOpen" then
-            openPage(translate(playerName, "leaderboardsTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "leaderboardsNotice").."</font>", playerName, "leaderboards")
+            openPage(translate(playerName, "leaderboardsTitle"), "\n<font face='Verdana' size='11'>"..translate(playerName, "leaderboardsNotice").."</font>", playerName, "leaderboards")
         elseif eventName == "SettingsOpen" then
             openPage(translate(playerName, "settingsTitle"), remakeOptions(playerName), playerName, "settings")
         elseif eventName == "AboutOpen" then
-            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "aboutBody").."\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION).."</V></p></font>", playerName, "about")
+            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='11'>"..translate(playerName, "aboutBody").."\n\n\n\n\n\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION).."</V></p></font>", playerName, "about")
         end
     end
 
@@ -3295,7 +3261,7 @@ function eventChatMessage(playerName, msg)
 end
 
 -- Chat commands
-commands = {"unshaman", "shaman", "kill", "s", "unfreeze", "freeze", "takecheese", "delete", "n", "time", "map", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
+commands = {"n", "time", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
 for i = 1, #commands do
     system.disableChatCommandDisplay(commands[i])
     system.disableChatCommandDisplay(commands[i]:upper())
@@ -3319,7 +3285,6 @@ function eventChatCommand(playerName, message)
     local isValid = false
     local isOp = false
     local isDev = false
-    local isMod = false
 
     if devList[playerName] == true then
         isMod = true
@@ -3336,7 +3301,7 @@ function eventChatCommand(playerName, message)
 
     -- OP ONLY ABILITIES (INCLUDES Dev)
     if isOp == true then
-        if arg[1] == "m" or arg[1] == "map" then
+        if arg[1] == "m" then
             if arg[2] ~= nil then
                 isValid = true
                 tfm.exec.newGame(arg[2])
@@ -3345,12 +3310,16 @@ function eventChatCommand(playerName, message)
                 MAPTIME = 4 * 60
                 resetAll()
             end
-        elseif arg[1] == "n" then
+        end
+
+        if arg[1] == "n" then
             isValid = true
             hasShownStats = false
             mapWasSkipped = true
             bestPlayers = {{"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}, {"N/A", "N/A", "N/A"}}
-        elseif arg[1] == "time" and arg[2]:match("^%d+$") then
+        end
+
+        if arg[1] == "time" and arg[2]:match("^%d+$") then
             isValid = true
             MAPTIME = tonumber(arg[2])
             mapStartTime = os.time()
@@ -3389,11 +3358,8 @@ function eventChatCommand(playerName, message)
                 end
             end
         elseif arg[1] == "cheese" then
-            if not arg[2] then
-                arg[2] = playerName
-            end
             isValid = true
-            tfm.exec.giveCheese(arg[2])
+            tfm.exec.giveCheese(playerName)
         elseif arg[1] == "a" then
             isValid = true
             if arg[2] ~= nil then
@@ -3403,58 +3369,13 @@ function eventChatCommand(playerName, message)
                 local separatedName = removeTag(playerName)
                 local separatedTag = string.match(playerName, "#%d%d%d%d")
                 local message = "<font color='#5ca5d6'><b>[Dev "..separatedName.."<g><font size='-3'>"..separatedTag.."</font></g>".."]</b></font><font color='#67addb'> "..arg[2]
+                --print(message)
                 chatMessage(message)
             end
-        elseif arg[1] == "s" then 
-            isValid = true
-            if arg[2] ~= nil then
-                for i = 3, #arg do
-                    arg[2] = arg[2].." "..arg[i]
-                end
-                chatMessage("<V>[Sensei]</V><N> "..arg[2])
-            end
         elseif arg[1] == "win" then
-            if not arg[2] then
-                arg[2] = playerName
-            end
             isValid = true
-            tfm.exec.giveCheese(arg[2])
-            tfm.exec.playerVictory(arg[2])
-        elseif arg[1] == "kill" and arg[2] then
-            isValid = true
-            killPlayer(arg[2])
-        elseif arg[1] == "takecheese" then
-            if not arg[2] then
-                arg[2] = playerName
-            end
-            isValid = true
-            tfm.exec.removeCheese(arg[2])
-        elseif arg[1] == "delete" and arg[2] and arg[3] == "shobi" then
-            isValid = true
-            resetSave(arg[2])
-            saveProgress(arg[2])
-        elseif arg[1] == "ban" and arg[2] then
-            isValid = true
-            for key, value in pairs(playerSortedBestTime) do
-                if value[1] == arg[2] then
-                    playerSortedBestTime[key] = nil
-                    bestTime = 999999
-                    fastestplayer = -1
-                    return
-                end
-            end
-        elseif arg[1] == "freeze" and arg[2] then
-            isValid = true
-            tfm.exec.freezePlayer(arg[2], true)
-        elseif arg[1] == "unfreeze" and arg[2] then
-            isValid = true
-            tfm.exec.freezePlayer(arg[2], false)
-        elseif arg[1] == "shaman" then
-            if not arg[2] then
-                arg[2] = playerName
-            end
-            isValid = true
-            tfm.exec.setShaman(arg[2], true)
+            tfm.exec.giveCheese(playerName)
+            tfm.exec.playerVictory(playerName)
         end
     end
 
@@ -3561,8 +3482,6 @@ tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
 tfm.exec.disablePhysicalConsumables(true)
 tfm.exec.setGameTime(MAPTIME, true)
 tfm.exec.setRoomMaxPlayers(16)
-tfm.exec.disablePrespawnPreview(true)
-tfm.exec.disableAllShamanSkills(true)
 
 if not tfm.get.room.name:find('#') or string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*?#ninja%d+editor%d*$") then
     customRoom = true

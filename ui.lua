@@ -84,6 +84,12 @@ function windowConfig(title, body, playerName, pageId)
         putInClearQueue(addImage(CLOSE_BTN, ":100", 661, 55, playerName), "img", playerName)
         putInClearQueue(addImage(PROFILE_LINE, "&100", 128, 123, playerName), "img", playerName)
         addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 663, 53, 20, 20, 0x324650, 0x000000, 0, true) 
+    elseif pageId:find("about") ~= nil or pageId:find("help") ~= nil or pageId:find("leaderboards") ~= nil or pageId:find("settings") ~= nil then
+        addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 230, 82, 340, 260, 0x1A353A, 0x7B5A35, 0, true)
+        putInClearQueue(addImage(AREA_402_302, ":100", 198, 63, playerName), "img", playerName)
+        putInClearQueue(addImage(CLOSE_BTN, ":100", 572, 55, playerName), "img", playerName)
+        addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 574, 53, 20, 20, 0x324650, 0x000000, 0, true) 
+        putInClearQueue(13, "area", playerName)
     else
         addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 200, 62, 400, 300, 0x1A353A, 0x7B5A35, 0, true)
         putInClearQueue(addImage(AREA_402_302, ":100", 198, 63, playerName), "img", playerName)
@@ -91,6 +97,7 @@ function windowConfig(title, body, playerName, pageId)
         addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 574, 53, 20, 20, 0x324650, 0x000000, 0, true) 
         putInClearQueue(13, "area", playerName)
     end
+
     if #string.utf8(title) > 10 then
         putInClearQueue(addImage(WIDE_HEADER, ":100", 299, 35, playerName), "img", playerName)
     else 
@@ -181,7 +188,7 @@ function stats(playerName, creatorName)
     body = body..translate(creatorName, "timesDoubleJumped")..": <bl>"..playerStats[playerName].doubleJumps.."</bl>\n"
     body = body..translate(creatorName, "rewindUses")..": <bl>"..playerStats[playerName].timesRewinded.."</bl></textformat>"
 
-    return "<font face='Verdana' size='11'>"..body.."</font>"
+    return body
 end
 
 function generateProfileImgs(playerName, target)
@@ -211,7 +218,7 @@ function generateProfileImgs(playerName, target)
     local profileName = playerName
     local pageId = playerVars[playerName].menuPage
     if pageId:find("@") then
-        profileName = pageId:match("@(%w+#%d+)")
+        profileName = pageId:match("@(%+?[a-zA-Z0-9_]+#%d+)")
     end
     local playerTag = profileName:match("#%d%d%d%d")
     local colorTag = 'V'
@@ -237,7 +244,7 @@ function remakeOptions(playerName)
     -- REMAKE OPTIONS TEXT (UPDATE YES - NO)
     local id = playerId(playerName)
 
-    toggles = {}
+    local toggles = {}
     for i = 1, #playerVars[playerName].playerPreferences do
         if playerVars[playerName].playerPreferences[i] == true then
             toggles[i] = translate(playerName, "optionsYes")
@@ -246,9 +253,13 @@ function remakeOptions(playerName)
         end
     end
 
-    local body = " » <a href=\"event:ToggleGraffiti\">"..translate(playerName, "graffitiSetting").."?</a> "..toggles[1].."\n » <a href=\"event:ToggleDashPart\">"..translate(playerName, "particlesSetting").."?</a> "..toggles[2].."\n » <a href=\"event:ToggleTimePanels\">"..translate(playerName, "timePanelsSetting").."?</a> "..toggles[3]
-    body = body.."\n » <a href=\"event:ToggleGlobalChat\">"..translate(playerName, "globalChatSetting").."?</a> "..toggles[4].."\n"
-    return "\n<font face='Verdana' size='11'>"..body.."</font>"
+    local body = "\n\n\n<font size='12' face='Verdana'><textformat tabstops='0, 280'>"
+    body = body .. "<a href=\"event:ToggleGraffiti\">"..translate(playerName, "graffitiSetting").."?</a> \t"..toggles[1].." \n"
+    body = body .. "\n<a href=\"event:ToggleDashPart\">"..translate(playerName, "particlesSetting").."?</a> \t"..toggles[2].." \n"
+    body = body .. "\n<a href=\"event:ToggleTimePanels\">"..translate(playerName, "timePanelsSetting").."?</a> \t"..toggles[3].." \n"
+    body = body .. "\n<a href=\"event:ToggleGlobalChat\">"..translate(playerName, "globalChatSetting").."?</a> \t"..toggles[4].." \n"
+
+    return body
 end
 
 function clear(playerName)
@@ -521,11 +532,11 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         elseif eventName == "StatsOpen" then
             openPage(translate(playerName, "profileTitle"), stats(playerName, playerName), playerName, "profile")
         elseif eventName == "LeaderOpen" then
-            openPage(translate(playerName, "leaderboardsTitle"), "\n<font face='Verdana' size='11'>"..translate(playerName, "leaderboardsNotice").."</font>", playerName, "leaderboards")
+            openPage(translate(playerName, "leaderboardsTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "leaderboardsNotice").."</font>", playerName, "leaderboards")
         elseif eventName == "SettingsOpen" then
             openPage(translate(playerName, "settingsTitle"), remakeOptions(playerName), playerName, "settings")
         elseif eventName == "AboutOpen" then
-            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='11'>"..translate(playerName, "aboutBody").."\n\n\n\n\n\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION).."</V></p></font>", playerName, "about")
+            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "aboutBody").."\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION).."</V></p></font>", playerName, "about")
         end
     end
 

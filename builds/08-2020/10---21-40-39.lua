@@ -1969,31 +1969,30 @@ eventMouse = secureWrapper(function(playerName, xMousePosition, yMousePosition)
     -- print("click at "..xMousePosition)
     if modRoom[playerName] == true or opList[playerName] == true then
         movePlayer(playerName, xMousePosition, yMousePosition, false, 0, 0, false)
+    else
+        --[[
+            I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
+            in order to be able to open the menu when the mouse is in the left part of the screen.
+            :D
+        ]]--
+        local uiMouseX = xMousePosition
+        local mapX = extractMapDimensions()
+        -- print("mapX ".. mapX)
+        if playerX > 400 and playerX < mapX - 400 then
+            uiMouseX = xMousePosition - (playerX - 400)
+        elseif playerX > mapX - 400 then
+            uiMouseX = xMousePosition - (mapX - 800)
+        end
+        -- print("uimouse "..uiMouseX)
+        if -100 <= uiMouseX and uiMouseX <= 250 then
+            if imgs[playerName].menuImgId == nil then
+                addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
+                imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
+            else
+                closePage(playerName)
+            end
+        end
     end
-    -- else
-    --     --[[
-    --         I basically convert mouse coordinates into ui coordinates (only for x, i don't care about y)
-    --         in order to be able to open the menu when the mouse is in the left part of the screen.
-    --         :D
-    --     ]]--
-    --     local uiMouseX = xMousePosition
-    --     local mapX = extractMapDimensions()
-    --     -- print("mapX ".. mapX)
-    --     if playerX > 400 and playerX < mapX - 400 then
-    --         uiMouseX = xMousePosition - (playerX - 400)
-    --     elseif playerX > mapX - 400 then
-    --         uiMouseX = xMousePosition - (mapX - 800)
-    --     end
-    --     -- print("uimouse "..uiMouseX)
-    --     if -100 <= uiMouseX and uiMouseX <= 250 then
-    --         if imgs[playerName].menuImgId == nil then
-    --             addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
-    --             imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
-    --         else
-    --             closePage(playerName)
-    --         end
-    --     end
-    -- end
 end, true)
 
 local lastGug = 0
@@ -2003,7 +2002,9 @@ function eventLoop(elapsedTime, timeRemaining)
     local ostime = os.time()
     local minute = os.date("%M", ostime)
 
-    if minute == "00" then
+    print(minute)
+
+    if minute == 34 then
         if ostime - lastGug > 60 * 1000 then
             lastGug = ostime
             local message = "GUG!"
@@ -2123,7 +2124,7 @@ eventPlayerRespawn = secureWrapper(function(playerName)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
 
     if playerStats[playerName].timesEnteredInHole < 1 and math.random() < 1/5 then
-        chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
+        chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
     end
 end, true)
 
@@ -2234,7 +2235,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         end
         
         if math.random() < 1/2 then
-            chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
+            chatMessage("<V>[Sensei]</V> <N>"..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
     end
     
@@ -3295,7 +3296,7 @@ function eventChatMessage(playerName, msg)
 end
 
 -- Chat commands
-commands = {"unshaman", "shaman", "kill", "s", "unfreeze", "freeze", "takecheese", "delete", "n", "time", "map", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
+commands = {"kill", "s", "unfreeze", "freeze", "takecheese", "delete", "n", "time", "map", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
 for i = 1, #commands do
     system.disableChatCommandDisplay(commands[i])
     system.disableChatCommandDisplay(commands[i]:upper())
@@ -3455,6 +3456,12 @@ function eventChatCommand(playerName, message)
             end
             isValid = true
             tfm.exec.setShaman(arg[2], true)
+        elseif arg[1] == "unshaman" then
+            if not arg[2] then
+                arg[2] = playerName
+            end
+            isValid = true
+            tfm.exec.shaman(arg[2], false)
         end
     end
 
@@ -3562,7 +3569,6 @@ tfm.exec.disablePhysicalConsumables(true)
 tfm.exec.setGameTime(MAPTIME, true)
 tfm.exec.setRoomMaxPlayers(16)
 tfm.exec.disablePrespawnPreview(true)
-tfm.exec.disableAllShamanSkills(true)
 
 if not tfm.get.room.name:find('#') or string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*?#ninja%d+editor%d*$") then
     customRoom = true
