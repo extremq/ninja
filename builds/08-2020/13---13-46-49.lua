@@ -968,15 +968,12 @@ translations.en = {
     infobarLevel = "Level:",
     infobarMice = "Mice:",
     infobarHardcore = "<R>HARDCORE</R>",
-    infobarBlitz = "<J>BLITZ</J>",
+    infobarBlitz = "BLITZ",
     infobarTimeOver = "STATISTICS TIME!",
     infobarRecord = "Record:",
     infobarLoading = "Loading...",
 
     levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!",
-    slowestPlayer = "Longest time: ",
-    mostDeaths = "Most deaths this round: ",
-    mostAbilities = "Most abilities used this round: ",
 
     --- SENSEI
 
@@ -1407,16 +1404,16 @@ opList = {}
 
 
 -- Standard maps
-stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7733505", 3}, {"@7734451", 5}, {"@7723036", 2}, {"@4371074", 3}}
-stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7733505", 3}, {"@7734451", 5}, {"@7723036", 2}, {"@4371074", 3}}
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7753263", 3}, {"@7734451", 5}, {"@7723036", 2}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7753263", 3}, {"@7734451", 5}, {"@7723036", 2}}
 
 -- Hardcore maps
 hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7737218", 6}, {"@7739215", 6}}
 hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7737218", 6}, {"@7739215", 6}}
 
 -- Blitz maps
-bzMapCodes = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}, {"@6518642", 0}, {"@5025765"}, 0}
-bzMapsLeft = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}, {"@6518642", 0}, {"@5025765"}, 0}
+bzMapCodes = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0},  {"@4371074", 0},  {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}}
+bzMapsLeft = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0},  {"@4371074", 0},  {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}}
 --[[ End of file maps.lua ]]--
 
 --[[ File mapUtils.lua ]]--
@@ -1425,7 +1422,7 @@ bzMapsLeft = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0
     description: Contains functions that help with the map picker algorithm and title setter.
 ]]--
 
-MAPTIME = 2 * 60 + 3
+MAPTIME = 3 * 60 + 3
 BASETIME = MAPTIME -- after difficulty
 
 -- CHOOSE MAP
@@ -1448,11 +1445,11 @@ function randomMap(mapsLeft, mapCodes)
     table.remove(mapsLeft, pos)
     lastMap = newMap[1]
     mapDiff = newMap[2]
-    MAPTIME = BASETIME --+ (mapDiff - 1) * 30
+    MAPTIME = BASETIME + (mapDiff - 1) * 30
     if mapDiff == 6 then
-        MAPTIME = BASETIME + 60
+        MAPTIME = 4 * 60
     elseif mapDiff == 0 then
-        MAPTIME = 60
+        MAPTIME = 40
     end
     return newMap[1]
 end
@@ -1566,7 +1563,6 @@ mapDiff = 0
 mapCount = 1
 globalPlayerCount = 0
 fastestplayer = -1
-slowestplayer = -1
 playerSortedBestTime = {}
 playerCount = 0
 playerWon = 0
@@ -1575,7 +1571,6 @@ admin = ""
 customRoom = false
 hasShownStats = false
 bestTime = 99999
-worstTime = 0
 
 keys = {0, 1, 2, 3, 9, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
@@ -1724,10 +1719,10 @@ end
 ]]--
 
 --CONSTANTS
-STATSTIME = 8 * 1000
+STATSTIME = 10 * 1000
 DASHCOOLDOWN = 0.5 * 1000
 JUMPCOOLDOWN = 2 * 1000
-REWINDCOOLDOWN = 10 * 1000
+REWINDCOOLDONW = 10 * 1000
 GRAFFITICOOLDOWN = 10 * 1000
 
 function showDashParticles(playerName, types, direction, x, y)
@@ -1772,7 +1767,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     local ostime = os.time()
 
     -- Everything here is for gameplay, so we only check them if the player isnt dead
-    if room.playerList[playerName].isDead == false and ostime - mapStartTime > 3 * 1000 then
+    if room.playerList[playerName].isDead == false then
         --[[
             Because of the nature my dash works (both left and right keys share the same cooldown) I cannot shorten without checking for both
             doublepress and keypress. (though i can make the checker variable an array but it would look ugly.)
@@ -1805,7 +1800,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
                 -- Update stats
                 playerStats[playerName].timesDashed = playerStats[playerName].timesDashed + 1
-                playerVars[playerName].abilityCount = playerVars[playerName].abilityCount + 1
 
                 -- Check achievement
                 checkUnlock(playerName, "graffitiCol", 3, "graffitiColorUnlock")
@@ -1834,7 +1828,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
             -- Update stats
             playerStats[playerName].doubleJumps = playerStats[playerName].doubleJumps + 1
-            playerVars[playerName].abilityCount = playerVars[playerName].abilityCount + 1
 
             -- Check achievement
             checkUnlock(playerName, "dashAcc", 6, "particleUnlock")
@@ -1850,8 +1843,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             If state 1 is true, then next time we press space state 2 must be true. After we use state 2, we will be on cooldown.
             The only states that enter this states 1 and 2.
         ]]--
-        --Deprecated (used to be 32)
-        elseif keyCode == -1 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDOWN then
+        elseif keyCode == 32 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDONW then
             if cooldowns[playerName].canRewind == true then
                 -- Tell game the player rewinded
                 playerVars[playerName].hasUsedRewind = true
@@ -2051,7 +2043,7 @@ function eventLoop(elapsedTime, timeRemaining)
         if mapCount % 6 == 0 then -- I don't want to run this yet
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
-            if mapDiff ~= 0 and math.random() < 1/2 then
+            if mapDiff ~= 0 and math.random() < 4/9 then
                 tfm.exec.newGame(randomMap(bzMapsLeft, bzMapCodes))
                 mapCount = mapCount - 1
             else
@@ -2066,7 +2058,7 @@ function eventLoop(elapsedTime, timeRemaining)
             local id = playerId(playerName)
             if inRoom[playerName] ~= nil and loaded[playerName] ~= nil then 
                 -- RESPAWN PLAYER
-                if playerVars[playerName].spectate == false and playerStats[playerName].ban ~= 2 then
+                if playerVars[playerName].spectate == false then
                     respawnPlayer(playerName)
                 else
                     killPlayer(playerName)
@@ -2090,7 +2082,6 @@ function eventLoop(elapsedTime, timeRemaining)
                 end
 
                 -- Don't forget i have 3 states for rewind, this happens if we are in state 2 (can rewind) but passed the time we had.
-                --[[
                 if cooldowns[playerName].canRewind == true and ostime - cooldowns[playerName].checkpointTime > 3000 then
                     cooldowns[playerName].canRewind = false
                     cooldowns[playerName].lastRewindTime = ostime
@@ -2102,16 +2093,15 @@ function eventLoop(elapsedTime, timeRemaining)
                     states[playerName].rewindState = 2
                     removeImage(imgs[playerName].rewindButtonId)
                     imgs[playerName].rewindButtonId = addImage(REWIND_BTN_ACTIVE, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
-                elseif cooldowns[playerName].canRewind == false and states[playerName].rewindState ~= 1 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDOWN then
+                elseif cooldowns[playerName].canRewind == false and states[playerName].rewindState ~= 1 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDONW then
                     states[playerName].rewindState = 1
                     removeImage(imgs[playerName].rewindButtonId)
                     imgs[playerName].rewindButtonId = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
-                elseif states[playerName].rewindState ~= 3 and ostime - cooldowns[playerName].lastRewindTime <= REWINDCOOLDOWN then
+                elseif states[playerName].rewindState ~= 3 and ostime - cooldowns[playerName].lastRewindTime <= REWINDCOOLDONW then
                     states[playerName].rewindState = 3
                     removeImage(imgs[playerName].rewindButtonId)
                     imgs[playerName].rewindButtonId = addImage(REWIND_BTN_OFF, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
                 end
-                ]]--
             end
         end
     end
@@ -2146,7 +2136,7 @@ eventPlayerRespawn = secureWrapper(function(playerName)
     removeImage(imgs[playerName].dashButtonId)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
 
-    if playerStats[playerName].timesEnteredInHole < 1 and playerStats[playerName].timesDashed <= 10 and math.random() < 1/5 then
+    if playerStats[playerName].timesEnteredInHole < 1 and math.random() < 1/5 then
         chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
     end
 end, true)
@@ -2155,7 +2145,6 @@ eventPlayerDied = secureWrapper(function(playerName)
     local id = playerId(playerName)
     playerVars[playerName].rewindPos = {0, 0, false}
     playerVars[playerName].hasDiedThisRound = true
-    playerVars[playerName].deathCount = playerVars[playerName].deathCount + 1
     -- Remove rewind Mouse
     if imgs[playerName].mouseImgId ~= nil then
         removeImage(imgs[playerName].mouseImgId)
@@ -2179,7 +2168,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
 
     chatMessage(translate(playerName, "finishedInfo", finishTime/100), playerName)
 
-    if playerName:sub(1,1) == "*" or playerStats[playerName].ban > 0 then return end
+    if playerName:sub(1,1) == "*" then return end
 
     -- If we're a mod, then we don't count the win or if you rewind
     if modRoom[playerName] == true or opList[playerName] == true then
@@ -2261,11 +2250,6 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         if math.random() < 1/2 then
             chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
-    end
-
-    if finishTime > worstTime then
-        slowestplayer = playerName
-        worstTime = finishTime
     end
     
     local afterLevel = calculateLevel(playerName)[1]
@@ -2369,8 +2353,7 @@ function resetSave(playerName)
         timesRewinded = 0,
         hardcoreMaps = 0,
         equipment = {1, 1, 1, 1},
-        playerPreferences = {true, true, false, true},
-        ban = 0
+        playerPreferences = {true, true, false, true}
     }
 end
 
@@ -2380,13 +2363,7 @@ for p,_ in pairs(tfm.get.room.playerList) do
 end
 ]]--
 
-local profileRequest = {}
-
 function eventPlayerDataLoaded(playerName, data)
-    local isRequested = profileRequest[playerName] 
-    if isRequested then profileRequest[playerName] = nil end
-    print(isRequested)
-
     local ninjaSaveData 
     if data then
         ninjaSaveData = data:match("¤(.+)¤")
@@ -2405,29 +2382,14 @@ function eventPlayerDataLoaded(playerName, data)
             timesRewinded = 0,
             hardcoreMaps = 0,
             equipment = {1, 1, 1, 1},
-            playerPreferences = {true, true, true, true},
-            ban = 0
+            playerPreferences = {true, true, false, true}
         }
         
         ninjaSaveData = json.encode(playerStats[playerName])
         data = data .. "¤"..ninjaSaveData.."¤"
-        if isRequested then 
-            system.savePlayerData(playerName, data)
-        end
+        system.savePlayerData(playerName, data)
     end
     playerStats[playerName] = json.decode(ninjaSaveData)
-
-    if not playerStats[playerName].ban then
-        playerStats[playerName].ban = 0
-    end 
-    
-    if isRequested then
-        playerVars[playerName] = {
-            joinTime = os.time()
-        }
-        openPage(translate(isRequested, "profileTitle"), stats(playerName, isRequested), isRequested, "profile@"..playerName)
-    end
-    
     playerVars[playerName].cachedData = data
 
     -- only unlock default if we have no savedata
@@ -2515,8 +2477,6 @@ function initPlayer(playerName)
         hasUsedRewind = false,
         spectate = false,
         shownHelp = false,
-        abilityCount = 0,
-        deathCount = 0,
         cachedData = nil
     }
 
@@ -2537,14 +2497,14 @@ function initPlayer(playerName)
 
     local jmpid = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
     local dshid = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-    --local rwdid = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
+    local rwdid = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
     local hlpid = addImage(HELP_IMG, ":100", 114, 23, playerName)
     addTextArea(10, "<a href='event:CloseWelcome'><font color='transparent'>\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n <font></a>", playerName, 129, 29, 541, 342, 0x324650, 0x000000, 0, true)
 
     imgs[playerName] = {
         jumpButtonId = jmpid,
         dashButtonId = dshid,
-    --    rewindButtonId = rwdid,
+        rewindButtonId = rwdid,
         helpImgId = hlpid,
         mouseImgId = nil,
         menuImgId = nil
@@ -2592,9 +2552,7 @@ function resetAll()
     playerSortedBestTime = {}
     hasShownStats = false
     fastestplayer = -1
-    slowestplayer = -1
     bestTime = 99999
-    worstTime = 0
     playerWon = 0
     --[[
         Manually checking the players that remained in cache, because someone
@@ -2606,8 +2564,6 @@ function resetAll()
         playerVars[index].playerBestTime = 999999
         playerVars[index].hasDiedThisRound = false
         playerVars[index].hasUsedRewind = false
-        playerVars[index].deathCount = 0
-        playerVars[index].abilityCount = 0
     end
 
     -- Close stats if they have it opened
@@ -2706,7 +2662,6 @@ FORBIDDEN = "172cbf668e3.png"
 LOCK = "172cbf0f080.png"
 SELECTED = "172e3aa95bf.png"
 PROFILE_LINE = "1731eef8db0.png"
-PROFILE_LINE_MINI = "173e9115dc7.png"
 MOD_BADGE = "17324209e2a.png"
 DEV_BADGE = "172e0cf7ce5.png"
 TRS_BADGE = "17323cc5687.png"
@@ -2753,7 +2708,7 @@ function windowConfig(title, body, playerName, pageId)
         putInClearQueue(addImage(CLOSE_BTN, ":100", 661, 55, playerName), "img", playerName)
         putInClearQueue(addImage(PROFILE_LINE, "&100", 128, 123, playerName), "img", playerName)
         addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 663, 53, 20, 20, 0x324650, 0x000000, 0, true) 
-    elseif pageId:find("about") ~= nil or pageId:find("help") ~= nil or pageId:find("roomStats") ~= nil or pageId:find("settings") ~= nil then
+    elseif pageId:find("about") ~= nil or pageId:find("help") ~= nil or pageId:find("leaderboards") ~= nil or pageId:find("settings") ~= nil then
         addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 230, 82, 340, 260, 0x1A353A, 0x7B5A35, 0, true)
         putInClearQueue(addImage(AREA_402_302, ":100", 198, 63, playerName), "img", playerName)
         putInClearQueue(addImage(CLOSE_BTN, ":100", 572, 55, playerName), "img", playerName)
@@ -2788,17 +2743,9 @@ function closePage(playerName)
     playerVars[playerName].menuPage = 0
 end
 
-local sortedLeaderboard = ""
-local sortedLeaderboardShadow = ""
-
-local mostDashes, mostDeaths = 0, 0
-local mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-
 -- End of round stats
 function showStats()
     -- Init some empty array
-    mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-    mostDashes, mostDeaths = 0, 0
     bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
     table.sort(playerSortedBestTime, function(a, b)
         return a[2] < b[2]
@@ -2811,35 +2758,14 @@ function showStats()
         bestPlayers[i][2] = playerSortedBestTime[i][2]/100
     end
 
-    if #playerSortedBestTime > 0 then
-        slowestplayer = playerSortedBestTime[#playerSortedBestTime][1]
-        worstTime = playerSortedBestTime[#playerSortedBestTime][2]/100
-    else slowestplayer = "N/A" end
-
-    sortedLeaderboard = "<font size='18'>"
-    sortedLeaderboard = sortedLeaderboard.."<font color='#ffd700'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
-    sortedLeaderboard = sortedLeaderboard.."<font color='#c0c0c0'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
-    sortedLeaderboard = sortedLeaderboard.."<font color='#cd7f32'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
-    sortedLeaderboardShadow = "<font size='18'>"
-    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
-    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
-    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
-
-    for player, data in pairs(room.playerList) do
-        if mostDashes < playerVars[player].abilityCount then
-            mostDashesPlayer = player
-            mostDashes = playerVars[player].abilityCount
-        end
-        if mostDeaths < playerVars[player].deathCount then
-            mostDeathsPlayer = player
-            mostDeaths = playerVars[player].deathCount
-        end
-    end
-
+    local message = "\n\n\n\n\n\n\n\n<p align='center'>"
+    message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
+    message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
+    message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
         local _id = value.id
-        openPage(translate(name, "leaderboardsTitle"), "", name, "roomStats")
+        openPage(translate(name, "leaderboardsTitle"), message, name, "roomStats")
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" and tfm.get.room.uniquePlayers > 2 then
@@ -2864,20 +2790,6 @@ function showStats()
     end
 end
 
-function generateStatistics(playerName) 
-    addTextArea(151, "<p align='center'>"..sortedLeaderboardShadow.."", playerName, 201, 101, 400, 200, 0x324650, 0x000000, 0, true)
-    addTextArea(150, "<p align='center'>"..sortedLeaderboard.."", playerName, 200, 100, 400, 200, 0x324650, 0x000000, 0, true)
-    
-    local message = translate(playerName, "slowestPlayer") .. "\n<j>"..slowestplayer.."</j> <n2>("..worstTime.."s)</n2>\n\n"
-    
-    message = message .. translate(playerName, "mostDeaths") .. "\n<j>"..mostDeathsPlayer.."</j> <n2>("..mostDeaths..")</n2>\n\n"
-    message = message .. translate(playerName, "mostAbilities") .. "\n<j>"..mostDashesPlayer.."</j> <n2>("..mostDashes..")</n2>\n\n"
-    
-    addTextArea(152, "<p align='center'>"..message.."", playerName, 200, 200, 400, 200, 0x324650, 0x000000, 0, true)
-    putInClearQueue({150, 151, 152}, "area", playerName)
-    putInClearQueue(addImage(PROFILE_LINE_MINI, "&100", 250, 180, playerName), "img", playerName)
-end
-
 --This returns the body of the profile screen, generating the stats of the selected player's profile.
 function stats(playerName, creatorName)
     if playerName:sub(1,1) == "*" then return end
@@ -2897,8 +2809,8 @@ function stats(playerName, creatorName)
     body = body..translate(creatorName, "firstRate")..": <bl>"..firstrate.."</bl>\t"..translate(creatorName, "holeEnters")..": <bl>"..playerStats[playerName].timesEnteredInHole.."</bl>\n"
     body = body.."\t"..translate(creatorName, "hardcoreMaps")..": <bl>"..playerStats[playerName].hardcoreMaps.."</bl>\n"
     body = body..translate(creatorName, "dashUses")..": <bl>"..playerStats[playerName].timesDashed.."</bl>\n"
-    body = body..translate(creatorName, "timesDoubleJumped")..": <bl>"..playerStats[playerName].doubleJumps.."</bl></textformat>"
-    --body = body..translate(creatorName, "rewindUses")..": <bl>"..playerStats[playerName].timesRewinded.."</bl></textformat>"
+    body = body..translate(creatorName, "timesDoubleJumped")..": <bl>"..playerStats[playerName].doubleJumps.."</bl>\n"
+    body = body..translate(creatorName, "rewindUses")..": <bl>"..playerStats[playerName].timesRewinded.."</bl></textformat>"
 
     return body
 end
@@ -2995,7 +2907,7 @@ function lateUI(playerName)
     local page = playerVars[playerName].menuPage
     local pageNumber = tonumber(string.match(page, "%d+"))
     
-    if string.sub(page, 1, 4) == "shop" then
+    if page == "shop" then
         generateShopImgs(playerName)
     elseif string.sub(page, 1, 7) == "dashAcc" then
         addBackButton(playerName)
@@ -3018,8 +2930,6 @@ function lateUI(playerName)
             target = playerName
         end
         generateProfileImgs(playerName, target)
-    elseif string.sub(page, 1, 9) == "roomStats" then
-        generateStatistics(playerName)
     end
 end
 
@@ -3364,12 +3274,11 @@ end
     description: Contains eventChatMessage and eventChatCommand. Handles chat operations.
 ]]--
 
-lastGG = 0
-
 function eventChatMessage(playerName, msg)
-    if (msg:lower():find("gg") or msg:lower():find("gj")) and os.time() - lastGG > 10 * 1000 then
-        lastGG = os.time()
-        chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
+    if msg:lower():find("gg") or msg:lower():find("gj") then
+        if math.random() < 1/3 then
+            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
+        end
     elseif msg == "." and playerName == "Extremq#0000" then
         chatMessage("<V>[Sensei]</V> <N>.")
     end
@@ -3400,7 +3309,7 @@ function eventChatMessage(playerName, msg)
 end
 
 -- Chat commands
-commands = {"unshaman", "vamp", "shaman", "kill", "s", "unfreeze", "freeze", "takecheese", "delete", "n", "time", "map", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
+commands = {"unshaman", "shaman", "kill", "s", "unfreeze", "freeze", "takecheese", "delete", "n", "time", "map", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
 -- for i = 1, #commands do
 --     system.disableChatCommandDisplay(commands[i])
 --     system.disableChatCommandDisplay(commands[i]:upper())
@@ -3428,13 +3337,8 @@ function eventChatCommand(playerName, message)
     local isMod = false
 
     if devList[playerName] == true then
-        isDev = true
         isMod = true
         isOp = true
-    end
-
-    if modList[playerName] == true then
-        isMod = true
     end
 
     if opList[playerName] == true then
@@ -3468,20 +3372,8 @@ function eventChatCommand(playerName, message)
         end
     end
 
-    -- mod only abilities
-    if isMod == true then
-        if arg[1] == "ban" and arg[2] and arg[3] and arg[4] == "maya" then
-            isValid = true
-            if tonumber(arg[3]) >= 0 and tonumber(arg[3]) <= 2 then
-                playerStats[arg[2]].ban = tonumber(arg[3])
-            else return end
-            saveProgress(arg[2])
-            tfm.exec.killPlayer(arg[2])
-        end
-    end
-
     -- Dev ONLY ABILITIES
-    if isDev == true then
+    if isMod == true then
         if arg[1] == "dev" then
             isValid = true
             if modRoom[playerName] == false then
@@ -3552,17 +3444,11 @@ function eventChatCommand(playerName, message)
             end
             isValid = true
             tfm.exec.removeCheese(arg[2])
-        elseif arg[1] == "vamp" then
-            if not arg[2] then
-                arg[2] = playerName
-            end
-            isValid = true
-            tfm.exec.setVampirePlayer(arg[2])
         elseif arg[1] == "delete" and arg[2] and arg[3] == "shobi" then
             isValid = true
             resetSave(arg[2])
             saveProgress(arg[2])
-        elseif arg[1] == "remrecord" and arg[2] then
+        elseif arg[1] == "ban" and arg[2] then
             isValid = true
             for key, value in pairs(playerSortedBestTime) do
                 if value[1] == arg[2] then
@@ -3608,19 +3494,12 @@ function eventChatCommand(playerName, message)
         end
 
         -- convert extREMQ#0000 to Extremq#0000
-        local found = false
         arg[2] = string.upper(string.sub(arg[2], 1, 1))..string.lower(string.sub(arg[2], 2, #arg[2]))
         for name, value in pairs(room.playerList) do
             if name == arg[2] and name:sub(1,1) ~= "*" then
-                found = true
                 openPage(translate(playerName, "profileTitle"), stats(arg[2], playerName), playerName, "profile@"..arg[2])
                 break
             end
-        end
-
-        if found == false then
-            profileRequest[arg[2]] = playerName
-            system.loadPlayerData(arg[2])
         end
         return
     elseif arg[1] == "langue" then
@@ -3631,9 +3510,7 @@ function eventChatCommand(playerName, message)
         else
             local message = "<J>Current languages:"
             for language, _ in pairs(translations) do
-                if language == "en" or language == "ro" then
-                    message = message.."\n\t<cs>• "..language
-                end
+                message = message.."\n\t<cs>• "..language
             end
             chatMessage(message, playerName)
         end

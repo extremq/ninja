@@ -974,9 +974,6 @@ translations.en = {
     infobarLoading = "Loading...",
 
     levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!",
-    slowestPlayer = "Longest time: ",
-    mostDeaths = "Most deaths this round: ",
-    mostAbilities = "Most abilities used this round: ",
 
     --- SENSEI
 
@@ -1566,7 +1563,6 @@ mapDiff = 0
 mapCount = 1
 globalPlayerCount = 0
 fastestplayer = -1
-slowestplayer = -1
 playerSortedBestTime = {}
 playerCount = 0
 playerWon = 0
@@ -1575,7 +1571,6 @@ admin = ""
 customRoom = false
 hasShownStats = false
 bestTime = 99999
-worstTime = 0
 
 keys = {0, 1, 2, 3, 9, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
@@ -1724,7 +1719,7 @@ end
 ]]--
 
 --CONSTANTS
-STATSTIME = 8 * 1000
+STATSTIME = 6 * 1000
 DASHCOOLDOWN = 0.5 * 1000
 JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDOWN = 10 * 1000
@@ -1805,7 +1800,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
                 -- Update stats
                 playerStats[playerName].timesDashed = playerStats[playerName].timesDashed + 1
-                playerVars[playerName].abilityCount = playerVars[playerName].abilityCount + 1
 
                 -- Check achievement
                 checkUnlock(playerName, "graffitiCol", 3, "graffitiColorUnlock")
@@ -1834,7 +1828,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
             -- Update stats
             playerStats[playerName].doubleJumps = playerStats[playerName].doubleJumps + 1
-            playerVars[playerName].abilityCount = playerVars[playerName].abilityCount + 1
 
             -- Check achievement
             checkUnlock(playerName, "dashAcc", 6, "particleUnlock")
@@ -2155,7 +2148,6 @@ eventPlayerDied = secureWrapper(function(playerName)
     local id = playerId(playerName)
     playerVars[playerName].rewindPos = {0, 0, false}
     playerVars[playerName].hasDiedThisRound = true
-    playerVars[playerName].deathCount = playerVars[playerName].deathCount + 1
     -- Remove rewind Mouse
     if imgs[playerName].mouseImgId ~= nil then
         removeImage(imgs[playerName].mouseImgId)
@@ -2261,11 +2253,6 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         if math.random() < 1/2 then
             chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
-    end
-
-    if finishTime > worstTime then
-        slowestplayer = playerName
-        worstTime = finishTime
     end
     
     local afterLevel = calculateLevel(playerName)[1]
@@ -2515,8 +2502,6 @@ function initPlayer(playerName)
         hasUsedRewind = false,
         spectate = false,
         shownHelp = false,
-        abilityCount = 0,
-        deathCount = 0,
         cachedData = nil
     }
 
@@ -2592,9 +2577,7 @@ function resetAll()
     playerSortedBestTime = {}
     hasShownStats = false
     fastestplayer = -1
-    slowestplayer = -1
     bestTime = 99999
-    worstTime = 0
     playerWon = 0
     --[[
         Manually checking the players that remained in cache, because someone
@@ -2606,8 +2589,6 @@ function resetAll()
         playerVars[index].playerBestTime = 999999
         playerVars[index].hasDiedThisRound = false
         playerVars[index].hasUsedRewind = false
-        playerVars[index].deathCount = 0
-        playerVars[index].abilityCount = 0
     end
 
     -- Close stats if they have it opened
@@ -2791,14 +2772,9 @@ end
 local sortedLeaderboard = ""
 local sortedLeaderboardShadow = ""
 
-local mostDashes, mostDeaths = 0, 0
-local mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-
 -- End of round stats
 function showStats()
     -- Init some empty array
-    mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-    mostDashes, mostDeaths = 0, 0
     bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
     table.sort(playerSortedBestTime, function(a, b)
         return a[2] < b[2]
@@ -2811,11 +2787,6 @@ function showStats()
         bestPlayers[i][2] = playerSortedBestTime[i][2]/100
     end
 
-    if #playerSortedBestTime > 0 then
-        slowestplayer = playerSortedBestTime[#playerSortedBestTime][1]
-        worstTime = playerSortedBestTime[#playerSortedBestTime][2]/100
-    else slowestplayer = "N/A" end
-
     sortedLeaderboard = "<font size='18'>"
     sortedLeaderboard = sortedLeaderboard.."<font color='#ffd700'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
     sortedLeaderboard = sortedLeaderboard.."<font color='#c0c0c0'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
@@ -2825,16 +2796,6 @@ function showStats()
     sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
     sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
 
-    for player, data in pairs(room.playerList) do
-        if mostDashes < playerVars[player].abilityCount then
-            mostDashesPlayer = player
-            mostDashes = playerVars[player].abilityCount
-        end
-        if mostDeaths < playerVars[player].deathCount then
-            mostDeathsPlayer = player
-            mostDeaths = playerVars[player].deathCount
-        end
-    end
 
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
@@ -2867,15 +2828,8 @@ end
 function generateStatistics(playerName) 
     addTextArea(151, "<p align='center'>"..sortedLeaderboardShadow.."", playerName, 201, 101, 400, 200, 0x324650, 0x000000, 0, true)
     addTextArea(150, "<p align='center'>"..sortedLeaderboard.."", playerName, 200, 100, 400, 200, 0x324650, 0x000000, 0, true)
-    
-    local message = translate(playerName, "slowestPlayer") .. "\n<j>"..slowestplayer.."</j> <n2>("..worstTime.."s)</n2>\n\n"
-    
-    message = message .. translate(playerName, "mostDeaths") .. "\n<j>"..mostDeathsPlayer.."</j> <n2>("..mostDeaths..")</n2>\n\n"
-    message = message .. translate(playerName, "mostAbilities") .. "\n<j>"..mostDashesPlayer.."</j> <n2>("..mostDashes..")</n2>\n\n"
-    
-    addTextArea(152, "<p align='center'>"..message.."", playerName, 200, 200, 400, 200, 0x324650, 0x000000, 0, true)
-    putInClearQueue({150, 151, 152}, "area", playerName)
-    putInClearQueue(addImage(PROFILE_LINE_MINI, "&100", 250, 180, playerName), "img", playerName)
+    putInClearQueue({150, 151}, "area", playerName)
+    putInClearQueue(addImage(PROFILE_LINE_MINI, "&100", 250, 123, playerName), "img", playerName)
 end
 
 --This returns the body of the profile screen, generating the stats of the selected player's profile.

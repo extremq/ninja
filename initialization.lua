@@ -52,7 +52,8 @@ function resetSave(playerName)
         timesRewinded = 0,
         hardcoreMaps = 0,
         equipment = {1, 1, 1, 1},
-        playerPreferences = {true, true, false, true}
+        playerPreferences = {true, true, false, true},
+        ban = 0
     }
 end
 
@@ -62,7 +63,13 @@ for p,_ in pairs(tfm.get.room.playerList) do
 end
 ]]--
 
+local profileRequest = {}
+
 function eventPlayerDataLoaded(playerName, data)
+    local isRequested = profileRequest[playerName] 
+    if isRequested then profileRequest[playerName] = nil end
+    print(isRequested)
+
     local ninjaSaveData 
     if data then
         ninjaSaveData = data:match("¤(.+)¤")
@@ -81,14 +88,29 @@ function eventPlayerDataLoaded(playerName, data)
             timesRewinded = 0,
             hardcoreMaps = 0,
             equipment = {1, 1, 1, 1},
-            playerPreferences = {true, true, false, true}
+            playerPreferences = {true, true, true, true},
+            ban = 0
         }
         
         ninjaSaveData = json.encode(playerStats[playerName])
         data = data .. "¤"..ninjaSaveData.."¤"
-        system.savePlayerData(playerName, data)
+        if isRequested then 
+            system.savePlayerData(playerName, data)
+        end
     end
     playerStats[playerName] = json.decode(ninjaSaveData)
+
+    if not playerStats[playerName].ban then
+        playerStats[playerName].ban = 0
+    end 
+    
+    if isRequested then
+        playerVars[playerName] = {
+            joinTime = os.time()
+        }
+        openPage(translate(isRequested, "profileTitle"), stats(playerName, isRequested), isRequested, "profile@"..playerName)
+    end
+    
     playerVars[playerName].cachedData = data
 
     -- only unlock default if we have no savedata
@@ -176,6 +198,8 @@ function initPlayer(playerName)
         hasUsedRewind = false,
         spectate = false,
         shownHelp = false,
+        abilityCount = 0,
+        deathCount = 0,
         cachedData = nil
     }
 
@@ -196,14 +220,14 @@ function initPlayer(playerName)
 
     local jmpid = addImage(JUMP_BTN_ON, "&1", JUMP_BTN_X, JUMP_BTN_Y, playerName)
     local dshid = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
-    local rwdid = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
+    --local rwdid = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
     local hlpid = addImage(HELP_IMG, ":100", 114, 23, playerName)
     addTextArea(10, "<a href='event:CloseWelcome'><font color='transparent'>\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n <font></a>", playerName, 129, 29, 541, 342, 0x324650, 0x000000, 0, true)
 
     imgs[playerName] = {
         jumpButtonId = jmpid,
         dashButtonId = dshid,
-        rewindButtonId = rwdid,
+    --    rewindButtonId = rwdid,
         helpImgId = hlpid,
         mouseImgId = nil,
         menuImgId = nil
@@ -251,7 +275,9 @@ function resetAll()
     playerSortedBestTime = {}
     hasShownStats = false
     fastestplayer = -1
+    slowestplayer = -1
     bestTime = 99999
+    worstTime = 0
     playerWon = 0
     --[[
         Manually checking the players that remained in cache, because someone
@@ -263,6 +289,8 @@ function resetAll()
         playerVars[index].playerBestTime = 999999
         playerVars[index].hasDiedThisRound = false
         playerVars[index].hasUsedRewind = false
+        playerVars[index].deathCount = 0
+        playerVars[index].abilityCount = 0
     end
 
     -- Close stats if they have it opened

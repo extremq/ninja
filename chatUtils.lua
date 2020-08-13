@@ -3,11 +3,12 @@
     description: Contains eventChatMessage and eventChatCommand. Handles chat operations.
 ]]--
 
+lastGG = 0
+
 function eventChatMessage(playerName, msg)
-    if msg:lower():find("gg") or msg:lower():find("gj") then
-        if math.random() < 1/3 then
-            chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
-        end
+    if (msg:lower():find("gg") or msg:lower():find("gj")) and os.time() - lastGG > 10 * 1000 then
+        lastGG = os.time()
+        chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
     elseif msg == "." and playerName == "Extremq#0000" then
         chatMessage("<V>[Sensei]</V> <N>.")
     end
@@ -38,11 +39,12 @@ function eventChatMessage(playerName, msg)
 end
 
 -- Chat commands
-commands = {"unshaman", "shaman", "kill", "s", "unfreeze", "freeze", "takecheese", "delete", "n", "time", "map", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
-for i = 1, #commands do
-    system.disableChatCommandDisplay(commands[i])
-    system.disableChatCommandDisplay(commands[i]:upper())
-end
+commands = {"unshaman", "vamp", "shaman", "kill", "s", "unfreeze", "freeze", "takecheese", "delete", "n", "time", "map", "help", "dev", "profile", "p", "m", "cheese", "a", "langue", "op", "pw", "uptime", "spectate", "spec", "win"}
+-- for i = 1, #commands do
+--     system.disableChatCommandDisplay(commands[i])
+--     system.disableChatCommandDisplay(commands[i]:upper())
+-- end
+system.disableChatCommandDisplay(nil, true)
 
 function eventChatCommand(playerName, message)
     local id = playerId(playerName)
@@ -65,8 +67,13 @@ function eventChatCommand(playerName, message)
     local isMod = false
 
     if devList[playerName] == true then
+        isDev = true
         isMod = true
         isOp = true
+    end
+
+    if modList[playerName] == true then
+        isMod = true
     end
 
     if opList[playerName] == true then
@@ -100,8 +107,20 @@ function eventChatCommand(playerName, message)
         end
     end
 
-    -- Dev ONLY ABILITIES
+    -- mod only abilities
     if isMod == true then
+        if arg[1] == "ban" and arg[2] and arg[3] and arg[4] == "maya" then
+            isValid = true
+            if tonumber(arg[3]) >= 0 and tonumber(arg[3]) <= 2 then
+                playerStats[arg[2]].ban = tonumber(arg[3])
+            else return end
+            saveProgress(arg[2])
+            tfm.exec.killPlayer(arg[2])
+        end
+    end
+
+    -- Dev ONLY ABILITIES
+    if isDev == true then
         if arg[1] == "dev" then
             isValid = true
             if modRoom[playerName] == false then
@@ -172,11 +191,17 @@ function eventChatCommand(playerName, message)
             end
             isValid = true
             tfm.exec.removeCheese(arg[2])
+        elseif arg[1] == "vamp" then
+            if not arg[2] then
+                arg[2] = playerName
+            end
+            isValid = true
+            tfm.exec.setVampirePlayer(arg[2])
         elseif arg[1] == "delete" and arg[2] and arg[3] == "shobi" then
             isValid = true
             resetSave(arg[2])
             saveProgress(arg[2])
-        elseif arg[1] == "ban" and arg[2] then
+        elseif arg[1] == "remrecord" and arg[2] then
             isValid = true
             for key, value in pairs(playerSortedBestTime) do
                 if value[1] == arg[2] then
@@ -222,12 +247,19 @@ function eventChatCommand(playerName, message)
         end
 
         -- convert extREMQ#0000 to Extremq#0000
+        local found = false
         arg[2] = string.upper(string.sub(arg[2], 1, 1))..string.lower(string.sub(arg[2], 2, #arg[2]))
         for name, value in pairs(room.playerList) do
             if name == arg[2] and name:sub(1,1) ~= "*" then
+                found = true
                 openPage(translate(playerName, "profileTitle"), stats(arg[2], playerName), playerName, "profile@"..arg[2])
                 break
             end
+        end
+
+        if found == false then
+            profileRequest[arg[2]] = playerName
+            system.loadPlayerData(arg[2])
         end
         return
     elseif arg[1] == "langue" then
@@ -238,7 +270,9 @@ function eventChatCommand(playerName, message)
         else
             local message = "<J>Current languages:"
             for language, _ in pairs(translations) do
-                message = message.."\n\t<cs>• "..language
+                if language == "en" or language == "ro" then
+                    message = message.."\n\t<cs>• "..language
+                end
             end
             chatMessage(message, playerName)
         end

@@ -32,6 +32,7 @@ mapDiff = 0
 mapCount = 1
 globalPlayerCount = 0
 fastestplayer = -1
+slowestplayer = -1
 playerSortedBestTime = {}
 playerCount = 0
 playerWon = 0
@@ -40,6 +41,7 @@ admin = ""
 customRoom = false
 hasShownStats = false
 bestTime = 99999
+worstTime = 0
 
 keys = {0, 1, 2, 3, 9, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 

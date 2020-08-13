@@ -87,11 +87,15 @@ translations.en = {
     infobarLevel = "Level:",
     infobarMice = "Mice:",
     infobarHardcore = "<R>HARDCORE</R>",
+    infobarBlitz = "<J>BLITZ</J>",
     infobarTimeOver = "STATISTICS TIME!",
     infobarRecord = "Record:",
     infobarLoading = "Loading...",
 
     levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!",
+    slowestPlayer = "Longest time: ",
+    mostDeaths = "Most deaths this round: ",
+    mostAbilities = "Most abilities used this round: ",
 
     --- SENSEI
 

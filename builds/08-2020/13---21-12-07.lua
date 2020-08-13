@@ -2798,7 +2798,6 @@ local mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
 function showStats()
     -- Init some empty array
     mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-    mostDashes, mostDeaths = 0, 0
     bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
     table.sort(playerSortedBestTime, function(a, b)
         return a[2] < b[2]
@@ -2814,7 +2813,7 @@ function showStats()
     if #playerSortedBestTime > 0 then
         slowestplayer = playerSortedBestTime[#playerSortedBestTime][1]
         worstTime = playerSortedBestTime[#playerSortedBestTime][2]/100
-    else slowestplayer = "N/A" end
+    end
 
     sortedLeaderboard = "<font size='18'>"
     sortedLeaderboard = sortedLeaderboard.."<font color='#ffd700'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
@@ -2868,6 +2867,7 @@ function generateStatistics(playerName)
     addTextArea(151, "<p align='center'>"..sortedLeaderboardShadow.."", playerName, 201, 101, 400, 200, 0x324650, 0x000000, 0, true)
     addTextArea(150, "<p align='center'>"..sortedLeaderboard.."", playerName, 200, 100, 400, 200, 0x324650, 0x000000, 0, true)
     
+    if slowestplayer == -1 or slowestplayer == fastestplayer then slowestPlayer = "N/A" end
     local message = translate(playerName, "slowestPlayer") .. "\n<j>"..slowestplayer.."</j> <n2>("..worstTime.."s)</n2>\n\n"
     
     message = message .. translate(playerName, "mostDeaths") .. "\n<j>"..mostDeathsPlayer.."</j> <n2>("..mostDeaths..")</n2>\n\n"

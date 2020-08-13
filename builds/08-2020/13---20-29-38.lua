@@ -974,7 +974,7 @@ translations.en = {
     infobarLoading = "Loading...",
 
     levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!",
-    slowestPlayer = "Longest time: ",
+    slowestPlayer = "Slowest player: ",
     mostDeaths = "Most deaths this round: ",
     mostAbilities = "Most abilities used this round: ",
 
@@ -1724,7 +1724,7 @@ end
 ]]--
 
 --CONSTANTS
-STATSTIME = 8 * 1000
+STATSTIME = 6 * 1000
 DASHCOOLDOWN = 0.5 * 1000
 JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDOWN = 10 * 1000
@@ -2791,14 +2791,9 @@ end
 local sortedLeaderboard = ""
 local sortedLeaderboardShadow = ""
 
-local mostDashes, mostDeaths = 0, 0
-local mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-
 -- End of round stats
 function showStats()
     -- Init some empty array
-    mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-    mostDashes, mostDeaths = 0, 0
     bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
     table.sort(playerSortedBestTime, function(a, b)
         return a[2] < b[2]
@@ -2811,11 +2806,6 @@ function showStats()
         bestPlayers[i][2] = playerSortedBestTime[i][2]/100
     end
 
-    if #playerSortedBestTime > 0 then
-        slowestplayer = playerSortedBestTime[#playerSortedBestTime][1]
-        worstTime = playerSortedBestTime[#playerSortedBestTime][2]/100
-    else slowestplayer = "N/A" end
-
     sortedLeaderboard = "<font size='18'>"
     sortedLeaderboard = sortedLeaderboard.."<font color='#ffd700'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
     sortedLeaderboard = sortedLeaderboard.."<font color='#c0c0c0'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
@@ -2825,16 +2815,6 @@ function showStats()
     sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
     sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
 
-    for player, data in pairs(room.playerList) do
-        if mostDashes < playerVars[player].abilityCount then
-            mostDashesPlayer = player
-            mostDashes = playerVars[player].abilityCount
-        end
-        if mostDeaths < playerVars[player].deathCount then
-            mostDeathsPlayer = player
-            mostDeaths = playerVars[player].deathCount
-        end
-    end
 
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
@@ -2867,12 +2847,8 @@ end
 function generateStatistics(playerName) 
     addTextArea(151, "<p align='center'>"..sortedLeaderboardShadow.."", playerName, 201, 101, 400, 200, 0x324650, 0x000000, 0, true)
     addTextArea(150, "<p align='center'>"..sortedLeaderboard.."", playerName, 200, 100, 400, 200, 0x324650, 0x000000, 0, true)
-    
-    local message = translate(playerName, "slowestPlayer") .. "\n<j>"..slowestplayer.."</j> <n2>("..worstTime.."s)</n2>\n\n"
-    
-    message = message .. translate(playerName, "mostDeaths") .. "\n<j>"..mostDeathsPlayer.."</j> <n2>("..mostDeaths..")</n2>\n\n"
-    message = message .. translate(playerName, "mostAbilities") .. "\n<j>"..mostDashesPlayer.."</j> <n2>("..mostDashes..")</n2>\n\n"
-    
+    if slowestplayer == -1 or slowestplayer == fastestplayer then slowestPlayer = "N/A" end
+    local message = translate(playerName, "slowestPlayer") .. "\n<j>"..slowestplayer.."</j> <n2>("..worstTime/100.."s)</n2>"
     addTextArea(152, "<p align='center'>"..message.."", playerName, 200, 200, 400, 200, 0x324650, 0x000000, 0, true)
     putInClearQueue({150, 151, 152}, "area", playerName)
     putInClearQueue(addImage(PROFILE_LINE_MINI, "&100", 250, 180, playerName), "img", playerName)

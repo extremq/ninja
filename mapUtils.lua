@@ -3,7 +3,7 @@
     description: Contains functions that help with the map picker algorithm and title setter.
 ]]--
 
-MAPTIME = 3 * 60 + 3
+MAPTIME = 2 * 60 + 3
 BASETIME = MAPTIME -- after difficulty
 
 -- CHOOSE MAP
@@ -26,9 +26,11 @@ function randomMap(mapsLeft, mapCodes)
     table.remove(mapsLeft, pos)
     lastMap = newMap[1]
     mapDiff = newMap[2]
-    MAPTIME = BASETIME + (mapDiff - 1) * 30
+    MAPTIME = BASETIME --+ (mapDiff - 1) * 30
     if mapDiff == 6 then
-        MAPTIME = 4 * 60
+        MAPTIME = BASETIME + 60
+    elseif mapDiff == 0 then
+        MAPTIME = 60
     end
     return newMap[1]
 end
@@ -85,6 +87,8 @@ function updateMapName(timeRemaining)
     local difficultyMessage = "<J>"..difficulty.."/5</J>"
     if difficulty == 6 then
         difficultyMessage = translate(roomCommunity, "infobarHardcore")
+    elseif difficulty == 0 then
+        difficultyMessage = translate(roomCommunity, "infobarBlitz")
     end
 
     local name = currentmapauthor.." <G>-<N> "..currentmapcode.." <G>-<N> "..translate(roomCommunity, "infobarLevel").." "..difficultyMessage.." <G>| <N>"..translate(roomCommunity, "infobarMice").." <J>"..room.uniquePlayers.." <G>| <N>"..minutes..":"..seconds

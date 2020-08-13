@@ -5,10 +5,10 @@
 ]]--
 
 --CONSTANTS
-STATSTIME = 10 * 1000
+STATSTIME = 8 * 1000
 DASHCOOLDOWN = 0.5 * 1000
 JUMPCOOLDOWN = 2 * 1000
-REWINDCOOLDONW = 10 * 1000
+REWINDCOOLDOWN = 10 * 1000
 GRAFFITICOOLDOWN = 10 * 1000
 
 function showDashParticles(playerName, types, direction, x, y)
@@ -53,7 +53,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     local ostime = os.time()
 
     -- Everything here is for gameplay, so we only check them if the player isnt dead
-    if room.playerList[playerName].isDead == false then
+    if room.playerList[playerName].isDead == false and ostime - mapStartTime > 3 * 1000 then
         --[[
             Because of the nature my dash works (both left and right keys share the same cooldown) I cannot shorten without checking for both
             doublepress and keypress. (though i can make the checker variable an array but it would look ugly.)
@@ -86,6 +86,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
                 -- Update stats
                 playerStats[playerName].timesDashed = playerStats[playerName].timesDashed + 1
+                playerVars[playerName].abilityCount = playerVars[playerName].abilityCount + 1
 
                 -- Check achievement
                 checkUnlock(playerName, "graffitiCol", 3, "graffitiColorUnlock")
@@ -114,6 +115,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
             -- Update stats
             playerStats[playerName].doubleJumps = playerStats[playerName].doubleJumps + 1
+            playerVars[playerName].abilityCount = playerVars[playerName].abilityCount + 1
 
             -- Check achievement
             checkUnlock(playerName, "dashAcc", 6, "particleUnlock")
@@ -129,7 +131,8 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             If state 1 is true, then next time we press space state 2 must be true. After we use state 2, we will be on cooldown.
             The only states that enter this states 1 and 2.
         ]]--
-        elseif keyCode == 32 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDONW then
+        --Deprecated (used to be 32)
+        elseif keyCode == -1 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDOWN then
             if cooldowns[playerName].canRewind == true then
                 -- Tell game the player rewinded
                 playerVars[playerName].hasUsedRewind = true
@@ -325,11 +328,16 @@ function eventLoop(elapsedTime, timeRemaining)
 
         mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
-        -- Choose maptipe
+        -- Choose maptype
         if mapCount % 6 == 0 then -- I don't want to run this yet
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
-            tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
+            if mapDiff ~= 0 and math.random() < 1/2 then
+                tfm.exec.newGame(randomMap(bzMapsLeft, bzMapCodes))
+                mapCount = mapCount - 1
+            else
+                tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
+            end
         end
         -- Reset player values.
         resetAll()
@@ -339,7 +347,7 @@ function eventLoop(elapsedTime, timeRemaining)
             local id = playerId(playerName)
             if inRoom[playerName] ~= nil and loaded[playerName] ~= nil then 
                 -- RESPAWN PLAYER
-                if playerVars[playerName].spectate == false then
+                if playerVars[playerName].spectate == false and playerStats[playerName].ban ~= 2 then
                     respawnPlayer(playerName)
                 else
                     killPlayer(playerName)
@@ -363,6 +371,7 @@ function eventLoop(elapsedTime, timeRemaining)
                 end
 
                 -- Don't forget i have 3 states for rewind, this happens if we are in state 2 (can rewind) but passed the time we had.
+                --[[
                 if cooldowns[playerName].canRewind == true and ostime - cooldowns[playerName].checkpointTime > 3000 then
                     cooldowns[playerName].canRewind = false
                     cooldowns[playerName].lastRewindTime = ostime
@@ -374,15 +383,16 @@ function eventLoop(elapsedTime, timeRemaining)
                     states[playerName].rewindState = 2
                     removeImage(imgs[playerName].rewindButtonId)
                     imgs[playerName].rewindButtonId = addImage(REWIND_BTN_ACTIVE, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
-                elseif cooldowns[playerName].canRewind == false and states[playerName].rewindState ~= 1 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDONW then
+                elseif cooldowns[playerName].canRewind == false and states[playerName].rewindState ~= 1 and ostime - cooldowns[playerName].lastRewindTime > REWINDCOOLDOWN then
                     states[playerName].rewindState = 1
                     removeImage(imgs[playerName].rewindButtonId)
                     imgs[playerName].rewindButtonId = addImage(REWIND_BTN_ON, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
-                elseif states[playerName].rewindState ~= 3 and ostime - cooldowns[playerName].lastRewindTime <= REWINDCOOLDONW then
+                elseif states[playerName].rewindState ~= 3 and ostime - cooldowns[playerName].lastRewindTime <= REWINDCOOLDOWN then
                     states[playerName].rewindState = 3
                     removeImage(imgs[playerName].rewindButtonId)
                     imgs[playerName].rewindButtonId = addImage(REWIND_BTN_OFF, "&1", REWIND_BTN_X, REWIND_BTN_Y, playerName)
                 end
+                ]]--
             end
         end
     end

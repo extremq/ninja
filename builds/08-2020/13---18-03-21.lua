@@ -974,9 +974,6 @@ translations.en = {
     infobarLoading = "Loading...",
 
     levelUp = "<v>%s</v> <Bl>is now level <J>%s</J>!",
-    slowestPlayer = "Longest time: ",
-    mostDeaths = "Most deaths this round: ",
-    mostAbilities = "Most abilities used this round: ",
 
     --- SENSEI
 
@@ -1415,8 +1412,8 @@ hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7737218", 6}, {"@7739215", 6}
 hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7737218", 6}, {"@7739215", 6}}
 
 -- Blitz maps
-bzMapCodes = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}, {"@6518642", 0}, {"@5025765"}, 0}
-bzMapsLeft = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}, {"@6518642", 0}, {"@5025765"}, 0}
+bzMapCodes = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}}
+bzMapsLeft = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}}
 --[[ End of file maps.lua ]]--
 
 --[[ File mapUtils.lua ]]--
@@ -1566,7 +1563,6 @@ mapDiff = 0
 mapCount = 1
 globalPlayerCount = 0
 fastestplayer = -1
-slowestplayer = -1
 playerSortedBestTime = {}
 playerCount = 0
 playerWon = 0
@@ -1575,7 +1571,6 @@ admin = ""
 customRoom = false
 hasShownStats = false
 bestTime = 99999
-worstTime = 0
 
 keys = {0, 1, 2, 3, 9, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 
@@ -1724,7 +1719,7 @@ end
 ]]--
 
 --CONSTANTS
-STATSTIME = 8 * 1000
+STATSTIME = 6 * 1000
 DASHCOOLDOWN = 0.5 * 1000
 JUMPCOOLDOWN = 2 * 1000
 REWINDCOOLDOWN = 10 * 1000
@@ -1805,7 +1800,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
                 -- Update stats
                 playerStats[playerName].timesDashed = playerStats[playerName].timesDashed + 1
-                playerVars[playerName].abilityCount = playerVars[playerName].abilityCount + 1
 
                 -- Check achievement
                 checkUnlock(playerName, "graffitiCol", 3, "graffitiColorUnlock")
@@ -1834,7 +1828,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
             -- Update stats
             playerStats[playerName].doubleJumps = playerStats[playerName].doubleJumps + 1
-            playerVars[playerName].abilityCount = playerVars[playerName].abilityCount + 1
 
             -- Check achievement
             checkUnlock(playerName, "dashAcc", 6, "particleUnlock")
@@ -2155,7 +2148,6 @@ eventPlayerDied = secureWrapper(function(playerName)
     local id = playerId(playerName)
     playerVars[playerName].rewindPos = {0, 0, false}
     playerVars[playerName].hasDiedThisRound = true
-    playerVars[playerName].deathCount = playerVars[playerName].deathCount + 1
     -- Remove rewind Mouse
     if imgs[playerName].mouseImgId ~= nil then
         removeImage(imgs[playerName].mouseImgId)
@@ -2261,11 +2253,6 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         if math.random() < 1/2 then
             chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
-    end
-
-    if finishTime > worstTime then
-        slowestplayer = playerName
-        worstTime = finishTime
     end
     
     local afterLevel = calculateLevel(playerName)[1]
@@ -2515,8 +2502,6 @@ function initPlayer(playerName)
         hasUsedRewind = false,
         spectate = false,
         shownHelp = false,
-        abilityCount = 0,
-        deathCount = 0,
         cachedData = nil
     }
 
@@ -2592,9 +2577,7 @@ function resetAll()
     playerSortedBestTime = {}
     hasShownStats = false
     fastestplayer = -1
-    slowestplayer = -1
     bestTime = 99999
-    worstTime = 0
     playerWon = 0
     --[[
         Manually checking the players that remained in cache, because someone
@@ -2606,8 +2589,6 @@ function resetAll()
         playerVars[index].playerBestTime = 999999
         playerVars[index].hasDiedThisRound = false
         playerVars[index].hasUsedRewind = false
-        playerVars[index].deathCount = 0
-        playerVars[index].abilityCount = 0
     end
 
     -- Close stats if they have it opened
@@ -2706,7 +2687,6 @@ FORBIDDEN = "172cbf668e3.png"
 LOCK = "172cbf0f080.png"
 SELECTED = "172e3aa95bf.png"
 PROFILE_LINE = "1731eef8db0.png"
-PROFILE_LINE_MINI = "173e9115dc7.png"
 MOD_BADGE = "17324209e2a.png"
 DEV_BADGE = "172e0cf7ce5.png"
 TRS_BADGE = "17323cc5687.png"
@@ -2791,14 +2771,9 @@ end
 local sortedLeaderboard = ""
 local sortedLeaderboardShadow = ""
 
-local mostDashes, mostDeaths = 0, 0
-local mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-
 -- End of round stats
 function showStats()
     -- Init some empty array
-    mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-    mostDashes, mostDeaths = 0, 0
     bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
     table.sort(playerSortedBestTime, function(a, b)
         return a[2] < b[2]
@@ -2811,30 +2786,15 @@ function showStats()
         bestPlayers[i][2] = playerSortedBestTime[i][2]/100
     end
 
-    if #playerSortedBestTime > 0 then
-        slowestplayer = playerSortedBestTime[#playerSortedBestTime][1]
-        worstTime = playerSortedBestTime[#playerSortedBestTime][2]/100
-    else slowestplayer = "N/A" end
+    sortedLeaderboard = "<font size='18'><textformat tabstops='0, 20, 150'> "
+    sortedLeaderboard = sortedLeaderboard.."<font color='#ffd700'>1. \t"..bestPlayers[1][1].." \t "..bestPlayers[1][2].."s</font>\n"
+    sortedLeaderboard = sortedLeaderboard.."<font color='#c0c0c0'>2. \t"..bestPlayers[2][1].." \t "..bestPlayers[2][2].."s</font>\n"
+    sortedLeaderboard = sortedLeaderboard.."<font color='#cd7f32'>3. \t"..bestPlayers[3][1].." \t "..bestPlayers[3][2].."s</font></font>"
+    sortedLeaderboardShadow = "<font size='18'><textformat tabstops='0, 20, 150'>"
+    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>1. \t "..bestPlayers[1][1].." \t "..bestPlayers[1][2].."s</font>\n"
+    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>2. \t "..bestPlayers[2][1].." \t "..bestPlayers[2][2].."s</font>\n"
+    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>3. \t "..bestPlayers[3][1].." \t "..bestPlayers[3][2].."s</font></font>"
 
-    sortedLeaderboard = "<font size='18'>"
-    sortedLeaderboard = sortedLeaderboard.."<font color='#ffd700'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
-    sortedLeaderboard = sortedLeaderboard.."<font color='#c0c0c0'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
-    sortedLeaderboard = sortedLeaderboard.."<font color='#cd7f32'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
-    sortedLeaderboardShadow = "<font size='18'>"
-    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
-    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
-    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
-
-    for player, data in pairs(room.playerList) do
-        if mostDashes < playerVars[player].abilityCount then
-            mostDashesPlayer = player
-            mostDashes = playerVars[player].abilityCount
-        end
-        if mostDeaths < playerVars[player].deathCount then
-            mostDeathsPlayer = player
-            mostDeaths = playerVars[player].deathCount
-        end
-    end
 
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
@@ -2865,17 +2825,9 @@ function showStats()
 end
 
 function generateStatistics(playerName) 
-    addTextArea(151, "<p align='center'>"..sortedLeaderboardShadow.."", playerName, 201, 101, 400, 200, 0x324650, 0x000000, 0, true)
-    addTextArea(150, "<p align='center'>"..sortedLeaderboard.."", playerName, 200, 100, 400, 200, 0x324650, 0x000000, 0, true)
-    
-    local message = translate(playerName, "slowestPlayer") .. "\n<j>"..slowestplayer.."</j> <n2>("..worstTime.."s)</n2>\n\n"
-    
-    message = message .. translate(playerName, "mostDeaths") .. "\n<j>"..mostDeathsPlayer.."</j> <n2>("..mostDeaths..")</n2>\n\n"
-    message = message .. translate(playerName, "mostAbilities") .. "\n<j>"..mostDashesPlayer.."</j> <n2>("..mostDashes..")</n2>\n\n"
-    
-    addTextArea(152, "<p align='center'>"..message.."", playerName, 200, 200, 400, 200, 0x324650, 0x000000, 0, true)
-    putInClearQueue({150, 151, 152}, "area", playerName)
-    putInClearQueue(addImage(PROFILE_LINE_MINI, "&100", 250, 180, playerName), "img", playerName)
+    addTextArea(151, ""..sortedLeaderboardShadow.."", playerName, 241, 101, 400, 200, 0x324650, 0x000000, 0, true)
+    addTextArea(150, ""..sortedLeaderboard.."", playerName, 240, 100, 400, 200, 0x324650, 0x000000, 0, true)
+    putInClearQueue({150, 151}, "area", playerName)
 end
 
 --This returns the body of the profile screen, generating the stats of the selected player's profile.

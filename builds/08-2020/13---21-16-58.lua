@@ -2798,7 +2798,6 @@ local mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
 function showStats()
     -- Init some empty array
     mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
-    mostDashes, mostDeaths = 0, 0
     bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
     table.sort(playerSortedBestTime, function(a, b)
         return a[2] < b[2]

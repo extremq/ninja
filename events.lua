@@ -25,7 +25,7 @@ eventPlayerRespawn = secureWrapper(function(playerName)
     removeImage(imgs[playerName].dashButtonId)
     imgs[playerName].dashButtonId = addImage(DASH_BTN_ON, "&1", DASH_BTN_X, DASH_BTN_Y, playerName)
 
-    if playerStats[playerName].timesEnteredInHole < 1 and math.random() < 1/5 then
+    if playerStats[playerName].timesEnteredInHole < 1 and playerStats[playerName].timesDashed <= 10 and math.random() < 1/5 then
         chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiTip"..math.random(1, 3), playerName), playerName)
     end
 end, true)
@@ -34,6 +34,7 @@ eventPlayerDied = secureWrapper(function(playerName)
     local id = playerId(playerName)
     playerVars[playerName].rewindPos = {0, 0, false}
     playerVars[playerName].hasDiedThisRound = true
+    playerVars[playerName].deathCount = playerVars[playerName].deathCount + 1
     -- Remove rewind Mouse
     if imgs[playerName].mouseImgId ~= nil then
         removeImage(imgs[playerName].mouseImgId)
@@ -57,7 +58,7 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
 
     chatMessage(translate(playerName, "finishedInfo", finishTime/100), playerName)
 
-    if playerName:sub(1,1) == "*" then return end
+    if playerName:sub(1,1) == "*" or playerStats[playerName].ban > 0 then return end
 
     -- If we're a mod, then we don't count the win or if you rewind
     if modRoom[playerName] == true or opList[playerName] == true then
@@ -139,6 +140,11 @@ eventPlayerWon = secureWrapper(function(playerName, timeElapsed, timeElapsedSinc
         if math.random() < 1/2 then
             chatMessage("<CEP>&gt; [int] [<O>Sensei</O>] "..translate(playerName, "senseiRecord"..math.random(1, 8), playerName), playerName)
         end
+    end
+
+    if finishTime > worstTime then
+        slowestplayer = playerName
+        worstTime = finishTime
     end
     
     local afterLevel = calculateLevel(playerName)[1]

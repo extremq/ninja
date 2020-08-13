@@ -38,6 +38,7 @@ FORBIDDEN = "172cbf668e3.png"
 LOCK = "172cbf0f080.png"
 SELECTED = "172e3aa95bf.png"
 PROFILE_LINE = "1731eef8db0.png"
+PROFILE_LINE_MINI = "173e9115dc7.png"
 MOD_BADGE = "17324209e2a.png"
 DEV_BADGE = "172e0cf7ce5.png"
 TRS_BADGE = "17323cc5687.png"
@@ -84,7 +85,7 @@ function windowConfig(title, body, playerName, pageId)
         putInClearQueue(addImage(CLOSE_BTN, ":100", 661, 55, playerName), "img", playerName)
         putInClearQueue(addImage(PROFILE_LINE, "&100", 128, 123, playerName), "img", playerName)
         addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 663, 53, 20, 20, 0x324650, 0x000000, 0, true) 
-    elseif pageId:find("about") ~= nil or pageId:find("help") ~= nil or pageId:find("leaderboards") ~= nil or pageId:find("settings") ~= nil then
+    elseif pageId:find("about") ~= nil or pageId:find("help") ~= nil or pageId:find("roomStats") ~= nil or pageId:find("settings") ~= nil then
         addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 230, 82, 340, 260, 0x1A353A, 0x7B5A35, 0, true)
         putInClearQueue(addImage(AREA_402_302, ":100", 198, 63, playerName), "img", playerName)
         putInClearQueue(addImage(CLOSE_BTN, ":100", 572, 55, playerName), "img", playerName)
@@ -119,9 +120,17 @@ function closePage(playerName)
     playerVars[playerName].menuPage = 0
 end
 
+local sortedLeaderboard = ""
+local sortedLeaderboardShadow = ""
+
+local mostDashes, mostDeaths = 0, 0
+local mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
+
 -- End of round stats
 function showStats()
     -- Init some empty array
+    mostDashesPlayer, mostDeathsPlayer = "N/A", "N/A"
+    mostDashes, mostDeaths = 0, 0
     bestPlayers = {{"N/A", "N/A"}, {"N/A", "N/A"}, {"N/A", "N/A"}}
     table.sort(playerSortedBestTime, function(a, b)
         return a[2] < b[2]
@@ -134,14 +143,35 @@ function showStats()
         bestPlayers[i][2] = playerSortedBestTime[i][2]/100
     end
 
-    local message = "\n\n\n\n\n\n\n\n<p align='center'>"
-    message = message.."<font color='#ffd700' size='24'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font>\n"
-    message = message.."<font color='#c0c0c0' size='20'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font>\n"
-    message = message.."<font color='#cd7f32' size='18'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></p>"
+    if #playerSortedBestTime > 0 then
+        slowestplayer = playerSortedBestTime[#playerSortedBestTime][1]
+        worstTime = playerSortedBestTime[#playerSortedBestTime][2]/100
+    else slowestplayer = "N/A" end
+
+    sortedLeaderboard = "<font size='18'>"
+    sortedLeaderboard = sortedLeaderboard.."<font color='#ffd700'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
+    sortedLeaderboard = sortedLeaderboard.."<font color='#c0c0c0'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
+    sortedLeaderboard = sortedLeaderboard.."<font color='#cd7f32'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
+    sortedLeaderboardShadow = "<font size='18'>"
+    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
+    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
+    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
+
+    for player, data in pairs(room.playerList) do
+        if mostDashes < playerVars[player].abilityCount then
+            mostDashesPlayer = player
+            mostDashes = playerVars[player].abilityCount
+        end
+        if mostDeaths < playerVars[player].deathCount then
+            mostDeathsPlayer = player
+            mostDeaths = playerVars[player].deathCount
+        end
+    end
+
     -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
     for name, value in pairs(room.playerList) do
         local _id = value.id
-        openPage(translate(name, "leaderboardsTitle"), message, name, "roomStats")
+        openPage(translate(name, "leaderboardsTitle"), "", name, "roomStats")
     end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" and tfm.get.room.uniquePlayers > 2 then
@@ -166,6 +196,20 @@ function showStats()
     end
 end
 
+function generateStatistics(playerName) 
+    addTextArea(151, "<p align='center'>"..sortedLeaderboardShadow.."", playerName, 201, 101, 400, 200, 0x324650, 0x000000, 0, true)
+    addTextArea(150, "<p align='center'>"..sortedLeaderboard.."", playerName, 200, 100, 400, 200, 0x324650, 0x000000, 0, true)
+    
+    local message = translate(playerName, "slowestPlayer") .. "\n<j>"..slowestplayer.."</j> <n2>("..worstTime.."s)</n2>\n\n"
+    
+    message = message .. translate(playerName, "mostDeaths") .. "\n<j>"..mostDeathsPlayer.."</j> <n2>("..mostDeaths..")</n2>\n\n"
+    message = message .. translate(playerName, "mostAbilities") .. "\n<j>"..mostDashesPlayer.."</j> <n2>("..mostDashes..")</n2>\n\n"
+    
+    addTextArea(152, "<p align='center'>"..message.."", playerName, 200, 200, 400, 200, 0x324650, 0x000000, 0, true)
+    putInClearQueue({150, 151, 152}, "area", playerName)
+    putInClearQueue(addImage(PROFILE_LINE_MINI, "&100", 250, 180, playerName), "img", playerName)
+end
+
 --This returns the body of the profile screen, generating the stats of the selected player's profile.
 function stats(playerName, creatorName)
     if playerName:sub(1,1) == "*" then return end
@@ -185,8 +229,8 @@ function stats(playerName, creatorName)
     body = body..translate(creatorName, "firstRate")..": <bl>"..firstrate.."</bl>\t"..translate(creatorName, "holeEnters")..": <bl>"..playerStats[playerName].timesEnteredInHole.."</bl>\n"
     body = body.."\t"..translate(creatorName, "hardcoreMaps")..": <bl>"..playerStats[playerName].hardcoreMaps.."</bl>\n"
     body = body..translate(creatorName, "dashUses")..": <bl>"..playerStats[playerName].timesDashed.."</bl>\n"
-    body = body..translate(creatorName, "timesDoubleJumped")..": <bl>"..playerStats[playerName].doubleJumps.."</bl>\n"
-    body = body..translate(creatorName, "rewindUses")..": <bl>"..playerStats[playerName].timesRewinded.."</bl></textformat>"
+    body = body..translate(creatorName, "timesDoubleJumped")..": <bl>"..playerStats[playerName].doubleJumps.."</bl></textformat>"
+    --body = body..translate(creatorName, "rewindUses")..": <bl>"..playerStats[playerName].timesRewinded.."</bl></textformat>"
 
     return body
 end
@@ -283,7 +327,7 @@ function lateUI(playerName)
     local page = playerVars[playerName].menuPage
     local pageNumber = tonumber(string.match(page, "%d+"))
     
-    if page == "shop" then
+    if string.sub(page, 1, 4) == "shop" then
         generateShopImgs(playerName)
     elseif string.sub(page, 1, 7) == "dashAcc" then
         addBackButton(playerName)
@@ -306,6 +350,8 @@ function lateUI(playerName)
             target = playerName
         end
         generateProfileImgs(playerName, target)
+    elseif string.sub(page, 1, 9) == "roomStats" then
+        generateStatistics(playerName)
     end
 end
 
