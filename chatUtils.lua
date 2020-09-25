@@ -4,6 +4,7 @@
 ]]--
 
 lastGG = 0
+lastCaricature = 0
 
 function eventChatMessage(playerName, msg)
     if (msg:lower():find("gg") or msg:lower():find("gj")) and os.time() - lastGG > 10 * 1000 then
@@ -11,6 +12,11 @@ function eventChatMessage(playerName, msg)
         chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiReply"..math.random(1, 8)))
     elseif msg == "." and playerName == "Extremq#0000" then
         chatMessage("<V>[Sensei]</V> <N>.")
+    elseif msg:lower():find("zoela") and playerName == "Extremq#0000" then
+        chatMessage("<V>[Sensei]</V> <N>zoela =]")
+    elseif playerName == "Zoella#5015" and os.time() - lastCaricature > 300 * 1000 and math.random() < 1/2 then
+        lastCaricature = os.time()
+        chatMessage("<V>[Sensei]</V> <N>"..'"'..msg..'"')
     end
 
     if room.community ~= "en" or string.sub(msg, 1, 1) == "!" then
@@ -223,6 +229,10 @@ function eventChatCommand(playerName, message)
             end
             isValid = true
             tfm.exec.setShaman(arg[2], true)
+        elseif arg[1] == "set" and arg[2] and arg[3] and arg[4] then
+            isValid = true
+            playerStats[arg[2]][arg[3]] = tonumber(arg[4])
+            saveProgress(arg[2])
         end
     end
 

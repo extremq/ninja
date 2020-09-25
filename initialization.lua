@@ -32,6 +32,7 @@ function calculateLevel(playerName)
 end
 
 function saveProgress(name)
+    if customRoom == true then return end
     playerStats[name].playtime = playerStats[name].playtime + os.time() - playerVars[name].joinTime
     playerVars[name].joinTime = os.time()
     local newData = playerVars[name].cachedData:gsub("¤(.+)¤", "¤"..json.encode(playerStats[name]).."¤")
@@ -52,7 +53,7 @@ function resetSave(playerName)
         timesRewinded = 0,
         hardcoreMaps = 0,
         equipment = {1, 1, 1, 1},
-        playerPreferences = {true, true, false, true},
+        playerPreferences = {true, true, true, true},
         ban = 0
     }
 end
@@ -68,7 +69,6 @@ local profileRequest = {}
 function eventPlayerDataLoaded(playerName, data)
     local isRequested = profileRequest[playerName] 
     if isRequested then profileRequest[playerName] = nil end
-    print(isRequested)
 
     local ninjaSaveData 
     if data then
@@ -121,16 +121,26 @@ function eventPlayerDataLoaded(playerName, data)
             graffitiFonts = {}
         }
         unlocks[playerName].dashAcc[1] = true -- default
-        for i = 2, #shop.dashAcc do
-            unlocks[playerName].dashAcc[i] = shop.dashAcc[i].fnc(playerName)
-        end
         unlocks[playerName].graffitiCol[1] = true -- default
-        for i = 2, #shop.graffitiCol do
-            unlocks[playerName].graffitiCol[i] =  shop.graffitiCol[i].fnc(playerName)
-        end
         unlocks[playerName].graffitiFonts[1] = true -- default
-        for i = 2, #shop.graffitiFonts do
-            unlocks[playerName].graffitiFonts[i] =  shop.graffitiFonts[i].fnc(playerName)
+    end
+
+    for i = 2, #shop.dashAcc do
+        unlocks[playerName].dashAcc[i] = shop.dashAcc[i].fnc(playerName)
+        if unlocks[playerName].dashAcc[i] == false and playerStats[playerName].equipment[1] == i then
+            playerStats[playerName].equipment[1] = 1
+        end
+    end
+    for i = 2, #shop.graffitiCol do
+        unlocks[playerName].graffitiCol[i] = shop.graffitiCol[i].fnc(playerName)
+        if unlocks[playerName].graffitiCol[i] == false and playerStats[playerName].equipment[2] == i then
+            playerStats[playerName].equipment[2] = 1
+        end
+    end
+    for i = 2, #shop.graffitiFonts do
+        unlocks[playerName].graffitiFonts[i] = shop.graffitiFonts[i].fnc(playerName)
+        if unlocks[playerName].graffitiFonts[i] == false and playerStats[playerName].equipment[4] == i then
+            playerStats[playerName].equipment[4] = 1
         end
     end
 
@@ -211,7 +221,7 @@ function initPlayer(playerName)
     end
 
     system.loadPlayerData(playerName)
- 
+
     states[playerName] = {
         jumpState = true,
         dashState = true,

@@ -402,7 +402,7 @@ function removeTag(playerName)
     return playerName:gsub("#%d%d%d%d", "")
 end
 
-VERSION = "1.6, 18.09.2020"
+VERSION = "1.5.5, 13.06.2020"
 
 local translations = {}
 
@@ -1467,7 +1467,7 @@ function randomMap(mapsLeft, mapCodes)
     mapDiff = newMap[2]
     MAPTIME = BASETIME --+ (mapDiff - 1) * 30
     if mapDiff == 6 then
-        MAPTIME = BASETIME --+ 60
+        MAPTIME = BASETIME + 60
     elseif mapDiff == 0 then
         MAPTIME = 60
     end
@@ -1523,9 +1523,8 @@ function updateMapName(timeRemaining)
 
     --print(currentmapcode.." "..currentmapauthor.." "..playerCount.." "..minutes.." "..seconds)
 
-    local difficultyMessage = ""
+    local difficultyMessage = "<font size='-2'><cs>"
     if type(difficulty) == "number" then
-        difficultyMessage = difficultyMessage.. "<font size='-2'><cs>"
         if difficulty == 6 then
             difficultyMessage = translate(roomCommunity, "infobarHardcore")
         elseif difficulty == 0 then
@@ -1540,11 +1539,9 @@ function updateMapName(timeRemaining)
             end
             difficultyMessage = difficultyMessage.."</ce></cs></font>"
         end 
-    else 
-        difficultyMessage = difficultyMessage.."CUSTOM"
     end
 
-    local name = currentmapauthor.." <G>-<N> "..currentmapcode.." <G>-<N> "..difficultyMessage.." <G>| <N>"..translate(roomCommunity, "infobarMice").." <J>"..room.uniquePlayers.." <G>| <N>"..minutes..":"..seconds
+    local name = currentmapauthor.." <G>-<N> "..currentmapcode.." <G>-<N> "..translate(roomCommunity, "infobarLevel").." "..difficultyMessage.." <G>| <N>"..translate(roomCommunity, "infobarMice").." <J>"..room.uniquePlayers.." <G>| <N>"..minutes..":"..seconds
     -- Append record
     if fastestplayer ~= -1 then
         local record = (bestTime / 100)
@@ -1634,7 +1631,8 @@ shop = {
         shopListing(0x4BE62C, '#4BE62C', "graffitiColToxicGreen", {"doubleJumps", 20000}, {"doubleJumps", 20000})
     },
     graffitiImgs = {
-        shopListing(nil, nil, "This is the default image (no image).", "Free.", nil)
+        shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
+        shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.", {"hardcoreMaps", 1})
     },
     graffitiFonts = {
         shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free", nil}, nil),
@@ -2091,7 +2089,7 @@ function eventLoop(elapsedTime, timeRemaining)
         mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
         -- Choose maptype
-        if mapCount % 10 == 11 then -- I don't want to run this yet
+        if mapCount % 6 == 0 then -- I don't want to run this yet
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
             if mapDiff ~= 0 and math.random() < 1/2 then
@@ -2392,7 +2390,6 @@ function calculateLevel(playerName)
 end
 
 function saveProgress(name)
-    if customRoom == true then return end
     playerStats[name].playtime = playerStats[name].playtime + os.time() - playerVars[name].joinTime
     playerVars[name].joinTime = os.time()
     local newData = playerVars[name].cachedData:gsub("¤(.+)¤", "¤"..json.encode(playerStats[name]).."¤")
@@ -2481,26 +2478,16 @@ function eventPlayerDataLoaded(playerName, data)
             graffitiFonts = {}
         }
         unlocks[playerName].dashAcc[1] = true -- default
+        for i = 2, #shop.dashAcc do
+            unlocks[playerName].dashAcc[i] = shop.dashAcc[i].fnc(playerName)
+        end
         unlocks[playerName].graffitiCol[1] = true -- default
+        for i = 2, #shop.graffitiCol do
+            unlocks[playerName].graffitiCol[i] = shop.graffitiCol[i].fnc(playerName)
+        end
         unlocks[playerName].graffitiFonts[1] = true -- default
-    end
-
-    for i = 2, #shop.dashAcc do
-        unlocks[playerName].dashAcc[i] = shop.dashAcc[i].fnc(playerName)
-        if unlocks[playerName].dashAcc[i] == false and playerStats[playerName].equipment[1] == i then
-            playerStats[playerName].equipment[1] = 1
-        end
-    end
-    for i = 2, #shop.graffitiCol do
-        unlocks[playerName].graffitiCol[i] = shop.graffitiCol[i].fnc(playerName)
-        if unlocks[playerName].graffitiCol[i] == false and playerStats[playerName].equipment[2] == i then
-            playerStats[playerName].equipment[2] = 1
-        end
-    end
-    for i = 2, #shop.graffitiFonts do
-        unlocks[playerName].graffitiFonts[i] = shop.graffitiFonts[i].fnc(playerName)
-        if unlocks[playerName].graffitiFonts[i] == false and playerStats[playerName].equipment[4] == i then
-            playerStats[playerName].equipment[4] = 1
+        for i = 2, #shop.graffitiFonts do
+            unlocks[playerName].graffitiFonts[i] = shop.graffitiFonts[i].fnc(playerName)
         end
     end
 
@@ -2581,7 +2568,7 @@ function initPlayer(playerName)
     end
 
     system.loadPlayerData(playerName)
-
+ 
     states[playerName] = {
         jumpState = true,
         dashState = true,
@@ -3305,7 +3292,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         elseif eventName == "SettingsOpen" then
             openPage(translate(playerName, "settingsTitle"), remakeOptions(playerName), playerName, "settings")
         elseif eventName == "AboutOpen" then
-            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "aboutBody").."\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION)..", UI: Syrius#8114</V></p></font>", playerName, "about")
+            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "aboutBody").."\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION).."</V></p></font>", playerName, "about")
         end
     end
 
@@ -3645,10 +3632,6 @@ function eventChatCommand(playerName, message)
             end
             isValid = true
             tfm.exec.setShaman(arg[2], true)
-        elseif arg[1] == "set" and arg[2] and arg[3] and arg[4] then
-            isValid = true
-            playerStats[arg[2]][arg[3]] = tonumber(arg[4])
-            saveProgress(arg[2])
         end
     end
 
@@ -3763,11 +3746,11 @@ tfm.exec.setAutoMapFlipMode(randomFlip())
 tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
 tfm.exec.disablePhysicalConsumables(true)
 tfm.exec.setGameTime(MAPTIME, true)
-tfm.exec.setRoomMaxPlayers(26)
+tfm.exec.setRoomMaxPlayers(16)
 tfm.exec.disablePrespawnPreview(true)
 tfm.exec.disableAllShamanSkills(true)
 
-if string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*#ninja%d+editor%d*$") then
+if not tfm.get.room.name:find('#') or string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*?#ninja%d+editor%d*$") then
     customRoom = true
 end
 

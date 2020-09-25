@@ -48,26 +48,42 @@ keys = {0, 1, 2, 3, 9, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 shop = {
     dashAcc = {
         shopListing({3}, "1730a4ad53e.png", "particleDef", {"free", nil}, nil),
-        shopListing({3, 31}, "1730a950dc4.png", "particleHearts", {"finishMaps", 10}, {"mapsFinished", 10}),
-        shopListing({3, 13}, "1730a952a0d.png", "particleSleek", {"finishMapsFirst", 1}, {"mapsFinishedFirst", 1}),
+        shopListing({3, 31}, "1730a950dc4.png", "particleHearts", {"finishMaps", 25}, {"mapsFinished", 25}),
         shopListing({31, 32, 31}, "1730a94d7af.png", "particleLikeNinja", {"finishMaps", 50}, {"mapsFinished", 50}),
+        shopListing({3, 13}, "1730a952a0d.png", "particleSleek", {"finishMapsFirst", 10}, {"mapsFinishedFirst", 10}),
         shopListing({9, 14}, "1730a94f62a.png", "particleYouPro", {"finishHardcoreMaps", 1}, {"hardcoreMaps", 1}),
-        shopListing({2, 24, 11}, "1730a9544bd.png", "particleToSky", {"doubleJumps", 100}, {"doubleJumps", 100})
+        shopListing({2, 24, 11}, "1730a9544bd.png", "particleToSky", {"doubleJumps", 7500}, {"doubleJumps", 7500})
     },
     graffitiCol = {
         shopListing(0xffffff, '#ffffff', "graffitiColDef", {"free", nil}, nil),
+        shopListing(0x1D6110, '#1D6110', "graffitiColDarkGreen", {"finishMaps", 15}, {"mapsFinished", 15}),
         shopListing(0x000001, '#000001', "graffitiColBlack", {"finishMaps", 25}, {"mapsFinished", 25}),
-        shopListing(0x8c0404, '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 100})
+        shopListing(0x45B7FA, '#45B7FA', "graffitiColSkyBlue", {"finishMaps", 50}, {"mapsFinished", 50}),
+        shopListing(0x004269, '#004269', "graffitiColDarkBlue", {"finishMapsFirst", 15}, {"mapsFinishedFirst", 15}),
+        shopListing(0x83018A, '#83018A', "graffitiColDarkViolet", {"finishMapsFirst", 30}, {"mapsFinishedFirst", 30}),
+        shopListing(0xAB3172, '#AB3172', "graffitiColPink", {"finishMapsFirst", 100}, {"mapsFinishedFirst", 100}),
+        shopListing(0xE67738, '#E67738', "graffitiColOrange", {"finishHardcoreMaps", 20}, {"hardcoreMaps", 20}),
+        shopListing(0x3F48CC, '#3F48CC', "graffitiColAlgae", {"finishHardcoreMaps", 40}, {"hardcoreMaps", 40}),
+        shopListing(0x8c0404, '#8c0404', "graffitiColDarkRed", {"dashTimes", 300}, {"timesDashed", 300}),
+        shopListing(0x002B17, '#002B17', "graffitiColLeafGreen", {"dashTimes", 750}, {"timesDashed", 750}),
+        shopListing(0xF0D210, '#F0D210', "graffitiColYellowRed", {"doubleJumps", 10000}, {"doubleJumps", 10000}),
+        shopListing(0x4BE62C, '#4BE62C', "graffitiColToxicGreen", {"doubleJumps", 20000}, {"doubleJumps", 20000})
     },
     graffitiImgs = {
-        shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
-        shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.", {"hardcoreMaps", 1})
+        shopListing(nil, nil, "This is the default image (no image).", "Free.", nil)
     },
     graffitiFonts = {
         shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free", nil}, nil),
+        shopListing("Tahoma", "Tahoma", "graffitiFontTahoma", {"sprayGraffiti", 25}, {"graffitiSprays", 25}),
         shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", {"sprayGraffiti", 50}, {"graffitiSprays", 50}),
-        shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"doubleJumps", 200}, {"doubleJumps", 200}),
-        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 50}, {"timesDashed", 50})
+        shopListing("Kristen ITC", "Kristen ITC", "graffitiFontKristenITC", {"sprayGraffiti", 100}, {"graffitiSprays", 100}),
+        shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"doubleJumps", 2000}, {"doubleJumps", 2000}),
+        shopListing("Courier", "Courier", "graffitiFontCourier", {"doubleJumps", 5000}, {"doubleJumps", 5000}),
+        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 500}, {"timesDashed", 500}),
+        shopListing("Bahnschrift SemiBold", "Bahnschrift SemiBold", "graffitiFontBahnschriftSemiBold", {"dashTimes", 10000}, {"timesDashed", 10000}),
+        shopListing("Book Antiqua", "Book Antiqua", "graffitiFontBookAntiqua", {"finishHardcoreMaps", 5}, {"hardcoreMaps", 5}),
+        shopListing("FixedSys", "FixedSys", "graffitiFontFixedSys", {"finishMapsFirst", 5}, {"mapsFinishedFirst", 5}),
+        shopListing("Impact", "Impact", "graffitiFontImpact", {"finishMaps", 100}, {"mapsFinished", 100})
     }
 }
 

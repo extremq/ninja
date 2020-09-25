@@ -1946,25 +1946,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
                 showRewindParticles(2, playerName, playerVars[playerName].rewindPos[1], playerVars[playerName].rewindPos[2])
             end
             -- GRAFFITI (C)
-        elseif id ~= 0 and keyCode == 67 and ostime - cooldowns[playerName].lastGraffitiTime > GRAFFITICOOLDOWN  then
-            -- Update cooldowns
-            cooldowns[playerName].lastGraffitiTime = ostime
-
-            -- Update stats
-            playerStats[playerName].graffitiSprays = playerStats[playerName].graffitiSprays + 1
-
-            
-            -- Check achiev
-            checkUnlock(playerName, "graffitiFonts", 2, "graffitiFontUnlock")
-
-            -- Create graffiti
-            for player, data in pairs(room.playerList) do
-                local _id = data.id
-                -- If the player has graffitis enabled, we display them
-                if _id ~= 0 and playerVars[player].playerPreferences[1] == true then
-                    addTextArea(id, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..string.gsub(string.gsub(playerName, "([Hh]t)tp", "%1.tp"), "#%d%d%d%d", "").."</font></p>", player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
-                end
-            end
         end
         -- This needs to be after dash/jump blocks.
         if keyCode == 0 then
@@ -1980,31 +1961,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
     if keyCode == 88 then
         killPlayer(playerName)
     -- MENU (M)
-    elseif keyCode == 77 then
-        -- If we don't have the menu open, then we dont have an image
-        if imgs[playerName].menuImgId == nil then
-            addTextArea(12, "<font color='#E9E9E9' size='10'><a href='event:ShopOpen'>             "..translate(playerName, "shopTitle").."</a>\n\n\n\n<a href='event:StatsOpen'>             "..translate(playerName, "profileTitle").."</a>\n\n\n\n<a href='event:LeaderOpen'>             "..translate(playerName, "leaderboardsTitle").."</a>\n\n\n\n<a href='event:SettingsOpen'>             "..translate(playerName, "settingsTitle").."</a>\n\n\n\n<a href='event:AboutOpen'>             "..translate(playerName, "aboutTitle").."</a>", playerName, 13, 103, 184, 220, 0x324650, 0x000000, 0, true)
-            imgs[playerName].menuImgId = addImage(MENU_BUTTONS, ":10", MENU_BTN_X, MENU_BTN_Y, playerName)
-        -- Else we had it already open, so we close the page
-        else
-            closePage(playerName)
-        end
-    -- PROFILE (P)
-    elseif keyCode == 80 then
-        if playerVars[playerName].menuPage ~= "profile" then
-            openPage(translate(playerName, "profileTitle"), stats(playerName, playerName), playerName, "profile")
-        elseif playerVars[playerName].menuPage == "profile" then
-            closePage(playerName)
-        end
-        -- OPEN GUIDE / HELP (H)
-    elseif keyCode == 72 then
-        -- Help system
-        if playerVars[playerName].menuPage ~= "help" then
-            openPage("#ninja", "\n<font face='Verdana' size='12'>"..translate(playerName, "helpBody").."</font>", playerName, "help")
-        elseif playerVars[playerName].menuPage == "help" then
-            closePage(playerName)
-        end
-    -- CLOSE (ESC)
     elseif keyCode == 27 then
         if playerVars[playerName].menuPage ~= nil then
             closePage(playerName)
@@ -2580,7 +2536,34 @@ function initPlayer(playerName)
         end
     end
 
-    system.loadPlayerData(playerName)
+    playerStats[playerName] = {
+        firstJoinTime = os.time(),
+        playtime = 0,
+        mapsFinished = 0,
+        mapsFinishedFirst = 0,
+        timesEnteredInHole = 0,
+        graffitiSprays = 0,
+        timesDashed = 0,
+        doubleJumps = 0,
+        timesRewinded = 0,
+        hardcoreMaps = 0,
+        equipment = {1, 1, 1, 1},
+        playerPreferences = {true, true, true, true},
+        ban = 0
+    }
+
+    if unlocks[playerName] == nil then
+        unlocks[playerName] = {
+            dashAcc = {},
+            graffitiCol = {},
+            graffitiFonts = {}
+        }
+        unlocks[playerName].dashAcc[1] = true -- default
+        unlocks[playerName].graffitiCol[1] = true -- default
+        unlocks[playerName].graffitiFonts[1] = true -- default
+    end
+
+    loaded[playerName] = true
 
     states[playerName] = {
         jumpState = true,
@@ -2620,23 +2603,6 @@ function initPlayer(playerName)
     generateHud(playerName)
 
     local newPlayerCount = room.uniquePlayers
-
-    if customRoom == false then
-        if newPlayerCount > 3 then
-            chatMessage(translate(playerName, "enoughPlayers", newPlayerCount), playerName)
-        elseif newPlayerCount <= 2 then
-            chatMessage(translate(playerName, "notEnoughPlayers", newPlayerCount), playerName)
-        elseif newPlayerCount == 3 then
-            for key, value in pairs(room.playerList) do
-                if loaded[key] == true then
-                    chatMessage(translate(key, "statsCount"), key)
-                end
-            end
-            chatMessage(translate(playerName, "statsCount"), playerName)
-        end
-    else
-        chatMessage(translate(playerName, "statsDontCount"), playerName)
-    end
 end
 
 -- RESET ALL PLAYERS
@@ -2668,7 +2634,7 @@ function resetAll()
         if playerVars[name].menuPage == "roomStats" then
             closePage(name)
         end
-        saveProgress(name)
+        --saveProgress(name)
     end
 
     for playerName in pairs(room.playerList) do
@@ -3665,29 +3631,6 @@ function eventChatCommand(playerName, message)
         else
             return chatMessage(translate(playerName, "cantSetPass"), player)
         end
-    elseif arg[1] == "p" or arg[1] == "profile" then
-        isValid = true
-        if arg[2] == nil then
-            openPage(translate(playerName, "profileTitle"), stats(playerName, playerName), playerName, "profile")
-            return
-        end
-
-        -- convert extREMQ#0000 to Extremq#0000
-        local found = false
-        arg[2] = string.upper(string.sub(arg[2], 1, 1))..string.lower(string.sub(arg[2], 2, #arg[2]))
-        for name, value in pairs(room.playerList) do
-            if name == arg[2] and name:sub(1,1) ~= "*" then
-                found = true
-                openPage(translate(playerName, "profileTitle"), stats(arg[2], playerName), playerName, "profile@"..arg[2])
-                break
-            end
-        end
-
-        if found == false then
-            profileRequest[arg[2]] = playerName
-            system.loadPlayerData(arg[2])
-        end
-        return
     elseif arg[1] == "langue" then
         isValid = true
         if translations[arg[2]] ~= nil then

@@ -164,9 +164,6 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
 
                 -- Add to stats
                 playerStats[playerName].timesRewinded = playerStats[playerName].timesRewinded + 1
-
-                -- Check achiev
-                checkUnlock(playerName, "graffitiFonts", 3, "graffitiFontUnlock")
             else
                 -- Update cooldowns
                 cooldowns[playerName].canRewind = true
@@ -200,7 +197,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
                 local _id = data.id
                 -- If the player has graffitis enabled, we display them
                 if _id ~= 0 and playerVars[player].playerPreferences[1] == true then
-                    addTextArea(id, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..string.gsub(playerName, "#%d%d%d%d", "").."</font></p>", player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
+                    addTextArea(id, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..string.gsub(string.gsub(playerName, "([Hh]t)tp", "%1.tp"), "#%d%d%d%d", "").."</font></p>", player, xPlayerPosition - 300/2, yPlayerPosition - 25/2, 300, 25, 0x324650, 0x000000, 0, false)
                 end
             end
         end
@@ -329,7 +326,7 @@ function eventLoop(elapsedTime, timeRemaining)
         mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
         -- Choose maptype
-        if mapCount % 6 == 0 then -- I don't want to run this yet
+        if mapCount % 10 == 11 then -- I don't want to run this yet
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
             if mapDiff ~= 0 and math.random() < 1/2 then

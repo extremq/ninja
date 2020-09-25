@@ -402,7 +402,7 @@ function removeTag(playerName)
     return playerName:gsub("#%d%d%d%d", "")
 end
 
-VERSION = "1.6, 18.09.2020"
+VERSION = "1.5.5, 13.06.2020"
 
 local translations = {}
 
@@ -958,29 +958,12 @@ translations.en = {
     graffitiColDef = "This is the default graffiti color.",
     graffitiColBlack = "You're a dark person.",
     graffitiColDarkRed = "Where's this... blood from?",
-    graffitiColDarkGreen = "If you were a cow you'd love this.",
-    graffitiColSkyBlue = "We all live under the same sky.",
-    graffitiColDarkBlue = "Deep enough?",
-    graffitiColDarkViolet = "Don't drink if you're underage, please.",
-    graffitiColPink = "^-^",
-    graffitiColOrange = "Plain old orange.",
-    graffitiColAlgae = "1.13",
-    graffitiColLeafGreen = "Breathe in the forest.",
-    graffitiColYellowRed = "Not orange.",
-    graffitiColToxicGreen = "Ew, toxic.",
 
     --- GRAFFITI FONT START
     graffitiFontDef = "This is the default font for graffitis.",
     graffitiFontPapyrus = "You seem old.",
     graffitiFontVerdana = "A classic.",
     graffitiFontCenturyGothic = "Wow, you're so modern.",
-    graffitiFontTahoma = "So thin.",
-    graffitiFontKristenITC = "FunKYyY :d)",
-    graffitiFontBahnschriftSemiBold = "Clean and professional.",
-    graffitiFontCourier = "Any mail?",
-    graffitiFontBookAntiqua = "You would find this in a library...",
-    graffitiFontFixedSys = "l33t 1s c00l, right?",
-    graffitiFontImpact = "When you want to make a statement.",
 
     infobarLevel = "Level:",
     infobarMice = "Mice:",
@@ -1424,16 +1407,16 @@ opList = {}
 
 
 -- Standard maps
-stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7733505", 3}, {"@7734451", 5}, {"@7723036", 2}}
-stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7733505", 3}, {"@7734451", 5}, {"@7723036", 2}}
+stMapCodes = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7733505", 3}, {"@7734451", 5}, {"@7723036", 2}, {"@4371074", 3}}
+stMapsLeft = {{"@7725753", 3}, {"@7726015", 1}, {"@7726744", 2}, {"@7728063", 4}, {"@7731641", 2}, {"@7730637", 3}, {"@7732486", 2}, {"@6784223", 4}, {"@7734262", 3}, {"@7735744", 3}, {"@7735771", 3}, {"@7737995", 3}, {"@7048028", 2}, {"@7733505", 3}, {"@7734451", 5}, {"@7723036", 2}, {"@4371074", 3}}
 
 -- Hardcore maps
 hcMapCodes = {{"@7733773", 6}, {"@7733777", 6}, {"@7737218", 6}, {"@7739215", 6}}
 hcMapsLeft = {{"@7733773", 6}, {"@7733777", 6}, {"@7737218", 6}, {"@7739215", 6}}
 
 -- Blitz maps
-bzMapCodes = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}, {"@6518642", 0}, {"@5025765", 0}}
-bzMapsLeft = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}, {"@6518642", 0}, {"@5025765", 0}}
+bzMapCodes = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}, {"@6518642", 0}, {"@5025765"}, 0}
+bzMapsLeft = {{"@586245", 0},  {"@1803400", 0},  {"@6474060", 0},  {"@585177", 0},  {"@7340630", 0},  {"@5993993", 0},  {"@3243937", 0},  {"@2924315", 0},  {"@2877342", 0},  {"@1703817", 0},  {"@1380404", 0},  {"@2597430", 0},  {"@2999991", 0},  {"@5626178", 0},  {"@1948886", 0},  {"@1482533", 0},  {"@3173113", 0},  {"@3742299", 0},  {"@2580002", 0},  {"@1918313", 0},  {"@7110025", 0},  {"@2600721", 0},  {"@3796004", 0},  {"@3998891", 0},  {"@2611862", 0},  {"@2992797", 0},  {"@7018125", 0},  {"@5017732", 0},  {"@4017743", 0},  {"@1289915", 0},  {"@1448587", 0}, {"@1341133", 0},  {"@5000000", 0},  {"@2006526", 0},  {"@2212811", 0},  {"@7014000", 0},  {"@2866094", 0},  {"@2768546", 0},  {"@3819161", 0}, {"@6518642", 0}, {"@5025765"}, 0}
 --[[ End of file maps.lua ]]--
 
 --[[ File mapUtils.lua ]]--
@@ -1467,7 +1450,7 @@ function randomMap(mapsLeft, mapCodes)
     mapDiff = newMap[2]
     MAPTIME = BASETIME --+ (mapDiff - 1) * 30
     if mapDiff == 6 then
-        MAPTIME = BASETIME --+ 60
+        MAPTIME = BASETIME + 60
     elseif mapDiff == 0 then
         MAPTIME = 60
     end
@@ -1523,28 +1506,14 @@ function updateMapName(timeRemaining)
 
     --print(currentmapcode.." "..currentmapauthor.." "..playerCount.." "..minutes.." "..seconds)
 
-    local difficultyMessage = ""
-    if type(difficulty) == "number" then
-        difficultyMessage = difficultyMessage.. "<font size='-2'><cs>"
-        if difficulty == 6 then
-            difficultyMessage = translate(roomCommunity, "infobarHardcore")
-        elseif difficulty == 0 then
-            difficultyMessage = translate(roomCommunity, "infobarBlitz")
-        elseif difficulty > 0 and difficulty < 6 then
-            for i = 1, difficulty do 
-                difficultyMessage = difficultyMessage.."●"
-            end
-            difficultyMessage = difficultyMessage.. "<ce>"
-            for i = 1, 5 - difficulty do 
-                difficultyMessage = difficultyMessage.."○"
-            end
-            difficultyMessage = difficultyMessage.."</ce></cs></font>"
-        end 
-    else 
-        difficultyMessage = difficultyMessage.."CUSTOM"
+    local difficultyMessage = "<J>"..difficulty.."/5</J>"
+    if difficulty == 6 then
+        difficultyMessage = translate(roomCommunity, "infobarHardcore")
+    elseif difficulty == 0 then
+        difficultyMessage = translate(roomCommunity, "infobarBlitz")
     end
 
-    local name = currentmapauthor.." <G>-<N> "..currentmapcode.." <G>-<N> "..difficultyMessage.." <G>| <N>"..translate(roomCommunity, "infobarMice").." <J>"..room.uniquePlayers.." <G>| <N>"..minutes..":"..seconds
+    local name = currentmapauthor.." <G>-<N> "..currentmapcode.." <G>-<N> "..translate(roomCommunity, "infobarLevel").." "..difficultyMessage.." <G>| <N>"..translate(roomCommunity, "infobarMice").." <J>"..room.uniquePlayers.." <G>| <N>"..minutes..":"..seconds
     -- Append record
     if fastestplayer ~= -1 then
         local record = (bestTime / 100)
@@ -1612,42 +1581,26 @@ keys = {0, 1, 2, 3, 9, 27, 32, 67, 71, 72, 77, 80, 84, 88}
 shop = {
     dashAcc = {
         shopListing({3}, "1730a4ad53e.png", "particleDef", {"free", nil}, nil),
-        shopListing({3, 31}, "1730a950dc4.png", "particleHearts", {"finishMaps", 25}, {"mapsFinished", 25}),
+        shopListing({3, 31}, "1730a950dc4.png", "particleHearts", {"finishMaps", 10}, {"mapsFinished", 10}),
+        shopListing({3, 13}, "1730a952a0d.png", "particleSleek", {"finishMapsFirst", 1}, {"mapsFinishedFirst", 1}),
         shopListing({31, 32, 31}, "1730a94d7af.png", "particleLikeNinja", {"finishMaps", 50}, {"mapsFinished", 50}),
-        shopListing({3, 13}, "1730a952a0d.png", "particleSleek", {"finishMapsFirst", 10}, {"mapsFinishedFirst", 10}),
         shopListing({9, 14}, "1730a94f62a.png", "particleYouPro", {"finishHardcoreMaps", 1}, {"hardcoreMaps", 1}),
-        shopListing({2, 24, 11}, "1730a9544bd.png", "particleToSky", {"doubleJumps", 7500}, {"doubleJumps", 7500})
+        shopListing({2, 24, 11}, "1730a9544bd.png", "particleToSky", {"doubleJumps", 100}, {"doubleJumps", 100})
     },
     graffitiCol = {
         shopListing(0xffffff, '#ffffff', "graffitiColDef", {"free", nil}, nil),
-        shopListing(0x1D6110, '#1D6110', "graffitiColDarkGreen", {"finishMaps", 15}, {"mapsFinished", 15}),
         shopListing(0x000001, '#000001', "graffitiColBlack", {"finishMaps", 25}, {"mapsFinished", 25}),
-        shopListing(0x45B7FA, '#45B7FA', "graffitiColSkyBlue", {"finishMaps", 50}, {"mapsFinished", 50}),
-        shopListing(0x004269, '#004269', "graffitiColDarkBlue", {"finishMapsFirst", 15}, {"mapsFinishedFirst", 15}),
-        shopListing(0x83018A, '#83018A', "graffitiColDarkViolet", {"finishMapsFirst", 30}, {"mapsFinishedFirst", 30}),
-        shopListing(0xAB3172, '#AB3172', "graffitiColPink", {"finishMapsFirst", 100}, {"mapsFinishedFirst", 100}),
-        shopListing(0xE67738, '#E67738', "graffitiColOrange", {"finishHardcoreMaps", 20}, {"hardcoreMaps", 20}),
-        shopListing(0x3F48CC, '#3F48CC', "graffitiColAlgae", {"finishHardcoreMaps", 40}, {"hardcoreMaps", 40}),
-        shopListing(0x8c0404, '#8c0404', "graffitiColDarkRed", {"dashTimes", 300}, {"timesDashed", 300}),
-        shopListing(0x002B17, '#002B17', "graffitiColLeafGreen", {"dashTimes", 750}, {"timesDashed", 750}),
-        shopListing(0xF0D210, '#F0D210', "graffitiColYellowRed", {"doubleJumps", 10000}, {"doubleJumps", 10000}),
-        shopListing(0x4BE62C, '#4BE62C', "graffitiColToxicGreen", {"doubleJumps", 20000}, {"doubleJumps", 20000})
+        shopListing(0x8c0404, '#8c0404', "graffitiColDarkRed", {"dashTimes", 100}, {"timesDashed", 100})
     },
     graffitiImgs = {
-        shopListing(nil, nil, "This is the default image (no image).", "Free.", nil)
+        shopListing(nil, nil, "This is the default image (no image).", "Free.", nil),
+        shopListing("17290c497e1.png", "17290c497e1.png", "Say cheese!", "Finish 1 harcore map.", {"hardcoreMaps", 1})
     },
     graffitiFonts = {
         shopListing("Comic Sans MS", "Comic Sans MS", "graffitiFontDef", {"free", nil}, nil),
-        shopListing("Tahoma", "Tahoma", "graffitiFontTahoma", {"sprayGraffiti", 25}, {"graffitiSprays", 25}),
         shopListing("Papyrus", "Papyrus", "graffitiFontPapyrus", {"sprayGraffiti", 50}, {"graffitiSprays", 50}),
-        shopListing("Kristen ITC", "Kristen ITC", "graffitiFontKristenITC", {"sprayGraffiti", 100}, {"graffitiSprays", 100}),
-        shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"doubleJumps", 2000}, {"doubleJumps", 2000}),
-        shopListing("Courier", "Courier", "graffitiFontCourier", {"doubleJumps", 5000}, {"doubleJumps", 5000}),
-        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 500}, {"timesDashed", 500}),
-        shopListing("Bahnschrift SemiBold", "Bahnschrift SemiBold", "graffitiFontBahnschriftSemiBold", {"dashTimes", 10000}, {"timesDashed", 10000}),
-        shopListing("Book Antiqua", "Book Antiqua", "graffitiFontBookAntiqua", {"finishHardcoreMaps", 5}, {"hardcoreMaps", 5}),
-        shopListing("FixedSys", "FixedSys", "graffitiFontFixedSys", {"finishMapsFirst", 5}, {"mapsFinishedFirst", 5}),
-        shopListing("Impact", "Impact", "graffitiFontImpact", {"finishMaps", 100}, {"mapsFinished", 100})
+        shopListing("Verdana", "Verdana", "graffitiFontVerdana", {"doubleJumps", 200}, {"doubleJumps", 200}),
+        shopListing("Century Gothic", "Century Gothic", "graffitiFontCenturyGothic", {"dashTimes", 50}, {"timesDashed", 50})
     }
 }
 
@@ -2091,7 +2044,7 @@ function eventLoop(elapsedTime, timeRemaining)
         mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
         -- Choose maptype
-        if mapCount % 10 == 11 then -- I don't want to run this yet
+        if mapCount % 6 == 0 then -- I don't want to run this yet
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
             if mapDiff ~= 0 and math.random() < 1/2 then
@@ -2392,7 +2345,6 @@ function calculateLevel(playerName)
 end
 
 function saveProgress(name)
-    if customRoom == true then return end
     playerStats[name].playtime = playerStats[name].playtime + os.time() - playerVars[name].joinTime
     playerVars[name].joinTime = os.time()
     local newData = playerVars[name].cachedData:gsub("¤(.+)¤", "¤"..json.encode(playerStats[name]).."¤")
@@ -2429,6 +2381,7 @@ local profileRequest = {}
 function eventPlayerDataLoaded(playerName, data)
     local isRequested = profileRequest[playerName] 
     if isRequested then profileRequest[playerName] = nil end
+    print(isRequested)
 
     local ninjaSaveData 
     if data then
@@ -2481,26 +2434,16 @@ function eventPlayerDataLoaded(playerName, data)
             graffitiFonts = {}
         }
         unlocks[playerName].dashAcc[1] = true -- default
+        for i = 2, #shop.dashAcc do
+            unlocks[playerName].dashAcc[i] = shop.dashAcc[i].fnc(playerName)
+        end
         unlocks[playerName].graffitiCol[1] = true -- default
+        for i = 2, #shop.graffitiCol do
+            unlocks[playerName].graffitiCol[i] =  shop.graffitiCol[i].fnc(playerName)
+        end
         unlocks[playerName].graffitiFonts[1] = true -- default
-    end
-
-    for i = 2, #shop.dashAcc do
-        unlocks[playerName].dashAcc[i] = shop.dashAcc[i].fnc(playerName)
-        if unlocks[playerName].dashAcc[i] == false and playerStats[playerName].equipment[1] == i then
-            playerStats[playerName].equipment[1] = 1
-        end
-    end
-    for i = 2, #shop.graffitiCol do
-        unlocks[playerName].graffitiCol[i] = shop.graffitiCol[i].fnc(playerName)
-        if unlocks[playerName].graffitiCol[i] == false and playerStats[playerName].equipment[2] == i then
-            playerStats[playerName].equipment[2] = 1
-        end
-    end
-    for i = 2, #shop.graffitiFonts do
-        unlocks[playerName].graffitiFonts[i] = shop.graffitiFonts[i].fnc(playerName)
-        if unlocks[playerName].graffitiFonts[i] == false and playerStats[playerName].equipment[4] == i then
-            playerStats[playerName].equipment[4] = 1
+        for i = 2, #shop.graffitiFonts do
+            unlocks[playerName].graffitiFonts[i] =  shop.graffitiFonts[i].fnc(playerName)
         end
     end
 
@@ -2581,7 +2524,7 @@ function initPlayer(playerName)
     end
 
     system.loadPlayerData(playerName)
-
+ 
     states[playerName] = {
         jumpState = true,
         dashState = true,
@@ -3305,7 +3248,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         elseif eventName == "SettingsOpen" then
             openPage(translate(playerName, "settingsTitle"), remakeOptions(playerName), playerName, "settings")
         elseif eventName == "AboutOpen" then
-            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "aboutBody").."\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION)..", UI: Syrius#8114</V></p></font>", playerName, "about")
+            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "aboutBody").."\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION).."</V></p></font>", playerName, "about")
         end
     end
 
@@ -3430,7 +3373,7 @@ function eventChatMessage(playerName, msg)
         chatMessage("<V>[Sensei]</V> <N>.")
     elseif msg:lower():find("zoela") and playerName == "Extremq#0000" then
         chatMessage("<V>[Sensei]</V> <N>zoela =]")
-    elseif playerName == "Zoella#5015" and os.time() - lastCaricature > 300 * 1000 and math.random() < 1/2 then
+    elseif playerName == "Zoella#5015" and os.time() - lastCaricature > 60 * 1000 and math.random() < 1/2 then
         lastCaricature = os.time()
         chatMessage("<V>[Sensei]</V> <N>"..'"'..msg..'"')
     end
@@ -3645,10 +3588,6 @@ function eventChatCommand(playerName, message)
             end
             isValid = true
             tfm.exec.setShaman(arg[2], true)
-        elseif arg[1] == "set" and arg[2] and arg[3] and arg[4] then
-            isValid = true
-            playerStats[arg[2]][arg[3]] = tonumber(arg[4])
-            saveProgress(arg[2])
         end
     end
 
@@ -3763,11 +3702,11 @@ tfm.exec.setAutoMapFlipMode(randomFlip())
 tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
 tfm.exec.disablePhysicalConsumables(true)
 tfm.exec.setGameTime(MAPTIME, true)
-tfm.exec.setRoomMaxPlayers(26)
+tfm.exec.setRoomMaxPlayers(16)
 tfm.exec.disablePrespawnPreview(true)
 tfm.exec.disableAllShamanSkills(true)
 
-if string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*#ninja%d+editor%d*$") then
+if not tfm.get.room.name:find('#') or string.find(room.name, "^[a-z][a-z2]%-#ninja%d+editor%d*$") or string.find(room.name, "^%*?#ninja%d+editor%d*$") then
     customRoom = true
 end
 

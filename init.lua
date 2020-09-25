@@ -31,7 +31,7 @@ function removeTag(playerName)
     return playerName:gsub("#%d%d%d%d", "")
 end
 
-VERSION = "1.5.5, 13.06.2020"
+VERSION = "1.6, 18.09.2020"
 
 local translations = {}
 

@@ -402,7 +402,7 @@ function removeTag(playerName)
     return playerName:gsub("#%d%d%d%d", "")
 end
 
-VERSION = "1.6, 18.09.2020"
+VERSION = "1.5.5, 13.06.2020"
 
 local translations = {}
 
@@ -1467,7 +1467,7 @@ function randomMap(mapsLeft, mapCodes)
     mapDiff = newMap[2]
     MAPTIME = BASETIME --+ (mapDiff - 1) * 30
     if mapDiff == 6 then
-        MAPTIME = BASETIME --+ 60
+        MAPTIME = BASETIME + 60
     elseif mapDiff == 0 then
         MAPTIME = 60
     end
@@ -2091,7 +2091,7 @@ function eventLoop(elapsedTime, timeRemaining)
         mapCount = mapCount + 1
         tfm.exec.setAutoMapFlipMode(randomFlip())
         -- Choose maptype
-        if mapCount % 10 == 11 then -- I don't want to run this yet
+        if mapCount % 10 == 0 then -- I don't want to run this yet
             tfm.exec.newGame(randomMap(hcMapsLeft, hcMapCodes))
         else
             if mapDiff ~= 0 and math.random() < 1/2 then
@@ -3763,7 +3763,7 @@ tfm.exec.setAutoMapFlipMode(randomFlip())
 tfm.exec.newGame(randomMap(stMapsLeft, stMapCodes))
 tfm.exec.disablePhysicalConsumables(true)
 tfm.exec.setGameTime(MAPTIME, true)
-tfm.exec.setRoomMaxPlayers(26)
+tfm.exec.setRoomMaxPlayers(16)
 tfm.exec.disablePrespawnPreview(true)
 tfm.exec.disableAllShamanSkills(true)
 

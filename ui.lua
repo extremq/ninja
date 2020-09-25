@@ -85,7 +85,7 @@ function windowConfig(title, body, playerName, pageId)
         putInClearQueue(addImage(CLOSE_BTN, ":100", 661, 55, playerName), "img", playerName)
         putInClearQueue(addImage(PROFILE_LINE, "&100", 128, 123, playerName), "img", playerName)
         addTextArea(15, "<a href='event:CloseMenu'>\n</a>", playerName, 663, 53, 20, 20, 0x324650, 0x000000, 0, true) 
-    elseif pageId:find("about") ~= nil or pageId:find("help") ~= nil or pageId:find("roomStats") ~= nil or pageId:find("settings") ~= nil then
+    elseif pageId:find("about") ~= nil or pageId:find("help") ~= nil or pageId:find("leaderboards") ~= nil or pageId:find("settings") ~= nil then
         addTextArea(13, pageOperation(title, body, playerName, pageId), playerName, 230, 82, 340, 260, 0x1A353A, 0x7B5A35, 0, true)
         putInClearQueue(addImage(AREA_402_302, ":100", 198, 63, playerName), "img", playerName)
         putInClearQueue(addImage(CLOSE_BTN, ":100", 572, 55, playerName), "img", playerName)
@@ -144,35 +144,10 @@ function showStats()
     end
 
     if #playerSortedBestTime > 0 then
-        slowestplayer = playerSortedBestTime[#playerSortedBestTime][1]
+        slowestplayer = string.gsub(playerSortedBestTime[#playerSortedBestTime][1], "([Hh]t)tp", "%1.tp")
         worstTime = playerSortedBestTime[#playerSortedBestTime][2]/100
     else slowestplayer = "N/A" end
 
-    sortedLeaderboard = "<font size='18'>"
-    sortedLeaderboard = sortedLeaderboard.."<font color='#ffd700'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
-    sortedLeaderboard = sortedLeaderboard.."<font color='#c0c0c0'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
-    sortedLeaderboard = sortedLeaderboard.."<font color='#cd7f32'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
-    sortedLeaderboardShadow = "<font size='18'>"
-    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>1. "..bestPlayers[1][1].." - "..bestPlayers[1][2].."s</font> \n"
-    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>2. "..bestPlayers[2][1].." - "..bestPlayers[2][2].."s</font> \n"
-    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>3. "..bestPlayers[3][1].." - "..bestPlayers[3][2].."s</font></font>"
-
-    for player, data in pairs(room.playerList) do
-        if mostDashes < playerVars[player].abilityCount then
-            mostDashesPlayer = player
-            mostDashes = playerVars[player].abilityCount
-        end
-        if mostDeaths < playerVars[player].deathCount then
-            mostDeathsPlayer = player
-            mostDeaths = playerVars[player].deathCount
-        end
-    end
-
-    -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
-    for name, value in pairs(room.playerList) do
-        local _id = value.id
-        openPage(translate(name, "leaderboardsTitle"), "", name, "roomStats")
-    end
     -- If we had a best player, we update his firsts stat
     if bestPlayers[1][1] ~= "N/A" and tfm.get.room.uniquePlayers > 2 then
         local bestPlayer = bestPlayers[1][1]
@@ -193,6 +168,32 @@ function showStats()
         if math.random() < 1/2 then
             chatMessage("<V>[Sensei]</V> <N>"..translate(room.community, "senseiLeaderboard"..math.random(1, 5), bestPlayer, bestPlayer, bestPlayer))
         end
+    end
+
+    sortedLeaderboard = "<font size='18'>"
+    sortedLeaderboard = sortedLeaderboard.."<font color='#ffd700'>1. "..string.gsub(bestPlayers[1][1], "([Hh]t)tp", "%1.tp").." - "..bestPlayers[1][2].."s</font> \n"
+    sortedLeaderboard = sortedLeaderboard.."<font color='#c0c0c0'>2. "..string.gsub(bestPlayers[2][1], "([Hh]t)tp", "%1.tp").." - "..bestPlayers[2][2].."s</font> \n"
+    sortedLeaderboard = sortedLeaderboard.."<font color='#cd7f32'>3. "..string.gsub(bestPlayers[3][1], "([Hh]t)tp", "%1.tp").." - "..bestPlayers[3][2].."s</font></font>"
+    sortedLeaderboardShadow = "<font size='18'>"
+    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>1. "..string.gsub(bestPlayers[1][1], "([Hh]t)tp", "%1.tp").." - "..bestPlayers[1][2].."s</font> \n"
+    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>2. "..string.gsub(bestPlayers[2][1], "([Hh]t)tp", "%1.tp").." - "..bestPlayers[2][2].."s</font> \n"
+    sortedLeaderboardShadow = sortedLeaderboardShadow.."<font color='#000001'>3. "..string.gsub(bestPlayers[3][1], "([Hh]t)tp", "%1.tp").." - "..bestPlayers[3][2].."s</font></font>"
+
+    for player, data in pairs(room.playerList) do
+        if mostDashes < playerVars[player].abilityCount then
+            mostDashesPlayer = string.gsub(player, "([Hh]t)tp", "%1.tp")
+            mostDashes = playerVars[player].abilityCount
+        end
+        if mostDeaths < playerVars[player].deathCount then
+            mostDeathsPlayer = string.gsub(player, "([Hh]t)tp", "%1.tp")
+            mostDeaths = playerVars[player].deathCount
+        end
+    end
+
+    -- We open the stats for every player: if the player has a menu opened, we just update the text, otherwise create
+    for name, value in pairs(room.playerList) do
+        local _id = value.id
+        openPage(translate(name, "leaderboardsTitle"), "", name, "roomStats")
     end
 end
 
@@ -264,6 +265,7 @@ function generateProfileImgs(playerName, target)
     if pageId:find("@") then
         profileName = pageId:match("@(%+?[a-zA-Z0-9_]+#%d+)")
     end
+    profileName = string.gsub(profileName, "([Hh]t)tp", "%1.tp")
     local playerTag = profileName:match("#%d%d%d%d")
     local colorTag = 'V'
     if playerTag == "#0010" then
@@ -278,7 +280,7 @@ function generateProfileImgs(playerName, target)
 
     addTextArea(120, "", playerName, graffitiTextX, 89, 100, 100, 0x264E57, 0x264E57, 1, true)
     addTextArea(121, "", playerName, graffitiTextX, 210, 100, 100, 0x264E57, 0x264E57, 1, true)
-    addTextArea(122, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[target].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[target].equipment[2]].imgId.."'>"..string.gsub(target, "#%d%d%d%d", "").."</font></p>", playerName, graffitiTextX, graffitiTextY, 100, 50, 0x324650, 0x000000, 0, true)
+    addTextArea(122, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[target].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[target].equipment[2]].imgId.."'>Graffiti</font></p>", playerName, graffitiTextX, graffitiTextY, 100, 50, 0x324650, 0x000000, 0, true)
     putInClearQueue(addImage(shop.dashAcc[playerStats[target].equipment[1]].imgId, "&2", 595, 115, playerName), "img", playerName)
     putInClearQueue({16, 17, 120, 121, 122}, "area", playerName)
 end
@@ -417,7 +419,7 @@ function generateShopImgs(playerName)
     local graffitiTextX, graffitiTextY = 375, 185
     addTextArea(120, "", playerName, 270, 160, 80, 80, 0x264E57, 0x264E57, 1, true)
     addTextArea(121, "", playerName, 450, 160, 80, 80, 0x264E57, 0x264E57, 1, true)
-    addTextArea(122, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>"..string.gsub(playerName, "#%d%d%d%d", "").."</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 50, 0x324650, 0x000000, 0, true)
+    addTextArea(122, "<p align='center'><font face='"..shop.graffitiFonts[playerStats[playerName].equipment[4]].imgId.."' size='16' color='"..shop.graffitiCol[playerStats[playerName].equipment[2]].imgId.."'>Graffiti</font></p>", playerName, graffitiTextX, graffitiTextY, 230, 50, 0x324650, 0x000000, 0, true)
 
     putInClearQueue({120, 121, 122}, "area", playerName)
 end
@@ -582,7 +584,7 @@ function eventTextAreaCallback(textAreaId, playerName, eventName)
         elseif eventName == "SettingsOpen" then
             openPage(translate(playerName, "settingsTitle"), remakeOptions(playerName), playerName, "settings")
         elseif eventName == "AboutOpen" then
-            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "aboutBody").."\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION).."</V></p></font>", playerName, "about")
+            openPage(translate(playerName, "aboutTitle"), "\n<font face='Verdana' size='12'>"..translate(playerName, "aboutBody").."\n<p align='right'><CS>"..translate(playerName, "translator").."\n</CS><V>"..translate(playerName, "version", VERSION)..", UI: Syrius#8114</V></p></font>", playerName, "about")
         end
     end
 
