@@ -11,7 +11,7 @@ translations.en = {
     globalChatSetting = "Enable global chat",
     voteStart = "%s started a vote to skip the current map. Type !yes to vote positively.",
     newRecord = "<R>%s finished the map in the fastest time! %ss</R>",
-    devInfo = "<V>Want to submit a map? Check this link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>This module is in development. Please report any bugs to Extremq#0000 or Railysse#0000.</font>",
+    devInfo = "<V>Want to submit a map? Check this link: https://atelier801.com/topic?f=6&t=888399</V>\n<font color='#CB546B'>This module is in development. Please report any bugs to Extremq#0020 or Railysse#0010.</font>",
     discordInfo = "<BV>Join our discord! https://discord.gg/WawZVaq</BV>",
     welcomeInfo = "Welcome to <font color='#E68D43'>#ninja</font>! Press <font color='#E68D43'>H</font> for help.",
     finishedInfo = "You finished the map! (<V>%ss</V>)",
@@ -22,7 +22,7 @@ translations.en = {
     leaderboardsTitle = "Leaderboards",
     settingsTitle = "Settings",
     aboutTitle = "About",
-    aboutBody = "Module coded by <font color='#FFD991'>Extremq#0000</font>.\nGameplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0000</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
+    aboutBody = "Module coded by <font color='#FFD991'>Extremq#0020</font>.\nGameplay ideas, bug-testing and maps provided by <font color='#FFD991'>Railysse#0010</font>.\n\nThis module is fully supported by the mice fundation „Red Cheese” with the „Save Module” project. All funds that we will earn will be donated to mice which play #parkour so we can bribe them to play our module.\n\nWe're just kidding, thank you for trying our module! :D\n\n<p align='center'><font color='#f73625'>&lt;3</font></p>", -- 30
     playtime = "Playtime",
     firsts = "Firsts",
     finishedMaps = "Completed maps",
@@ -37,7 +37,7 @@ translations.en = {
     leaderboardsNotice = "A leaderboard will be implemented when the module becomes official.",
     notValidCommand = "%s is not a valid command or you mistyped an argument.",
     cantSetPass = "Cannot set a password in this room.",
-    translator = "Translated by Extremq#0000.",
+    translator = "Translated by Extremq#0020.",
     version = "Version: %s",
     yourLoadout = "Your loadout:",
     yourGraffiti = "Your graffiti:",
