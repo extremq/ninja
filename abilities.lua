@@ -93,7 +93,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
                 checkUnlock(playerName, "graffitiFonts", 4, "graffitiFontUnlock")
 
                 -- Move the palyer
-                movePlayer(playerName, 0, 0, true, 150 * direction, 0, false)
+                movePlayer(playerName, 0, 0, true, 150 * direction, nil, false)
 
                 -- Now, we can change the 3 with whatever the player has equipped in the shop!
                 showDashParticles(playerName, shop.dashAcc[playerStats[playerName].equipment[1]].values, direction, xPlayerPosition, yPlayerPosition)
@@ -121,7 +121,7 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
             checkUnlock(playerName, "dashAcc", 6, "particleUnlock")
 
             -- Move player
-            movePlayer(playerName, 0, 0, true, 0, -60, false)
+            movePlayer(playerName, 0, 0, true, nil, -60, false)
 
             -- Display jump particles
             showJumpParticles(playerName, shop.dashAcc[playerStats[playerName].equipment[1]].values, xPlayerPosition, yPlayerPosition)
