@@ -1,9 +1,6 @@
 local roomCreate = os.time()
 tfm.exec.setRoomPassword("")
 
-if string.find(tfm.get.room.name, "^[a-z][a-z2]%-#ninja%d+trade%d*$") or string.find(tfm.get.room.name, "^%*?#ninja%d+trade%d*$") then
-{% require-file "trade.lua" %}
-else
 -- LOCALS FOR SPEED
 local room = tfm.get.room
 local displayParticle = tfm.exec.displayParticle
@@ -31,7 +28,7 @@ function removeTag(playerName)
     return playerName:gsub("#%d%d%d%d", "")
 end
 
-VERSION = "1.6, 18.09.2020"
+VERSION = "1.7, 03.06.2024"
 
 local translations = {}
 
@@ -64,4 +61,3 @@ local translations = {}
 {% require-file "chatUtils.lua" %}
 
 {% require-file "startFuncs.lua" %}
-end
