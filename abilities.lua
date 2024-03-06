@@ -180,8 +180,8 @@ eventKeyboard = secureWrapper(function(playerName, keyCode, down, xPlayerPositio
                 -- Show particles where we teleport to
                 showRewindParticles(2, playerName, playerVars[playerName].rewindPos[1], playerVars[playerName].rewindPos[2])
             end
-            -- GRAFFITI (C)
-        elseif id ~= 0 and keyCode == 67 and ostime - cooldowns[playerName].lastGraffitiTime > GRAFFITICOOLDOWN  then
+            -- GRAFFITI (V)
+        elseif id ~= 0 and keyCode == 86 and ostime - cooldowns[playerName].lastGraffitiTime > GRAFFITICOOLDOWN  then
             -- Update cooldowns
             cooldowns[playerName].lastGraffitiTime = ostime
 
